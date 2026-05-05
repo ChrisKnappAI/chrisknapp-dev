@@ -91,7 +91,13 @@ export default function FinancesDashboard() {
       .order('period_date', { ascending: true })
       .then(({ data }) => {
         if (data?.length) {
-          setSnapshots(data)
+          // _stackTop = exact sum of the three stacked components so the
+          // net worth line always sits flush on top of the stacked areas
+          const processed = data.map(s => ({
+            ...s,
+            _stackTop: (s.net_investments || 0) + (s.net_cash || 0) + (s.home_equity || 0),
+          }))
+          setSnapshots(processed)
           setSelected(data[data.length - 1].period_date)
         }
         setLoading(false)
@@ -162,8 +168,8 @@ export default function FinancesDashboard() {
             <Area type="linear" dataKey="net_investments" stackId="1" name="Investments"  stroke="#3B82F6" fill="url(#gradInvest)" strokeWidth={1.5} />
             <Area type="linear" dataKey="net_cash"        stackId="1" name="Cash"         stroke="#94A3B8" fill="url(#gradCash)"   strokeWidth={1.5} />
             <Area type="linear" dataKey="home_equity"     stackId="1" name="Home Equity"  stroke="#EA580C" fill="url(#gradEquity)" strokeWidth={1.5} />
-            {/* Total net worth overlay line */}
-            <Line type="linear" dataKey="total_net_worth" name="Net Worth" stroke="#FFFFFF" strokeWidth={2} dot={false} legendType="line" />
+            {/* Net worth overlay — uses sum of components so it's guaranteed flush with stack top */}
+            <Line type="linear" dataKey="_stackTop" name="Net Worth" stroke="#FFFFFF" strokeWidth={2} dot={false} legendType="line" />
           </AreaChart>
         </ResponsiveContainer>
       </DashCard>
