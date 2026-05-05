@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import ChrisDashboard, { DashCard } from '@/components/ChrisDashboard'
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid,
+  AreaChart, Area, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
 
@@ -50,7 +50,7 @@ function NetWorthTooltip({ active, payload, label }) {
         <span>Investments</span><span style={{ fontWeight: 600 }}>{fmtDollarFull(d?.net_investments)}</span>
       </div>
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', color: '#F1F5F9' }}>
-        <span style={{ fontWeight: 700 }}>Total</span>
+        <span style={{ fontWeight: 700 }}>Net Worth</span>
         <span style={{ fontWeight: 700 }}>{fmtDollarFull(d?.total_net_worth)}</span>
       </div>
     </div>
@@ -162,6 +162,8 @@ export default function FinancesDashboard() {
             <Area type="monotone" dataKey="net_investments" stackId="1" name="Investments"  stroke="#3B82F6" fill="url(#gradInvest)" strokeWidth={1.5} />
             <Area type="monotone" dataKey="net_cash"        stackId="1" name="Cash"         stroke="#94A3B8" fill="url(#gradCash)"   strokeWidth={1.5} />
             <Area type="monotone" dataKey="home_equity"     stackId="1" name="Home Equity"  stroke="#EA580C" fill="url(#gradEquity)" strokeWidth={1.5} />
+            {/* Total net worth overlay line */}
+            <Line type="monotone" dataKey="total_net_worth" name="Net Worth" stroke="#FFFFFF" strokeWidth={2} dot={false} legendType="line" />
           </AreaChart>
         </ResponsiveContainer>
       </DashCard>
