@@ -257,7 +257,7 @@ function ProjectionTool({ latestSnapshot }) {
 
       {/* ── Projection chart ── */}
       <DashCard title="Projected Future Net Worth ($5M at 55)">
-        <div style={{ height: 'calc(50vh - 190px)' }}>
+        <div style={{ height: 'calc(50vh - 220px)' }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={rows} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
@@ -329,7 +329,7 @@ export default function FinancesDashboard() {
 
       {/* ── Historic chart ── */}
       <DashCard title="Historic Net Worth Development">
-        <div style={{ height: 'calc(50vh - 190px)' }}>
+        <div style={{ height: 'calc(50vh - 220px)' }}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={snapshots} margin={{ top: 10, right: 24, left: 10, bottom: 0 }}>
             <defs>
