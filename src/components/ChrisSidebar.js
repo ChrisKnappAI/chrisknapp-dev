@@ -10,7 +10,7 @@ const navItems = [
 ]
 
 const toolItems = [
-  { label: 'Food Tracker', href: '/chris/food', icon: '○' },
+  { label: 'Food Log', href: '/chris/food', icon: '○' },
   { label: 'Gym Log', href: '/chris/gym', icon: '⊕' },
   { label: 'Goal Check-In', href: '/chris/goal-tracker', icon: '✓' },
 ]
