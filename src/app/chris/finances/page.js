@@ -282,6 +282,7 @@ function ProjectionTool({ latestSnapshot }) {
             <Legend
               layout="vertical" align="right" verticalAlign="middle"
               formatter={n => <span style={{ color: '#94A3B8', fontSize: '0.78rem' }}>{n}</span>}
+              wrapperStyle={{ paddingLeft: '20px' }}
             />
           </LineChart>
         </ResponsiveContainer>
@@ -337,7 +338,7 @@ export default function FinancesDashboard() {
       <DashCard title="Historic Net Worth Development">
         <div style={{ height: 'calc(50vh - 190px)' }}>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={snapshots} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
+          <AreaChart data={snapshots} margin={{ top: 10, right: 24, left: 10, bottom: 0 }}>
             <defs>
               <linearGradient id="gradInvest" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%"  stopColor="#3B82F6" stopOpacity={0.85} />
@@ -370,8 +371,9 @@ export default function FinancesDashboard() {
             />
             <Tooltip content={<NetWorthTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} />
             <Legend
+              layout="vertical" align="right" verticalAlign="middle"
               formatter={name => <span style={{ color: '#94A3B8', fontSize: '0.78rem' }}>{name}</span>}
-              wrapperStyle={{ paddingTop: '1rem' }}
+              wrapperStyle={{ paddingLeft: '20px' }}
             />
             <Area type="linear" dataKey="net_investments" stackId="1" name="Investments"  stroke="#3B82F6" fill="url(#gradInvest)" strokeWidth={1.5} />
             <Area type="linear" dataKey="net_cash"        stackId="1" name="Cash"         stroke="#94A3B8" fill="url(#gradCash)"   strokeWidth={1.5} />
