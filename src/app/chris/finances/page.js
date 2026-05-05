@@ -87,8 +87,7 @@ const MORTGAGE_RATE = 0.0575
 const MONTHLY_PAYMENT = 1991   // original P&I on $240K @ 5.75% / 15yr
 
 const PROJ_DEFAULTS = {
-  extraInvestmentPerYear: 30_000,
-  extraMortgagePerYear:   50_000,
+  extraInvestmentPerYear: 65_000,
   investmentGrowthRate:   0.08,
   homeValueGrowthRate:    0.025,
   cashGrowthRate:         0.00,
@@ -123,11 +122,6 @@ function buildProjection(snap, params) {
         mortgage -= Math.max(0, principal)
       }
     }
-    // Extra annual lump-sum payment (stops when paid off)
-    if (mortgage > 0) {
-      mortgage = Math.max(0, mortgage - params.extraMortgagePerYear)
-    }
-
     const homeEquity = homeValue - mortgage
     const netWorth   = investments + cash + homeEquity
     const age        = year - BIRTH_YEAR
@@ -231,11 +225,10 @@ function ProjectionTool({ latestSnapshot }) {
   if (!latestSnapshot) return null
 
   const INPUTS = [
-    { key: 'extraInvestmentPerYear', label: '+ Investments/yr', format: 'dollar' },
-    { key: 'extraMortgagePerYear',   label: '+ Mortgage/yr',    format: 'dollar' },
-    { key: 'investmentGrowthRate',   label: 'Invest. Growth',   format: 'pct'    },
-    { key: 'homeValueGrowthRate',    label: 'Home Apprec.',     format: 'pct'    },
-    { key: 'cashGrowthRate',         label: 'Cash Growth',      format: 'pct'    },
+    { key: 'extraInvestmentPerYear', label: 'Investments/yr',  format: 'dollar' },
+    { key: 'investmentGrowthRate',   label: 'Invest. Growth',  format: 'pct'    },
+    { key: 'homeValueGrowthRate',    label: 'Home Apprec.',    format: 'pct'    },
+    { key: 'cashGrowthRate',         label: 'Cash Growth',     format: 'pct'    },
   ]
 
   return (
