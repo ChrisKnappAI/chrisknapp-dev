@@ -3,16 +3,16 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
-  { label: 'Health', href: '/chris/health', icon: '♥' },
-  { label: 'Finances', href: '/chris/finances', icon: '$' },
-  { label: 'Goals', href: '/chris/goals', icon: '★' },
-  { label: 'Learning', href: '/chris/learning', icon: '◎' },
+  { label: 'Health Dashboard', href: '/chris/health', icon: '♥' },
+  { label: 'Finances Dashboard', href: '/chris/finances', icon: '$' },
+  { label: 'Goals Dashboard', href: '/chris/goals', icon: '★' },
+  { label: 'Learning Dashboard', href: '/chris/learning', icon: '◎' },
 ]
 
 const toolItems = [
   { label: 'Food Log', href: '/chris/food', icon: '○' },
   { label: 'Gym Log', href: '/chris/gym', icon: '⊕' },
-  { label: 'Goal Check-In', href: '/chris/goal-tracker', icon: '✓' },
+  { label: 'Goals Log', href: '/chris/goal-tracker', icon: '✓' },
 ]
 
 export default function ChrisSidebar() {

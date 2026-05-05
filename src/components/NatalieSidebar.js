@@ -3,13 +3,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
-  { label: 'Goals', href: '/natalie/goals', icon: '★' },
+  { label: 'Goals Dashboard', href: '/natalie/goals', icon: '★' },
 ]
 
 const toolItems = [
   { label: "Chris's Food Log", href: '/natalie/food/chris', icon: '○' },
-  { label: "My Food Log", href: '/natalie/food/natalie', icon: '○' },
-  { label: 'Goal Check-In', href: '/natalie/goal-tracker', icon: '✓' },
+  { label: "Natalie's Food Log", href: '/natalie/food/natalie', icon: '○' },
+  { label: 'Goals Log', href: '/natalie/goal-tracker', icon: '✓' },
 ]
 
 export default function NatalieSidebar() {

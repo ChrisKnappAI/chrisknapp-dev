@@ -2,7 +2,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 
-function getToday() { return new Date().toISOString().split('T')[0] }
+function getToday() {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+}
 function fmt(n) { return Math.round(n * 10) / 10 }
 
 function calcMacros(ing) {
@@ -31,17 +34,17 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
   const [date, setDate]  = useState(getToday)
 
   function shiftDate(days) {
-    const d = new Date(date)
-    d.setDate(d.getDate() + days)
-    const iso = d.toISOString().split('T')[0]
+    const [y, m, d] = date.split('-').map(Number)
+    const next = new Date(y, m - 1, d + days)
+    const iso = `${next.getFullYear()}-${String(next.getMonth()+1).padStart(2,'0')}-${String(next.getDate()).padStart(2,'0')}`
     if (iso <= getToday()) setDate(iso)
   }
 
   function friendlyDate(d) {
     const today = getToday()
-    const yest  = new Date(today)
-    yest.setDate(yest.getDate() - 1)
-    const yesterdayStr = yest.toISOString().split('T')[0]
+    const [y, mo, dy] = today.split('-').map(Number)
+    const yest = new Date(y, mo - 1, dy - 1)
+    const yesterdayStr = `${yest.getFullYear()}-${String(yest.getMonth()+1).padStart(2,'0')}-${String(yest.getDate()).padStart(2,'0')}`
     if (d === today)        return 'Today'
     if (d === yesterdayStr) return 'Yesterday'
     return d
@@ -68,10 +71,26 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
   const [selectedMeal,    setSelectedMeal]    = useState('')
   const [selectedVersion, setSelectedVersion] = useState('')
   const [ingredients,     setIngredients]     = useState([])
-  const [submitting,      setSubmitting]      = useState(false)
-  const [toast,           setToast]           = useState(null)
+  const [submitting,      setSubmitting]       = useState(false)
+  const [toast,           setToast]            = useState(null)
+
+  // ── manual entry state ──
+  const [isManual,     setIsManual]     = useState(false)
+  const [manualName,   setManualName]   = useState('')
+  const [manualCal,    setManualCal]    = useState('')
+  const [manualProtein,setManualProtein]= useState('')
+  const [manualCarbs,  setManualCarbs]  = useState('')
+  const [manualFat,    setManualFat]    = useState('')
 
   function selectMeal(meal) {
+    if (meal === '__MANUAL__') {
+      setSelectedMeal('__MANUAL__')
+      setSelectedVersion('MANUAL')
+      setIsManual(true)
+      setIngredients([])
+      return
+    }
+    setIsManual(false)
     const found    = mealList.find(m => m.meal === meal)
     const versions = found?.versions || []
     setSelectedMeal(meal)
@@ -79,7 +98,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
   }
 
   useEffect(() => {
-    if (!selectedMeal || !selectedVersion) { setIngredients([]); return }
+    if (isManual || !selectedMeal || !selectedVersion) { setIngredients([]); return }
     supabase
       .from('meal_ingredient_lookup')
       .select('*')
@@ -93,7 +112,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
           user_percent:  r.expected_chris_pct,
         })))
       })
-  }, [selectedMeal, selectedVersion])
+  }, [selectedMeal, selectedVersion, isManual])
 
   function updateIng(idx, field, val) {
     setIngredients(prev => prev.map((r, i) => i === idx ? { ...r, [field]: val } : r))
@@ -123,8 +142,43 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
 
   // ── submit ──
   async function handleLog() {
-    if (!selectedMeal || !selectedVersion || ingredients.length === 0) return
     setSubmitting(true)
+
+    if (isManual) {
+      if (!manualName || !manualCal) { setSubmitting(false); return }
+      const res = await fetch('/api/food/log', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user, date,
+          meal: manualName,
+          meal_version: 'MANUAL',
+          ingredients: [{
+            ingredient:       manualName,
+            serving_metric:   'serving',
+            serving_size:     1,
+            actual_amount:    1,
+            user_percent:     1.0,
+            serving_calories: parseFloat(manualCal)     || 0,
+            serving_fat:      parseFloat(manualFat)     || 0,
+            serving_carbs:    parseFloat(manualCarbs)   || 0,
+            serving_protein:  parseFloat(manualProtein) || 0,
+          }],
+        }),
+      })
+      if (res.ok) {
+        await fetchLog()
+        setSelectedMeal('')
+        setSelectedVersion('')
+        setIsManual(false)
+        setManualName(''); setManualCal(''); setManualFat(''); setManualCarbs(''); setManualProtein('')
+        showToast('Meal logged!')
+      }
+      setSubmitting(false)
+      return
+    }
+
+    if (!selectedMeal || !selectedVersion || ingredients.length === 0) { setSubmitting(false); return }
     const res = await fetch('/api/food/log', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -156,6 +210,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
 
   // ── delete ──
   async function handleDeleteGroup(entries) {
+    if (!window.confirm('Remove this meal entry?')) return
     await Promise.all(entries.map(e =>
       fetch('/api/food/log', {
         method:  'DELETE',
@@ -202,6 +257,9 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
 
   const selectedVersions = mealList.find(m => m.meal === selectedMeal)?.versions || []
 
+  const logBtnDisabled = submitting ||
+    (isManual ? (!manualName || !manualCal) : (!selectedMeal || !selectedVersion))
+
   return (
     <div style={{ color: c.text }}>
 
@@ -247,6 +305,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
               <select value={selectedMeal} onChange={e => selectMeal(e.target.value)} style={input}>
                 <option value="">Select meal...</option>
                 {mealList.map(m => <option key={m.meal} value={m.meal}>{m.meal}</option>)}
+                <option value="__MANUAL__">— Add Manual Meal —</option>
               </select>
             </div>
             <div>
@@ -254,8 +313,8 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
               <select
                 value={selectedVersion}
                 onChange={e => setSelectedVersion(e.target.value)}
-                disabled={!selectedMeal}
-                style={{ ...input, opacity: selectedMeal ? 1 : 0.4 }}
+                disabled={!selectedMeal || isManual}
+                style={{ ...input, opacity: (selectedMeal && !isManual) ? 1 : 0.4 }}
               >
                 <option value="">Select version...</option>
                 {selectedVersions.map(v => <option key={v} value={v}>{v}</option>)}
@@ -263,8 +322,42 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
             </div>
           </div>
 
+          {/* ── Manual entry form ── */}
+          {isManual && (
+            <div style={{ marginBottom: '1rem' }}>
+              <div style={{ marginBottom: '0.75rem' }}>
+                <label style={lbl}>Meal Name / Description</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Chipotle burrito bowl"
+                  value={manualName}
+                  onChange={e => setManualName(e.target.value)}
+                  style={input}
+                />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '0.75rem' }}>
+                <div>
+                  <label style={lbl}>Calories</label>
+                  <input type="number" min={0} placeholder="0" value={manualCal} onChange={e => setManualCal(e.target.value)} style={{ ...input, textAlign: 'right' }} />
+                </div>
+                <div>
+                  <label style={{ ...lbl, color: '#22C55E' }}>Protein (g)</label>
+                  <input type="number" min={0} placeholder="0" value={manualProtein} onChange={e => setManualProtein(e.target.value)} style={{ ...input, textAlign: 'right' }} />
+                </div>
+                <div>
+                  <label style={{ ...lbl, color: '#F97316' }}>Carbs (g)</label>
+                  <input type="number" min={0} placeholder="0" value={manualCarbs} onChange={e => setManualCarbs(e.target.value)} style={{ ...input, textAlign: 'right' }} />
+                </div>
+                <div>
+                  <label style={lbl}>Fat (g)</label>
+                  <input type="number" min={0} placeholder="0" value={manualFat} onChange={e => setManualFat(e.target.value)} style={{ ...input, textAlign: 'right' }} />
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ── Ingredient table ── */}
-          {ingredients.length > 0 && (
+          {!isManual && ingredients.length > 0 && (
             <>
               <div style={{ overflowX: 'auto', marginBottom: '0.75rem' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
@@ -334,8 +427,8 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <button
               onClick={handleLog}
-              disabled={!selectedMeal || !selectedVersion || submitting}
-              style={{ background: c.accentBtn, color: 'white', border: 'none', borderRadius: 8, padding: '0.65rem 1.75rem', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', opacity: (!selectedMeal || !selectedVersion || submitting) ? 0.4 : 1 }}
+              disabled={logBtnDisabled}
+              style={{ background: c.accentBtn, color: 'white', border: 'none', borderRadius: 8, padding: '0.65rem 1.75rem', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', opacity: logBtnDisabled ? 0.4 : 1 }}
             >
               {submitting ? 'Logging…' : 'Log Meal'}
             </button>
