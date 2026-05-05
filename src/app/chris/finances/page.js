@@ -1,15 +1,14 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { supabase } from '@/lib/supabase'
 import ChrisDashboard, { DashCard } from '@/components/ChrisDashboard'
 import {
-  AreaChart, Area, Line, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer,
+  AreaChart, Area, Line, LineChart, XAxis, YAxis, CartesianGrid,
+  Tooltip, Legend, ResponsiveContainer, ReferenceLine,
 } from 'recharts'
 
 // ── Formatters ────────────────────────────────────────────────
 function fmtDate(str) {
-  // '2019-08-31' → 'Aug '19'
   const [y, m] = str.split('-')
   const mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m) - 1]
   return `${mon} '${y.slice(2)}`
@@ -19,7 +18,7 @@ function fmtDollar(n) {
   if (n == null) return '—'
   const abs = Math.abs(n)
   const sign = n < 0 ? '-' : ''
-  if (abs >= 1_000_000) return `${sign}$${(abs / 1_000_000).toFixed(1)}M`
+  if (abs >= 1_000_000) return `${sign}$${(abs / 1_000_000).toFixed(2)}M`
   if (abs >= 1_000)     return `${sign}$${Math.round(abs / 1_000)}K`
   return `${sign}$${abs}`
 }
@@ -30,7 +29,7 @@ function fmtDollarFull(n) {
   return `${sign}$${Math.abs(n).toLocaleString()}`
 }
 
-// ── Custom tooltip ─────────────────────────────────────────────
+// ── EOM tooltip ─────────────────────────────────────────────────
 function TRow({ label, value, color, indent, negative }) {
   if (value == null) return null
   return (
@@ -55,7 +54,6 @@ function NetWorthTooltip({ active, payload, label }) {
   return (
     <div style={{ background: '#0B1424', border: '1px solid rgba(255,255,255,0.12)',
       borderRadius: 10, padding: '1rem 1.2rem', minWidth: 250 }}>
-
       <div style={{ fontWeight: 700, color: '#F1F5F9', fontSize: '0.88rem', marginBottom: '0.5rem' }}>
         {fmtDate(label)}
       </div>
@@ -66,17 +64,12 @@ function NetWorthTooltip({ active, payload, label }) {
           {fmtDollarFull(d?.total_net_worth)}
         </span>
       </div>
-
       <TRow label="Home Equity" value={d?.home_equity} color="#EA580C" />
       <TRow label="Home Value"      value={d?.home_value}        color="#EA580C" indent />
       <TRow label="Mortgage"        value={d?.mortgage_balance}  color="#EA580C" indent negative={d?.mortgage_balance < 0} />
-
       <div style={{ height: '0.45rem' }} />
-
       <TRow label="Cash" value={d?.net_cash} color="#94A3B8" />
-
       <div style={{ height: '0.45rem' }} />
-
       <TRow label="Investments" value={d?.net_investments} color="#60A5FA" />
       <TRow label="401K (Fidelity)"  value={d?.fidelity_401k} color="#60A5FA" indent />
       <TRow label="Roth IRA"         value={d?.roth_ira}      color="#60A5FA" indent />
@@ -85,6 +78,326 @@ function NetWorthTooltip({ active, payload, label }) {
       {d?.kel_savings > 0 && <TRow label="KEL Savings" value={d.kel_savings} color="#60A5FA" indent />}
       {d?.debt        < 0 && <TRow label="Debt"        value={d.debt}        color="#60A5FA" indent negative />}
     </div>
+  )
+}
+
+// ── Projection constants ───────────────────────────────────────
+const BIRTH_YEAR = 1987
+const MORTGAGE_RATE = 0.0575
+const MONTHLY_PAYMENT = 1991   // original P&I on $240K @ 5.75% / 15yr
+
+const PROJ_DEFAULTS = {
+  extraInvestmentPerYear: 30_000,
+  extraMortgagePerYear:   50_000,
+  investmentGrowthRate:   0.08,
+  homeValueGrowthRate:    0.025,
+  cashGrowthRate:         0.00,
+}
+
+function buildProjection(snap, params) {
+  const startYear = new Date().getFullYear()
+  const endYear   = BIRTH_YEAR + 60
+
+  let investments = snap.net_investments || 0
+  let cash        = snap.net_cash        || 0
+  let homeValue   = snap.home_value      || 0
+  let mortgage    = Math.abs(snap.mortgage_balance || 0)
+
+  const rows = []
+
+  for (let year = startYear; year <= endYear; year++) {
+    // Investment growth + annual contribution
+    investments = investments * (1 + params.investmentGrowthRate) + params.extraInvestmentPerYear
+
+    // Cash growth (typically 0%)
+    cash = cash * (1 + params.cashGrowthRate)
+
+    // Home value appreciation
+    homeValue = homeValue * (1 + params.homeValueGrowthRate)
+
+    // Mortgage: simulate 12 monthly amortization payments
+    for (let m = 0; m < 12; m++) {
+      if (mortgage > 0) {
+        const interest  = mortgage * (MORTGAGE_RATE / 12)
+        const principal = Math.min(MONTHLY_PAYMENT - interest, mortgage)
+        mortgage -= Math.max(0, principal)
+      }
+    }
+    // Extra annual lump-sum payment (stops when paid off)
+    if (mortgage > 0) {
+      mortgage = Math.max(0, mortgage - params.extraMortgagePerYear)
+    }
+
+    const homeEquity = homeValue - mortgage
+    const netWorth   = investments + cash + homeEquity
+    const age        = year - BIRTH_YEAR
+
+    rows.push({ year, age, investments, cash, homeValue, mortgage, homeEquity, netWorth })
+  }
+
+  return rows
+}
+
+// ── Projection input field ─────────────────────────────────────
+function ProjInput({ label, value, onChange, format }) {
+  const toDisplay = v => format === 'pct' ? (v * 100).toFixed(1) : String(Math.round(v))
+  const [local,   setLocal]   = useState(toDisplay(value))
+  const [focused, setFocused] = useState(false)
+
+  useEffect(() => {
+    if (!focused) setLocal(toDisplay(value))
+  }, [value, focused]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const commit = () => {
+    setFocused(false)
+    const num = parseFloat(local)
+    if (!isNaN(num)) onChange(format === 'pct' ? num / 100 : num)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+      <label style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 600,
+        textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        {label}
+      </label>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem',
+        background: '#0F172A', border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: 8, padding: '0.45rem 0.7rem' }}>
+        {format !== 'pct' && <span style={{ color: '#475569', fontSize: '0.8rem' }}>$</span>}
+        <input
+          type="number"
+          value={local}
+          onChange={e => setLocal(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={commit}
+          style={{ background: 'none', border: 'none', outline: 'none', color: '#F1F5F9',
+            fontSize: '0.85rem', fontWeight: 600, width: '100%',
+            fontVariantNumeric: 'tabular-nums', MozAppearance: 'textfield' }}
+        />
+        {format === 'pct' && <span style={{ color: '#475569', fontSize: '0.8rem' }}>%</span>}
+      </div>
+    </div>
+  )
+}
+
+// ── Projection tooltip ─────────────────────────────────────────
+function ProjTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null
+  const d = payload[0]?.payload
+  return (
+    <div style={{ background: '#0B1424', border: '1px solid rgba(255,255,255,0.12)',
+      borderRadius: 10, padding: '0.85rem 1.1rem', minWidth: 210 }}>
+      <div style={{ fontWeight: 700, color: '#F1F5F9', fontSize: '0.85rem', marginBottom: '0.5rem' }}>
+        Age {label}
+      </div>
+      {[
+        { key: 'netWorth',   label: 'Net Worth',   color: '#FFFFFF', bold: true },
+        { key: 'investments',label: 'Investments', color: '#60A5FA' },
+        { key: 'homeEquity', label: 'Home Equity', color: '#EA580C' },
+        { key: 'cash',       label: 'Cash',        color: '#94A3B8' },
+      ].map(({ key, label, color, bold }) => (
+        <div key={key} style={{ display: 'flex', justifyContent: 'space-between',
+          gap: '1.5rem', marginBottom: '0.2rem' }}>
+          <span style={{ fontSize: '0.78rem', color, fontWeight: bold ? 700 : 400 }}>{label}</span>
+          <span style={{ fontSize: '0.78rem', color, fontWeight: bold ? 700 : 400,
+            fontVariantNumeric: 'tabular-nums' }}>
+            {fmtDollar(d?.[key])}
+          </span>
+        </div>
+      ))}
+      {d?.mortgage > 0 && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1.5rem',
+          marginTop: '0.35rem', paddingTop: '0.35rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          <span style={{ fontSize: '0.74rem', color: '#64748B' }}>Mortgage Remaining</span>
+          <span style={{ fontSize: '0.74rem', color: '#64748B', fontVariantNumeric: 'tabular-nums' }}>
+            {fmtDollar(d.mortgage)}
+          </span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Projection Tool card ───────────────────────────────────────
+function ProjectionTool({ latestSnapshot }) {
+  const [params, setParams] = useState(PROJ_DEFAULTS)
+  const update = (key, val) => setParams(p => ({ ...p, [key]: val }))
+
+  const rows = useMemo(() => {
+    if (!latestSnapshot) return []
+    return buildProjection(latestSnapshot, params)
+  }, [latestSnapshot, params])
+
+  const goalRow  = rows.find(r => r.netWorth >= 5_000_000)
+  const goalAge  = goalRow?.age
+  const onTrack  = goalAge != null && goalAge <= 55
+
+  if (!latestSnapshot) return null
+
+  const INPUTS = [
+    { key: 'extraInvestmentPerYear', label: 'Extra/yr → Investments', format: 'dollar' },
+    { key: 'extraMortgagePerYear',   label: 'Extra/yr → Mortgage',    format: 'dollar' },
+    { key: 'investmentGrowthRate',   label: 'Investment Growth',       format: 'pct'    },
+    { key: 'homeValueGrowthRate',    label: 'Home Value Growth',       format: 'pct'    },
+    { key: 'cashGrowthRate',         label: 'Cash Growth',             format: 'pct'    },
+  ]
+
+  const TABLE_COLS = ['Age', 'Investments', 'Home Equity', 'Cash', 'Mortgage', 'Net Worth']
+
+  return (
+    <DashCard title="$5M by 55 — Projection Tool">
+
+      {/* ── Goal status banner ── */}
+      {goalAge != null && (
+        <div style={{ marginBottom: '1.25rem', padding: '0.55rem 1rem', borderRadius: 8,
+          background: onTrack ? 'rgba(34,197,94,0.07)' : 'rgba(234,88,12,0.07)',
+          border: `1px solid ${onTrack ? 'rgba(34,197,94,0.18)' : 'rgba(234,88,12,0.18)'}`,
+          display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <span style={{ fontSize: '0.9rem' }}>{onTrack ? '✓' : '→'}</span>
+          <span style={{ fontSize: '0.82rem', fontWeight: 600,
+            color: onTrack ? '#4ADE80' : '#FB923C' }}>
+            At these assumptions, $5M is reached at age {goalAge}
+            {onTrack ? ' — on track.' : ' — adjust inputs to hit age 55.'}
+          </span>
+        </div>
+      )}
+
+      {/* ── Inputs ── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem',
+        marginBottom: '1.5rem' }}>
+        {INPUTS.map(({ key, label, format }) => (
+          <ProjInput
+            key={key}
+            label={label}
+            value={params[key]}
+            format={format}
+            onChange={v => update(key, v)}
+          />
+        ))}
+      </div>
+
+      {/* ── Chart ── */}
+      <ResponsiveContainer width="100%" height={280}>
+        <LineChart data={rows} margin={{ top: 10, right: 24, left: 10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+          <XAxis
+            dataKey="age"
+            tick={{ fill: '#475569', fontSize: 11 }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis
+            tickFormatter={fmtDollar}
+            tick={{ fill: '#475569', fontSize: 11 }}
+            axisLine={false}
+            tickLine={false}
+            width={72}
+          />
+          <Tooltip content={<ProjTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.08)', strokeWidth: 1 }} />
+          {/* $5M goal line */}
+          <ReferenceLine
+            y={5_000_000}
+            stroke="#FACC15"
+            strokeDasharray="6 3"
+            strokeWidth={1.5}
+            label={{ value: '$5M Goal', fill: '#FACC15', fontSize: 10, position: 'insideTopRight' }}
+          />
+          {/* Age 55 vertical */}
+          <ReferenceLine
+            x={55}
+            stroke="rgba(250,204,21,0.25)"
+            strokeDasharray="4 4"
+            strokeWidth={1}
+            label={{ value: '55', fill: '#FACC15', fontSize: 10, position: 'insideTopRight' }}
+          />
+          <Line type="monotone" dataKey="netWorth"    name="Net Worth"   stroke="#FFFFFF" strokeWidth={2.5} dot={false} />
+          <Line type="monotone" dataKey="investments" name="Investments" stroke="#3B82F6" strokeWidth={1.5} dot={false} />
+          <Line type="monotone" dataKey="homeEquity"  name="Home Equity" stroke="#EA580C" strokeWidth={1.5} dot={false} />
+          <Line type="monotone" dataKey="cash"        name="Cash"        stroke="#94A3B8" strokeWidth={1.5} dot={false} />
+          <Legend
+            formatter={n => <span style={{ color: '#94A3B8', fontSize: '0.78rem' }}>{n}</span>}
+            wrapperStyle={{ paddingTop: '1rem' }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+
+      {/* ── EOY Table ── */}
+      <div style={{ marginTop: '1.5rem', overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              {TABLE_COLS.map(h => (
+                <th key={h} style={{
+                  padding: '0.45rem 0.75rem',
+                  textAlign: h === 'Age' ? 'left' : 'right',
+                  color: '#475569', fontWeight: 600,
+                  fontSize: '0.69rem', textTransform: 'uppercase', letterSpacing: '0.05em',
+                }}>
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => {
+              const crossesGoal = row.netWorth >= 5_000_000 && (i === 0 || rows[i - 1].netWorth < 5_000_000)
+              const isAge55     = row.age === 55
+              const rowBg       = isAge55 || crossesGoal
+                ? 'rgba(250,204,21,0.05)'
+                : 'transparent'
+
+              return (
+                <tr key={row.year} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', background: rowBg }}>
+
+                  {/* Age */}
+                  <td style={{ padding: '0.45rem 0.75rem',
+                    color: isAge55 ? '#FACC15' : '#94A3B8',
+                    fontWeight: isAge55 ? 700 : 400,
+                  }}>
+                    {row.age}
+                  </td>
+
+                  {/* Investments */}
+                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
+                    color: '#60A5FA', fontVariantNumeric: 'tabular-nums' }}>
+                    {fmtDollar(row.investments)}
+                  </td>
+
+                  {/* Home Equity */}
+                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
+                    color: '#EA580C', fontVariantNumeric: 'tabular-nums' }}>
+                    {fmtDollar(row.homeEquity)}
+                  </td>
+
+                  {/* Cash */}
+                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
+                    color: '#94A3B8', fontVariantNumeric: 'tabular-nums' }}>
+                    {fmtDollar(row.cash)}
+                  </td>
+
+                  {/* Mortgage — green dash when paid off */}
+                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
+                    color: row.mortgage < 1 ? '#4ADE80' : '#64748B',
+                    fontVariantNumeric: 'tabular-nums' }}>
+                    {row.mortgage < 1 ? '—' : fmtDollar(row.mortgage)}
+                  </td>
+
+                  {/* Net Worth — white until $5M, then green */}
+                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
+                    fontWeight: 700, fontVariantNumeric: 'tabular-nums',
+                    color: row.netWorth >= 5_000_000 ? '#4ADE80' : '#F1F5F9',
+                  }}>
+                    {fmtDollar(row.netWorth)}
+                  </td>
+
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+
+    </DashCard>
   )
 }
 
@@ -100,8 +413,6 @@ export default function FinancesDashboard() {
       .order('period_date', { ascending: true })
       .then(({ data }) => {
         if (data?.length) {
-          // _stackTop = exact sum of the three stacked components so the
-          // net worth line always sits flush on top of the stacked areas
           const processed = data.map(s => ({
             ...s,
             _stackTop: (s.net_investments || 0) + (s.net_cash || 0) + (s.home_equity || 0),
@@ -118,7 +429,6 @@ export default function FinancesDashboard() {
     ? `As of ${fmtDate(latest.period_date)} · Net Worth ${fmtDollarFull(latest.total_net_worth)}`
     : null
 
-  // Tick reducer — show ~10 evenly spaced x-axis labels
   const tickInterval = snapshots.length > 0 ? Math.floor(snapshots.length / 10) : 1
 
   if (loading) {
@@ -132,7 +442,7 @@ export default function FinancesDashboard() {
   return (
     <ChrisDashboard title="Finances Dashboard" subtitle={subtitle}>
 
-      {/* ── Net Worth Chart ── */}
+      {/* ── Net Worth Over Time ── */}
       <DashCard title="Net Worth Over Time">
         <ResponsiveContainer width="100%" height={340}>
           <AreaChart data={snapshots} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
@@ -171,15 +481,16 @@ export default function FinancesDashboard() {
               formatter={name => <span style={{ color: '#94A3B8', fontSize: '0.78rem' }}>{name}</span>}
               wrapperStyle={{ paddingTop: '1rem' }}
             />
-            {/* Order: investments bottom → cash → equity top */}
             <Area type="linear" dataKey="net_investments" stackId="1" name="Investments"  stroke="#3B82F6" fill="url(#gradInvest)" strokeWidth={1.5} />
             <Area type="linear" dataKey="net_cash"        stackId="1" name="Cash"         stroke="#94A3B8" fill="url(#gradCash)"   strokeWidth={1.5} />
             <Area type="linear" dataKey="home_equity"     stackId="1" name="Home Equity"  stroke="#EA580C" fill="url(#gradEquity)" strokeWidth={1.5} />
-            {/* Net worth overlay — uses sum of components so it's guaranteed flush with stack top */}
             <Line type="linear" dataKey="_stackTop" name="Net Worth" stroke="#FFFFFF" strokeWidth={2} dot={false} legendType="line" />
           </AreaChart>
         </ResponsiveContainer>
       </DashCard>
+
+      {/* ── $5M Projection Tool ── */}
+      <ProjectionTool latestSnapshot={latest} />
 
     </ChrisDashboard>
   )
