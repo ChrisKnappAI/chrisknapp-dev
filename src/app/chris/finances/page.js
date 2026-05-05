@@ -228,10 +228,6 @@ function ProjectionTool({ latestSnapshot }) {
     return buildProjection(latestSnapshot, params)
   }, [latestSnapshot, params])
 
-  const goalRow  = rows.find(r => r.netWorth >= 5_000_000)
-  const goalAge  = goalRow?.age
-  const onTrack  = goalAge != null && goalAge <= 55
-
   if (!latestSnapshot) return null
 
   const INPUTS = [
@@ -242,25 +238,8 @@ function ProjectionTool({ latestSnapshot }) {
     { key: 'cashGrowthRate',         label: 'Cash Growth',             format: 'pct'    },
   ]
 
-  const TABLE_COLS = ['Age', 'Investments', 'Home Equity', 'Cash', 'Mortgage', 'Net Worth']
-
   return (
-    <DashCard title="$5M by 55 — Projection Tool">
-
-      {/* ── Goal status banner ── */}
-      {goalAge != null && (
-        <div style={{ marginBottom: '1.25rem', padding: '0.55rem 1rem', borderRadius: 8,
-          background: onTrack ? 'rgba(34,197,94,0.07)' : 'rgba(234,88,12,0.07)',
-          border: `1px solid ${onTrack ? 'rgba(34,197,94,0.18)' : 'rgba(234,88,12,0.18)'}`,
-          display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <span style={{ fontSize: '0.9rem' }}>{onTrack ? '✓' : '→'}</span>
-          <span style={{ fontSize: '0.82rem', fontWeight: 600,
-            color: onTrack ? '#4ADE80' : '#FB923C' }}>
-            At these assumptions, $5M is reached at age {goalAge}
-            {onTrack ? ' — on track.' : ' — adjust inputs to hit age 55.'}
-          </span>
-        </div>
-      )}
+    <DashCard title="Projected Future Net Worth ($5M at 55)">
 
       {/* ── Inputs ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem',
@@ -321,82 +300,6 @@ function ProjectionTool({ latestSnapshot }) {
         </LineChart>
       </ResponsiveContainer>
 
-      {/* ── EOY Table ── */}
-      <div style={{ marginTop: '1.5rem', overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
-          <thead>
-            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-              {TABLE_COLS.map(h => (
-                <th key={h} style={{
-                  padding: '0.45rem 0.75rem',
-                  textAlign: h === 'Age' ? 'left' : 'right',
-                  color: '#475569', fontWeight: 600,
-                  fontSize: '0.69rem', textTransform: 'uppercase', letterSpacing: '0.05em',
-                }}>
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, i) => {
-              const crossesGoal = row.netWorth >= 5_000_000 && (i === 0 || rows[i - 1].netWorth < 5_000_000)
-              const isAge55     = row.age === 55
-              const rowBg       = isAge55 || crossesGoal
-                ? 'rgba(250,204,21,0.05)'
-                : 'transparent'
-
-              return (
-                <tr key={row.year} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', background: rowBg }}>
-
-                  {/* Age */}
-                  <td style={{ padding: '0.45rem 0.75rem',
-                    color: isAge55 ? '#FACC15' : '#94A3B8',
-                    fontWeight: isAge55 ? 700 : 400,
-                  }}>
-                    {row.age}
-                  </td>
-
-                  {/* Investments */}
-                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
-                    color: '#60A5FA', fontVariantNumeric: 'tabular-nums' }}>
-                    {fmtDollar(row.investments)}
-                  </td>
-
-                  {/* Home Equity */}
-                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
-                    color: '#EA580C', fontVariantNumeric: 'tabular-nums' }}>
-                    {fmtDollar(row.homeEquity)}
-                  </td>
-
-                  {/* Cash */}
-                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
-                    color: '#94A3B8', fontVariantNumeric: 'tabular-nums' }}>
-                    {fmtDollar(row.cash)}
-                  </td>
-
-                  {/* Mortgage — green dash when paid off */}
-                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
-                    color: row.mortgage < 1 ? '#4ADE80' : '#64748B',
-                    fontVariantNumeric: 'tabular-nums' }}>
-                    {row.mortgage < 1 ? '—' : fmtDollar(row.mortgage)}
-                  </td>
-
-                  {/* Net Worth — white until $5M, then green */}
-                  <td style={{ padding: '0.45rem 0.75rem', textAlign: 'right',
-                    fontWeight: 700, fontVariantNumeric: 'tabular-nums',
-                    color: row.netWorth >= 5_000_000 ? '#4ADE80' : '#F1F5F9',
-                  }}>
-                    {fmtDollar(row.netWorth)}
-                  </td>
-
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-
     </DashCard>
   )
 }
@@ -433,17 +336,19 @@ export default function FinancesDashboard() {
 
   if (loading) {
     return (
-      <ChrisDashboard title="Finances Dashboard">
+      <ChrisDashboard title="Financial Dashboard">
         <div style={{ color: '#475569', padding: '3rem', textAlign: 'center' }}>Loading…</div>
       </ChrisDashboard>
     )
   }
 
   return (
-    <ChrisDashboard title="Finances Dashboard" subtitle={subtitle}>
+    <ChrisDashboard title="Financial Dashboard" subtitle={subtitle}>
 
-      {/* ── Net Worth Over Time ── */}
-      <DashCard title="Net Worth Over Time">
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', alignItems: 'start' }}>
+
+      {/* ── Historic chart ── */}
+      <DashCard title="Historic Net Worth Development">
         <ResponsiveContainer width="100%" height={340}>
           <AreaChart data={snapshots} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
             <defs>
@@ -489,8 +394,10 @@ export default function FinancesDashboard() {
         </ResponsiveContainer>
       </DashCard>
 
-      {/* ── $5M Projection Tool ── */}
+      {/* ── Projection ── */}
       <ProjectionTool latestSnapshot={latest} />
+
+      </div>
 
     </ChrisDashboard>
   )

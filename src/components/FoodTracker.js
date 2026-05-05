@@ -27,6 +27,22 @@ function sumMacros(list) {
   }, { cal: 0, protein: 0, carbs: 0, fat: 0 })
 }
 
+// ── Nutrition goals per user ───────────────────────────────────
+const USER_GOALS = {
+  chris: {
+    cal:     { goal: 2100, type: 'max' },
+    protein: { goal: 160,  type: 'min' },
+    carbs:   { goal: 210,  type: 'max' },
+    fat:     { goal: 70,   type: 'max' },
+  },
+  natalie: {
+    cal:     { goal: 1500, type: 'min' },
+    protein: { goal: 100,  type: 'min' },
+    carbs:   null,
+    fat:     null,
+  },
+}
+
 export default function FoodTracker({ user, theme = 'dark', label }) {
   const isDark = theme === 'dark'
 
@@ -233,6 +249,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
   })
 
   const dayTotals  = dayLog.reduce((a, e) => ({ cal: a.cal + e.calories, protein: a.protein + e.protein, carbs: a.carbs + e.carbs, fat: a.fat + e.fat }), { cal: 0, protein: 0, carbs: 0, fat: 0 })
+  const goals      = USER_GOALS[user] || {}
   const mealTotals = sumMacros(ingredients)
 
   // ── theme tokens ──
@@ -442,10 +459,10 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
               {friendlyDate(date) === 'Today' ? "Today's Log" : friendlyDate(date) === 'Yesterday' ? "Yesterday's Log" : `Log — ${date}`}
             </div>
             <div style={{ display: 'flex', gap: '1.75rem' }}>
-              <Chip label="Calories" value={fmt(dayTotals.cal)}             color={c.calColor} big />
-              <Chip label="Protein"  value={`${fmt(dayTotals.protein)}g`}   color="#22C55E"   big />
-              <Chip label="Carbs"    value={`${fmt(dayTotals.carbs)}g`}     color="#F97316"   big />
-              <Chip label="Fat"      value={`${fmt(dayTotals.fat)}g`}       color={c.muted}   big />
+              <GoalChip label="Calories" actual={dayTotals.cal}     unit=""  goal={goals.cal}     defaultColor={c.calColor} />
+              <GoalChip label="Protein"  actual={dayTotals.protein} unit="g" goal={goals.protein} defaultColor="#22C55E"   />
+              <GoalChip label="Carbs"    actual={dayTotals.carbs}   unit="g" goal={goals.carbs}   defaultColor="#F97316"   />
+              <GoalChip label="Fat"      actual={dayTotals.fat}     unit="g" goal={goals.fat}     defaultColor={c.muted}   />
             </div>
           </div>
 
@@ -500,6 +517,27 @@ function Chip({ label, value, color, big }) {
     <div style={{ textAlign: 'center' }}>
       <div style={{ fontSize: '0.6rem', color: '#64748B', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>{label}</div>
       <div style={{ fontSize: big ? '1rem' : '0.85rem', fontWeight: 700, color }}>{value}</div>
+    </div>
+  )
+}
+
+function GoalChip({ label, actual, unit, goal, defaultColor }) {
+  let valueColor = defaultColor
+  if (goal) {
+    if (goal.type === 'max') valueColor = actual <= goal.goal ? '#4ADE80' : '#F87171'
+    if (goal.type === 'min') valueColor = actual >= goal.goal ? '#4ADE80' : '#FACC15'
+  }
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ fontSize: '0.6rem', color: '#64748B', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>{label}</div>
+      <div style={{ fontSize: '1rem', fontWeight: 700, color: valueColor, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
+        {fmt(actual)}{unit}
+        {goal && (
+          <span style={{ fontSize: '0.72rem', fontWeight: 500, color: '#475569' }}>
+            {' '}/ {goal.goal}{unit}
+          </span>
+        )}
+      </div>
     </div>
   )
 }
