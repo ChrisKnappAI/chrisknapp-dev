@@ -256,7 +256,7 @@ function ProjectionTool({ latestSnapshot }) {
       </div>
 
       {/* ── Chart ── */}
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height="calc(50vh - 200px)">
         <LineChart data={rows} margin={{ top: 10, right: 24, left: 10, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
           <XAxis
@@ -345,11 +345,9 @@ export default function FinancesDashboard() {
   return (
     <ChrisDashboard title="Financial Dashboard" subtitle={subtitle}>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', alignItems: 'start' }}>
-
       {/* ── Historic chart ── */}
       <DashCard title="Historic Net Worth Development">
-        <ResponsiveContainer width="100%" height={340}>
+        <ResponsiveContainer width="100%" height="calc(50vh - 200px)">
           <AreaChart data={snapshots} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
             <defs>
               <linearGradient id="gradInvest" x1="0" y1="0" x2="0" y2="1">
@@ -396,8 +394,6 @@ export default function FinancesDashboard() {
 
       {/* ── Projection ── */}
       <ProjectionTool latestSnapshot={latest} />
-
-      </div>
 
     </ChrisDashboard>
   )

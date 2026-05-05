@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 
 const navItems = [
   { label: 'Health Dashboard', href: '/chris/health', icon: '♥' },
-  { label: 'Finances Dashboard', href: '/chris/finances', icon: '$' },
+  { label: 'Financial Dashboard', href: '/chris/finances', icon: '$' },
   { label: 'Goals Dashboard', href: '/chris/goals', icon: '★' },
   { label: 'Learning Dashboard', href: '/chris/learning', icon: '◎' },
 ]
