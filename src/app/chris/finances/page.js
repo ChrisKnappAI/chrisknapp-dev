@@ -159,11 +159,11 @@ export default function FinancesDashboard() {
               wrapperStyle={{ paddingTop: '1rem' }}
             />
             {/* Order: investments bottom → cash → equity top */}
-            <Area type="monotone" dataKey="net_investments" stackId="1" name="Investments"  stroke="#3B82F6" fill="url(#gradInvest)" strokeWidth={1.5} />
-            <Area type="monotone" dataKey="net_cash"        stackId="1" name="Cash"         stroke="#94A3B8" fill="url(#gradCash)"   strokeWidth={1.5} />
-            <Area type="monotone" dataKey="home_equity"     stackId="1" name="Home Equity"  stroke="#EA580C" fill="url(#gradEquity)" strokeWidth={1.5} />
+            <Area type="linear" dataKey="net_investments" stackId="1" name="Investments"  stroke="#3B82F6" fill="url(#gradInvest)" strokeWidth={1.5} />
+            <Area type="linear" dataKey="net_cash"        stackId="1" name="Cash"         stroke="#94A3B8" fill="url(#gradCash)"   strokeWidth={1.5} />
+            <Area type="linear" dataKey="home_equity"     stackId="1" name="Home Equity"  stroke="#EA580C" fill="url(#gradEquity)" strokeWidth={1.5} />
             {/* Total net worth overlay line */}
-            <Line type="monotone" dataKey="total_net_worth" name="Net Worth" stroke="#FFFFFF" strokeWidth={2} dot={false} legendType="line" />
+            <Line type="linear" dataKey="total_net_worth" name="Net Worth" stroke="#FFFFFF" strokeWidth={2} dot={false} legendType="line" />
           </AreaChart>
         </ResponsiveContainer>
       </DashCard>
