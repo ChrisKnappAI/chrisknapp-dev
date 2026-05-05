@@ -231,78 +231,64 @@ function ProjectionTool({ latestSnapshot }) {
   if (!latestSnapshot) return null
 
   const INPUTS = [
-    { key: 'extraInvestmentPerYear', label: 'Extra/yr → Investments', format: 'dollar' },
-    { key: 'extraMortgagePerYear',   label: 'Extra/yr → Mortgage',    format: 'dollar' },
-    { key: 'investmentGrowthRate',   label: 'Investment Growth',       format: 'pct'    },
-    { key: 'homeValueGrowthRate',    label: 'Home Value Growth',       format: 'pct'    },
-    { key: 'cashGrowthRate',         label: 'Cash Growth',             format: 'pct'    },
+    { key: 'extraInvestmentPerYear', label: '+ Investments/yr', format: 'dollar' },
+    { key: 'extraMortgagePerYear',   label: '+ Mortgage/yr',    format: 'dollar' },
+    { key: 'investmentGrowthRate',   label: 'Invest. Growth',   format: 'pct'    },
+    { key: 'homeValueGrowthRate',    label: 'Home Apprec.',     format: 'pct'    },
+    { key: 'cashGrowthRate',         label: 'Cash Growth',      format: 'pct'    },
   ]
 
   return (
-    <DashCard title="Projected Future Net Worth ($5M at 55)">
+    <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '1.5rem' }}>
 
-      {/* ── Inputs ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem',
-        marginBottom: '1.5rem' }}>
-        {INPUTS.map(({ key, label, format }) => (
-          <ProjInput
-            key={key}
-            label={label}
-            value={params[key]}
-            format={format}
-            onChange={v => update(key, v)}
-          />
-        ))}
+      {/* ── Assumptions panel (custom card so inner area can scroll) ── */}
+      <div style={{
+        background: 'var(--c-dark-card)', border: '1px solid var(--c-dark-border)',
+        borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column',
+      }}>
+        <div style={{
+          padding: '1.1rem 1.5rem', borderBottom: '1px solid var(--c-dark-border)',
+          fontSize: '0.875rem', fontWeight: 700, letterSpacing: '-0.01em', flexShrink: 0,
+        }}>
+          Assumptions
+        </div>
+        <div style={{
+          flex: 1, overflowY: 'auto', padding: '0.75rem',
+          display: 'flex', flexDirection: 'column', gap: '0.5rem',
+        }}>
+          {INPUTS.map(({ key, label, format }) => (
+            <ProjInput key={key} label={label} value={params[key]} format={format} onChange={v => update(key, v)} />
+          ))}
+        </div>
       </div>
 
-      {/* ── Chart ── */}
-      <div style={{ height: 'calc(50vh - 310px)' }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={rows} margin={{ top: 10, right: 24, left: 10, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
-          <XAxis
-            dataKey="age"
-            tick={{ fill: '#475569', fontSize: 11 }}
-            axisLine={false}
-            tickLine={false}
-          />
-          <YAxis
-            tickFormatter={fmtDollar}
-            tick={{ fill: '#475569', fontSize: 11 }}
-            axisLine={false}
-            tickLine={false}
-            width={72}
-          />
-          <Tooltip content={<ProjTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.08)', strokeWidth: 1 }} />
-          {/* $5M goal line */}
-          <ReferenceLine
-            y={5_000_000}
-            stroke="#FACC15"
-            strokeDasharray="6 3"
-            strokeWidth={1.5}
-            label={{ value: '$5M Goal', fill: '#FACC15', fontSize: 10, position: 'insideTopRight' }}
-          />
-          {/* Age 55 vertical */}
-          <ReferenceLine
-            x={55}
-            stroke="rgba(250,204,21,0.25)"
-            strokeDasharray="4 4"
-            strokeWidth={1}
-            label={{ value: '55', fill: '#FACC15', fontSize: 10, position: 'insideTopRight' }}
-          />
-          <Line type="monotone" dataKey="netWorth"    name="Net Worth"   stroke="#FFFFFF" strokeWidth={2.5} dot={false} />
-          <Line type="monotone" dataKey="investments" name="Investments" stroke="#3B82F6" strokeWidth={1.5} dot={false} />
-          <Line type="monotone" dataKey="homeEquity"  name="Home Equity" stroke="#EA580C" strokeWidth={1.5} dot={false} />
-          <Line type="monotone" dataKey="cash"        name="Cash"        stroke="#94A3B8" strokeWidth={1.5} dot={false} />
-          <Legend
-            formatter={n => <span style={{ color: '#94A3B8', fontSize: '0.78rem' }}>{n}</span>}
-            wrapperStyle={{ paddingTop: '1rem' }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-      </div>
+      {/* ── Projection chart ── */}
+      <DashCard title="Projected Future Net Worth ($5M at 55)">
+        <div style={{ height: 'calc(50vh - 190px)' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={rows} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+            <XAxis dataKey="age" tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tickFormatter={fmtDollar} tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} width={72} />
+            <Tooltip content={<ProjTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.08)', strokeWidth: 1 }} />
+            <ReferenceLine y={5_000_000} stroke="#FACC15" strokeDasharray="6 3" strokeWidth={1.5}
+              label={{ value: '$5M Goal', fill: '#FACC15', fontSize: 10, position: 'insideTopRight' }} />
+            <ReferenceLine x={55} stroke="rgba(250,204,21,0.25)" strokeDasharray="4 4" strokeWidth={1}
+              label={{ value: '55', fill: '#FACC15', fontSize: 10, position: 'insideTopRight' }} />
+            <Line type="monotone" dataKey="netWorth"    name="Net Worth"   stroke="#FFFFFF" strokeWidth={2.5} dot={false} />
+            <Line type="monotone" dataKey="investments" name="Investments" stroke="#3B82F6" strokeWidth={1.5} dot={false} />
+            <Line type="monotone" dataKey="homeEquity"  name="Home Equity" stroke="#EA580C" strokeWidth={1.5} dot={false} />
+            <Line type="monotone" dataKey="cash"        name="Cash"        stroke="#94A3B8" strokeWidth={1.5} dot={false} />
+            <Legend
+              layout="vertical" align="right" verticalAlign="middle"
+              formatter={n => <span style={{ color: '#94A3B8', fontSize: '0.78rem' }}>{n}</span>}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+        </div>
+      </DashCard>
 
-    </DashCard>
+    </div>
   )
 }
 
@@ -349,7 +335,7 @@ export default function FinancesDashboard() {
 
       {/* ── Historic chart ── */}
       <DashCard title="Historic Net Worth Development">
-        <div style={{ height: 'calc(50vh - 230px)' }}>
+        <div style={{ height: 'calc(50vh - 190px)' }}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={snapshots} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
             <defs>
