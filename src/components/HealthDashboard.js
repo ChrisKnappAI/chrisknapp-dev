@@ -21,10 +21,10 @@ const BODY_COLORS = {
 const WORKOUT_STACK_ORDER = ['TraditionalStrengthTraining', 'Walking', 'Pickleball', 'Swimming']
 
 const WORKOUT_COLORS = {
-  TraditionalStrengthTraining: '#1e3a8a',  // darkest navy
-  Walking:                     '#1d4ed8',  // dark blue
-  Pickleball:                  '#3b82f6',  // medium blue
-  Swimming:                    '#60a5fa',  // light blue
+  TraditionalStrengthTraining: '#3b82f6',  // blue-500
+  Walking:                     '#60a5fa',  // blue-400
+  Pickleball:                  '#7dd3fc',  // sky-300
+  Swimming:                    '#93c5fd',  // blue-300
 }
 const FALLBACK_COLORS = ['#93c5fd', '#bfdbfe', '#7dd3fc', '#38bdf8']
 
@@ -327,12 +327,12 @@ function WorkoutChart({ data, types, stepsData, granularity, chartHeight }) {
         <div style={{ marginBottom: '0.4rem', color: '#94a3b8' }}>{label}</div>
         {stepsEntry?.value != null && (
           <div style={{ color: PGR_ORANGE, marginBottom: '0.3rem', fontWeight: 600 }}>
-            Total Steps: {Math.round(stepsEntry.value).toLocaleString()}
+            Daily Steps: {Math.round(stepsEntry.value).toLocaleString()}
           </div>
         )}
         {totalEntry && (
           <div style={{ color: WORKOUT_TOTAL_CLR, marginBottom: subcats.length ? '0.1rem' : 0, fontWeight: 600 }}>
-            Total Workout Minutes: {fmtMins(totalEntry.value)}/day
+            Daily Workout Minutes: {fmtMins(totalEntry.value)}
           </div>
         )}
         {subcats.map(p => (
@@ -364,9 +364,9 @@ function WorkoutChart({ data, types, stepsData, granularity, chartHeight }) {
         </ResponsiveContainer>
       </div>
       <ChartLegend items={[
-        { label: 'Total Steps', color: PGR_ORANGE, line: true },
+        { label: 'Daily Steps', color: PGR_ORANGE, line: true },
         ...types.map((t, i) => ({ label: WORKOUT_LABELS[t] || t, color: WORKOUT_COLORS[t] || FALLBACK_COLORS[i % FALLBACK_COLORS.length] })),
-        { label: 'Total Workout Minutes', color: WORKOUT_TOTAL_CLR, line: true },
+        { label: 'Daily Workout Minutes', color: WORKOUT_TOTAL_CLR, line: true },
       ]} />
     </>
   )
@@ -423,11 +423,11 @@ function SleepChart({ data, granularity, chartHeight }) {
 
 function ChartLegend({ items }) {
   return (
-    <div style={{ display: 'flex', gap: '1.25rem', marginTop: '0.6rem', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: '0.6rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
       {items.map(item => (
-        <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          <div style={{ width: item.line ? 14 : 10, height: item.line ? 2 : 10, borderRadius: item.line ? 0 : 2, background: item.color }} />
-          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{item.label}</span>
+        <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          <div style={{ width: item.line ? 12 : 8, height: item.line ? 2 : 8, borderRadius: item.line ? 0 : 2, background: item.color, flexShrink: 0 }} />
+          <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>{item.label}</span>
         </div>
       ))}
     </div>
@@ -574,21 +574,19 @@ function NutritionTable({ foodLog, granularity }) {
     { key: 'carbs',    label: 'Carbs', unit: 'g' },
     { key: 'protein',  label: 'Prot',  unit: 'g' },
   ]
-  const TH_BASE = { fontSize: '0.68rem', color: '#475569', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }
-  const TH      = { ...TH_BASE, padding: '0.45rem 0.4rem', textAlign: 'right', width: '1%' }
-  const TD_BASE = { fontSize: '0.8rem', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }
-  const TD      = { ...TD_BASE, padding: '0.4rem 0.4rem', textAlign: 'right', width: '1%' }
+  const TH = { padding: '0.45rem 0.7rem', textAlign: 'right', fontSize: '0.68rem', color: '#475569', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }
+  const TD = { padding: '0.4rem 0.7rem',  textAlign: 'right', fontSize: '0.8rem',  fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }
 
   if (!rows.length) {
     return <div style={{ color: '#475569', fontSize: '0.85rem' }}>No food log data yet.</div>
   }
 
   return (
-    <div style={{ overflowY: 'auto', maxHeight: 'calc(50vh - 164px)', marginRight: '-0.75rem', paddingRight: '1.25rem' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+    <div style={{ overflowY: 'auto', maxHeight: 'calc(50vh - 164px)', marginRight: '-0.75rem', paddingRight: '0.75rem' }}>
+      <table style={{ borderCollapse: 'collapse', margin: '0 auto' }}>
         <thead style={{ position: 'sticky', top: 0, background: 'var(--c-dark-card)', zIndex: 1 }}>
           <tr>
-            <th style={{ ...TH_BASE, padding: '0.45rem 0.4rem', textAlign: 'left' }}>
+            <th style={{ ...TH, textAlign: 'left', paddingRight: '1.5rem' }}>
               {granularity === 'daily' ? 'Day' : granularity === 'weekly' ? 'Week of' : 'Month'}
             </th>
             {COLS.map(c => <th key={c.key} style={TH}>{c.label}</th>)}
@@ -600,7 +598,7 @@ function NutritionTable({ foodLog, granularity }) {
         <tbody>
           {rows.map(row => (
             <tr key={row.key} style={{ borderBottom: '1px solid #1e293b' }}>
-              <td style={{ ...TD_BASE, padding: '0.4rem 0.4rem', textAlign: 'left', color: '#64748b' }}>{row.label}</td>
+              <td style={{ ...TD, textAlign: 'left', color: '#64748b', paddingRight: '1.5rem' }}>{row.label}</td>
               {COLS.map(c => (
                 <td key={c.key} style={{ ...TD, color: color(c.key, row[c.key]), fontWeight: 600 }}>
                   {row[c.key] != null ? `${row[c.key]}${c.unit}` : '—'}
