@@ -125,7 +125,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
         setIngredients(data.map(r => ({
           ...r,
           actual_amount: r.expected_amount,
-          user_percent:  r.expected_chris_pct,
+          user_percent:  r.user_percent,
         })))
       })
   }, [selectedMeal, selectedVersion, isManual])

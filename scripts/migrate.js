@@ -8,8 +8,7 @@ const SUPABASE_URL = 'https://kkwafiscyshdailnourb.supabase.co'
 const SUPABASE_KEY = 'sb_publishable_qRH4PzN7D0_lOOapNGIgqA_KCsOjI_w'
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
-const LOOKUP_PATH = 'C:\\AI Executive Assistants\\Personal EA\\projects\\food-tracker\\meal-ingredient-lookup.csv'
-const LOG_PATH    = 'C:\\AI Executive Assistants\\Personal EA\\projects\\food-tracker\\logs\\ingredient_log.csv'
+const LOOKUP_PATH = 'C:\\Users\\CK092\\chrisknapp-dev-data-to-import\\data-drop\\meal_ingredient_lookup\\meal-ingredient-lookup.csv'
 
 function parseCSV(filepath) {
   const lines = fs.readFileSync(filepath, 'utf-8').split('\n').filter(l => l.trim())
@@ -46,7 +45,7 @@ async function migrateLookup() {
     serving_carbs:     parseFloat(r['Serving-Carbs'])     || 0,
     serving_protein:   parseFloat(r['Serving-Protein'])   || 0,
     expected_amount:   parseFloat(r['Expected-Amount'])   || 0,
-    expected_chris_pct: parseFloat(r['Expected-Chris-Percent']) || 1.0,
+    user_percent: parseFloat(r['User-Percent']) || 1.0,
   }))
 
   const { error } = await supabase.from('meal_ingredient_lookup').insert(data)
