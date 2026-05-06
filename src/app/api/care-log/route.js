@@ -16,7 +16,7 @@ export async function GET(request) {
 
   const { data, error } = await supabase
     .from(table(user))
-    .select(`${itemCol}, checked, value`)
+    .select(`${itemCol}, checked, value, note`)
     .eq('log_date', date)
   if (error) return NextResponse.json({ error }, { status: 500 })
 
@@ -47,23 +47,26 @@ export async function GET(request) {
 
   const checks = {}
   const values = {}
+  const notes  = {}
   for (const row of data) {
     const id = row[itemCol]
-    if (row.checked)      checks[id] = true
+    if (row.checked)       checks[id] = true
     if (row.value != null) values[id] = row.value
+    if (row.note  != null) notes[id]  = row.note
   }
 
-  return NextResponse.json({ checks, values, daysSince })
+  return NextResponse.json({ checks, values, daysSince, notes })
 }
 
 // POST /api/care-log
 // Body: { user, date, item_name, category?, checked, value? }
 export async function POST(request) {
-  const { user, date, item_name, category, checked, value } = await request.json()
+  const { user, date, item_name, category, checked, value, note } = await request.json()
 
   const itemCol = user === 'chris' ? 'item_name' : 'goal_name'
   const base = { log_date: date, [itemCol]: item_name, checked, logged_at: new Date().toISOString() }
   if (value != null) base.value = value
+  if (note  != null) base.note  = note
   const row = user === 'natalie' ? { ...base, category } : base
 
   const { error } = await supabase

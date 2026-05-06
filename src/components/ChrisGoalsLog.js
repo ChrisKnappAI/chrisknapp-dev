@@ -73,6 +73,7 @@ export default function ChrisGoalsLog() {
   const [counters,  setCounters]  = useState({})
   const [drinks,    setDrinks]    = useState(null)
   const [daysSince, setDaysSince] = useState({})
+  const [notes,     setNotes]     = useState({})
 
   const loadDay = useCallback(async () => {
     const res  = await fetch(`/api/care-log?user=chris&date=${date}`)
@@ -95,6 +96,7 @@ export default function ChrisGoalsLog() {
     setCounters(newCounters)
     setDrinks(newDrinks)
     setDaysSince(data.daysSince || {})
+    setNotes(data.notes || {})
 
     if (date === getToday()) {
       const existing = new Set([
@@ -122,6 +124,14 @@ export default function ChrisGoalsLog() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user: 'chris', date, item_name, checked, value }),
+    })
+  }
+
+  function saveNote(item_name, text) {
+    fetch('/api/care-log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user: 'chris', date, item_name, checked: false, note: text || null }),
     })
   }
 
@@ -258,6 +268,11 @@ export default function ChrisGoalsLog() {
                 ))}
               </div>
             </div>
+            <NoteBox
+              value={notes['body-care-note'] || ''}
+              onChange={v => setNotes(p => ({ ...p, 'body-care-note': v }))}
+              onBlur={v => saveNote('body-care-note', v)}
+            />
           </div>
         </div>
 
@@ -283,6 +298,11 @@ export default function ChrisGoalsLog() {
                 onToggle={() => toggleCheck(item.id)}
               />
             ))}
+            <NoteBox
+              value={notes['marriage-care-note'] || ''}
+              onChange={v => setNotes(p => ({ ...p, 'marriage-care-note': v }))}
+              onBlur={v => saveNote('marriage-care-note', v)}
+            />
           </div>
         </div>
 
@@ -299,6 +319,11 @@ export default function ChrisGoalsLog() {
                 daysSince={DAYS_SINCE_TRACKED.has(item.id) ? (daysSince[item.id] ?? null) : undefined}
               />
             ))}
+            <NoteBox
+              value={notes['social-care-note'] || ''}
+              onChange={v => setNotes(p => ({ ...p, 'social-care-note': v }))}
+              onBlur={v => saveNote('social-care-note', v)}
+            />
           </div>
         </div>
 
@@ -432,6 +457,27 @@ function drinkColor(n) {
   if (n === 0) return '#22C55E'
   if (n <= 2)  return '#F59E0B'
   return '#EF4444'
+}
+
+function NoteBox({ value, onChange, onBlur }) {
+  return (
+    <div style={{ marginTop: '0.6rem', paddingTop: '0.6rem', borderTop: `1px solid ${c.border}` }}>
+      <textarea
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        onBlur={e => onBlur(e.target.value)}
+        placeholder="Notes for today..."
+        rows={3}
+        style={{
+          width: '100%', background: 'rgba(255,255,255,0.03)',
+          border: `1px solid ${c.border}`, borderRadius: 7,
+          color: c.text, fontSize: '0.78rem', lineHeight: 1.5,
+          padding: '0.5rem 0.6rem', resize: 'none', outline: 'none',
+          fontFamily: 'inherit', boxSizing: 'border-box',
+        }}
+      />
+    </div>
+  )
 }
 
 const NAV_BTN = {
