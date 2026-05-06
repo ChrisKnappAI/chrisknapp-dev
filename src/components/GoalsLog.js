@@ -91,7 +91,7 @@ export default function GoalsLog({ user, theme = 'dark', label }) {
       {/* ── Header + date nav ── */}
       <div style={{ padding: '1.25rem 2rem', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: c.bg, position: 'sticky', top: 0, zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ fontSize: '1.05rem', fontWeight: 700, letterSpacing: '-0.02em' }}>{label}</div>
+          <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>{label}</div>
           <div style={{ fontSize: '0.78rem', color: checkedCount === allGoals.length ? '#22C55E' : c.muted, fontWeight: 600 }}>
             {checkedCount} / {allGoals.length} done
           </div>

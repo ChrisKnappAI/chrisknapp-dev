@@ -282,7 +282,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
 
       {/* ── Header + date nav ── */}
       <div style={{ padding: '1.25rem 2rem', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: c.bg, position: 'sticky', top: 0, zIndex: 10 }}>
-        <div style={{ fontSize: '1.05rem', fontWeight: 700, letterSpacing: '-0.02em' }}>{label}</div>
+        <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>{label}</div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button onClick={() => shiftDate(-1)} style={btnNav(c)}>←</button>
