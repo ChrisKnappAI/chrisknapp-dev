@@ -76,9 +76,8 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
       setMealList(
         Object.entries(map).map(([meal, vs]) => ({
           meal,
-          // sort descending so V2 > V1 — first item is the default
           versions: [...vs].sort((a, b) => b.localeCompare(a, undefined, { numeric: true })),
-        }))
+        })).sort((a, b) => a.meal.localeCompare(b.meal))
       )
     })
   }, [])
