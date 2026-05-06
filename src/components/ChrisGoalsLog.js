@@ -302,12 +302,12 @@ export default function ChrisGoalsLog() {
 
 function SectionHeader({ label, done, total, c }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <span style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: c.muted }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.65rem', borderBottom: `1px solid ${c.border}` }}>
+      <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '-0.01em', color: c.text }}>
         {label}
       </span>
       {total != null && (
-        <span style={{ fontSize: '0.68rem', fontWeight: 600, color: done === total ? '#22C55E' : c.muted }}>
+        <span style={{ fontSize: '0.72rem', fontWeight: 600, color: done === total ? '#22C55E' : c.muted }}>
           {done}/{total}
         </span>
       )}
