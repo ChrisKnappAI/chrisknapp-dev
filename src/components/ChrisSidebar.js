@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
-  { label: 'Body Dashboard', href: '/chris/body-dashboard', icon: '♥' },
   { label: 'Financial Dashboard', href: '/chris/finances', icon: '$' },
+  { label: 'Body Dashboard', href: '/chris/body-dashboard', icon: '♥' },
   { label: 'Care Dashboard', href: '/chris/care-dashboard', icon: '★' },
   { label: 'Learning Dashboard', href: '/chris/learning', icon: '◎' },
 ]
