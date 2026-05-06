@@ -37,7 +37,8 @@ const WORKOUT_LABELS = {
 
 const SLEEP_COLORS = { deep: '#1d4ed8', rem: '#3b82f6', core: '#60a5fa' }
 
-const NUTRITION_COLORS = { calories: '#f97316', protein: '#3b82f6' }
+// Update these to match your current nutrition targets
+const NUTRITION_TARGETS = { calories: 1800, fat: 60, carbs: 100, protein: 160 }
 
 // ── Date helpers ───────────────────────────────────────────────
 
@@ -181,22 +182,6 @@ function processSleep(raw, granularity) {
   )
 }
 
-function processNutrition(raw, granularity) {
-  if (!raw?.length) return []
-  // Aggregate ingredient-level rows to daily totals first
-  const dailyMap = {}
-  for (const r of raw) {
-    if (!dailyMap[r.log_date]) dailyMap[r.log_date] = { period: r.log_date, calories: 0, protein: 0 }
-    dailyMap[r.log_date].calories += r.calories || 0
-    dailyMap[r.log_date].protein  += r.protein  || 0
-  }
-  const dailyRows = Object.values(dailyMap).map(d => ({
-    period:   d.period,
-    calories: Math.round(d.calories),
-    protein:  Math.round(d.protein * 10) / 10,
-  }))
-  return groupAverage(dailyRows, granularity, ['calories', 'protein'])
-}
 
 // ── Shared chart config ────────────────────────────────────────
 
@@ -441,41 +426,129 @@ function MetricChip({ label, active, color, onClick }) {
   )
 }
 
-// ── Nutrition chart ────────────────────────────────────────────
+// ── Nutrition table ────────────────────────────────────────────
 
-function NutritionChart({ data, granularity, chartHeight }) {
-  const calDomain  = dataDomain(data, ['calories'])
-  const protDomain = dataDomain(data, ['protein'])
+const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+const DAYS_SHORT   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
 
-  const tooltip = ({ active, payload, label }) => {
-    if (!active || !payload?.length) return null
-    return (
-      <div style={TOOLTIP_STYLE}>
-        <div style={{ marginBottom: '0.4rem', color: '#94a3b8' }}>{label}</div>
-        {payload.map(p => (
-          <div key={p.dataKey} style={{ color: p.color, marginBottom: '0.15rem' }}>
-            {p.dataKey === 'calories' ? 'Calories' : 'Protein'}:{' '}
-            {p.value == null ? '—' : p.dataKey === 'calories' ? `${p.value} kcal` : `${p.value}g`}
-          </div>
-        ))}
-      </div>
-    )
+function fmtTableDate(dateStr) {
+  const d = new Date(dateStr + 'T12:00:00')
+  return `${DAYS_SHORT[d.getDay()]} ${MONTHS_SHORT[d.getMonth()]} ${d.getDate()}`
+}
+
+function NutritionTable({ foodLog, granularity }) {
+  const rows = useMemo(() => {
+    if (!foodLog?.length) return []
+
+    // Aggregate ingredient-level rows → daily totals
+    const dailyMap = {}
+    for (const r of foodLog) {
+      if (!dailyMap[r.log_date]) dailyMap[r.log_date] = { date: r.log_date, calories: 0, fat: 0, carbs: 0, protein: 0 }
+      dailyMap[r.log_date].calories += r.calories || 0
+      dailyMap[r.log_date].fat      += r.fat      || 0
+      dailyMap[r.log_date].carbs    += r.carbs    || 0
+      dailyMap[r.log_date].protein  += r.protein  || 0
+    }
+    const daily = Object.values(dailyMap).map(d => ({
+      date:     d.date,
+      calories: Math.round(d.calories),
+      fat:      Math.round(d.fat * 10) / 10,
+      carbs:    Math.round(d.carbs * 10) / 10,
+      protein:  Math.round(d.protein * 10) / 10,
+    }))
+
+    if (granularity === 'daily') {
+      return daily
+        .sort((a, b) => b.date.localeCompare(a.date))
+        .map(d => ({ key: d.date, label: fmtTableDate(d.date), ...d }))
+    }
+
+    // Group by week or month, averaging only over logged days (never dividing by 7 or 30)
+    const groupMap = {}
+    for (const day of daily) {
+      const key = granularity === 'weekly' ? getWeekStart(day.date) : day.date.slice(0, 7)
+      if (!groupMap[key]) groupMap[key] = { key, days: [] }
+      groupMap[key].days.push(day)
+    }
+
+    return Object.values(groupMap)
+      .sort((a, b) => b.key.localeCompare(a.key))
+      .map(g => {
+        const n = g.days.length
+        const avg = f => Math.round(g.days.reduce((s, d) => s + d[f], 0) / n * 10) / 10
+
+        let label
+        if (granularity === 'weekly') {
+          const start = new Date(g.key + 'T12:00:00')
+          const end   = new Date(start); end.setDate(end.getDate() + 6)
+          const endPart = start.getMonth() === end.getMonth()
+            ? `${end.getDate()}`
+            : `${MONTHS_SHORT[end.getMonth()]} ${end.getDate()}`
+          label = `${MONTHS_SHORT[start.getMonth()]} ${start.getDate()}–${endPart}`
+        } else {
+          const [y, m] = g.key.split('-')
+          label = `${MONTHS_SHORT[+m - 1]} '${y.slice(2)}`
+        }
+
+        return {
+          key:      g.key,
+          label,
+          days:     n,
+          calories: Math.round(avg('calories')),
+          fat:      avg('fat'),
+          carbs:    avg('carbs'),
+          protein:  avg('protein'),
+        }
+      })
+  }, [foodLog, granularity])
+
+  // blue = hit target, orange = missed
+  const color = (field, value) => {
+    if (value == null) return '#94a3b8'
+    const hit = field === 'protein' ? value >= NUTRITION_TARGETS[field] : value <= NUTRITION_TARGETS[field]
+    return hit ? '#3b82f6' : '#f97316'
+  }
+
+  const COLS = [
+    { key: 'calories', label: 'Cal',   unit: ''  },
+    { key: 'fat',      label: 'Fat',   unit: 'g' },
+    { key: 'carbs',    label: 'Carbs', unit: 'g' },
+    { key: 'protein',  label: 'Prot',  unit: 'g' },
+  ]
+  const TH = { padding: '0.45rem 0.6rem', textAlign: 'right', fontSize: '0.68rem', color: '#475569', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }
+  const TD = { padding: '0.45rem 0.6rem', textAlign: 'right', fontSize: '0.8rem',  fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }
+
+  if (!rows.length) {
+    return <div style={{ color: '#475569', fontSize: '0.85rem' }}>No food log data yet.</div>
   }
 
   return (
-    <div style={{ height: chartHeight }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-          <CartesianGrid {...GRID} vertical={false} />
-          <XAxis dataKey="label" tick={makeMonthTick(data)} axisLine={false} tickLine={false} interval={0} />
-          <YAxis yAxisId="left"  domain={calDomain}  tick={ATICK} axisLine={false} tickLine={false} width={44} />
-          <YAxis yAxisId="right" orientation="right" domain={protDomain} tick={ATICK} axisLine={false} tickLine={false} width={36} />
-          <Tooltip content={tooltip} />
-          {monthBoundaryLabels(data).map(lbl => <ReferenceLine key={lbl} x={lbl} yAxisId="left" stroke="#334155" strokeWidth={1} />)}
-          <Line yAxisId="left"  type="monotone" dataKey="calories" stroke={NUTRITION_COLORS.calories} strokeWidth={2} dot={false} connectNulls />
-          <Line yAxisId="right" type="monotone" dataKey="protein"  stroke={NUTRITION_COLORS.protein}  strokeWidth={2} dot={false} connectNulls />
-        </ComposedChart>
-      </ResponsiveContainer>
+    <div style={{ overflowY: 'auto', maxHeight: 'calc(50vh - 164px)', marginRight: '-0.75rem', paddingRight: '0.5rem' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead style={{ position: 'sticky', top: 0, background: 'var(--c-dark-card)', zIndex: 1 }}>
+          <tr>
+            <th style={{ ...TH, textAlign: 'left' }}>
+              {granularity === 'daily' ? 'Day' : granularity === 'weekly' ? 'Week of' : 'Month'}
+            </th>
+            {COLS.map(c => <th key={c.key} style={TH}>{c.label}</th>)}
+          </tr>
+          <tr>
+            <td colSpan={5} style={{ borderBottom: '1px solid #1e293b', padding: 0 }} />
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(row => (
+            <tr key={row.key} style={{ borderBottom: '1px solid #1e293b' }}>
+              <td style={{ ...TD, textAlign: 'left', color: '#64748b' }}>{row.label}</td>
+              {COLS.map(c => (
+                <td key={c.key} style={{ ...TD, color: color(c.key, row[c.key]), fontWeight: 600 }}>
+                  {row[c.key] != null ? `${row[c.key]}${c.unit}` : '—'}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
@@ -495,14 +568,11 @@ export default function HealthDashboard() {
   const bodyData                     = useMemo(() => processBodyStats(raw?.bodyStats, granularity), [raw, granularity])
   const { data: workoutData, types } = useMemo(() => processWorkouts(raw?.workouts, granularity), [raw, granularity])
   const sleepData                    = useMemo(() => processSleep(raw?.sleep, granularity), [raw, granularity])
-  const nutritionData                = useMemo(() => processNutrition(raw?.foodLog, granularity), [raw, granularity])
 
-  const [alignedBody, alignedWorkout, alignedSleep, alignedNutrition] = useMemo(() => {
+  const [alignedBody, alignedWorkout, alignedSleep] = useMemo(() => {
     if (!bodyData.length || !workoutData.length || !sleepData.length)
-      return [bodyData, workoutData, sleepData, nutritionData]
+      return [bodyData, workoutData, sleepData]
 
-    // Period range is defined by the 3 long-history datasets only — nutrition starts
-    // recently so it gets nulls for all earlier periods rather than shrinking the x axis
     const allPeriods = [...bodyData, ...workoutData, ...sleepData].map(d => d.period)
     const globalStart = allPeriods.reduce((a, b) => a < b ? a : b)
     const globalEnd   = allPeriods.reduce((a, b) => a > b ? a : b)
@@ -511,12 +581,11 @@ export default function HealthDashboard() {
     while (cur <= globalEnd) { periodKeys.push(cur); cur = nextPeriod(cur, granularity) }
 
     return [
-      fillPeriods(bodyData,      periodKeys, granularity),
-      fillPeriods(workoutData,   periodKeys, granularity),
-      fillPeriods(sleepData,     periodKeys, granularity),
-      fillPeriods(nutritionData, periodKeys, granularity),
+      fillPeriods(bodyData,    periodKeys, granularity),
+      fillPeriods(workoutData, periodKeys, granularity),
+      fillPeriods(sleepData,   periodKeys, granularity),
     ]
-  }, [bodyData, workoutData, sleepData, nutritionData, granularity])
+  }, [bodyData, workoutData, sleepData, granularity])
 
   // Chart heights calibrated to fill each grid cell without scrolling.
   // Body Comp has no legend; Workout + Sleep have a legend row below the chart.
@@ -534,7 +603,7 @@ export default function HealthDashboard() {
         flexShrink: 0,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
-        <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Health</div>
+        <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Health Dashboard</div>
         <GranularityToggle value={granularity} onChange={setGranularity} />
       </div>
 
@@ -598,13 +667,9 @@ export default function HealthDashboard() {
               />
             </DashCard>
 
-            {/* Bottom-right: Nutrition */}
+            {/* Bottom-right: Nutrition log */}
             <DashCard title="Nutrition">
-              <NutritionChart
-                data={alignedNutrition}
-                granularity={granularity}
-                chartHeight={CHART_H}
-              />
+              <NutritionTable foodLog={raw?.foodLog} granularity={granularity} />
             </DashCard>
           </>
         )}

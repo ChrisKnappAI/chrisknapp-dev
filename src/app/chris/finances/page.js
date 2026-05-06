@@ -310,10 +310,6 @@ export default function FinancesDashboard() {
 
   const latest = snapshots[snapshots.length - 1]
 
-  const subtitle = latest
-    ? `As of ${fmtDate(latest.period_date)} · Net Worth ${fmtDollarFull(latest.total_net_worth)}`
-    : null
-
   const tickInterval = snapshots.length > 0 ? Math.floor(snapshots.length / 10) : 1
 
   if (loading) {
@@ -325,7 +321,7 @@ export default function FinancesDashboard() {
   }
 
   return (
-    <ChrisDashboard title="Financial Dashboard" subtitle={subtitle}>
+    <ChrisDashboard title="Financial Dashboard">
 
       {/* ── Historic chart ── */}
       <DashCard title="Historic Net Worth Development" style={{ overflow: 'visible' }}>

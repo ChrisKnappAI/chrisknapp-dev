@@ -6,7 +6,7 @@ export async function GET() {
     supabase.from('health_body_stats').select('*').order('date'),
     supabase.from('health_workouts').select('date, type, duration_min').order('date'),
     supabase.from('health_sleep_daily').select('*').order('date'),
-    supabase.from('food_log').select('log_date, calories, protein').eq('user_name', 'chris').order('log_date'),
+    supabase.from('food_log').select('log_date, calories, fat, carbs, protein').eq('user_name', 'chris').order('log_date'),
   ])
 
   if (bodyRes.error || workoutsRes.error || sleepRes.error || foodRes.error) {
