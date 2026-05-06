@@ -328,7 +328,7 @@ export default function FinancesDashboard() {
     <ChrisDashboard title="Financial Dashboard" subtitle={subtitle}>
 
       {/* ── Historic chart ── */}
-      <DashCard title="Historic Net Worth Development">
+      <DashCard title="Historic Net Worth Development" style={{ overflow: 'visible' }}>
         <div style={{ height: 'calc(50vh - 220px)' }}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={snapshots} margin={{ top: 10, right: 24, left: 10, bottom: 0 }}>
