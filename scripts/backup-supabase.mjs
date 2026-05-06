@@ -20,6 +20,8 @@ const TABLES = [
   'health_sleep_daily',
   'health_workouts',
   'health_activity_daily',
+  'goal_tracker_chris',
+  'goal_tracker_natalie',
 ]
 
 const BACKUP_ROOT = 'C:/Users/CK092/chrisknapp-dev-data-to-import/backups'

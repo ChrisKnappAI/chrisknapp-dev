@@ -1,5 +1,5 @@
-import GoalsLog from '@/components/GoalsLog'
+import ChrisGoalsLog from '@/components/ChrisGoalsLog'
 
 export default function ChrisGoalTrackerPage() {
-  return <GoalsLog user="chris" theme="dark" label="Goals Log" />
+  return <ChrisGoalsLog />
 }
