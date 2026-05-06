@@ -165,13 +165,13 @@ export default function ChrisGoalsLog() {
 
       {/* Header */}
       <div style={{
-        padding: '0.9rem 1.75rem',
+        padding: '1.25rem 2rem',
         borderBottom: `1px solid ${c.border}`,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         background: c.bg, flexShrink: 0,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span style={{ fontSize: '1.15rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Goals Log</span>
+          <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Goals Log</span>
           <span style={{ fontSize: '0.72rem', fontWeight: 600, color: doneCount === TOTAL_ITEMS ? '#22C55E' : c.muted }}>
             {doneCount} / {TOTAL_ITEMS}
           </span>
