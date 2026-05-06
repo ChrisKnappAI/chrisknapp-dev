@@ -44,6 +44,8 @@ const WORKOUT_TOTAL_CLR = '#bfdbfe'
 // Update these to match your current nutrition targets
 const NUTRITION_TARGETS = { calories: 2100, fat: 70, carbs: 210, protein: 160 }
 
+const TODAY = new Date().toISOString().slice(0, 10)
+
 // ── Date helpers ───────────────────────────────────────────────
 
 function getWeekStart(dateStr) {
@@ -72,6 +74,12 @@ function nextPeriod(period, granularity) {
   const d = new Date(period + 'T12:00:00')
   d.setDate(d.getDate() + (granularity === 'weekly' ? 7 : 1))
   return d.toISOString().slice(0, 10)
+}
+
+function periodContaining(dateStr, granularity) {
+  if (granularity === 'daily')   return dateStr
+  if (granularity === 'weekly')  return getWeekStart(dateStr)
+  return dateStr.slice(0, 7)
 }
 
 function fillPeriods(data, periodKeys, granularity) {
@@ -426,6 +434,25 @@ function ChartLegend({ items }) {
   )
 }
 
+function DateRangeFilter({ value, onChange }) {
+  const INPUT = {
+    background: '#0f172a', border: '1px solid #334155', borderRadius: 6,
+    color: '#94a3b8', fontSize: '0.75rem', padding: '0.35rem 0.45rem',
+    cursor: 'pointer', outline: 'none', colorScheme: 'dark',
+  }
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+      <input type="date" value={value.start}
+        onChange={e => onChange(v => ({ ...v, start: e.target.value }))}
+        style={INPUT} />
+      <span style={{ color: '#475569', fontSize: '0.75rem' }}>–</span>
+      <input type="date" value={value.end}
+        onChange={e => onChange(v => ({ ...v, end: e.target.value }))}
+        style={INPUT} />
+    </div>
+  )
+}
+
 function GranularityToggle({ value, onChange }) {
   return (
     <div style={{ display: 'flex', gap: '0.2rem', background: '#0f172a', borderRadius: 8, padding: '0.2rem' }}>
@@ -547,19 +574,21 @@ function NutritionTable({ foodLog, granularity }) {
     { key: 'carbs',    label: 'Carbs', unit: 'g' },
     { key: 'protein',  label: 'Prot',  unit: 'g' },
   ]
-  const TH = { padding: '0.45rem 0.6rem', textAlign: 'right', fontSize: '0.68rem', color: '#475569', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }
-  const TD = { padding: '0.45rem 0.6rem', textAlign: 'right', fontSize: '0.8rem',  fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }
+  const TH_BASE = { fontSize: '0.68rem', color: '#475569', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }
+  const TH      = { ...TH_BASE, padding: '0.45rem 0.4rem', textAlign: 'right', width: '1%' }
+  const TD_BASE = { fontSize: '0.8rem', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }
+  const TD      = { ...TD_BASE, padding: '0.4rem 0.4rem', textAlign: 'right', width: '1%' }
 
   if (!rows.length) {
     return <div style={{ color: '#475569', fontSize: '0.85rem' }}>No food log data yet.</div>
   }
 
   return (
-    <div style={{ overflowY: 'auto', maxHeight: 'calc(50vh - 164px)', marginRight: '-0.75rem', paddingRight: '0.5rem' }}>
+    <div style={{ overflowY: 'auto', maxHeight: 'calc(50vh - 164px)', marginRight: '-0.75rem', paddingRight: '1.25rem' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead style={{ position: 'sticky', top: 0, background: 'var(--c-dark-card)', zIndex: 1 }}>
           <tr>
-            <th style={{ ...TH, textAlign: 'left' }}>
+            <th style={{ ...TH_BASE, padding: '0.45rem 0.4rem', textAlign: 'left' }}>
               {granularity === 'daily' ? 'Day' : granularity === 'weekly' ? 'Week of' : 'Month'}
             </th>
             {COLS.map(c => <th key={c.key} style={TH}>{c.label}</th>)}
@@ -571,7 +600,7 @@ function NutritionTable({ foodLog, granularity }) {
         <tbody>
           {rows.map(row => (
             <tr key={row.key} style={{ borderBottom: '1px solid #1e293b' }}>
-              <td style={{ ...TD, textAlign: 'left', color: '#64748b' }}>{row.label}</td>
+              <td style={{ ...TD_BASE, padding: '0.4rem 0.4rem', textAlign: 'left', color: '#64748b' }}>{row.label}</td>
               {COLS.map(c => (
                 <td key={c.key} style={{ ...TD, color: color(c.key, row[c.key]), fontWeight: 600 }}>
                   {row[c.key] != null ? `${row[c.key]}${c.unit}` : '—'}
@@ -592,6 +621,7 @@ export default function HealthDashboard() {
   const [granularity, setGranularity]   = useState('weekly')
   const [showLeanMass, setShowLeanMass] = useState(false)
   const [showBMI, setShowBMI]           = useState(false)
+  const [dateRange, setDateRange]       = useState({ start: '2026-01-01', end: TODAY })
 
   useEffect(() => {
     fetch('/api/health').then(r => r.json()).then(setRaw)
@@ -609,17 +639,23 @@ export default function HealthDashboard() {
     const allPeriods = [...bodyData, ...workoutData, ...sleepData].map(d => d.period)
     const globalStart = allPeriods.reduce((a, b) => a < b ? a : b)
     const globalEnd   = allPeriods.reduce((a, b) => a > b ? a : b)
-    const periodKeys  = []
+    const allKeys = []
     let cur = globalStart
-    while (cur <= globalEnd) { periodKeys.push(cur); cur = nextPeriod(cur, granularity) }
+    while (cur <= globalEnd) { allKeys.push(cur); cur = nextPeriod(cur, granularity) }
+
+    // Snap selected dates to their containing period, then filter
+    const rangeStart   = periodContaining(dateRange.start, granularity)
+    const rangeEnd     = periodContaining(dateRange.end, granularity)
+    const periodKeys   = allKeys.filter(k => k >= rangeStart && k <= rangeEnd)
+    const keys         = periodKeys.length ? periodKeys : allKeys
 
     return [
-      fillPeriods(bodyData,    periodKeys, granularity),
-      fillPeriods(workoutData, periodKeys, granularity),
-      fillPeriods(sleepData,   periodKeys, granularity),
-      fillPeriods(stepsData,   periodKeys, granularity),
+      fillPeriods(bodyData,    keys, granularity),
+      fillPeriods(workoutData, keys, granularity),
+      fillPeriods(sleepData,   keys, granularity),
+      fillPeriods(stepsData,   keys, granularity),
     ]
-  }, [bodyData, workoutData, sleepData, stepsData, granularity])
+  }, [bodyData, workoutData, sleepData, stepsData, granularity, dateRange])
 
   // Chart heights calibrated to fill each grid cell without scrolling.
   // Body Comp has no legend; Workout + Sleep have a legend row below the chart.
@@ -638,7 +674,10 @@ export default function HealthDashboard() {
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
         <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Health Dashboard</div>
-        <GranularityToggle value={granularity} onChange={setGranularity} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <DateRangeFilter value={dateRange} onChange={setDateRange} />
+          <GranularityToggle value={granularity} onChange={setGranularity} />
+        </div>
       </div>
 
       {/* ── 2×2 grid ── */}
@@ -704,7 +743,10 @@ export default function HealthDashboard() {
 
             {/* Bottom-right: Nutrition log */}
             <DashCard title="Nutrition">
-              <NutritionTable foodLog={raw?.foodLog} granularity={granularity} />
+              <NutritionTable
+                foodLog={raw?.foodLog?.filter(r => r.log_date >= dateRange.start && r.log_date <= dateRange.end)}
+                granularity={granularity}
+              />
             </DashCard>
           </>
         )}
