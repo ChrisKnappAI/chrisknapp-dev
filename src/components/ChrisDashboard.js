@@ -1,20 +1,18 @@
 'use client'
 
-export default function ChrisDashboard({ title, subtitle, children }) {
+export default function ChrisDashboard({ title, children }) {
   return (
     <div style={{ color: '#F1F5F9', minHeight: '100vh' }}>
 
       {/* ── Page header ── */}
       <div style={{
-        padding: '1.75rem 2.5rem 1.5rem',
+        padding: '1.25rem 2rem',
         borderBottom: '1px solid var(--c-dark-border)',
         background: 'var(--c-dark)',
         position: 'sticky', top: 0, zIndex: 10,
+        display: 'flex', alignItems: 'center',
       }}>
         <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>{title}</div>
-        {subtitle && (
-          <div style={{ fontSize: '0.8rem', color: '#475569', marginTop: '0.2rem', fontWeight: 500 }}>{subtitle}</div>
-        )}
       </div>
 
       {/* ── Content ── */}

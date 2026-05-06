@@ -38,7 +38,7 @@ const WORKOUT_LABELS = {
 const SLEEP_COLORS = { deep: '#1d4ed8', rem: '#3b82f6', core: '#60a5fa' }
 
 // Update these to match your current nutrition targets
-const NUTRITION_TARGETS = { calories: 1800, fat: 60, carbs: 100, protein: 160 }
+const NUTRITION_TARGETS = { calories: 2100, fat: 70, carbs: 210, protein: 160 }
 
 // ── Date helpers ───────────────────────────────────────────────
 
