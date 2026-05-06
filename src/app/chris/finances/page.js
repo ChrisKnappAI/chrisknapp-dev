@@ -362,7 +362,7 @@ export default function FinancesDashboard() {
               tickLine={false}
               width={70}
             />
-            <Tooltip content={<NetWorthTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} />
+            <Tooltip content={<NetWorthTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} allowEscapeViewBox={{ x: false, y: true }} />
             <Legend
               layout="vertical" align="right" verticalAlign="middle"
               formatter={name => <span style={{ color: '#94A3B8', fontSize: '0.78rem' }}>{name}</span>}
