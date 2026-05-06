@@ -56,7 +56,6 @@ function formatLabel(key, granularity) {
   return `${MONTHS[d.getMonth()]} ${d.getDate()}`
 }
 
-// Advance one period forward
 function nextPeriod(period, granularity) {
   if (granularity === 'monthly') {
     const [y, m] = period.split('-').map(Number)
@@ -68,7 +67,6 @@ function nextPeriod(period, granularity) {
   return d.toISOString().slice(0, 10)
 }
 
-// Fill a dataset to cover every period in periodKeys, inserting null rows for any gaps
 function fillPeriods(data, periodKeys, granularity) {
   if (!data.length) return periodKeys.map(p => ({ period: p, label: formatLabel(p, granularity) }))
   const map = Object.fromEntries(data.map(d => [d.period, d]))
@@ -78,7 +76,6 @@ function fillPeriods(data, periodKeys, granularity) {
   return periodKeys.map(p => map[p] || { period: p, label: formatLabel(p, granularity), ...nullFields })
 }
 
-// Returns labels where a new month begins (for vertical dividers)
 function monthBoundaryLabels(data) {
   const seen = new Set()
   const labels = []
@@ -198,7 +195,6 @@ function fmtMins(v) {
   return h > 0 ? `${h}h ${m}m` : `${m}m`
 }
 
-// Custom x-axis tick: show month label only at the first data point of each month
 function makeMonthTick(data) {
   const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   return function MonthTick({ x, y, payload }) {
@@ -235,7 +231,7 @@ function MonthLines({ data }) {
 
 // ── Body chart ─────────────────────────────────────────────────
 
-function BodyChart({ data, showLeanMass, showBMI, granularity }) {
+function BodyChart({ data, showLeanMass, showBMI, granularity, chartHeight }) {
   const leftKeys  = ['weight', ...(showLeanMass ? ['leanMass'] : [])]
   const rightKeys = ['bodyFat', ...(showBMI ? ['bmi'] : [])]
   const leftDomain  = dataDomain(data, leftKeys)
@@ -263,29 +259,30 @@ function BodyChart({ data, showLeanMass, showBMI, granularity }) {
   }
 
   return (
-    <ResponsiveContainer width="100%" height={280}>
-      <ComposedChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-        <CartesianGrid {...GRID} vertical={false} />
-        <XAxis dataKey="label" tick={makeMonthTick(data)} axisLine={false} tickLine={false} interval={0} />
-        <YAxis yAxisId="left"  domain={leftDomain}  tick={ATICK} axisLine={false} tickLine={false} width={44} />
-        <YAxis yAxisId="right" orientation="right" domain={rightDomain} tick={ATICK} axisLine={false} tickLine={false} width={36} />
-        <Tooltip content={tooltip} />
-        {monthBoundaryLabels(data).map(lbl => <ReferenceLine key={lbl} x={lbl} yAxisId="left" stroke="#334155" strokeWidth={1} />)}
-        <Line yAxisId="left"  type="monotone" dataKey="weight"   stroke={BODY_COLORS.weight}   strokeWidth={2}   dot={false} connectNulls />
-        <Line yAxisId="right" type="monotone" dataKey="bodyFat"  stroke={BODY_COLORS.bodyFat}  strokeWidth={2}   dot={false} connectNulls />
-        {showLeanMass && <Line yAxisId="left"  type="monotone" dataKey="leanMass" stroke={BODY_COLORS.leanMass} strokeWidth={1.5} strokeDasharray="4 2" dot={false} connectNulls />}
-        {showBMI      && <Line yAxisId="right" type="monotone" dataKey="bmi"      stroke={BODY_COLORS.bmi}      strokeWidth={1.5} strokeDasharray="4 2" dot={false} connectNulls />}
-      </ComposedChart>
-    </ResponsiveContainer>
+    <div style={{ height: chartHeight }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+          <CartesianGrid {...GRID} vertical={false} />
+          <XAxis dataKey="label" tick={makeMonthTick(data)} axisLine={false} tickLine={false} interval={0} />
+          <YAxis yAxisId="left"  domain={leftDomain}  tick={ATICK} axisLine={false} tickLine={false} width={44} />
+          <YAxis yAxisId="right" orientation="right" domain={rightDomain} tick={ATICK} axisLine={false} tickLine={false} width={36} />
+          <Tooltip content={tooltip} />
+          {monthBoundaryLabels(data).map(lbl => <ReferenceLine key={lbl} x={lbl} yAxisId="left" stroke="#334155" strokeWidth={1} />)}
+          <Line yAxisId="left"  type="monotone" dataKey="weight"   stroke={BODY_COLORS.weight}   strokeWidth={2}   dot={false} connectNulls />
+          <Line yAxisId="right" type="monotone" dataKey="bodyFat"  stroke={BODY_COLORS.bodyFat}  strokeWidth={2}   dot={false} connectNulls />
+          {showLeanMass && <Line yAxisId="left"  type="monotone" dataKey="leanMass" stroke={BODY_COLORS.leanMass} strokeWidth={1.5} strokeDasharray="4 2" dot={false} connectNulls />}
+          {showBMI      && <Line yAxisId="right" type="monotone" dataKey="bmi"      stroke={BODY_COLORS.bmi}      strokeWidth={1.5} strokeDasharray="4 2" dot={false} connectNulls />}
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
   )
 }
 
 // ── Workout chart ──────────────────────────────────────────────
 
-function WorkoutChart({ data, types, granularity }) {
+function WorkoutChart({ data, types, granularity, chartHeight }) {
   const dataWithTotal = data.map(row => ({
     ...row,
-    // null if this is a padded row (no real workout data yet) so the line doesn't appear at 0
     workoutTotal: types.every(t => row[t] == null) ? null : types.reduce((s, t) => s + (row[t] || 0), 0),
   }))
 
@@ -307,20 +304,22 @@ function WorkoutChart({ data, types, granularity }) {
 
   return (
     <>
-      <ResponsiveContainer width="100%" height={260}>
-        <ComposedChart data={dataWithTotal} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-          <CartesianGrid {...GRID} vertical={false} />
-          <XAxis dataKey="label" tick={makeMonthTick(dataWithTotal)} axisLine={false} tickLine={false} interval={0} />
-          <YAxis tick={ATICK} axisLine={false} tickLine={false} width={44} tickFormatter={v => `${Math.round(v)}m`} />
-          <YAxis yAxisId="phantom" orientation="right" width={36} tick={false} axisLine={false} tickLine={false} />
-          <Tooltip content={tooltip} cursor={{ fill: '#ffffff08' }} />
-          <MonthLines data={dataWithTotal} />
-          {types.map((t, i) => (
-            <Bar key={t} dataKey={t} stackId="w" fill={WORKOUT_COLORS[t] || FALLBACK_COLORS[i % FALLBACK_COLORS.length]} />
-          ))}
-          <Line type="monotone" dataKey="workoutTotal" stroke="#e2e8f0" strokeWidth={2} dot={false} />
-        </ComposedChart>
-      </ResponsiveContainer>
+      <div style={{ height: chartHeight }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={dataWithTotal} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+            <CartesianGrid {...GRID} vertical={false} />
+            <XAxis dataKey="label" tick={makeMonthTick(dataWithTotal)} axisLine={false} tickLine={false} interval={0} />
+            <YAxis tick={ATICK} axisLine={false} tickLine={false} width={44} tickFormatter={v => `${Math.round(v)}m`} />
+            <YAxis yAxisId="phantom" orientation="right" width={36} tick={false} axisLine={false} tickLine={false} />
+            <Tooltip content={tooltip} cursor={{ fill: '#ffffff08' }} />
+            <MonthLines data={dataWithTotal} />
+            {types.map((t, i) => (
+              <Bar key={t} dataKey={t} stackId="w" fill={WORKOUT_COLORS[t] || FALLBACK_COLORS[i % FALLBACK_COLORS.length]} />
+            ))}
+            <Line type="monotone" dataKey="workoutTotal" stroke="#e2e8f0" strokeWidth={2} dot={false} />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
       <ChartLegend items={[
         ...types.map((t, i) => ({ label: WORKOUT_LABELS[t] || t, color: WORKOUT_COLORS[t] || FALLBACK_COLORS[i % FALLBACK_COLORS.length] })),
         { label: 'Total', color: '#e2e8f0', line: true },
@@ -331,7 +330,7 @@ function WorkoutChart({ data, types, granularity }) {
 
 // ── Sleep chart ────────────────────────────────────────────────
 
-function SleepChart({ data, granularity }) {
+function SleepChart({ data, granularity, chartHeight }) {
   const tooltip = ({ active, payload, label }) => {
     if (!active || !payload?.length) return null
     const totalEntry = payload.find(p => p.dataKey === 'total')
@@ -350,20 +349,22 @@ function SleepChart({ data, granularity }) {
 
   return (
     <>
-      <ResponsiveContainer width="100%" height={260}>
-        <ComposedChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-          <CartesianGrid {...GRID} vertical={false} />
-          <XAxis dataKey="label" tick={makeMonthTick(data)} axisLine={false} tickLine={false} interval={0} />
-          <YAxis tick={ATICK} axisLine={false} tickLine={false} width={44} tickFormatter={fmtMins} />
-          <YAxis yAxisId="phantom" orientation="right" width={36} tick={false} axisLine={false} tickLine={false} />
-          <Tooltip content={tooltip} cursor={{ fill: '#ffffff08' }} />
-          <MonthLines data={data} />
-          <Bar dataKey="deep" stackId="s" fill={SLEEP_COLORS.deep} />
-          <Bar dataKey="rem"  stackId="s" fill={SLEEP_COLORS.rem}  />
-          <Bar dataKey="core" stackId="s" fill={SLEEP_COLORS.core} />
-          <Line type="monotone" dataKey="total" stroke="#e2e8f0" strokeWidth={2} dot={false} connectNulls />
-        </ComposedChart>
-      </ResponsiveContainer>
+      <div style={{ height: chartHeight }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+            <CartesianGrid {...GRID} vertical={false} />
+            <XAxis dataKey="label" tick={makeMonthTick(data)} axisLine={false} tickLine={false} interval={0} />
+            <YAxis tick={ATICK} axisLine={false} tickLine={false} width={44} tickFormatter={fmtMins} />
+            <YAxis yAxisId="phantom" orientation="right" width={36} tick={false} axisLine={false} tickLine={false} />
+            <Tooltip content={tooltip} cursor={{ fill: '#ffffff08' }} />
+            <MonthLines data={data} />
+            <Bar dataKey="deep" stackId="s" fill={SLEEP_COLORS.deep} />
+            <Bar dataKey="rem"  stackId="s" fill={SLEEP_COLORS.rem}  />
+            <Bar dataKey="core" stackId="s" fill={SLEEP_COLORS.core} />
+            <Line type="monotone" dataKey="total" stroke="#e2e8f0" strokeWidth={2} dot={false} connectNulls />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
       <ChartLegend items={[
         { label: 'Deep',  color: SLEEP_COLORS.deep },
         { label: 'REM',   color: SLEEP_COLORS.rem  },
@@ -378,7 +379,7 @@ function SleepChart({ data, granularity }) {
 
 function ChartLegend({ items }) {
   return (
-    <div style={{ display: 'flex', gap: '1.25rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: '1.25rem', marginTop: '0.6rem', flexWrap: 'wrap' }}>
       {items.map(item => (
         <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <div style={{ width: item.line ? 14 : 10, height: item.line ? 2 : 10, borderRadius: item.line ? 0 : 2, background: item.color }} />
@@ -421,11 +422,94 @@ function MetricChip({ label, active, color, onClick }) {
   )
 }
 
+// ── Stats panel (4th grid cell) ────────────────────────────────
+
+function StatsPanel({ raw }) {
+  const latest = useMemo(() => {
+    if (!raw?.bodyStats?.length) return null
+    return [...raw.bodyStats].sort((a, b) => b.date.localeCompare(a.date))[0]
+  }, [raw])
+
+  const avgSleep = useMemo(() => {
+    if (!raw?.sleep?.length) return null
+    const sorted = [...raw.sleep].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 7)
+    const total = sorted.reduce((s, r) => s + (r.total_sleep_min || 0), 0)
+    return sorted.length ? total / sorted.length : null
+  }, [raw])
+
+  const workoutDays = useMemo(() => {
+    if (!raw?.workouts?.length) return null
+    const cutoff = new Date()
+    cutoff.setDate(cutoff.getDate() - 30)
+    const recent = raw.workouts.filter(w => new Date(w.date + 'T12:00:00') >= cutoff)
+    return new Set(recent.map(w => w.date)).size
+  }, [raw])
+
+  const asOf = latest?.date
+    ? new Date(latest.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    : null
+
+  const stats = [
+    {
+      label: 'Weight',
+      value: latest?.weight_lbs != null ? `${latest.weight_lbs} lbs` : '—',
+      color: BODY_COLORS.weight,
+      sub: asOf,
+    },
+    {
+      label: 'Body Fat',
+      value: latest?.body_fat_pct != null ? `${latest.body_fat_pct}%` : '—',
+      color: BODY_COLORS.bodyFat,
+      sub: asOf,
+    },
+    {
+      label: '7-Day Sleep Avg',
+      value: avgSleep != null ? fmtMins(avgSleep) : '—',
+      color: SLEEP_COLORS.rem,
+      sub: null,
+    },
+    {
+      label: 'Workout Days (30d)',
+      value: workoutDays != null ? `${workoutDays} days` : '—',
+      color: WORKOUT_COLORS.TraditionalStrengthTraining,
+      sub: null,
+    },
+  ]
+
+  return (
+    <DashCard title="Current Stats">
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem 1rem' }}>
+        {stats.map(s => (
+          <div key={s.label}>
+            <div style={{
+              fontSize: '0.68rem', color: '#475569', textTransform: 'uppercase',
+              letterSpacing: '0.07em', fontWeight: 600, marginBottom: '0.35rem',
+            }}>
+              {s.label}
+            </div>
+            <div style={{
+              fontSize: '1.5rem', fontWeight: 700, color: s.color,
+              fontVariantNumeric: 'tabular-nums', lineHeight: 1.1,
+            }}>
+              {s.value}
+            </div>
+            {s.sub && (
+              <div style={{ fontSize: '0.68rem', color: '#334155', marginTop: '0.2rem' }}>
+                as of {s.sub}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </DashCard>
+  )
+}
+
 // ── Main component ─────────────────────────────────────────────
 
 export default function HealthDashboard() {
-  const [raw, setRaw]                 = useState(null)
-  const [granularity, setGranularity] = useState('weekly')
+  const [raw, setRaw]                   = useState(null)
+  const [granularity, setGranularity]   = useState('weekly')
   const [showLeanMass, setShowLeanMass] = useState(false)
   const [showBMI, setShowBMI]           = useState(false)
 
@@ -437,12 +521,10 @@ export default function HealthDashboard() {
   const { data: workoutData, types } = useMemo(() => processWorkouts(raw?.workouts, granularity), [raw, granularity])
   const sleepData                    = useMemo(() => processSleep(raw?.sleep, granularity), [raw, granularity])
 
-  // Align all three charts to the same start date so x-axes are in sync
   const [alignedBody, alignedWorkout, alignedSleep] = useMemo(() => {
     if (!bodyData.length || !workoutData.length || !sleepData.length)
       return [bodyData, workoutData, sleepData]
 
-    // Build the complete set of every period across all three datasets
     const allPeriods = [...bodyData, ...workoutData, ...sleepData].map(d => d.period)
     const globalStart = allPeriods.reduce((a, b) => a < b ? a : b)
     const globalEnd   = allPeriods.reduce((a, b) => a > b ? a : b)
@@ -457,26 +539,49 @@ export default function HealthDashboard() {
     ]
   }, [bodyData, workoutData, sleepData, granularity])
 
+  // Chart heights calibrated to fill each grid cell without scrolling.
+  // Body Comp has no legend; Workout + Sleep have a legend row below the chart.
+  const CHART_H     = 'calc(50vh - 175px)'
+  const CHART_H_LEG = 'calc(50vh - 210px)'
+
   return (
-    <div style={{ color: '#F1F5F9', minHeight: '100vh' }}>
+    <div style={{ color: '#F1F5F9', height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+
+      {/* ── Sticky header ── */}
       <div style={{
-        padding: '1.75rem 2.5rem 1.5rem',
+        padding: '1.25rem 2rem',
         borderBottom: '1px solid var(--c-dark-border)',
         background: 'var(--c-dark)',
-        position: 'sticky', top: 0, zIndex: 10,
+        flexShrink: 0,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
         <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Health</div>
         <GranularityToggle value={granularity} onChange={setGranularity} />
       </div>
 
-      <div style={{ padding: '2rem 2.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      {/* ── 2×2 grid ── */}
+      <div style={{
+        flex: 1,
+        minHeight: 0,
+        padding: '1rem 1.5rem',
+        boxSizing: 'border-box',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gridTemplateRows: '1fr 1fr',
+        gap: '0.875rem',
+        overflow: 'hidden',
+      }}>
         {!raw ? (
-          <div style={{ color: '#475569', fontSize: '0.9rem', padding: '3rem 0', textAlign: 'center' }}>
+          <div style={{
+            gridColumn: '1 / -1', gridRow: '1 / -1',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#475569', fontSize: '0.9rem',
+          }}>
             Loading health data...
           </div>
         ) : (
           <>
+            {/* Top-left: Body Composition */}
             <DashCard
               title="Body Composition"
               action={
@@ -486,16 +591,36 @@ export default function HealthDashboard() {
                 </div>
               }
             >
-              <BodyChart data={alignedBody} showLeanMass={showLeanMass} showBMI={showBMI} granularity={granularity} />
+              <BodyChart
+                data={alignedBody}
+                showLeanMass={showLeanMass}
+                showBMI={showBMI}
+                granularity={granularity}
+                chartHeight={CHART_H}
+              />
             </DashCard>
 
+            {/* Top-right: Workouts */}
             <DashCard title="Workouts">
-              <WorkoutChart data={alignedWorkout} types={types} granularity={granularity} />
+              <WorkoutChart
+                data={alignedWorkout}
+                types={types}
+                granularity={granularity}
+                chartHeight={CHART_H_LEG}
+              />
             </DashCard>
 
+            {/* Bottom-left: Sleep */}
             <DashCard title="Sleep">
-              <SleepChart data={alignedSleep} granularity={granularity} />
+              <SleepChart
+                data={alignedSleep}
+                granularity={granularity}
+                chartHeight={CHART_H_LEG}
+              />
             </DashCard>
+
+            {/* Bottom-right: Current Stats */}
+            <StatsPanel raw={raw} />
           </>
         )}
       </div>
