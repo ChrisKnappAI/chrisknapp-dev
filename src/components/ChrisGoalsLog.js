@@ -45,7 +45,8 @@ const CHECK_IDS = [
   ...MARRIAGE_CHECKS.map(i => i.id),
   ...SOCIAL.map(i => i.id),
 ]
-const TOTAL_ITEMS = CHECK_IDS.length + COUNTER_ITEMS.length + 1 // +1 for drinks
+const TOTAL_ITEMS   = CHECK_IDS.length + COUNTER_ITEMS.length + 1 // +1 for drinks
+const ALL_ITEM_IDS  = [...CHECK_IDS, ...COUNTER_IDS, ...SCALE_IDS, 'drinks']
 
 const c = {
   bg:        'var(--c-dark)',
@@ -94,6 +95,21 @@ export default function ChrisGoalsLog() {
     setCounters(newCounters)
     setDrinks(newDrinks)
     setDaysSince(data.daysSince || {})
+
+    if (date === getToday()) {
+      const existing = new Set([
+        ...Object.keys(data.checks || {}),
+        ...Object.keys(data.values || {}),
+      ])
+      const missing = ALL_ITEM_IDS.filter(id => !existing.has(id))
+      if (missing.length > 0) {
+        fetch('/api/care-log/seed', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ date, item_names: missing }),
+        })
+      }
+    }
   }, [date])
 
   useEffect(() => { loadDay() }, [loadDay])
