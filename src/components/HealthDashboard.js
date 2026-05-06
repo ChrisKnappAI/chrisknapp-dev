@@ -671,7 +671,7 @@ export default function HealthDashboard() {
         flexShrink: 0,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
-        <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Health Dashboard</div>
+        <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Body Dashboard</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <DateRangeFilter value={dateRange} onChange={setDateRange} />
           <GranularityToggle value={granularity} onChange={setGranularity} />
