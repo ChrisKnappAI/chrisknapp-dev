@@ -12,7 +12,7 @@ const navItems = [
 const toolItems = [
   { label: 'Food Log', href: '/chris/food', icon: '○' },
   { label: 'Gym Log', href: '/chris/gym', icon: '⊕' },
-  { label: 'Goals Log', href: '/chris/goal-tracker', icon: '✓' },
+  { label: 'Care Log', href: '/chris/care-log', icon: '✓' },
 ]
 
 export default function ChrisSidebar() {

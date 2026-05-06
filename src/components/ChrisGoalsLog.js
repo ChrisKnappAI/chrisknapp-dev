@@ -29,7 +29,7 @@ const MARRIAGE_CHECKS = [
   { id: 'thoughtful',    label: 'Did something thoughtful'    },
 ]
 
-const FAMILY = [
+const SOCIAL = [
   { id: 'spoke-dad', label: 'Dad'    },
   { id: 'spoke-mom', label: 'Mom'    },
   { id: 'friend',    label: 'Friend' },
@@ -43,9 +43,9 @@ const COUNTER_IDS        = new Set(COUNTER_ITEMS.map(i => i.id))
 const CHECK_IDS = [
   ...BODY_CARE.filter(i => i.type === 'check').map(i => i.id),
   ...MARRIAGE_CHECKS.map(i => i.id),
-  ...FAMILY.map(i => i.id),
+  ...SOCIAL.map(i => i.id),
 ]
-const TOTAL_ITEMS = CHECK_IDS.length + COUNTER_ITEMS.length
+const TOTAL_ITEMS = CHECK_IDS.length + COUNTER_ITEMS.length + 1 // +1 for drinks
 
 const c = {
   bg:        'var(--c-dark)',
@@ -74,7 +74,7 @@ export default function ChrisGoalsLog() {
   const [daysSince, setDaysSince] = useState({})
 
   const loadDay = useCallback(async () => {
-    const res  = await fetch(`/api/goals/log?user=chris&date=${date}`)
+    const res  = await fetch(`/api/care-log?user=chris&date=${date}`)
     const data = await res.json()
     if (data.error) return
 
@@ -84,9 +84,9 @@ export default function ChrisGoalsLog() {
     let   newDrinks   = null
 
     for (const [id, val] of Object.entries(data.values || {})) {
-      if (id === 'drinks')       { newDrinks = val;      continue }
-      if (SCALE_IDS.has(id))    { newScales[id]   = val; continue }
-      if (COUNTER_IDS.has(id))  { newCounters[id] = val }
+      if (id === 'drinks')      { newDrinks = val;      continue }
+      if (SCALE_IDS.has(id))   { newScales[id]   = val; continue }
+      if (COUNTER_IDS.has(id)) { newCounters[id] = val }
     }
 
     setChecks(newChecks)
@@ -98,11 +98,11 @@ export default function ChrisGoalsLog() {
 
   useEffect(() => { loadDay() }, [loadDay])
 
-  async function saveGoal(goal_name, checked, value = undefined) {
-    await fetch('/api/goals/log', {
+  async function saveItem(item_name, checked, value = undefined) {
+    await fetch('/api/care-log', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user: 'chris', date, goal_name, checked, value }),
+      body: JSON.stringify({ user: 'chris', date, item_name, checked, value }),
     })
   }
 
@@ -126,34 +126,36 @@ export default function ChrisGoalsLog() {
   function toggleCheck(id) {
     const next = !checks[id]
     setChecks(p => ({ ...p, [id]: next }))
-    saveGoal(id, next)
+    saveItem(id, next)
   }
 
   function pickScale(id, val) {
     const next = scales[id] === val ? null : val
     setScales(p => ({ ...p, [id]: next }))
-    saveGoal(id, next !== null, next ?? undefined)
+    saveItem(id, next !== null, next ?? undefined)
   }
 
   function incrementCounter(id, max) {
     const next = ((counters[id] || 0) + 1) % (max + 1)
     setCounters(p => ({ ...p, [id]: next }))
-    saveGoal(id, next >= max, next)
+    saveItem(id, next >= max, next)
   }
 
   function pickDrinks(n) {
     const next = drinks === n ? null : n
     setDrinks(next)
-    saveGoal('drinks', next !== null, next ?? undefined)
+    saveItem('drinks', next !== null, next ?? undefined)
   }
 
   const doneCount =
     CHECK_IDS.filter(id => checks[id]).length +
-    COUNTER_ITEMS.filter(i => (counters[i.id] || 0) >= i.max).length
+    COUNTER_ITEMS.filter(i => (counters[i.id] || 0) >= i.max).length +
+    (drinks !== null ? 1 : 0)
 
-  const bodyCareDone = BODY_CARE.filter(i =>
-    i.type === 'check' ? !!checks[i.id] : (counters[i.id] || 0) >= i.max
-  ).length
+  const bodyCareDone =
+    BODY_CARE.filter(i => i.type === 'check' ? !!checks[i.id] : (counters[i.id] || 0) >= i.max).length +
+    (drinks !== null ? 1 : 0)
+  const bodyCareTotalItems = BODY_CARE.length + 1 // +1 for drinks
 
   return (
     <div style={{ color: c.text, height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -166,7 +168,7 @@ export default function ChrisGoalsLog() {
         background: c.bg, flexShrink: 0,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Goals Log</span>
+          <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Care Log</span>
           <span style={{ fontSize: '0.72rem', fontWeight: 600, color: doneCount === TOTAL_ITEMS ? '#22C55E' : c.muted }}>
             {doneCount} / {TOTAL_ITEMS}
           </span>
@@ -189,15 +191,15 @@ export default function ChrisGoalsLog() {
         padding: '1.1rem 1.5rem',
         display: 'grid',
         gridTemplateColumns: '1fr 1.4fr 1fr',
-        gridTemplateRows: 'auto 1fr',
         gap: '0.9rem',
         minHeight: 0,
         overflow: 'hidden',
+        alignItems: 'start',
       }}>
 
         {/* Col 1: Body Care */}
-        <div style={{ ...card, gridColumn: 1, gridRow: '1 / 3' }}>
-          <SectionHeader label="Body Care" done={bodyCareDone} total={BODY_CARE.length} />
+        <div style={card}>
+          <SectionHeader label="Body Care" done={bodyCareDone} total={bodyCareTotalItems} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
             {BODY_CARE.map(item =>
               item.type === 'counter' ? (
@@ -218,12 +220,31 @@ export default function ChrisGoalsLog() {
                 />
               )
             )}
+            <div style={{ height: 1, background: c.border, margin: '0.25rem 0' }} />
+            <div>
+              <div style={{ fontSize: '0.72rem', color: c.muted, marginBottom: '0.4rem' }}>Drinks today</div>
+              <div style={{ display: 'flex', gap: '0.3rem' }}>
+                {[0,1,2,3,4,5,6,7].map(n => (
+                  <button key={n} onClick={() => pickDrinks(n)} style={{
+                    flex: 1, height: 32, borderRadius: 7,
+                    border: `1px solid ${drinks === n ? drinkColor(n) : c.rowBorder}`,
+                    background: drinks === n ? drinkColor(n) + '22' : 'transparent',
+                    color: drinks === n ? drinkColor(n) : c.muted,
+                    fontSize: n === 7 ? '0.58rem' : '0.78rem',
+                    fontWeight: drinks === n ? 700 : 400,
+                    cursor: 'pointer', transition: 'all 0.1s',
+                  }}>
+                    {n === 7 ? '7+' : n}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Col 2: Marriage */}
-        <div style={{ ...card, gridColumn: 2, gridRow: '1 / 3' }}>
-          <SectionHeader label="Marriage — Natalie" />
+        {/* Col 2: Marriage Care */}
+        <div style={card}>
+          <SectionHeader label="Marriage Care" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginTop: '0.65rem' }}>
             {MARRIAGE_SCALES.map(item => (
               <ScaleRow
@@ -246,34 +267,11 @@ export default function ChrisGoalsLog() {
           </div>
         </div>
 
-        {/* Col 3 top: Alcohol */}
-        <div style={{ ...card, gridColumn: 3, gridRow: 1 }}>
-          <SectionHeader label="Alcohol" />
-          <div style={{ marginTop: '0.65rem' }}>
-            <div style={{ fontSize: '0.72rem', color: c.muted, marginBottom: '0.45rem' }}>Drinks today</div>
-            <div style={{ display: 'flex', gap: '0.3rem' }}>
-              {[0,1,2,3,4,5,6,7].map(n => (
-                <button key={n} onClick={() => pickDrinks(n)} style={{
-                  flex: 1, height: 34, borderRadius: 7,
-                  border: `1px solid ${drinks === n ? drinkColor(n) : c.rowBorder}`,
-                  background: drinks === n ? drinkColor(n) + '22' : 'transparent',
-                  color: drinks === n ? drinkColor(n) : c.muted,
-                  fontSize: n === 7 ? '0.6rem' : '0.8rem',
-                  fontWeight: drinks === n ? 700 : 400,
-                  cursor: 'pointer', transition: 'all 0.1s',
-                }}>
-                  {n === 7 ? '7+' : n}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Col 3 bottom: Family / Social */}
-        <div style={{ ...card, gridColumn: 3, gridRow: 2 }}>
-          <SectionHeader label="Family / Social" done={FAMILY.filter(i => checks[i.id]).length} total={FAMILY.length} />
+        {/* Col 3: Social Care */}
+        <div style={card}>
+          <SectionHeader label="Social Care" done={SOCIAL.filter(i => checks[i.id]).length} total={SOCIAL.length} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
-            {FAMILY.map(item => (
+            {SOCIAL.map(item => (
               <CheckRow
                 key={item.id}
                 label={item.label}

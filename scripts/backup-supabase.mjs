@@ -20,7 +20,7 @@ const TABLES = [
   'health_sleep_daily',
   'health_workouts',
   'health_activity_daily',
-  'goal_tracker_chris',
+  'care_log_chris',
   'goal_tracker_natalie',
 ]
 
