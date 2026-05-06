@@ -36,41 +36,57 @@ const FAMILY = [
 ]
 
 const DAYS_SINCE_TRACKED = new Set(['facial-treatment', 'spoke-dad', 'spoke-mom'])
+const COUNTER_ITEMS      = BODY_CARE.filter(i => i.type === 'counter')
+const SCALE_IDS          = new Set(MARRIAGE_SCALES.map(i => i.id))
+const COUNTER_IDS        = new Set(COUNTER_ITEMS.map(i => i.id))
 
 const CHECK_IDS = [
   ...BODY_CARE.filter(i => i.type === 'check').map(i => i.id),
   ...MARRIAGE_CHECKS.map(i => i.id),
   ...FAMILY.map(i => i.id),
 ]
-const COUNTER_ITEMS = BODY_CARE.filter(i => i.type === 'counter')
-const TOTAL_ITEMS   = CHECK_IDS.length + COUNTER_ITEMS.length
+const TOTAL_ITEMS = CHECK_IDS.length + COUNTER_ITEMS.length
+
+const c = {
+  bg:        'var(--c-dark)',
+  card:      'var(--c-dark-card)',
+  border:    'var(--c-dark-border)',
+  text:      '#F1F5F9',
+  muted:     '#64748B',
+  accent:    '#3B82F6',
+  accentDim: 'rgba(37,99,235,0.08)',
+  rowBorder: 'rgba(255,255,255,0.07)',
+}
+
+const card = {
+  background: c.card,
+  border: `1px solid ${c.border}`,
+  borderRadius: 12,
+  padding: '1rem 1.1rem',
+}
 
 export default function ChrisGoalsLog() {
-  const [date,     setDate]     = useState(getToday)
-  const [checks,   setChecks]   = useState({})
-  const [scales,   setScales]   = useState({})
-  const [counters, setCounters] = useState({})
-  const [drinks,   setDrinks]   = useState(null)
+  const [date,      setDate]      = useState(getToday)
+  const [checks,    setChecks]    = useState({})
+  const [scales,    setScales]    = useState({})
+  const [counters,  setCounters]  = useState({})
+  const [drinks,    setDrinks]    = useState(null)
   const [daysSince, setDaysSince] = useState({})
-  const [loading,  setLoading]  = useState(true)
 
   const loadDay = useCallback(async () => {
-    setLoading(true)
     const res  = await fetch(`/api/goals/log?user=chris&date=${date}`)
     const data = await res.json()
-    if (data.error) { setLoading(false); return }
+    if (data.error) return
 
     const newChecks   = { ...data.checks }
-    const newCounters = {}
     const newScales   = {}
+    const newCounters = {}
     let   newDrinks   = null
 
     for (const [id, val] of Object.entries(data.values || {})) {
-      if (id === 'drinks')  { newDrinks = val; continue }
-      const isScale   = MARRIAGE_SCALES.some(i => i.id === id)
-      const isCounter = COUNTER_ITEMS.some(i => i.id === id)
-      if (isScale)   newScales[id]   = val
-      if (isCounter) newCounters[id] = val
+      if (id === 'drinks')       { newDrinks = val;      continue }
+      if (SCALE_IDS.has(id))    { newScales[id]   = val; continue }
+      if (COUNTER_IDS.has(id))  { newCounters[id] = val }
     }
 
     setChecks(newChecks)
@@ -78,7 +94,6 @@ export default function ChrisGoalsLog() {
     setCounters(newCounters)
     setDrinks(newDrinks)
     setDaysSince(data.daysSince || {})
-    setLoading(false)
   }, [date])
 
   useEffect(() => { loadDay() }, [loadDay])
@@ -140,26 +155,6 @@ export default function ChrisGoalsLog() {
     i.type === 'check' ? !!checks[i.id] : (counters[i.id] || 0) >= i.max
   ).length
 
-  const c = {
-    bg:        'var(--c-dark)',
-    card:      'var(--c-dark-card)',
-    border:    'var(--c-dark-border)',
-    text:      '#F1F5F9',
-    muted:     '#64748B',
-    accent:    '#3B82F6',
-    accentDim: 'rgba(37,99,235,0.08)',
-    rowBorder: 'rgba(255,255,255,0.07)',
-  }
-
-  const card = {
-    background: c.card,
-    border: `1px solid ${c.border}`,
-    borderRadius: 12,
-    padding: '1rem 1.1rem',
-    opacity: loading ? 0.5 : 1,
-    transition: 'opacity 0.15s',
-  }
-
   return (
     <div style={{ color: c.text, height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
@@ -177,14 +172,14 @@ export default function ChrisGoalsLog() {
           </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <button onClick={() => shiftDate(-1)} style={navBtn(c)}>←</button>
+          <button onClick={() => shiftDate(-1)} style={NAV_BTN}>←</button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: '0.28rem 0.7rem' }}>
             <span style={{ fontSize: '0.83rem', fontWeight: 600, minWidth: 76, textAlign: 'center' }}>{friendlyDate(date)}</span>
             <input type="date" value={date} max={getToday()} onChange={e => setDate(e.target.value)}
               style={{ background: 'transparent', border: 'none', color: c.muted, fontSize: '0.72rem', outline: 'none', cursor: 'pointer', padding: 0 }} />
           </div>
           <button onClick={() => shiftDate(1)} disabled={date >= getToday()}
-            style={{ ...navBtn(c), opacity: date >= getToday() ? 0.3 : 1 }}>→</button>
+            style={{ ...NAV_BTN, opacity: date >= getToday() ? 0.3 : 1 }}>→</button>
         </div>
       </div>
 
@@ -202,7 +197,7 @@ export default function ChrisGoalsLog() {
 
         {/* Col 1: Body Care */}
         <div style={{ ...card, gridColumn: 1, gridRow: '1 / 3' }}>
-          <SectionHeader label="Body Care" done={bodyCareDone} total={BODY_CARE.length} c={c} />
+          <SectionHeader label="Body Care" done={bodyCareDone} total={BODY_CARE.length} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
             {BODY_CARE.map(item =>
               item.type === 'counter' ? (
@@ -212,7 +207,6 @@ export default function ChrisGoalsLog() {
                   count={counters[item.id] || 0}
                   max={item.max}
                   onIncrement={() => incrementCounter(item.id, item.max)}
-                  c={c}
                 />
               ) : (
                 <CheckRow
@@ -221,7 +215,6 @@ export default function ChrisGoalsLog() {
                   checked={!!checks[item.id]}
                   onToggle={() => toggleCheck(item.id)}
                   daysSince={DAYS_SINCE_TRACKED.has(item.id) ? (daysSince[item.id] ?? null) : undefined}
-                  c={c}
                 />
               )
             )}
@@ -230,7 +223,7 @@ export default function ChrisGoalsLog() {
 
         {/* Col 2: Marriage */}
         <div style={{ ...card, gridColumn: 2, gridRow: '1 / 3' }}>
-          <SectionHeader label="Marriage — Natalie" c={c} />
+          <SectionHeader label="Marriage — Natalie" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginTop: '0.65rem' }}>
             {MARRIAGE_SCALES.map(item => (
               <ScaleRow
@@ -239,7 +232,6 @@ export default function ChrisGoalsLog() {
                 hint={item.hint}
                 value={scales[item.id] ?? null}
                 onPick={val => pickScale(item.id, val)}
-                c={c}
               />
             ))}
             <div style={{ height: 1, background: c.border, margin: '0.25rem 0' }} />
@@ -249,7 +241,6 @@ export default function ChrisGoalsLog() {
                 label={item.label}
                 checked={!!checks[item.id]}
                 onToggle={() => toggleCheck(item.id)}
-                c={c}
               />
             ))}
           </div>
@@ -257,7 +248,7 @@ export default function ChrisGoalsLog() {
 
         {/* Col 3 top: Alcohol */}
         <div style={{ ...card, gridColumn: 3, gridRow: 1 }}>
-          <SectionHeader label="Alcohol" c={c} />
+          <SectionHeader label="Alcohol" />
           <div style={{ marginTop: '0.65rem' }}>
             <div style={{ fontSize: '0.72rem', color: c.muted, marginBottom: '0.45rem' }}>Drinks today</div>
             <div style={{ display: 'flex', gap: '0.3rem' }}>
@@ -280,7 +271,7 @@ export default function ChrisGoalsLog() {
 
         {/* Col 3 bottom: Family / Social */}
         <div style={{ ...card, gridColumn: 3, gridRow: 2 }}>
-          <SectionHeader label="Family / Social" done={FAMILY.filter(i => checks[i.id]).length} total={FAMILY.length} c={c} />
+          <SectionHeader label="Family / Social" done={FAMILY.filter(i => checks[i.id]).length} total={FAMILY.length} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
             {FAMILY.map(item => (
               <CheckRow
@@ -289,7 +280,6 @@ export default function ChrisGoalsLog() {
                 checked={!!checks[item.id]}
                 onToggle={() => toggleCheck(item.id)}
                 daysSince={DAYS_SINCE_TRACKED.has(item.id) ? (daysSince[item.id] ?? null) : undefined}
-                c={c}
               />
             ))}
           </div>
@@ -300,7 +290,7 @@ export default function ChrisGoalsLog() {
   )
 }
 
-function SectionHeader({ label, done, total, c }) {
+function SectionHeader({ label, done, total }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.65rem', borderBottom: `1px solid ${c.border}` }}>
       <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '-0.01em', color: c.text }}>
@@ -315,7 +305,7 @@ function SectionHeader({ label, done, total, c }) {
   )
 }
 
-function CheckRow({ label, checked, onToggle, daysSince, c }) {
+function CheckRow({ label, checked, onToggle, daysSince }) {
   const hasDays = daysSince !== undefined
   return (
     <div onClick={onToggle} style={{
@@ -339,7 +329,7 @@ function CheckRow({ label, checked, onToggle, daysSince, c }) {
           {label}
         </div>
         {hasDays && (
-          <div style={{ fontSize: '0.62rem', marginTop: '0.1rem', color: daysSinceColor(daysSince, c) }}>
+          <div style={{ fontSize: '0.62rem', marginTop: '0.1rem', color: daysSinceColor(daysSince) }}>
             {daysSince === null ? '—' : daysSince === 0 ? 'today' : daysSince === 1 ? 'yesterday' : `${daysSince}d ago`}
           </div>
         )}
@@ -348,7 +338,7 @@ function CheckRow({ label, checked, onToggle, daysSince, c }) {
   )
 }
 
-function CounterRow({ label, count, max, onIncrement, c }) {
+function CounterRow({ label, count, max, onIncrement }) {
   const done = count >= max
   return (
     <div onClick={onIncrement} style={{
@@ -378,7 +368,7 @@ function CounterRow({ label, count, max, onIncrement, c }) {
   )
 }
 
-function ScaleRow({ label, hint, value, onPick, c }) {
+function ScaleRow({ label, hint, value, onPick }) {
   return (
     <div style={{ padding: '0.45rem 0.6rem', borderRadius: 7, border: `1px solid ${c.rowBorder}`, background: 'rgba(255,255,255,0.015)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.35rem' }}>
@@ -407,7 +397,7 @@ function ScaleRow({ label, hint, value, onPick, c }) {
   )
 }
 
-function daysSinceColor(days, c) {
+function daysSinceColor(days) {
   if (days === null) return c.muted
   if (days <= 3) return '#22C55E'
   if (days <= 5) return c.muted
@@ -427,10 +417,8 @@ function drinkColor(n) {
   return '#EF4444'
 }
 
-function navBtn(c) {
-  return {
-    background: c.card, border: `1px solid ${c.border}`,
-    color: c.muted, borderRadius: 6, padding: '0.32rem 0.65rem',
-    cursor: 'pointer', fontSize: '0.88rem', fontWeight: 600,
-  }
+const NAV_BTN = {
+  background: c.card, border: `1px solid ${c.border}`,
+  color: c.muted, borderRadius: 6, padding: '0.32rem 0.65rem',
+  cursor: 'pointer', fontSize: '0.88rem', fontWeight: 600,
 }
