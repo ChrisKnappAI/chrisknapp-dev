@@ -21,12 +21,12 @@ const BODY_COLORS = {
 const WORKOUT_STACK_ORDER = ['TraditionalStrengthTraining', 'Walking', 'Pickleball', 'Swimming']
 
 const WORKOUT_COLORS = {
-  TraditionalStrengthTraining: '#f97316',  // orange — matches body comp chart orange
+  TraditionalStrengthTraining: '#1e3a8a',  // darkest navy
   Walking:                     '#1d4ed8',  // dark blue
   Pickleball:                  '#3b82f6',  // medium blue
   Swimming:                    '#60a5fa',  // light blue
 }
-const FALLBACK_COLORS = ['#93c5fd', '#fdba74', '#a78bfa', '#4ade80']
+const FALLBACK_COLORS = ['#93c5fd', '#bfdbfe', '#7dd3fc', '#38bdf8']
 
 const WORKOUT_LABELS = {
   TraditionalStrengthTraining: 'Strength',
@@ -36,6 +36,9 @@ const WORKOUT_LABELS = {
 }
 
 const SLEEP_COLORS = { deep: '#1d4ed8', rem: '#3b82f6', core: '#60a5fa' }
+
+const PGR_BLUE   = '#003DA5'
+const PGR_ORANGE = '#FF6900'
 
 // Update these to match your current nutrition targets
 const NUTRITION_TARGETS = { calories: 2100, fat: 70, carbs: 210, protein: 160 }
@@ -182,6 +185,13 @@ function processSleep(raw, granularity) {
   )
 }
 
+function processSteps(raw, granularity) {
+  if (!raw?.length) return []
+  return groupAverage(
+    raw.map(r => ({ period: r.date, steps: r.steps })),
+    granularity, ['steps']
+  )
+}
 
 // ── Shared chart config ────────────────────────────────────────
 
@@ -282,22 +292,32 @@ function BodyChart({ data, showLeanMass, showBMI, granularity, chartHeight }) {
   )
 }
 
-// ── Workout chart ──────────────────────────────────────────────
+// ── Activity chart ─────────────────────────────────────────────
 
-function WorkoutChart({ data, types, granularity, chartHeight }) {
+function WorkoutChart({ data, types, stepsData, granularity, chartHeight }) {
+  const stepsMap = stepsData?.length
+    ? Object.fromEntries(stepsData.map(s => [s.period, s.steps ?? null]))
+    : {}
+
   const dataWithTotal = data.map(row => ({
     ...row,
     workoutTotal: types.every(t => row[t] == null) ? null : types.reduce((s, t) => s + (row[t] || 0), 0),
+    steps: stepsMap[row.period] ?? null,
   }))
+
+  const stepVals = dataWithTotal.map(d => d.steps).filter(v => v != null)
+  const stepsMax = stepVals.length ? Math.ceil(Math.max(...stepVals) * 1.2 / 1000) * 1000 : 20000
 
   const tooltip = ({ active, payload, label }) => {
     if (!active || !payload?.length) return null
     const totalEntry = payload.find(p => p.dataKey === 'workoutTotal')
+    const stepsEntry = payload.find(p => p.dataKey === 'steps')
     return (
       <div style={TOOLTIP_STYLE}>
         <div style={{ marginBottom: '0.4rem', color: '#94a3b8' }}>{label}</div>
-        {totalEntry && <div style={{ color: '#f1f5f9', marginBottom: '0.3rem', fontWeight: 600 }}>Avg: {fmtMins(totalEntry.value)}/day</div>}
-        {payload.filter(p => p.dataKey !== 'workoutTotal' && p.value > 0).map(p => (
+        {totalEntry && <div style={{ color: PGR_BLUE, marginBottom: '0.3rem', fontWeight: 600 }}>Avg: {fmtMins(totalEntry.value)}/day</div>}
+        {stepsEntry?.value != null && <div style={{ color: PGR_ORANGE, marginBottom: '0.3rem' }}>Steps: {Math.round(stepsEntry.value).toLocaleString()}</div>}
+        {payload.filter(p => p.dataKey !== 'workoutTotal' && p.dataKey !== 'steps' && p.value > 0).map(p => (
           <div key={p.dataKey} style={{ color: p.fill, marginBottom: '0.15rem' }}>
             {WORKOUT_LABELS[p.dataKey] || p.dataKey}: {fmtMins(p.value)}
           </div>
@@ -314,19 +334,21 @@ function WorkoutChart({ data, types, granularity, chartHeight }) {
             <CartesianGrid {...GRID} vertical={false} />
             <XAxis dataKey="label" tick={makeMonthTick(dataWithTotal)} axisLine={false} tickLine={false} interval={0} />
             <YAxis tick={ATICK} axisLine={false} tickLine={false} width={44} tickFormatter={v => `${Math.round(v)}m`} />
-            <YAxis yAxisId="phantom" orientation="right" width={36} tick={false} axisLine={false} tickLine={false} />
+            <YAxis yAxisId="steps" orientation="right" width={44} tick={ATICK} axisLine={false} tickLine={false} domain={[0, stepsMax]} tickFormatter={v => `${(v / 1000).toFixed(0)}k`} />
             <Tooltip content={tooltip} cursor={{ fill: '#ffffff08' }} />
             <MonthLines data={dataWithTotal} />
             {types.map((t, i) => (
               <Bar key={t} dataKey={t} stackId="w" fill={WORKOUT_COLORS[t] || FALLBACK_COLORS[i % FALLBACK_COLORS.length]} />
             ))}
-            <Line type="monotone" dataKey="workoutTotal" stroke="#e2e8f0" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="workoutTotal" stroke={PGR_BLUE} strokeWidth={2} dot={false} />
+            <Line yAxisId="steps" type="monotone" dataKey="steps" stroke={PGR_ORANGE} strokeWidth={2} dot={false} connectNulls />
           </ComposedChart>
         </ResponsiveContainer>
       </div>
       <ChartLegend items={[
         ...types.map((t, i) => ({ label: WORKOUT_LABELS[t] || t, color: WORKOUT_COLORS[t] || FALLBACK_COLORS[i % FALLBACK_COLORS.length] })),
-        { label: 'Total', color: '#e2e8f0', line: true },
+        { label: 'Total', color: PGR_BLUE, line: true },
+        { label: 'Steps', color: PGR_ORANGE, line: true },
       ]} />
     </>
   )
@@ -568,10 +590,11 @@ export default function HealthDashboard() {
   const bodyData                     = useMemo(() => processBodyStats(raw?.bodyStats, granularity), [raw, granularity])
   const { data: workoutData, types } = useMemo(() => processWorkouts(raw?.workouts, granularity), [raw, granularity])
   const sleepData                    = useMemo(() => processSleep(raw?.sleep, granularity), [raw, granularity])
+  const stepsData                    = useMemo(() => processSteps(raw?.activityDaily, granularity), [raw, granularity])
 
-  const [alignedBody, alignedWorkout, alignedSleep] = useMemo(() => {
+  const [alignedBody, alignedWorkout, alignedSleep, alignedSteps] = useMemo(() => {
     if (!bodyData.length || !workoutData.length || !sleepData.length)
-      return [bodyData, workoutData, sleepData]
+      return [bodyData, workoutData, sleepData, stepsData]
 
     const allPeriods = [...bodyData, ...workoutData, ...sleepData].map(d => d.period)
     const globalStart = allPeriods.reduce((a, b) => a < b ? a : b)
@@ -584,8 +607,9 @@ export default function HealthDashboard() {
       fillPeriods(bodyData,    periodKeys, granularity),
       fillPeriods(workoutData, periodKeys, granularity),
       fillPeriods(sleepData,   periodKeys, granularity),
+      fillPeriods(stepsData,   periodKeys, granularity),
     ]
-  }, [bodyData, workoutData, sleepData, granularity])
+  }, [bodyData, workoutData, sleepData, stepsData, granularity])
 
   // Chart heights calibrated to fill each grid cell without scrolling.
   // Body Comp has no legend; Workout + Sleep have a legend row below the chart.
@@ -648,11 +672,12 @@ export default function HealthDashboard() {
               />
             </DashCard>
 
-            {/* Top-right: Workouts */}
-            <DashCard title="Workouts">
+            {/* Top-right: Activity */}
+            <DashCard title="Activity">
               <WorkoutChart
                 data={alignedWorkout}
                 types={types}
+                stepsData={alignedSteps}
                 granularity={granularity}
                 chartHeight={CHART_H_LEG}
               />
