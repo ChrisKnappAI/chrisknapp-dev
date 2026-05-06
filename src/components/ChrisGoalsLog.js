@@ -108,6 +108,9 @@ export default function ChrisGoalsLog() {
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify({ date, item_names: missing }),
         })
+          .then(r => r.json())
+          .then(d => { if (d.error) console.error('[care-log seed] error:', d.error) })
+          .catch(e => console.error('[care-log seed] fetch failed:', e))
       }
     }
   }, [date])
