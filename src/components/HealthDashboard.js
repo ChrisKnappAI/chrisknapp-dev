@@ -37,8 +37,9 @@ const WORKOUT_LABELS = {
 
 const SLEEP_COLORS = { deep: '#1d4ed8', rem: '#3b82f6', core: '#60a5fa' }
 
-const PGR_BLUE   = '#003DA5'
-const PGR_ORANGE = '#FF6900'
+const PGR_BLUE          = '#003DA5'
+const PGR_ORANGE        = '#FF6900'
+const WORKOUT_TOTAL_CLR = '#bfdbfe'
 
 // Update these to match your current nutrition targets
 const NUTRITION_TARGETS = { calories: 2100, fat: 70, carbs: 210, protein: 160 }
@@ -312,13 +313,22 @@ function WorkoutChart({ data, types, stepsData, granularity, chartHeight }) {
     if (!active || !payload?.length) return null
     const totalEntry = payload.find(p => p.dataKey === 'workoutTotal')
     const stepsEntry = payload.find(p => p.dataKey === 'steps')
+    const subcats    = payload.filter(p => p.dataKey !== 'workoutTotal' && p.dataKey !== 'steps' && p.value > 0)
     return (
       <div style={TOOLTIP_STYLE}>
         <div style={{ marginBottom: '0.4rem', color: '#94a3b8' }}>{label}</div>
-        {totalEntry && <div style={{ color: PGR_BLUE, marginBottom: '0.3rem', fontWeight: 600 }}>Avg: {fmtMins(totalEntry.value)}/day</div>}
-        {stepsEntry?.value != null && <div style={{ color: PGR_ORANGE, marginBottom: '0.3rem' }}>Steps: {Math.round(stepsEntry.value).toLocaleString()}</div>}
-        {payload.filter(p => p.dataKey !== 'workoutTotal' && p.dataKey !== 'steps' && p.value > 0).map(p => (
-          <div key={p.dataKey} style={{ color: p.fill, marginBottom: '0.15rem' }}>
+        {stepsEntry?.value != null && (
+          <div style={{ color: PGR_ORANGE, marginBottom: '0.3rem', fontWeight: 600 }}>
+            Total Steps: {Math.round(stepsEntry.value).toLocaleString()}
+          </div>
+        )}
+        {totalEntry && (
+          <div style={{ color: WORKOUT_TOTAL_CLR, marginBottom: subcats.length ? '0.1rem' : 0, fontWeight: 600 }}>
+            Total Workout Minutes: {fmtMins(totalEntry.value)}/day
+          </div>
+        )}
+        {subcats.map(p => (
+          <div key={p.dataKey} style={{ color: p.fill, marginBottom: '0.1rem', paddingLeft: '0.85rem' }}>
             {WORKOUT_LABELS[p.dataKey] || p.dataKey}: {fmtMins(p.value)}
           </div>
         ))}
@@ -340,15 +350,15 @@ function WorkoutChart({ data, types, stepsData, granularity, chartHeight }) {
             {types.map((t, i) => (
               <Bar key={t} dataKey={t} stackId="w" fill={WORKOUT_COLORS[t] || FALLBACK_COLORS[i % FALLBACK_COLORS.length]} />
             ))}
-            <Line type="monotone" dataKey="workoutTotal" stroke={PGR_BLUE} strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="workoutTotal" stroke={WORKOUT_TOTAL_CLR} strokeWidth={2} dot={false} />
             <Line yAxisId="steps" type="monotone" dataKey="steps" stroke={PGR_ORANGE} strokeWidth={2} dot={false} connectNulls />
           </ComposedChart>
         </ResponsiveContainer>
       </div>
       <ChartLegend items={[
+        { label: 'Total Steps', color: PGR_ORANGE, line: true },
         ...types.map((t, i) => ({ label: WORKOUT_LABELS[t] || t, color: WORKOUT_COLORS[t] || FALLBACK_COLORS[i % FALLBACK_COLORS.length] })),
-        { label: 'Total', color: PGR_BLUE, line: true },
-        { label: 'Steps', color: PGR_ORANGE, line: true },
+        { label: 'Total Workout Minutes', color: WORKOUT_TOTAL_CLR, line: true },
       ]} />
     </>
   )
