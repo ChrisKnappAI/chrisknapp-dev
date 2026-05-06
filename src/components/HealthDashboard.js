@@ -37,6 +37,8 @@ const WORKOUT_LABELS = {
 
 const SLEEP_COLORS = { deep: '#1d4ed8', rem: '#3b82f6', core: '#60a5fa' }
 
+const NUTRITION_COLORS = { calories: '#f97316', protein: '#3b82f6' }
+
 // ── Date helpers ───────────────────────────────────────────────
 
 function getWeekStart(dateStr) {
@@ -177,6 +179,23 @@ function processSleep(raw, granularity) {
     raw.map(r => ({ period: r.date, deep: r.deep_min, rem: r.rem_min, core: r.core_min, total: r.total_sleep_min })),
     granularity, ['deep', 'rem', 'core', 'total']
   )
+}
+
+function processNutrition(raw, granularity) {
+  if (!raw?.length) return []
+  // Aggregate ingredient-level rows to daily totals first
+  const dailyMap = {}
+  for (const r of raw) {
+    if (!dailyMap[r.log_date]) dailyMap[r.log_date] = { period: r.log_date, calories: 0, protein: 0 }
+    dailyMap[r.log_date].calories += r.calories || 0
+    dailyMap[r.log_date].protein  += r.protein  || 0
+  }
+  const dailyRows = Object.values(dailyMap).map(d => ({
+    period:   d.period,
+    calories: Math.round(d.calories),
+    protein:  Math.round(d.protein * 10) / 10,
+  }))
+  return groupAverage(dailyRows, granularity, ['calories', 'protein'])
 }
 
 // ── Shared chart config ────────────────────────────────────────
@@ -422,86 +441,42 @@ function MetricChip({ label, active, color, onClick }) {
   )
 }
 
-// ── Stats panel (4th grid cell) ────────────────────────────────
+// ── Nutrition chart ────────────────────────────────────────────
 
-function StatsPanel({ raw }) {
-  const latest = useMemo(() => {
-    if (!raw?.bodyStats?.length) return null
-    return [...raw.bodyStats].sort((a, b) => b.date.localeCompare(a.date))[0]
-  }, [raw])
+function NutritionChart({ data, granularity, chartHeight }) {
+  const calDomain  = dataDomain(data, ['calories'])
+  const protDomain = dataDomain(data, ['protein'])
 
-  const avgSleep = useMemo(() => {
-    if (!raw?.sleep?.length) return null
-    const sorted = [...raw.sleep].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 7)
-    const total = sorted.reduce((s, r) => s + (r.total_sleep_min || 0), 0)
-    return sorted.length ? total / sorted.length : null
-  }, [raw])
-
-  const workoutDays = useMemo(() => {
-    if (!raw?.workouts?.length) return null
-    const cutoff = new Date()
-    cutoff.setDate(cutoff.getDate() - 30)
-    const recent = raw.workouts.filter(w => new Date(w.date + 'T12:00:00') >= cutoff)
-    return new Set(recent.map(w => w.date)).size
-  }, [raw])
-
-  const asOf = latest?.date
-    ? new Date(latest.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-    : null
-
-  const stats = [
-    {
-      label: 'Weight',
-      value: latest?.weight_lbs != null ? `${latest.weight_lbs} lbs` : '—',
-      color: BODY_COLORS.weight,
-      sub: asOf,
-    },
-    {
-      label: 'Body Fat',
-      value: latest?.body_fat_pct != null ? `${latest.body_fat_pct}%` : '—',
-      color: BODY_COLORS.bodyFat,
-      sub: asOf,
-    },
-    {
-      label: '7-Day Sleep Avg',
-      value: avgSleep != null ? fmtMins(avgSleep) : '—',
-      color: SLEEP_COLORS.rem,
-      sub: null,
-    },
-    {
-      label: 'Workout Days (30d)',
-      value: workoutDays != null ? `${workoutDays} days` : '—',
-      color: WORKOUT_COLORS.TraditionalStrengthTraining,
-      sub: null,
-    },
-  ]
-
-  return (
-    <DashCard title="Current Stats">
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem 1rem' }}>
-        {stats.map(s => (
-          <div key={s.label}>
-            <div style={{
-              fontSize: '0.68rem', color: '#475569', textTransform: 'uppercase',
-              letterSpacing: '0.07em', fontWeight: 600, marginBottom: '0.35rem',
-            }}>
-              {s.label}
-            </div>
-            <div style={{
-              fontSize: '1.5rem', fontWeight: 700, color: s.color,
-              fontVariantNumeric: 'tabular-nums', lineHeight: 1.1,
-            }}>
-              {s.value}
-            </div>
-            {s.sub && (
-              <div style={{ fontSize: '0.68rem', color: '#334155', marginTop: '0.2rem' }}>
-                as of {s.sub}
-              </div>
-            )}
+  const tooltip = ({ active, payload, label }) => {
+    if (!active || !payload?.length) return null
+    return (
+      <div style={TOOLTIP_STYLE}>
+        <div style={{ marginBottom: '0.4rem', color: '#94a3b8' }}>{label}</div>
+        {payload.map(p => (
+          <div key={p.dataKey} style={{ color: p.color, marginBottom: '0.15rem' }}>
+            {p.dataKey === 'calories' ? 'Calories' : 'Protein'}:{' '}
+            {p.value == null ? '—' : p.dataKey === 'calories' ? `${p.value} kcal` : `${p.value}g`}
           </div>
         ))}
       </div>
-    </DashCard>
+    )
+  }
+
+  return (
+    <div style={{ height: chartHeight }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+          <CartesianGrid {...GRID} vertical={false} />
+          <XAxis dataKey="label" tick={makeMonthTick(data)} axisLine={false} tickLine={false} interval={0} />
+          <YAxis yAxisId="left"  domain={calDomain}  tick={ATICK} axisLine={false} tickLine={false} width={44} />
+          <YAxis yAxisId="right" orientation="right" domain={protDomain} tick={ATICK} axisLine={false} tickLine={false} width={36} />
+          <Tooltip content={tooltip} />
+          {monthBoundaryLabels(data).map(lbl => <ReferenceLine key={lbl} x={lbl} yAxisId="left" stroke="#334155" strokeWidth={1} />)}
+          <Line yAxisId="left"  type="monotone" dataKey="calories" stroke={NUTRITION_COLORS.calories} strokeWidth={2} dot={false} connectNulls />
+          <Line yAxisId="right" type="monotone" dataKey="protein"  stroke={NUTRITION_COLORS.protein}  strokeWidth={2} dot={false} connectNulls />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
   )
 }
 
@@ -520,11 +495,14 @@ export default function HealthDashboard() {
   const bodyData                     = useMemo(() => processBodyStats(raw?.bodyStats, granularity), [raw, granularity])
   const { data: workoutData, types } = useMemo(() => processWorkouts(raw?.workouts, granularity), [raw, granularity])
   const sleepData                    = useMemo(() => processSleep(raw?.sleep, granularity), [raw, granularity])
+  const nutritionData                = useMemo(() => processNutrition(raw?.foodLog, granularity), [raw, granularity])
 
-  const [alignedBody, alignedWorkout, alignedSleep] = useMemo(() => {
+  const [alignedBody, alignedWorkout, alignedSleep, alignedNutrition] = useMemo(() => {
     if (!bodyData.length || !workoutData.length || !sleepData.length)
-      return [bodyData, workoutData, sleepData]
+      return [bodyData, workoutData, sleepData, nutritionData]
 
+    // Period range is defined by the 3 long-history datasets only — nutrition starts
+    // recently so it gets nulls for all earlier periods rather than shrinking the x axis
     const allPeriods = [...bodyData, ...workoutData, ...sleepData].map(d => d.period)
     const globalStart = allPeriods.reduce((a, b) => a < b ? a : b)
     const globalEnd   = allPeriods.reduce((a, b) => a > b ? a : b)
@@ -533,11 +511,12 @@ export default function HealthDashboard() {
     while (cur <= globalEnd) { periodKeys.push(cur); cur = nextPeriod(cur, granularity) }
 
     return [
-      fillPeriods(bodyData,    periodKeys, granularity),
-      fillPeriods(workoutData, periodKeys, granularity),
-      fillPeriods(sleepData,   periodKeys, granularity),
+      fillPeriods(bodyData,      periodKeys, granularity),
+      fillPeriods(workoutData,   periodKeys, granularity),
+      fillPeriods(sleepData,     periodKeys, granularity),
+      fillPeriods(nutritionData, periodKeys, granularity),
     ]
-  }, [bodyData, workoutData, sleepData, granularity])
+  }, [bodyData, workoutData, sleepData, nutritionData, granularity])
 
   // Chart heights calibrated to fill each grid cell without scrolling.
   // Body Comp has no legend; Workout + Sleep have a legend row below the chart.
@@ -619,8 +598,14 @@ export default function HealthDashboard() {
               />
             </DashCard>
 
-            {/* Bottom-right: Current Stats */}
-            <StatsPanel raw={raw} />
+            {/* Bottom-right: Nutrition */}
+            <DashCard title="Nutrition">
+              <NutritionChart
+                data={alignedNutrition}
+                granularity={granularity}
+                chartHeight={CHART_H}
+              />
+            </DashCard>
           </>
         )}
       </div>
