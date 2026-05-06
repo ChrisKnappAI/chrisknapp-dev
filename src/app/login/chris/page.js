@@ -18,7 +18,7 @@ export default function ChrisLogin() {
       body: JSON.stringify({ password }),
     })
     if (res.ok) {
-      router.push('/chris/health')
+      router.push('/chris/finances')
     } else {
       setError(true)
       setLoading(false)

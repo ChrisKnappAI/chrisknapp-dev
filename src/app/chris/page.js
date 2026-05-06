@@ -1,2 +1,2 @@
 import { redirect } from 'next/navigation'
-export default function ChrisRoot() { redirect('/chris/health') }
+export default function ChrisRoot() { redirect('/chris/finances') }
