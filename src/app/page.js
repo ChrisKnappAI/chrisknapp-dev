@@ -196,7 +196,7 @@ export default function Home() {
         .ck-tw-cursor { display:inline-block; width:2px; height:0.95em; background:#3B82F6; margin-left:1px; vertical-align:text-bottom; animation:ck-blink 0.75s step-end infinite; }
         @keyframes ck-blink { 50%{opacity:0} }
 
-        .ck-buttons { display:flex; flex-direction:column; align-items:flex-start; gap:0.65rem; }
+        .ck-buttons { display:flex; flex-wrap:wrap; gap:0.85rem; }
         .ck-btn { display:inline-flex; align-items:center; padding:0.7rem 1.4rem; border-radius:8px; font-size:0.875rem; font-weight:600; text-decoration:none; border:1px solid transparent; transition:transform 0.15s, background 0.15s, border-color 0.15s, box-shadow 0.15s; }
         .ck-btn:hover { transform:translateY(-2px); }
         .ck-btn-primary { background:#3B82F6; color:#fff; border-color:#3B82F6; box-shadow:0 4px 15px rgba(59,130,246,0.25); }
