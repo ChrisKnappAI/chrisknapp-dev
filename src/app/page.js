@@ -123,7 +123,7 @@ export default function Home() {
     <>
       <style>{`
         html, body { background:#0F172A !important; color:#F1F5F9; margin:0; padding:0; }
-        .ck-page { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; background:#0F172A; }
+        .ck-page { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; }
 
         /* NAV */
         .ck-nav {
