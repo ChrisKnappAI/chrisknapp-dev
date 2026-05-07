@@ -155,7 +155,7 @@ export default function PhoneSample() {
         .ph-btn-primary { background:#3B82F6; color:#fff; border-color:#3B82F6; box-shadow:0 4px 15px rgba(59,130,246,0.25); }
         .ph-btn-outline { background:transparent; color:#F1F5F9; border-color:rgba(255,255,255,0.15); }
 
-        .ph-desktop-note { font-size:0.75rem; color:#475569; display:flex; align-items:center; gap:0.4rem; }
+        .ph-desktop-note { font-size:0.82rem; font-weight:500; color:#38BDF8; background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.22); border-radius:8px; padding:0.75rem 1.25rem; width:100%; max-width:280px; text-align:center; letter-spacing:0.01em; }
 
         /* STATS */
         .ph-stats { border-top:1px solid rgba(255,255,255,0.06); background:#1E293B; position:relative; z-index:10; }
@@ -197,7 +197,7 @@ export default function PhoneSample() {
             <a href="/Chris Knapp Resume 20260219.pdf" download className="ph-btn ph-btn-primary">Download Resume</a>
             <a href="mailto:ChrisKnappAI@Gmail.com" className="ph-btn ph-btn-outline">Contact Me</a>
           </div>
-          <p className="ph-desktop-note">💻 Full experience available on desktop</p>
+          <p className="ph-desktop-note">🖥 Full portfolio available on desktop</p>
         </div>
 
         <div className="ph-stats">
