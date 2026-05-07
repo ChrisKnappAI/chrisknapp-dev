@@ -196,6 +196,7 @@ export default function PhoneSample() {
           <div className="ph-buttons">
             <a href="/Chris Knapp Resume 20260219.pdf" download className="ph-btn ph-btn-primary">Download Resume</a>
             <a href="mailto:ChrisKnappAI@Gmail.com" className="ph-btn ph-btn-outline">Contact Me</a>
+            <a href="https://linkedin.com/in/chrisknappfl/" target="_blank" rel="noreferrer" className="ph-btn ph-btn-outline">LinkedIn &nbsp;→</a>
           </div>
           <p className="ph-desktop-note">🖥 Full portfolio available on desktop</p>
         </div>
