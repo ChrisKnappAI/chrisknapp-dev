@@ -376,7 +376,6 @@ export default function FinancesDashboard() {
       {/* ── Projection ── */}
       <ProjectionTool latestSnapshot={latest} />
 
-      <p style={{ fontSize: '0.55rem', color: '#1E293B', textAlign: 'right', margin: '0.25rem 0 0', userSelect: 'none' }}>ITWORKED</p>
 
     </ChrisDashboard>
   )
