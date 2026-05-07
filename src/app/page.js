@@ -264,7 +264,7 @@ export default function Home() {
           <div className="ck-stats-inner">
             <div className="ck-stat-item">
               <div className="ck-stat-num" data-target="120" data-prefix="$" data-suffix="M+">$0M+</div>
-              <div className="ck-stat-label">Profit Generated<br />from Projects</div>
+              <div className="ck-stat-label">Annual Profit<br />From Projects</div>
             </div>
             <div className="ck-stat-item">
               <div className="ck-stat-num" data-target="150" data-prefix="" data-suffix="M+">0M+</div>
