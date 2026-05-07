@@ -9,7 +9,7 @@ export default function Home() {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    let W = 0, H = 0, animId = null, twTimer = null
+    let W = 0, H = 0, animId = null, twTimer = null, twTimerMobile = null
     const mouse = { x: -9999, y: -9999 }
 
     function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight }
@@ -68,7 +68,6 @@ export default function Home() {
       })
       return max
     }
-
     function drawLines() {
       for (let i = 0; i < pts.length; i++) {
         for (let j = i + 1; j < pts.length; j++) {
@@ -82,7 +81,6 @@ export default function Home() {
         }
       }
     }
-
     function animate() {
       ctx.clearRect(0, 0, W, H)
       updateZones()
@@ -99,7 +97,7 @@ export default function Home() {
     }
     animate()
 
-    // Typewriter
+    // Typewriter — runs for both layouts, only visible one matters
     const words = [
       'analytics that drive decisions',
       'AI-powered tools',
@@ -107,23 +105,29 @@ export default function Home() {
       'strategy that moves the needle',
       'rigorous experimental designs',
     ]
-    let wi = 0, ci = 0, deleting = false
-    const twEl = document.getElementById('tw')
-    function type() {
-      if (!twEl) return
-      const w = words[wi]
-      if (!deleting) {
-        twEl.textContent = w.slice(0, ++ci)
-        if (ci === w.length) { deleting = true; twTimer = setTimeout(type, 2000); return }
-      } else {
-        twEl.textContent = w.slice(0, --ci)
-        if (ci === 0) { deleting = false; wi = (wi + 1) % words.length }
+    function makeTypewriter(elId, timer) {
+      const el = document.getElementById(elId)
+      if (!el) return null
+      let wi = 0, ci = 0, deleting = false
+      let t = null
+      function type() {
+        const w = words[wi]
+        if (!deleting) {
+          el.textContent = w.slice(0, ++ci)
+          if (ci === w.length) { deleting = true; t = setTimeout(type, 2000); return }
+        } else {
+          el.textContent = w.slice(0, --ci)
+          if (ci === 0) { deleting = false; wi = (wi + 1) % words.length }
+        }
+        t = setTimeout(type, deleting ? 55 : 95)
       }
-      twTimer = setTimeout(type, deleting ? 55 : 95)
+      t = setTimeout(type, 800)
+      return () => { if (t) clearTimeout(t) }
     }
-    twTimer = setTimeout(type, 800)
+    const stopTw1 = makeTypewriter('tw', null)
+    const stopTw2 = makeTypewriter('ph-tw', null)
 
-    // Stat counters
+    // Stat counters (desktop only)
     function animateStats() {
       document.querySelectorAll('.ck-stat-num[data-target]').forEach(el => {
         const target = parseInt(el.dataset.target, 10)
@@ -149,7 +153,8 @@ export default function Home() {
       window.removeEventListener('resize', initZones)
       document.removeEventListener('mousemove', onMove)
       if (animId) cancelAnimationFrame(animId)
-      if (twTimer) clearTimeout(twTimer)
+      if (stopTw1) stopTw1()
+      if (stopTw2) stopTw2()
       statsObs.disconnect()
     }
   }, [])
@@ -158,9 +163,20 @@ export default function Home() {
     <>
       <style>{`
         html, body { background:#0F172A !important; color:#F1F5F9; margin:0; padding:0; }
-        .ck-page { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; }
 
-        /* NAV */
+        /* ── DESKTOP (default) ── */
+        .ck-page { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; }
+        .ph-page { display:none; }
+
+        /* ── MOBILE ── */
+        @media (max-width: 768px) {
+          .ck-page { display:none; }
+          .ph-page { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; }
+        }
+
+        /* ════════════════════════════════
+           DESKTOP STYLES
+        ════════════════════════════════ */
         .ck-nav { position:sticky; top:0; z-index:500; display:flex; align-items:center; justify-content:space-between; padding:1.25rem 4rem; border-bottom:1px solid rgba(255,255,255,0.06); backdrop-filter:blur(12px); background:rgba(15,23,42,0.98); }
         .ck-logo { font-size:1.05rem; font-weight:800; color:#F1F5F9; text-decoration:none; letter-spacing:-0.02em; }
         .ck-logo span { color:#3B82F6; }
@@ -171,23 +187,14 @@ export default function Home() {
         .ck-nav-private { display:flex !important; align-items:center; gap:0.3rem; }
         .ck-nav-lock { font-size:0.65rem; opacity:0.5; }
 
-        /* HERO GRID
-           Columns: 50% | 15% | 1fr
-           Text spans cols 1+2 = 65%
-           Photo: position:absolute, left:50% right:4rem = always 15% overlap, equal side buffers
-        */
         .ck-hero-grid { flex:1; display:grid; grid-template-columns:50% 15% 1fr; max-width:1200px; margin:0 auto; width:100%; padding:0 4rem; position:relative; overflow:visible; }
-
         .ck-hero-content { grid-column:1 / 3; grid-row:1; padding:5rem 0 4rem; position:relative; z-index:2; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
-
         .ck-hero-photo { position:absolute; left:50%; right:4rem; top:3rem; bottom:-80px; z-index:1; }
         .ck-hero-photo img { width:100%; height:100%; object-fit:cover; object-position:top center; filter:grayscale(100%) contrast(1.15) brightness(0.85); display:block; }
 
-        /* BADGE */
         .ck-badge { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.22); color:#38BDF8; font-size:0.7rem; font-weight:700; padding:0.3rem 0.85rem; border-radius:100px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1.6rem; }
         .ck-badge-dot { width:5px; height:5px; background:#38BDF8; border-radius:50%; animation:ck-pulse 2s ease-in-out infinite; }
         @keyframes ck-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
-
         .ck-greeting { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:400; color:#94A3B8; margin-bottom:0.15rem; }
         .ck-name { font-size:clamp(3rem,6vw,4.75rem); font-weight:900; line-height:1; letter-spacing:-0.04em; margin-bottom:1rem; }
         .ck-name span { color:#3B82F6; }
@@ -195,7 +202,6 @@ export default function Home() {
         .ck-tw-line { font-family:'Courier New',Courier,monospace; font-size:0.95rem; color:#3B82F6; margin-bottom:2.75rem; min-height:1.6em; white-space:nowrap; }
         .ck-tw-cursor { display:inline-block; width:2px; height:0.95em; background:#3B82F6; margin-left:1px; vertical-align:text-bottom; animation:ck-blink 0.75s step-end infinite; }
         @keyframes ck-blink { 50%{opacity:0} }
-
         .ck-buttons { display:flex; flex-wrap:wrap; gap:0.85rem; }
         .ck-btn { display:inline-flex; align-items:center; padding:0.7rem 1.4rem; border-radius:8px; font-size:0.875rem; font-weight:600; text-decoration:none; border:1px solid transparent; transition:transform 0.15s, background 0.15s, border-color 0.15s, box-shadow 0.15s; }
         .ck-btn:hover { transform:translateY(-2px); }
@@ -204,19 +210,54 @@ export default function Home() {
         .ck-btn-outline { background:transparent; color:#F1F5F9; border-color:rgba(255,255,255,0.1); }
         .ck-btn-outline:hover { border-color:#3B82F6; color:#3B82F6; }
 
-        /* STATS */
         .ck-stats-bar { border-top:1px solid rgba(255,255,255,0.06); background:#1E293B; position:relative; z-index:10; }
         .ck-stats-inner { max-width:1200px; margin:0 auto; padding:0 4rem; display:grid; grid-template-columns:repeat(4,1fr); }
         .ck-stat-item { padding:2.25rem 1.5rem; text-align:center; border-right:1px solid rgba(255,255,255,0.06); }
         .ck-stat-item:last-child { border-right:none; }
         .ck-stat-num { font-size:clamp(2rem,3vw,2.75rem); font-weight:900; letter-spacing:-0.04em; color:#3B82F6; line-height:1; margin-bottom:0.5rem; font-variant-numeric:tabular-nums; }
         .ck-stat-label { font-size:0.72rem; color:#94A3B8; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; line-height:1.5; }
+
+        /* ════════════════════════════════
+           MOBILE STYLES
+        ════════════════════════════════ */
+        .ph-nav { position:sticky; top:0; z-index:500; display:flex; align-items:center; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.06); backdrop-filter:blur(12px); background:rgba(15,23,42,0.98); }
+        .ph-logo { font-size:1rem; font-weight:800; color:#F1F5F9; text-decoration:none; letter-spacing:-0.02em; }
+        .ph-logo span { color:#3B82F6; }
+        .ph-nav-links { display:flex; align-items:center; gap:0.1rem; list-style:none; }
+        .ph-nav-links a { color:#94A3B8; text-decoration:none; font-size:0.82rem; font-weight:500; padding:0.4rem 0.6rem; border-radius:6px; }
+
+        .ph-hero { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:1.75rem 2rem 1.5rem; }
+        .ph-badge { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.22); color:#38BDF8; font-size:0.65rem; font-weight:700; padding:0.3rem 0.85rem; border-radius:100px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem; }
+        .ph-badge-dot { width:5px; height:5px; background:#38BDF8; border-radius:50%; animation:ph-pulse 2s ease-in-out infinite; }
+        @keyframes ph-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+        .ph-greeting { font-size:1.1rem; font-weight:400; color:#94A3B8; margin-bottom:0.1rem; }
+        .ph-name { font-size:clamp(2.75rem,12vw,4rem); font-weight:900; line-height:1; letter-spacing:-0.04em; margin-bottom:0.6rem; }
+        .ph-name span { color:#3B82F6; }
+        .ph-role { font-size:0.9rem; color:#94A3B8; line-height:1.6; margin-bottom:0.25rem; }
+        .ph-tw-line { font-family:'Courier New',Courier,monospace; font-size:0.85rem; color:#3B82F6; margin-bottom:1rem; min-height:1.5em; }
+        .ph-tw-cursor { display:inline-block; width:2px; height:0.85em; background:#3B82F6; margin-left:1px; vertical-align:text-bottom; animation:ph-blink 0.75s step-end infinite; }
+        @keyframes ph-blink { 50%{opacity:0} }
+        .ph-desktop-note { font-size:0.82rem; font-weight:500; color:#FB923C; background:rgba(234,88,12,0.18); border:1px solid rgba(234,88,12,0.55); border-radius:8px; padding:0.65rem 1.25rem; width:100%; max-width:280px; text-align:center; letter-spacing:0.01em; margin-bottom:0.65rem; }
+        .ph-buttons { display:flex; flex-direction:column; align-items:stretch; gap:0.5rem; width:100%; max-width:280px; }
+        .ph-btn { display:flex; align-items:center; justify-content:center; padding:0.85rem 1.4rem; border-radius:8px; font-size:0.9rem; font-weight:600; text-decoration:none; border:1px solid rgba(255,255,255,0.15); background:transparent; color:#F1F5F9; }
+
+        .ph-stats { border-top:1px solid rgba(255,255,255,0.06); background:#1E293B; position:relative; z-index:10; }
+        .ph-stats-grid { display:grid; grid-template-columns:1fr 1fr; }
+        .ph-stat-item { padding:1.75rem 1rem; text-align:center; border-right:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(255,255,255,0.06); }
+        .ph-stat-item:nth-child(2n) { border-right:none; }
+        .ph-stat-item:nth-child(3), .ph-stat-item:nth-child(4) { border-bottom:none; }
+        .ph-stat-num { font-size:2rem; font-weight:900; letter-spacing:-0.04em; color:#3B82F6; line-height:1; margin-bottom:0.4rem; font-variant-numeric:tabular-nums; }
+        .ph-stat-label { font-size:0.65rem; color:#94A3B8; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; line-height:1.5; }
+
+        .ph-footer { padding:1.5rem; text-align:center; border-top:1px solid rgba(255,255,255,0.06); }
+        .ph-footer-logo { font-size:0.9rem; font-weight:800; color:#475569; letter-spacing:-0.02em; text-decoration:none; }
+        .ph-footer-logo span { color:#3B82F6; }
       `}</style>
 
       <canvas ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} />
 
+      {/* ── DESKTOP ── */}
       <div className="ck-page">
-
         <nav className="ck-nav">
           <Link href="/" className="ck-logo">chris<span>knapp</span>.dev</Link>
           <ul className="ck-nav-links">
@@ -239,10 +280,7 @@ export default function Home() {
 
         <div className="ck-hero-grid">
           <div className="ck-hero-content">
-            <div className="ck-badge">
-              <div className="ck-badge-dot" />
-              Strategy · Analytics · AI
-            </div>
+            <div className="ck-badge"><div className="ck-badge-dot" />Strategy · Analytics · AI</div>
             <p className="ck-greeting">Hey, I&apos;m</p>
             <h1 className="ck-name">Chris <span>Knapp</span></h1>
             <p className="ck-role">A Strategy &amp; Analytics Leader at Progressive Insurance</p>
@@ -253,7 +291,6 @@ export default function Home() {
               <a href="#" className="ck-btn ck-btn-outline">Explore Portfolio &nbsp;→</a>
             </div>
           </div>
-
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <div className="ck-hero-photo">
             <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Chris Knapp" />
@@ -280,7 +317,57 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
 
+      {/* ── MOBILE ── */}
+      <div className="ph-page">
+        <nav className="ph-nav">
+          <Link href="/" className="ph-logo">chris<span>knapp</span>.dev</Link>
+          <ul className="ph-nav-links">
+            <li><a href="/Chris Knapp Resume 20260219.pdf" download>Resume</a></li>
+            <li><a href="mailto:ChrisKnappAI@Gmail.com">Contact</a></li>
+            <li><a href="https://linkedin.com/in/chrisknappfl/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+          </ul>
+        </nav>
+
+        <div className="ph-hero">
+          <div className="ph-badge"><div className="ph-badge-dot" />Strategy · Analytics · AI</div>
+          <p className="ph-greeting">Hey, I&apos;m</p>
+          <h1 className="ph-name">Chris <span>Knapp</span></h1>
+          <p className="ph-role">Strategy &amp; Analytics Leader<br />at Progressive Insurance</p>
+          <p className="ph-tw-line"># i build <span id="ph-tw" /><span className="ph-tw-cursor" /></p>
+          <p className="ph-desktop-note">🖥 Full portfolio available on desktop</p>
+          <div className="ph-buttons">
+            <a href="/Chris Knapp Resume 20260219.pdf" download className="ph-btn">Download Resume</a>
+            <a href="mailto:ChrisKnappAI@Gmail.com" className="ph-btn">Contact Me</a>
+            <a href="https://linkedin.com/in/chrisknappfl/" target="_blank" rel="noreferrer" className="ph-btn">LinkedIn</a>
+          </div>
+        </div>
+
+        <div className="ph-stats">
+          <div className="ph-stats-grid">
+            <div className="ph-stat-item">
+              <div className="ph-stat-num">$120M+</div>
+              <div className="ph-stat-label">Annual Profit<br />From Projects</div>
+            </div>
+            <div className="ph-stat-item">
+              <div className="ph-stat-num">150M+</div>
+              <div className="ph-stat-label">Insurance Customers<br />Analyzed</div>
+            </div>
+            <div className="ph-stat-item">
+              <div className="ph-stat-num">50+</div>
+              <div className="ph-stat-label">Experimental Designs<br />Implemented</div>
+            </div>
+            <div className="ph-stat-item">
+              <div className="ph-stat-num">16+</div>
+              <div className="ph-stat-label">Years of<br />Experience</div>
+            </div>
+          </div>
+        </div>
+
+        <footer className="ph-footer">
+          <Link href="/" className="ph-footer-logo">chris<span>knapp</span>.dev</Link>
+        </footer>
       </div>
     </>
   )
