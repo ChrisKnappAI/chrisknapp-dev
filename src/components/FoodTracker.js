@@ -460,8 +460,8 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
             <div style={{ display: 'flex', gap: '1.75rem' }}>
               <GoalChip label="Calories" actual={dayTotals.cal}     unit=""  goal={goals.cal}     defaultColor={c.calColor} />
               <GoalChip label="Protein"  actual={dayTotals.protein} unit="g" goal={goals.protein} defaultColor="#22C55E"   />
-              <GoalChip label="Carbs"    actual={dayTotals.carbs}   unit="g" goal={goals.carbs}   defaultColor="#F97316"   />
-              <GoalChip label="Fat"      actual={dayTotals.fat}     unit="g" goal={goals.fat}     defaultColor={c.muted}   />
+              <GoalChip label="Carbs"    actual={dayTotals.carbs}   unit="g" goal={goals.carbs}   defaultColor={goals.carbs ? "#F97316" : c.text} />
+              <GoalChip label="Fat"      actual={dayTotals.fat}     unit="g" goal={goals.fat}     defaultColor={goals.fat  ? c.muted   : c.text} />
             </div>
           </div>
 
@@ -496,12 +496,17 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                     Remove
                   </button>
                 </div>
-                {group.entries.map(e => (
-                  <div key={e.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: c.muted, padding: '0.15rem 0.75rem' }}>
-                    <span>{e.ingredient} <span style={{ opacity: 0.6 }}>({Math.round(e.user_percent * 100)}%)</span></span>
-                    <span>{e.actual_amount}{e.serving_metric === 'grams' ? 'g' : ` ${e.serving_metric}`} → {fmt(e.calories)} cal / {fmt(e.protein)}g P</span>
-                  </div>
-                ))}
+                {group.entries.map(e => {
+                  const pct      = Math.round(e.user_percent * 100)
+                  const unit     = e.serving_metric === 'grams' ? 'g' : ` ${e.serving_metric}`
+                  const consumed = Math.round(e.actual_amount * e.user_percent)
+                  return (
+                    <div key={e.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: c.muted, padding: '0.15rem 0.75rem' }}>
+                      <span>{e.ingredient}</span>
+                      <span>{pct}% eaten of {e.actual_amount}{unit} cooked → {consumed}{unit} → {fmt(e.calories)} cal / {fmt(e.protein)}g P</span>
+                    </div>
+                  )
+                })}
               </div>
             )
           })}
@@ -530,7 +535,7 @@ function GoalChip({ label, actual, unit, goal, defaultColor }) {
     <div style={{ textAlign: 'center' }}>
       <div style={{ fontSize: '0.6rem', color: '#64748B', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>{label}</div>
       <div style={{ fontSize: '1rem', fontWeight: 700, color: valueColor, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
-        {fmt(actual)}{unit}
+        {Math.round(actual)}{unit}
         {goal && (
           <span style={{ fontSize: '0.72rem', fontWeight: 500, color: '#475569' }}>
             {' '}/ {goal.goal}{unit}
