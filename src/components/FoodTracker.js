@@ -503,7 +503,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                   return (
                     <div key={e.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: c.muted, padding: '0.15rem 0.75rem' }}>
                       <span>{e.ingredient}</span>
-                      <span>{pct}% eaten of {e.actual_amount}{unit} cooked → {consumed}{unit} → {fmt(e.calories)} cal / {fmt(e.protein)}g P</span>
+                      <span>{pct}% eaten of {e.actual_amount}{unit} prepared → {consumed}{unit} → {fmt(e.calories)} cal / {fmt(e.protein)}g P</span>
                     </div>
                   )
                 })}
