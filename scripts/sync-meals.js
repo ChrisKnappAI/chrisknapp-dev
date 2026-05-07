@@ -9,7 +9,7 @@ const SUPABASE_URL = 'https://kkwafiscyshdailnourb.supabase.co'
 const SUPABASE_KEY = 'sb_publishable_qRH4PzN7D0_lOOapNGIgqA_KCsOjI_w'
 const supabase    = createClient(SUPABASE_URL, SUPABASE_KEY)
 
-const CSV_PATH = 'C:\\Users\\CK092\\chrisknapp-dev-data-to-import\\data-drop\\meal_ingredient_lookup\\meal-ingredient-lookup.csv'
+const CSV_PATH = 'C:\\KnappFiles\\chrisknapp-dev-data-to-import\\data-drop\\meal_ingredient_lookup\\meal-ingredient-lookup.csv'
 
 function parseCSV(filepath) {
   const lines   = fs.readFileSync(filepath, 'utf-8').split('\n').filter(l => l.trim())

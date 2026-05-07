@@ -16,7 +16,7 @@ const supabase = createClient(
   'sb_publishable_qRH4PzN7D0_lOOapNGIgqA_KCsOjI_w'
 )
 
-const BACKUP_ROOT = 'C:/Users/CK092/chrisknapp-dev-data-to-import/backups'
+const BACKUP_ROOT = 'C:/KnappFiles/chrisknapp-dev-data-to-import/backups'
 
 // Primary key for each table — used to delete all existing rows before restore
 const TABLE_PK = {

@@ -1,7 +1,7 @@
 // Back up all Supabase tables to a timestamped local folder.
 // Run BEFORE any write operation: node scripts/backup-supabase.mjs
 //
-// Backups land in: C:\Users\CK092\chrisknapp-dev-data-to-import\backups\<timestamp>\
+// Backups land in: C:\KnappFiles\chrisknapp-dev-data-to-import\backups\<timestamp>\
 
 import { createClient } from '@supabase/supabase-js'
 import { writeFileSync, mkdirSync } from 'fs'
@@ -24,7 +24,7 @@ const TABLES = [
   'goal_tracker_natalie',
 ]
 
-const BACKUP_ROOT = 'C:/Users/CK092/chrisknapp-dev-data-to-import/backups'
+const BACKUP_ROOT = 'C:/KnappFiles/chrisknapp-dev-data-to-import/backups'
 
 // Build timestamp: 2026-05-06_14-30-00
 const now  = new Date()

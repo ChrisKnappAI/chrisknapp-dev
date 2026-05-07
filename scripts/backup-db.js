@@ -8,7 +8,7 @@ const path = require('path')
 
 const SUPABASE_URL = 'https://kkwafiscyshdailnourb.supabase.co'
 const SUPABASE_KEY = 'sb_publishable_qRH4PzN7D0_lOOapNGIgqA_KCsOjI_w'
-const BACKUP_ROOT  = 'C:\\Users\\CK092\\chrisknapp-dev-data-backup'
+const BACKUP_ROOT  = 'C:\\KnappFiles\\chrisknapp-dev-data-backup'
 
 const TABLES = [
   'net_worth_snapshots',

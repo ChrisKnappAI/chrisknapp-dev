@@ -255,6 +255,7 @@ export default function Home() {
       `}</style>
 
       <canvas ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} />
+      <span style={{ position: 'fixed', bottom: 4, right: 8, fontSize: '0.55rem', color: '#334155', zIndex: 9999, userSelect: 'none', pointerEvents: 'none' }}>ITWORKED</span>
 
       {/* ── DESKTOP ── */}
       <div className="ck-page">
