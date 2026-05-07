@@ -280,11 +280,11 @@ export default function Resume() {
                 </div>
                 <div className="rv-rteam">CX Journeys · Onboarding &amp; Renewal Team</div>
                 <ul className="rv-bullets">
-                  <li>Delivered $60M in annual profit retention through customer outreach strategy, retaining 40,000+ policies annually</li>
-                  <li>Pioneered AI analytics initiative forecasted to generate $75M in additional annual profit</li>
-                  <li>Doubled outbound call staffing through data storytelling and stakeholder influence, retaining 23,000+ additional policies</li>
-                  <li>Recognized internal expert in statistical experimental design; shaped company-wide test governance methodology</li>
-                  <li>Developed Associate Manager to Manager readiness; now leading own team</li>
+                  <li>Delivered $60M in annual profit through customer outreach strategy, retaining 40,000+ additional policies annually</li>
+                  <li>Pioneered AI analytics initiative forecasted to generate $15M in additional annual profit</li>
+                  <li>Influenced leadership to doubled outbound call staffing, retaining 23,000+ additional policies</li>
+                  <li>Recognized as internal expert in statistical experimental design; shaped company-wide test governance methodology</li>
+                  <li>Developed successful leaders and highly skilled individual contributors</li>
                 </ul>
               </div>
 
