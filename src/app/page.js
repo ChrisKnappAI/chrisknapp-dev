@@ -24,7 +24,7 @@ export default function Home() {
       init() {
         this.x = Math.random() * W; this.y = Math.random() * H
         this.vx = (Math.random() - 0.5) * 0.45; this.vy = (Math.random() - 0.5) * 0.45
-        this.r = Math.random() * 1.5 + 0.5; this.a = Math.random() * 0.45 + 0.15
+        this.r = Math.random() * 2 + 0.5; this.a = Math.random() * 0.25 + 0.15
       }
       update() {
         const dx = mouse.x - this.x, dy = mouse.y - this.y
@@ -35,22 +35,51 @@ export default function Home() {
         if (this.x < 0) this.x = W; else if (this.x > W) this.x = 0
         if (this.y < 0) this.y = H; else if (this.y > H) this.y = 0
       }
-      draw() {
-        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(59,130,246,${this.a})`; ctx.fill()
-      }
     }
 
-    const pts = Array.from({ length: 90 }, () => new Particle())
+    const pts = Array.from({ length: 120 }, () => new Particle())
+
+    // 4 pulse zones that drift around the canvas
+    const zones = [
+      { x: 0, y: 0, vx: 0.4,   vy: 0.3  },
+      { x: 0, y: 0, vx: -0.3,  vy: 0.5  },
+      { x: 0, y: 0, vx: 0.5,   vy: -0.4 },
+      { x: 0, y: 0, vx: -0.45, vy: -0.35 },
+    ]
+    function initZones() {
+      zones[0].x = W*0.2; zones[0].y = H*0.4
+      zones[1].x = W*0.6; zones[1].y = H*0.3
+      zones[2].x = W*0.8; zones[2].y = H*0.7
+      zones[3].x = W*0.4; zones[3].y = H*0.75
+    }
+    initZones()
+
+    const ZONE_R = 180
+    function updateZones() {
+      zones.forEach(z => {
+        z.x += z.vx; z.y += z.vy
+        if (z.x < 0 || z.x > W) z.vx *= -1
+        if (z.y < 0 || z.y > H) z.vy *= -1
+      })
+    }
+    function zoneInf(p) {
+      let max = 0
+      zones.forEach(z => {
+        const d = Math.hypot(p.x - z.x, p.y - z.y)
+        if (d < ZONE_R) max = Math.max(max, 1 - d / ZONE_R)
+      })
+      return max
+    }
 
     function drawLines() {
       for (let i = 0; i < pts.length; i++) {
         for (let j = i + 1; j < pts.length; j++) {
           const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y)
-          if (d < 140) {
+          if (d < 150) {
+            const inf = Math.max(zoneInf(pts[i]), zoneInf(pts[j]))
             ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y)
-            ctx.strokeStyle = `rgba(59,130,246,${(1 - d / 140) * 0.14})`
-            ctx.lineWidth = 0.6; ctx.stroke()
+            ctx.strokeStyle = `rgba(59,130,246,${(1 - d / 150) * (0.08 + inf * 0.28)})`
+            ctx.lineWidth = 0.8 + inf * 0.6; ctx.stroke()
           }
         }
       }
@@ -58,11 +87,20 @@ export default function Home() {
 
     function animate() {
       ctx.clearRect(0, 0, W, H)
-      pts.forEach(p => { p.update(); p.draw() })
+      updateZones()
+      pts.forEach(p => {
+        const inf = zoneInf(p)
+        p.vx += (Math.random() - 0.5) * inf * 0.08
+        p.vy += (Math.random() - 0.5) * inf * 0.08
+        p.update()
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r + inf * 1.5, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(59,130,246,${Math.min(p.a + inf * 0.45, 0.85)})`; ctx.fill()
+      })
       drawLines()
       animId = requestAnimationFrame(animate)
     }
     animate()
+    initZones()
 
     // Typewriter
     const words = [
