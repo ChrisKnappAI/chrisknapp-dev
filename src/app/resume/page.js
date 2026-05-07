@@ -278,7 +278,7 @@ export default function Resume() {
                   <div className="rv-role-row"><span className="rv-rtitle">Manager, Data Analysis</span><span className="rv-rdates">Mar 2024 – Jan 2026</span></div>
                   <div className="rv-role-row"><span className="rv-rtitle">Assoc Manager, Data Analysis</span><span className="rv-rdates">Jun 2023 – Mar 2024</span></div>
                 </div>
-                <div className="rv-rteam">CX Journeys · Onboarding &amp; Renewal Team</div>
+                <div className="rv-rteam">Customer Experience - Journeys Team</div>
                 <ul className="rv-bullets">
                   <li>Delivered $60M in annual profit through customer outreach strategy, retaining 40,000+ additional policies annually</li>
                   <li>Pioneered AI analytics initiative forecasted to generate $15M in additional annual profit</li>
@@ -305,7 +305,7 @@ export default function Resume() {
                 <div>
                   <div className="rv-role-row"><span className="rv-rtitle">Assoc Manager, Data Analysis</span><span className="rv-rdates">Jan 2017 – Feb 2018</span></div>
                 </div>
-                <div className="rv-rteam">Claims Control · Subrogation &amp; Liability Team</div>
+                <div className="rv-rteam">Subrogation and Liability Decision Team</div>
                 <ul className="rv-bullets">
                   <li>Built comprehensive reporting suite (Tableau, Power BI, SSRS) using Python, R, SAS, and SQL</li>
                   <li>Key contributor to data governance initiative; certified three new metrics across Claims Control</li>
