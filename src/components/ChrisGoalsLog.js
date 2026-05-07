@@ -467,7 +467,7 @@ function NoteBox({ value, onChange, onBlur }) {
         onChange={e => onChange(e.target.value)}
         onBlur={e => onBlur(e.target.value)}
         placeholder="Notes for today..."
-        rows={3}
+        rows={5}
         style={{
           width: '100%', background: 'rgba(255,255,255,0.03)',
           border: `1px solid ${c.border}`, borderRadius: 7,
