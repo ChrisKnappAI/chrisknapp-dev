@@ -181,6 +181,7 @@ export default function PhoneSample() {
           <ul className="ph-nav-links">
             <li><a href="/Chris Knapp Resume 20260219.pdf" download>Resume</a></li>
             <li><a href="mailto:ChrisKnappAI@Gmail.com">Contact</a></li>
+            <li><a href="https://linkedin.com/in/chrisknappfl/" target="_blank" rel="noreferrer">LinkedIn</a></li>
           </ul>
         </nav>
 
