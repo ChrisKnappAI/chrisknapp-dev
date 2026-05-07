@@ -50,7 +50,8 @@ export default function Resume() {
   return (
     <>
       <style>{`
-        .rv-page { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; }
+        html, body { background:#0F172A !important; color:#F1F5F9; margin:0; padding:0; }
+        .rv-page { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; background:#0F172A; }
 
         /* NAV */
         .rv-nav {
