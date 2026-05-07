@@ -264,11 +264,11 @@ export default function Home() {
           <div className="ck-stats-inner">
             <div className="ck-stat-item">
               <div className="ck-stat-num" data-target="120" data-prefix="$" data-suffix="M+">$0M+</div>
-              <div className="ck-stat-label">Profit from Strategy<br />&amp; Analytics Projects</div>
+              <div className="ck-stat-label">Profit Generated<br />from Projects</div>
             </div>
             <div className="ck-stat-item">
               <div className="ck-stat-num" data-target="170" data-prefix="" data-suffix="M+">0M+</div>
-              <div className="ck-stat-label">Customers<br />Analyzed</div>
+              <div className="ck-stat-label">Insurance Customers<br />Analyzed</div>
             </div>
             <div className="ck-stat-item">
               <div className="ck-stat-num" data-target="50" data-suffix="+">0+</div>

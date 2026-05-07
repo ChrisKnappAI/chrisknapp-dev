@@ -10,39 +10,98 @@ export default function Resume() {
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     let W = 0, H = 0, animId = null
+    const mouse = { x: -9999, y: -9999 }
 
     function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight }
     resize()
     window.addEventListener('resize', resize)
+    const onMove = e => { mouse.x = e.clientX; mouse.y = e.clientY }
+    document.addEventListener('mousemove', onMove)
 
-    class Dot {
+    class Particle {
       constructor() { this.init() }
       init() {
         this.x = Math.random() * W; this.y = Math.random() * H
-        this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3
-        this.r = Math.random() * 1.2 + 0.4; this.a = Math.random() * 0.3 + 0.1
+        this.vx = (Math.random() - 0.5) * 0.45; this.vy = (Math.random() - 0.5) * 0.45
+        this.r = Math.random() * 1.5 + 0.5; this.a = Math.random() * 0.25 + 0.15
       }
       update() {
+        const dx = mouse.x - this.x, dy = mouse.y - this.y
+        if (Math.hypot(dx, dy) < 140) { this.vx += dx * 0.00025; this.vy += dy * 0.00025 }
+        this.vx *= 0.985; this.vy *= 0.985
         this.x += this.vx; this.y += this.vy
         if (this.x < 0) this.x = W; else if (this.x > W) this.x = 0
         if (this.y < 0) this.y = H; else if (this.y > H) this.y = 0
       }
-      draw() {
-        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(59,130,246,${this.a})`; ctx.fill()
+    }
+
+    const pts = Array.from({ length: 120 }, () => new Particle())
+
+    const zones = [
+      { x: 0, y: 0, vx: 0.4,   vy: 0.3   },
+      { x: 0, y: 0, vx: -0.3,  vy: 0.5   },
+      { x: 0, y: 0, vx: 0.5,   vy: -0.4  },
+      { x: 0, y: 0, vx: -0.45, vy: -0.35 },
+    ]
+    function initZones() {
+      zones[0].x = W*0.2; zones[0].y = H*0.4
+      zones[1].x = W*0.6; zones[1].y = H*0.3
+      zones[2].x = W*0.8; zones[2].y = H*0.7
+      zones[3].x = W*0.4; zones[3].y = H*0.75
+    }
+    initZones()
+    window.addEventListener('resize', initZones)
+
+    const ZONE_R = 180
+    function updateZones() {
+      zones.forEach(z => {
+        z.x += z.vx; z.y += z.vy
+        if (z.x < 0 || z.x > W) z.vx *= -1
+        if (z.y < 0 || z.y > H) z.vy *= -1
+      })
+    }
+    function zoneInf(p) {
+      let max = 0
+      zones.forEach(z => {
+        const d = Math.hypot(p.x - z.x, p.y - z.y)
+        if (d < ZONE_R) max = Math.max(max, 1 - d / ZONE_R)
+      })
+      return max
+    }
+    function drawLines() {
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y)
+          if (d < 150) {
+            const inf = Math.max(zoneInf(pts[i]), zoneInf(pts[j]))
+            ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y)
+            ctx.strokeStyle = `rgba(59,130,246,${(1 - d / 150) * (0.08 + inf * 0.28)})`
+            ctx.lineWidth = 0.8 + inf * 0.6; ctx.stroke()
+          }
+        }
       }
     }
 
-    const dots = Array.from({ length: 50 }, () => new Dot())
     function animate() {
       ctx.clearRect(0, 0, W, H)
-      dots.forEach(d => { d.update(); d.draw() })
+      updateZones()
+      pts.forEach(p => {
+        const inf = zoneInf(p)
+        p.vx += (Math.random() - 0.5) * inf * 0.08
+        p.vy += (Math.random() - 0.5) * inf * 0.08
+        p.update()
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r + inf * 1.5, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(59,130,246,${Math.min(p.a + inf * 0.45, 0.85)})`; ctx.fill()
+      })
+      drawLines()
       animId = requestAnimationFrame(animate)
     }
     animate()
 
     return () => {
       window.removeEventListener('resize', resize)
+      window.removeEventListener('resize', initZones)
+      document.removeEventListener('mousemove', onMove)
       if (animId) cancelAnimationFrame(animId)
     }
   }, [])
@@ -81,10 +140,10 @@ export default function Resume() {
         .rv-btn-outline:hover { border-color:#3B82F6; color:#3B82F6; }
 
         /* CONTENT */
-        .rv-content { max-width:860px; margin:0 auto; padding:0 2rem 6rem; width:100%; }
+        .rv-content { max-width:860px; margin:0 auto; padding:0 2rem 2rem; width:100%; }
 
         /* HERO */
-        .rv-hero { border-bottom:1px solid rgba(255,255,255,0.06); background:linear-gradient(180deg,rgba(59,130,246,0.04) 0%,transparent 100%); padding:4rem 0 3rem; margin-bottom:3.5rem; }
+        .rv-hero { border-bottom:1px solid rgba(255,255,255,0.06); background:linear-gradient(180deg,rgba(59,130,246,0.04) 0%,transparent 100%); padding:4rem 0 1.5rem; margin-bottom:3.5rem; }
         .rv-badge { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); color:#38BDF8; font-size:0.7rem; font-weight:700; padding:0.3rem 0.85rem; border-radius:100px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1.4rem; }
         .rv-name { font-size:clamp(2.5rem,5vw,3.75rem); font-weight:900; letter-spacing:-0.04em; line-height:1; margin-bottom:0.6rem; }
         .rv-name span { color:#3B82F6; }
@@ -154,7 +213,7 @@ export default function Resume() {
         .rv-footer-brand span { color:#3B82F6; }
       `}</style>
 
-      <canvas ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.5 }} />
+      <canvas ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} />
 
       <div className="rv-page">
 
