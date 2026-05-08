@@ -286,8 +286,8 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button onClick={() => shiftDate(-1)} style={btnNav(c)}>←</button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: '0.35rem 0.75rem' }}>
-            <span style={{ fontSize: '0.88rem', fontWeight: 600, minWidth: 80, textAlign: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: '0.28rem 0.7rem' }}>
+            <span style={{ fontSize: '0.83rem', fontWeight: 600, minWidth: 76, textAlign: 'center' }}>
               {friendlyDate(date)}
             </span>
             <input
@@ -295,7 +295,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
               value={date}
               max={getToday()}
               onChange={e => setDate(e.target.value)}
-              style={{ background: 'transparent', border: 'none', color: c.muted, fontSize: '0.78rem', outline: 'none', cursor: 'pointer', padding: 0 }}
+              style={{ background: 'transparent', border: 'none', color: c.muted, fontSize: '0.72rem', outline: 'none', cursor: 'pointer', padding: 0 }}
             />
           </div>
 
@@ -547,5 +547,5 @@ function GoalChip({ label, actual, unit, goal, defaultColor }) {
 }
 
 function btnNav(c) {
-  return { background: c.card, border: `1px solid ${c.border}`, color: c.muted, borderRadius: 6, padding: '0.4rem 0.8rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 600 }
+  return { background: c.card, border: `1px solid ${c.border}`, color: c.muted, borderRadius: 6, padding: '0.32rem 0.65rem', cursor: 'pointer', fontSize: '0.88rem', fontWeight: 600 }
 }
