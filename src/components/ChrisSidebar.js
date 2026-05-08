@@ -42,6 +42,7 @@ export default function ChrisSidebar() {
       </div>
 
       <nav style={{ flex: 1, padding: '1rem 0.75rem', display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+        <NavItem item={{ label: 'Action Items', href: '/chris/action-items', icon: '◈' }} active={pathname === '/chris/action-items'} />
         <SectionLabel>Dashboards</SectionLabel>
         {navItems.map(item => <NavItem key={item.href} item={item} active={pathname === item.href} />)}
 
