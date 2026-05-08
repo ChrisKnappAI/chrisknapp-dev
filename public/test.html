@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn the Face</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0F172A;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: #1E293B;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px 44px 32px;
+      width: 440px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #F1F5F9;
+      letter-spacing: -0.3px;
+      margin-bottom: 5px;
+    }
+    .card-subtitle {
+      font-size: 13px;
+      color: #475569;
+    }
+    .card-subtitle span { color: #3B82F6; }
+
+    /* Face */
+    .face-wrapper {
+      position: relative;
+      width: 300px;
+      height: 440px;
+      margin: 0 auto;
+      overflow: visible;
+    }
+    .face-wrapper svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Hotspot dots */
+    .hs {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: rgba(59,130,246,0.9);
+      border: 2px solid #93C5FD;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      z-index: 10;
+    }
+    .hs::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(59,130,246,0.45);
+      animation: ripple 2.2s ease-out infinite;
+    }
+    @keyframes ripple {
+      0%   { transform: scale(1);   opacity: 0.7; }
+      100% { transform: scale(2.2); opacity: 0;   }
+    }
+    .hs:hover {
+      background: #3B82F6;
+      border-color: #BFDBFE;
+      transform: translate(-50%, -50%) scale(1.55);
+      box-shadow: 0 0 0 5px rgba(59,130,246,0.2);
+    }
+    .hs:hover::after { animation: none; opacity: 0; }
+
+    .hs.speaking {
+      background: #F97316 !important;
+      border-color: #FED7AA !important;
+      transform: translate(-50%, -50%) scale(1.7) !important;
+      box-shadow: 0 0 0 6px rgba(249,115,22,0.25) !important;
+    }
+    .hs.speaking::after { animation: none; opacity: 0; }
+
+    /* Labels */
+    .hs-label {
+      position: absolute;
+      background: #0F172A;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #F1F5F9;
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.1s ease;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+      z-index: 20;
+    }
+
+    /* Word flash at bottom */
+    .word-display {
+      margin-top: 20px;
+      text-align: center;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .spoken-icon {
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+    .spoken-word {
+      font-size: 22px;
+      font-weight: 700;
+      color: #3B82F6;
+      letter-spacing: -0.3px;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+    .spoken-icon.show, .spoken-word.show { opacity: 1; }
+
+    .hint {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 11px;
+      color: #334155;
+      letter-spacing: 0.03em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Learn the Face</div>
+    <div class="card-subtitle">Hover to see &nbsp;·&nbsp; <span>Click to hear</span></div>
+  </div>
+
+  <div class="face-wrapper" id="face-wrapper">
+
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Neck -->
+      <rect x="124" y="337" width="52" height="76" rx="7" fill="#FDC89A"/>
+      <line x1="124" y1="342" x2="124" y2="413" stroke="#D4906A" stroke-width="1" opacity="0.35"/>
+      <line x1="176" y1="342" x2="176" y2="413" stroke="#D4906A" stroke-width="1" opacity="0.35"/>
+
+      <!-- Head base -->
+      <ellipse cx="150" cy="210" rx="107" ry="127" fill="#FDC89A"/>
+      <!-- Subtle jaw shadow -->
+      <ellipse cx="150" cy="296" rx="76" ry="44" fill="#ECA878" opacity="0.22"/>
+
+      <!-- Left ear (rendered before head to sit behind) -->
+      <ellipse cx="43" cy="212" rx="15" ry="22" fill="#FDC89A" stroke="#D4906A" stroke-width="1.5"/>
+      <ellipse cx="43" cy="212" rx="8"  ry="14" fill="#ECA878" opacity="0.55"/>
+
+      <!-- Right ear -->
+      <ellipse cx="257" cy="212" rx="15" ry="22" fill="#FDC89A" stroke="#D4906A" stroke-width="1.5"/>
+      <ellipse cx="257" cy="212" rx="8"  ry="14" fill="#ECA878" opacity="0.55"/>
+
+      <!-- Hair mass -->
+      <path d="
+        M 43 158
+        Q 43 80 150 78
+        Q 257 80 257 158
+        Q 238 142 205 137
+        Q 178 134 150 135
+        Q 122 134 95 137
+        Q 62 142 43 158 Z
+      " fill="#2C1A0E"/>
+      <!-- Side hair -->
+      <path d="M 43 158 Q 40 172 42 190 Q 45 175 50 164 Z" fill="#2C1A0E"/>
+      <path d="M 257 158 Q 260 172 258 190 Q 255 175 250 164 Z" fill="#2C1A0E"/>
+
+      <!-- Eyebrows -->
+      <path d="M 80 174 Q 100 163 124 168" stroke="#2C1A0E" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M 176 168 Q 200 163 220 174" stroke="#2C1A0E" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+      <!-- Left eye -->
+      <ellipse cx="105" cy="191" rx="20" ry="14" fill="white"/>
+      <circle  cx="105" cy="191" r="9.5" fill="#5C3317"/>
+      <circle  cx="105" cy="191" r="5"   fill="#0D0600"/>
+      <circle  cx="109" cy="188" r="2.5" fill="white"/>
+      <path d="M 85 186 Q 105 175 125 186" stroke="#2C1A0E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M 86 197 Q 105 203 124 197" stroke="#D4906A" stroke-width="1"   fill="none" stroke-linecap="round" opacity="0.4"/>
+
+      <!-- Right eye -->
+      <ellipse cx="195" cy="191" rx="20" ry="14" fill="white"/>
+      <circle  cx="195" cy="191" r="9.5" fill="#5C3317"/>
+      <circle  cx="195" cy="191" r="5"   fill="#0D0600"/>
+      <circle  cx="199" cy="188" r="2.5" fill="white"/>
+      <path d="M 175 186 Q 195 175 215 186" stroke="#2C1A0E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M 176 197 Q 195 203 214 197" stroke="#D4906A" stroke-width="1"   fill="none" stroke-linecap="round" opacity="0.4"/>
+
+      <!-- Nose -->
+      <path d="M 143 207 L 141 232" stroke="#D4906A" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+      <path d="M 157 207 L 159 232" stroke="#D4906A" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+      <ellipse cx="141" cy="233" rx="9" ry="6" fill="#ECA878" stroke="#C4805A" stroke-width="1.2"/>
+      <ellipse cx="159" cy="233" rx="9" ry="6" fill="#ECA878" stroke="#C4805A" stroke-width="1.2"/>
+      <ellipse cx="150" cy="231" rx="6" ry="4" fill="#ECA878" stroke="#C4805A" stroke-width="1" opacity="0.7"/>
+
+      <!-- Mouth -->
+      <path d="M 122 263 Q 136 257 150 259 Q 164 257 178 263" stroke="#C06050" stroke-width="1.5" fill="#D47060" fill-opacity="0.65" stroke-linecap="round"/>
+      <path d="M 122 263 Q 150 280 178 263" stroke="#C06050" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M 136 270 Q 150 274 164 270" stroke="rgba(255,200,180,0.35)" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+      <!-- Cheek blush -->
+      <ellipse cx="80"  cy="252" rx="22" ry="14" fill="#F4A0A0" opacity="0.28"/>
+      <ellipse cx="220" cy="252" rx="22" ry="14" fill="#F4A0A0" opacity="0.28"/>
+
+    </svg>
+
+  </div><!-- /face-wrapper -->
+
+  <div class="word-display">
+    <span class="spoken-icon" id="spoken-icon">🔊</span>
+    <span class="spoken-word" id="spoken-word">—</span>
+  </div>
+  <div class="hint">tap any dot to hear the word</div>
+</div>
+
+<script>
+  // x, y = position within the 300×440 SVG coordinate space
+  // ldir = which side the label appears on (left / right)
+  const hotspots = [
+    { word: 'Hair',     x: 150, y: 106, ldir: 'right' },
+    { word: 'Forehead', x: 150, y: 153, ldir: 'right' },
+    { word: 'Eyebrow',  x:  98, y: 170, ldir: 'right' },
+    { word: 'Eye',      x: 195, y: 191, ldir: 'right' },
+    { word: 'Ear',      x:  33, y: 212, ldir: 'left'  },
+    { word: 'Nose',     x: 150, y: 228, ldir: 'right' },
+    { word: 'Cheek',    x: 221, y: 252, ldir: 'right' },
+    { word: 'Mouth',    x: 150, y: 265, ldir: 'right' },
+    { word: 'Chin',     x: 150, y: 318, ldir: 'right' },
+    { word: 'Neck',     x: 150, y: 368, ldir: 'right' },
+  ];
+
+  const wrapper     = document.getElementById('face-wrapper');
+  const spokenWord  = document.getElementById('spoken-word');
+  const spokenIcon  = document.getElementById('spoken-icon');
+  let hideTimer     = null;
+
+  hotspots.forEach((hs, i) => {
+    // Dot
+    const dot = document.createElement('div');
+    dot.className = 'hs';
+    dot.style.left           = hs.x + 'px';
+    dot.style.top            = hs.y + 'px';
+    dot.style.animationDelay = (i * 0.24) + 's';
+
+    // Label
+    const lbl = document.createElement('div');
+    lbl.className   = 'hs-label';
+    lbl.textContent = hs.word;
+
+    wrapper.appendChild(dot);
+    wrapper.appendChild(lbl);
+
+    // Position label after it renders so we have its width
+    requestAnimationFrame(() => {
+      const lw  = lbl.offsetWidth;
+      const lh  = lbl.offsetHeight;
+      const GAP = 11;
+
+      lbl.style.top = (hs.y - lh / 2) + 'px';
+      if (hs.ldir === 'right') {
+        lbl.style.left = (hs.x + GAP) + 'px';
+      } else {
+        lbl.style.left = (hs.x - GAP - lw) + 'px';
+      }
+    });
+
+    // Hover
+    dot.addEventListener('mouseenter', () => { lbl.style.opacity = '1'; });
+    dot.addEventListener('mouseleave', () => {
+      if (!dot.classList.contains('speaking')) lbl.style.opacity = '0';
+    });
+
+    // Click → speak
+    dot.addEventListener('click', () => {
+      speechSynthesis.cancel();
+      clearTimeout(hideTimer);
+
+      // Clear any other speaking dot
+      wrapper.querySelectorAll('.hs.speaking').forEach(el => {
+        el.classList.remove('speaking');
+      });
+      wrapper.querySelectorAll('.hs-label').forEach(el => {
+        el.style.opacity = '0';
+      });
+
+      dot.classList.add('speaking');
+      lbl.style.opacity = '1';
+
+      // Big word display
+      spokenWord.textContent = hs.word;
+      spokenWord.classList.add('show');
+      spokenIcon.classList.add('show');
+
+      // Speak
+      const utt   = new SpeechSynthesisUtterance(hs.word);
+      utt.lang    = 'en-US';
+      utt.rate    = 0.82;
+      utt.pitch   = 1.05;
+      speechSynthesis.speak(utt);
+
+      utt.onend = () => {
+        dot.classList.remove('speaking');
+        lbl.style.opacity = '0';
+        hideTimer = setTimeout(() => {
+          spokenWord.classList.remove('show');
+          spokenIcon.classList.remove('show');
+        }, 900);
+      };
+    });
+  });
+</script>
+
+</body>
+</html>
