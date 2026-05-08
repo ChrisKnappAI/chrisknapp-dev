@@ -144,7 +144,7 @@ const cardStyle = {
   background: 'var(--c-dark-card)',
   border:     '1px solid var(--c-dark-border)',
   borderRadius: 12,
-  padding: '1rem 1.1rem',
+  padding: '0.55rem 0.8rem',
 }
 
 const NAV_BTN = {
@@ -232,7 +232,7 @@ export default function GymLog() {
 
       {/* Header */}
       <div style={{
-        padding: '1.25rem 2rem',
+        padding: '0.85rem 2rem',
         borderBottom: `1px solid ${c.border}`,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         background: c.bg, flexShrink: 0,
@@ -255,34 +255,33 @@ export default function GymLog() {
         </div>
       </div>
 
-      {/* 3-column grid, scrollable */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '1.1rem 1.5rem' }}>
+      {/* 3-column grid, no scroll */}
+      <div style={{ flex: 1, overflow: 'hidden', padding: '0.6rem 1.2rem' }}>
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
-          gap: '0.9rem',
+          gap: '0.65rem',
           alignItems: 'start',
+          height: '100%',
         }}>
 
-          {/* Col 1: Back */}
-          <MuscleCard
-            group={MUSCLE_GROUPS[0]}
-            gymData={gymData}
-            onToggle={toggleExercise}
-            onUpdateField={updateField}
-            onBlur={handleBlur}
-          />
-
-          {/* Col 2: Shoulders + Chest */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-            {[MUSCLE_GROUPS[1], MUSCLE_GROUPS[2]].map(g => (
+          {/* Col 1: Back + Legs */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {[MUSCLE_GROUPS[0], MUSCLE_GROUPS[5]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
 
-          {/* Col 3: Biceps + Triceps + Legs + Abs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-            {[MUSCLE_GROUPS[3], MUSCLE_GROUPS[4], MUSCLE_GROUPS[5], MUSCLE_GROUPS[6]].map(g => (
+          {/* Col 2: Shoulders + Chest + Abs */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {[MUSCLE_GROUPS[1], MUSCLE_GROUPS[2], MUSCLE_GROUPS[6]].map(g => (
+              <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
+            ))}
+          </div>
+
+          {/* Col 3: Biceps + Triceps */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {[MUSCLE_GROUPS[3], MUSCLE_GROUPS[4]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
@@ -294,23 +293,20 @@ export default function GymLog() {
 }
 
 function MuscleCard({ group, gymData, onToggle, onUpdateField, onBlur }) {
-  const allEx    = group.subcategories ? group.subcategories.flatMap(sc => sc.exercises) : group.exercises
-  const doneCount = allEx.filter(ex => gymData[ex.id]?.checked).length
-
   return (
     <div style={cardStyle}>
-      <SectionHeader label={group.label} done={doneCount} total={allEx.length} />
+      <SectionHeader label={group.label} />
 
       {!group.absOnly && <ColumnLabels />}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', marginTop: '0.45rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem', marginTop: '0.3rem' }}>
         {group.subcategories ? (
           group.subcategories.map(sc => (
             <div key={sc.label}>
               <div style={{
-                fontSize: '0.62rem', fontWeight: 700, color: c.muted,
+                fontSize: '0.6rem', fontWeight: 700, color: c.muted,
                 textTransform: 'uppercase', letterSpacing: '0.07em',
-                padding: '0.35rem 0.4rem 0.15rem',
+                padding: '0.2rem 0.4rem 0.08rem',
               }}>
                 {sc.label}
               </div>
@@ -347,7 +343,7 @@ function MuscleCard({ group, gymData, onToggle, onUpdateField, onBlur }) {
 
 function ColumnLabels() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.2rem 0.4rem 0' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.1rem 0.4rem 0' }}>
       <div style={{ width: 15, flexShrink: 0 }} />
       <div style={{ flex: 1 }} />
       {[{ label: 'Sets', w: 38 }, { label: 'Reps', w: 38 }, { label: 'Lbs', w: 48 }].map(({ label, w }) => (
@@ -365,11 +361,11 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: '0.4rem',
-      padding: '0.28rem 0.4rem', borderRadius: 7,
+      padding: '0.15rem 0.35rem', borderRadius: 6,
       background:  checked ? c.accentDim : 'transparent',
       border:      `1px solid ${checked ? c.accent : c.rowBorder}`,
       transition:  'all 0.1s',
-      marginBottom: '0.1rem',
+      marginBottom: 0,
     }}>
       {/* Checkbox */}
       <div onClick={onToggle} style={{
@@ -428,18 +424,14 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
   )
 }
 
-function SectionHeader({ label, done, total }) {
+function SectionHeader({ label }) {
   return (
     <div style={{
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      paddingBottom: '0.65rem',
+      paddingBottom: '0.4rem',
       borderBottom:  `1px solid ${c.border}`,
     }}>
-      <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '-0.01em', color: c.text }}>
+      <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '-0.01em', color: c.text }}>
         {label}
-      </span>
-      <span style={{ fontSize: '0.72rem', fontWeight: 600, color: done === total ? '#22C55E' : c.muted }}>
-        {done}/{total}
       </span>
     </div>
   )
