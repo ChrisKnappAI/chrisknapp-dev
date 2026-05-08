@@ -7,6 +7,7 @@ import { useState, useRef } from 'react';
 const HOTSPOTS = [
   { id: 'hair',     word: 'Hair',     px: 76.9, py: 5.9  },
   { id: 'head',     word: 'Head',     px: 63.4, py: 12.9 },
+  { id: 'face',     word: 'Face',     px: 8.5,  py: 18.7 },
   { id: 'forehead', word: 'Forehead', px: 24.1, py: 14.6 },
   { id: 'eyebrow',  word: 'Eyebrow',  px: 45.2, py: 6.2  },
   { id: 'eyelash',  word: 'Eyelash',  px: 44.6, py: 11.3 },
