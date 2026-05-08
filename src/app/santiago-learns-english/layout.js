@@ -3,13 +3,8 @@
 import { usePathname, useRouter } from 'next/navigation';
 
 const lessons = [
-  { slug: 'body-parts',   label: '🧍 Body Parts',    active: true  },
-  { slug: 'class-videos', label: '🎬 Class Videos',  active: true  },
-  { slug: 'colors',       label: '🎨 Colors',        active: false },
-  { slug: 'numbers',      label: '🔢 Numbers',       active: false },
-  { slug: 'animals',      label: '🐾 Animals',       active: false },
-  { slug: 'food',         label: '🍎 Food',          active: false },
-  { slug: 'family',       label: '👨‍👩‍👧 Family',       active: false },
+  { slug: 'body-parts',   label: '🧍 Body Parts',   active: true },
+  { slug: 'class-videos', label: '🎬 Class Videos', active: true },
 ];
 
 export default function SantiagoLayout({ children }) {
