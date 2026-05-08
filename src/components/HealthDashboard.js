@@ -437,7 +437,7 @@ function ChartLegend({ items }) {
 function DateRangeFilter({ value, onChange }) {
   const INPUT = {
     background: '#0f172a', border: '1px solid #334155', borderRadius: 6,
-    color: '#94a3b8', fontSize: '0.75rem', padding: '0.35rem 0.45rem',
+    color: '#94a3b8', fontSize: '0.72rem', padding: '0.28rem 0.4rem',
     cursor: 'pointer', outline: 'none', colorScheme: 'dark',
   }
   return (
@@ -455,11 +455,11 @@ function DateRangeFilter({ value, onChange }) {
 
 function GranularityToggle({ value, onChange }) {
   return (
-    <div style={{ display: 'flex', gap: '0.2rem', background: '#0f172a', borderRadius: 8, padding: '0.2rem' }}>
+    <div style={{ display: 'flex', gap: '0.2rem', background: '#0f172a', borderRadius: 8, padding: '0.15rem' }}>
       {['daily', 'weekly', 'monthly'].map(opt => (
         <button key={opt} onClick={() => onChange(opt)} style={{
-          padding: '0.35rem 0.9rem', borderRadius: 6, border: 'none', cursor: 'pointer',
-          fontSize: '0.78rem', fontWeight: 600, textTransform: 'capitalize',
+          padding: '0.25rem 0.75rem', borderRadius: 6, border: 'none', cursor: 'pointer',
+          fontSize: '0.72rem', fontWeight: 600, textTransform: 'capitalize',
           background: value === opt ? '#1e40af' : 'transparent',
           color:      value === opt ? '#93c5fd' : '#475569',
           transition: 'all 0.15s',
