@@ -12,7 +12,16 @@ const VIDEOS = [
   { id: 'weather',            title: 'How is the Weather',             ytId: 'KBL5aXSJTlE' },
   { id: 'what-is-your-name',  title: 'What is Your Name?',             ytId: 'yqlbn_nI2w8' },
   { id: 'are-you-hungry',     title: 'Are You Hungry?',                ytId: 'ykTR0uFGwE0' },
-  { id: 'broccoli-ice-cream', title: 'Do You Like Broccoli or Ice Cream?', ytId: 'frN3nvhIHUk' },
+  { id: 'broccoli-ice-cream',        title: 'Do You Like Broccoli or Ice Cream?', ytId: 'frN3nvhIHUk' },
+  { id: 'days-of-the-week',          title: 'Days of the Week',                   ytId: 'mXMofxtDPUQ' },
+  { id: 'abc-song',                  title: 'ABC Song',                           ytId: 'I_3mbra4dHU' },
+  { id: 'baby-shark',                title: 'Baby Shark',                         ytId: 'XqZsoesa55w' },
+  { id: 'head-shoulders-knees-toes', title: 'Head, Shoulders, Knees and Toes',    ytId: 'RuqvGiZi0qg' },
+  { id: 'if-you-are-happy',          title: 'If You Are Happy',                   ytId: 'wqvQAcloTRQ' },
+  { id: 'feelings-emotions',         title: 'Feelings and Emotions Song',         ytId: 'eMOnyPxE_w8' },
+  { id: 'fly-chicken',               title: 'How is the Weather? Fly Chicken',    ytId: 'I8GeA3anPdo' },
+  { id: 'this-is-my-face',           title: 'This is My Face',                    ytId: '8ChQVaEAKsk' },
+  { id: 'yes-i-can',                 title: 'Yes, I Can Song',                    ytId: '_Ir0Mc6Qilo' },
 ];
 
 export default function ClassVideosPage() {
