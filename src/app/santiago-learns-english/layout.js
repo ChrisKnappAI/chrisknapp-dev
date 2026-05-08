@@ -92,9 +92,13 @@ export default function SantiagoLayout({ children }) {
         </div>
 
         {/* Footer */}
-        <div style={{ padding: '16px 20px 0', borderTop: '1px solid rgba(255,255,255,0.12)', marginTop: 16 }}>
-          <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', lineHeight: 1.5 }}>
-            Made with ❤️ for<br/>Santiago, age 8
+        <div style={{ padding: '16px 16px 0', borderTop: '1px solid rgba(255,255,255,0.15)', marginTop: 16, textAlign: 'center' }}>
+          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.9)', lineHeight: 1.7, fontWeight: 600 }}>
+            Made with ❤️ for<br/>
+            <span style={{ color: '#FDE047', fontWeight: 800, fontSize: 15 }}>Santiago</span><br/>
+            <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, fontWeight: 400 }}>
+              from Aunt Natalie<br/>&amp; Uncle Chris
+            </span>
           </div>
         </div>
       </div>
