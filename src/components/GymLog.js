@@ -255,7 +255,7 @@ export default function GymLog() {
       </div>
 
       {/* 3-column grid */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0.5rem 1.2rem' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '1rem 1.2rem' }}>
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',

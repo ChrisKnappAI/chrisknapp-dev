@@ -303,7 +303,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
         </div>
       </div>
 
-      <div style={{ padding: '1.5rem 2rem' }}>
+      <div style={{ padding: '1rem 2rem' }}>
 
         {toast && (
           <div style={{ background: '#22C55E', color: 'white', padding: '0.6rem 1rem', borderRadius: 8, marginBottom: '1rem', fontSize: '0.84rem', fontWeight: 600 }}>

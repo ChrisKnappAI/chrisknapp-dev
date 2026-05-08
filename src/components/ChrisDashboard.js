@@ -16,7 +16,7 @@ export default function ChrisDashboard({ title, children }) {
       </div>
 
       {/* ── Content ── */}
-      <div style={{ padding: '2rem 2.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={{ padding: '1rem 2.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {children}
       </div>
     </div>

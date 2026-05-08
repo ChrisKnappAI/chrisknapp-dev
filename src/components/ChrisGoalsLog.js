@@ -217,7 +217,7 @@ export default function ChrisGoalsLog() {
       {/* 3-column grid */}
       <div style={{
         flex: 1,
-        padding: '1.1rem 1.5rem',
+        padding: '1rem 1.5rem',
         display: 'grid',
         gridTemplateColumns: '1fr 1.4fr 1fr',
         gap: '0.9rem',
