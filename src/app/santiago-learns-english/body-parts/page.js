@@ -2,41 +2,39 @@
 
 import { useState, useRef } from 'react';
 
-// px/py = percentage of image width/height
-// Label appears above the dot (below for dots near top of image)
 const HOTSPOTS = [
-  { id: 'hair',     word: 'Hair',     px: 76.9, py: 5.9  },
-  { id: 'head',     word: 'Head',     px: 63.4, py: 12.9 },
-  { id: 'face',     word: 'Face',     px: 8.5,  py: 18.7 },
-  { id: 'forehead', word: 'Forehead', px: 24.1, py: 14.6 },
-  { id: 'eyebrow',  word: 'Eyebrow',  px: 45.2, py: 6.2  },
-  { id: 'eyelash',  word: 'Eyelash',  px: 44.6, py: 11.3 },
-  { id: 'eye',      word: 'Eye',      px: 41.6, py: 19.1 },
-  { id: 'ear',      word: 'Ear',      px: 34.6, py: 22.8 },
-  { id: 'nose',     word: 'Nose',     px: 25.3, py: 22.7 },
-  { id: 'cheek',    word: 'Cheek',    px: 19.3, py: 23.5 },
-  { id: 'mouth',    word: 'Mouth',    px: 86.3, py: 88.5 },
-  { id: 'lips',     word: 'Lips',     px: 52.1, py: 95.6 },
-  { id: 'teeth',    word: 'Teeth',    px: 53.3, py: 83.8 },
-  { id: 'tongue',   word: 'Tongue',   px: 51.2, py: 90   },
-  { id: 'chin',     word: 'Chin',     px: 25.3, py: 32.1 },
-  { id: 'neck',     word: 'Neck',     px: 75.6, py: 24.3 },
-  { id: 'shoulder', word: 'Shoulder', px: 38,   py: 32.3 },
-  { id: 'chest',    word: 'Chest',    px: 21.7, py: 41.2 },
-  { id: 'body',     word: 'Body',     px: 94.3, py: 68.9 },
-  { id: 'arm',      word: 'Arm',      px: 55.3, py: 46.5 },
-  { id: 'elbow',    word: 'Elbow',    px: 9.8,  py: 52.4 },
-  { id: 'stomach',  word: 'Stomach',  px: 27.1, py: 55.1 },
-  { id: 'wrist',    word: 'Wrist',    px: 48.6, py: 59.3 },
-  { id: 'hand',     word: 'Hand',     px: 47.6, py: 66.4 },
-  { id: 'thumb',    word: 'Thumb',    px: 48.8, py: 32.1 },
-  { id: 'finger',   word: 'Finger',   px: 49.4, py: 37.1 },
-  { id: 'leg',      word: 'Leg',      px: 9.7,  py: 72.6 },
-  { id: 'knee',     word: 'Knee',     px: 20.5, py: 78.1 },
-  { id: 'foot',     word: 'Foot',     px: 28.2, py: 94.2 },
-  { id: 'toe',      word: 'Toe',      px: 9.5,  py: 95.4 },
-  { id: 'back',     word: 'Back',     px: 71.7, py: 45.7 },
-  { id: 'butt',     word: 'Butt',     px: 74.4, py: 60.7 },
+  { id: 'hair',     word: 'Hair',     es: 'Pelo',         px: 76.9, py: 5.9  },
+  { id: 'head',     word: 'Head',     es: 'Cabeza',       px: 63.4, py: 12.9 },
+  { id: 'face',     word: 'Face',     es: 'Cara',         px: 8.5,  py: 18.7 },
+  { id: 'forehead', word: 'Forehead', es: 'Frente',       px: 24.1, py: 14.6 },
+  { id: 'eyebrow',  word: 'Eyebrow',  es: 'Ceja',         px: 45.2, py: 6.2  },
+  { id: 'eyelash',  word: 'Eyelash',  es: 'Pestaña',      px: 44.6, py: 11.3 },
+  { id: 'eye',      word: 'Eye',      es: 'Ojo',          px: 41.6, py: 19.1 },
+  { id: 'ear',      word: 'Ear',      es: 'Oreja',        px: 34.6, py: 22.8 },
+  { id: 'nose',     word: 'Nose',     es: 'Nariz',        px: 25.3, py: 22.7 },
+  { id: 'cheek',    word: 'Cheek',    es: 'Cachete',      px: 19.3, py: 23.5 },
+  { id: 'mouth',    word: 'Mouth',    es: 'Boca',         px: 86.3, py: 88.5 },
+  { id: 'lips',     word: 'Lips',     es: 'Labios',       px: 52.1, py: 95.6 },
+  { id: 'teeth',    word: 'Teeth',    es: 'Dientes',      px: 53.3, py: 83.8 },
+  { id: 'tongue',   word: 'Tongue',   es: 'Lengua',       px: 51.2, py: 90   },
+  { id: 'chin',     word: 'Chin',     es: 'Barbilla',     px: 25.3, py: 32.1 },
+  { id: 'neck',     word: 'Neck',     es: 'Cuello',       px: 75.6, py: 24.3 },
+  { id: 'shoulder', word: 'Shoulder', es: 'Hombro',       px: 38,   py: 32.3 },
+  { id: 'chest',    word: 'Chest',    es: 'Pecho',        px: 21.7, py: 41.2 },
+  { id: 'body',     word: 'Body',     es: 'Cuerpo',       px: 94.3, py: 68.9 },
+  { id: 'arm',      word: 'Arm',      es: 'Brazo',        px: 55.3, py: 46.5 },
+  { id: 'elbow',    word: 'Elbow',    es: 'Codo',         px: 9.8,  py: 52.4 },
+  { id: 'stomach',  word: 'Stomach',  es: 'Estómago',     px: 27.1, py: 55.1 },
+  { id: 'wrist',    word: 'Wrist',    es: 'Muñeca',       px: 48.6, py: 59.3 },
+  { id: 'hand',     word: 'Hand',     es: 'Mano',         px: 47.6, py: 66.4 },
+  { id: 'thumb',    word: 'Thumb',    es: 'Pulgar',       px: 48.8, py: 32.1 },
+  { id: 'finger',   word: 'Finger',   es: 'Dedo',         px: 49.4, py: 37.1 },
+  { id: 'leg',      word: 'Leg',      es: 'Pierna',       px: 9.7,  py: 72.6 },
+  { id: 'knee',     word: 'Knee',     es: 'Rodilla',      px: 20.5, py: 78.1 },
+  { id: 'foot',     word: 'Foot',     es: 'Pie',          px: 28.2, py: 94.2 },
+  { id: 'toe',      word: 'Toe',      es: 'Dedo del pie', px: 9.5,  py: 95.4 },
+  { id: 'back',     word: 'Back',     es: 'Espalda',      px: 71.7, py: 45.7 },
+  { id: 'butt',     word: 'Butt',     es: 'Cola',         px: 74.4, py: 60.7 },
 ];
 
 export default function BodyPartsPage() {
@@ -119,14 +117,20 @@ export default function BodyPartsPage() {
 
       {/* Word display — centered below photo */}
       <div style={{ maxWidth: 500, width: '100%', marginTop: 20, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-        {active && (
-          <>
-            <span style={{ fontSize: 28 }}>🔊</span>
-            <span style={{ fontSize: 34, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
-              {HOTSPOTS.find(h => h.id === active)?.word}
-            </span>
-          </>
-        )}
+        {active && (() => {
+          const hs = HOTSPOTS.find(h => h.id === active);
+          return (
+            <>
+              <span style={{ fontSize: 28 }}>🔊</span>
+              <span style={{ fontSize: 34, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
+                {hs.word}
+              </span>
+              <span style={{ fontSize: 22, fontWeight: 600, color: '#64748B' }}>
+                ({hs.es})
+              </span>
+            </>
+          );
+        })()}
       </div>
 
       <style>{`
