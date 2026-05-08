@@ -16,6 +16,7 @@ const TABLES = [
   'food_log',
   'goal_tracker_chris',
   'goal_tracker_natalie',
+  'care_log_chris',
   'health_body_stats',
   'health_activity_daily',
   'health_sleep_daily',
@@ -57,8 +58,10 @@ async function fetchAll(tableName) {
 }
 
 async function main() {
-  const date = new Date().toISOString().slice(0, 10)
-  const dir  = path.join(BACKUP_ROOT, date)
+  const now = new Date()
+  const pad = n => String(n).padStart(2, '0')
+  const ts  = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`
+  const dir = path.join(BACKUP_ROOT, ts)
   fs.mkdirSync(dir, { recursive: true })
 
   console.log(`Backup → ${dir}\n`)
