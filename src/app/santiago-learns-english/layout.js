@@ -38,12 +38,12 @@ export default function SantiagoLayout({ children }) {
       }}>
 
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <div style={{ lineHeight: 1 }}>
             <span style={{ fontSize: 24, fontWeight: 900, color: '#FDE047' }}>San</span>
             <span style={{ fontSize: 24, fontWeight: 900, color: '#fff'   }}>tiago</span>
           </div>
-          <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', fontWeight: 500, letterSpacing: '0.02em' }}>
+          <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', fontWeight: 500, letterSpacing: '0.04em' }}>
             Learns English
           </span>
         </div>
