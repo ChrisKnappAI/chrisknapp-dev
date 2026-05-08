@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santiago Logo Options</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0F172A; padding: 48px 40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+    h1 { font-size: 20px; font-weight: 700; color: #F1F5F9; margin-bottom: 6px; }
+    p  { font-size: 13px; color: #475569; margin-bottom: 40px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 220px);
+      gap: 28px 24px;
+    }
+
+    .option-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    /* Each logo lives in a 220px sidebar-width blue box */
+    .logo-box {
+      width: 220px;
+      background: #1D4ED8;
+      border-radius: 12px;
+      padding: 22px 20px;
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+    }
+    .logo-box:hover {
+      box-shadow: 0 0 0 3px #FACC15;
+    }
+    .logo-box.selected {
+      box-shadow: 0 0 0 3px #FACC15, 0 0 0 6px rgba(250,204,21,0.25);
+    }
+
+    #picked {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #FACC15;
+      font-weight: 700;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Santiago Logo Options</h1>
+  <p>All shown at sidebar width (220px) on the real blue background. Click one to select it, then tell me the number.</p>
+
+  <div class="grid">
+
+    <!-- 1: Caps Stack -->
+    <div>
+      <div class="option-label">1 — Caps Stack</div>
+      <div class="logo-box" onclick="pick(1)">
+        <div>
+          <div style="font-size:17px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.14em;">Santiago</div>
+          <div style="font-size:9px;font-weight:700;color:#FDE047;text-transform:uppercase;letter-spacing:0.28em;margin-top:5px;">Learns English</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2: Big Name -->
+    <div>
+      <div class="option-label">2 — Big Name</div>
+      <div class="logo-box" onclick="pick(2)">
+        <div>
+          <div style="font-size:28px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1;">Santiago</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.55);font-style:italic;margin-top:5px;">learns english</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3: Book Icon -->
+    <div>
+      <div class="option-label">3 — Book Icon</div>
+      <div class="logo-box" onclick="pick(3)">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <span style="font-size:30px;line-height:1;">📖</span>
+          <div>
+            <div style="font-size:16px;font-weight:800;color:#FDE047;line-height:1.2;">Santiago</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.7);font-weight:600;margin-top:2px;">Learns English</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4: Yellow Underline -->
+    <div>
+      <div class="option-label">4 — Underline</div>
+      <div class="logo-box" onclick="pick(4)">
+        <div>
+          <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.3px;">Santiago</div>
+          <div style="width:44px;height:3px;background:#FDE047;border-radius:2px;margin:6px 0 7px;"></div>
+          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.18em;">Learns English</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5: Yellow Pill Badge -->
+    <div>
+      <div class="option-label">5 — Yellow Badge</div>
+      <div class="logo-box" onclick="pick(5)">
+        <div>
+          <div style="display:inline-block;background:#FDE047;color:#1D3A8A;font-size:13px;font-weight:900;padding:4px 12px;border-radius:20px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">SANTIAGO</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.75);font-weight:500;padding-left:2px;">Learns English</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6: Two-Tone Name -->
+    <div>
+      <div class="option-label">6 — Two-Tone</div>
+      <div class="logo-box" onclick="pick(6)">
+        <div>
+          <div style="line-height:1;">
+            <span style="font-size:25px;font-weight:900;color:#FDE047;">San</span><span style="font-size:25px;font-weight:900;color:#fff;">tiago</span>
+          </div>
+          <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);margin-top:5px;letter-spacing:0.04em;">Learns English</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7: Bordered Frame -->
+    <div>
+      <div class="option-label">7 — Framed</div>
+      <div class="logo-box" onclick="pick(7)" style="justify-content:center;">
+        <div style="border:2px solid rgba(255,255,255,0.35);border-radius:8px;padding:10px 16px;text-align:center;width:100%;">
+          <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:0.05em;">Santiago</div>
+          <div style="font-size:9px;font-weight:700;color:#FDE047;text-transform:uppercase;letter-spacing:0.22em;margin-top:4px;">Learns English</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8: S Monogram Circle -->
+    <div>
+      <div class="option-label">8 — Monogram</div>
+      <div class="logo-box" onclick="pick(8)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:44px;height:44px;background:#FDE047;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#1D3A8A;flex-shrink:0;line-height:1;">S</div>
+          <div>
+            <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.2;">Santiago</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:3px;">Learns English</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9: Big + Thin -->
+    <div>
+      <div class="option-label">9 — Large + Thin</div>
+      <div class="logo-box" onclick="pick(9)">
+        <div>
+          <div style="font-size:29px;font-weight:900;color:#FDE047;letter-spacing:-1px;line-height:1;">Santiago</div>
+          <div style="font-size:10px;font-weight:300;color:rgba(255,255,255,0.7);letter-spacing:0.3em;text-transform:uppercase;margin-top:5px;">Learns · English</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10: Globe + Reversed Stack -->
+    <div>
+      <div class="option-label">10 — Globe</div>
+      <div class="logo-box" onclick="pick(10)">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:28px;line-height:1;">🌎</span>
+          <div>
+            <div style="font-size:9px;font-weight:700;color:#FDE047;text-transform:uppercase;letter-spacing:0.22em;margin-bottom:3px;">Learns English</div>
+            <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.2px;line-height:1;">Santiago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="picked"></div>
+
+  <script>
+    function pick(n) {
+      document.querySelectorAll('.logo-box').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.logo-box')[n - 1].classList.add('selected');
+      document.getElementById('picked').textContent = `→ You selected Option ${n}. Tell Claude and it'll be applied instantly.`;
+    }
+  </script>
+
+</body>
+</html>
