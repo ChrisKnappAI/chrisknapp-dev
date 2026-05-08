@@ -185,13 +185,16 @@ function ProjTooltip({ active, payload, label }) {
         Age {label}
       </div>
       {[
-        { key: 'netWorth',   label: 'Net Worth',   color: '#FFFFFF', bold: true },
+        { key: 'netWorth',   label: 'Net Worth',   color: '#FFFFFF', bold: true, bordered: true },
         { key: 'investments',label: 'Investments', color: '#60A5FA' },
         { key: 'homeEquity', label: 'Home Equity', color: '#EA580C' },
         { key: 'cash',       label: 'Cash',        color: '#94A3B8' },
-      ].map(({ key, label, color, bold }) => (
+      ].map(({ key, label, color, bold, bordered }) => (
         <div key={key} style={{ display: 'flex', justifyContent: 'space-between',
-          gap: '1.5rem', marginBottom: '0.2rem' }}>
+          gap: '1.5rem',
+          marginBottom: bordered ? '0.65rem' : '0.2rem',
+          borderBottom: bordered ? '1px solid rgba(255,255,255,0.1)' : 'none',
+          paddingBottom: bordered ? '0.5rem' : 0 }}>
           <span style={{ fontSize: '0.78rem', color, fontWeight: bold ? 700 : 400 }}>{label}</span>
           <span style={{ fontSize: '0.78rem', color, fontWeight: bold ? 700 : 400,
             fontVariantNumeric: 'tabular-nums' }}>
@@ -358,7 +361,7 @@ export default function FinancesDashboard() {
               tickLine={false}
               width={70}
             />
-            <Tooltip content={<NetWorthTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} allowEscapeViewBox={{ x: false, y: true }} />
+            <Tooltip content={<NetWorthTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} allowEscapeViewBox={{ x: false, y: true }} wrapperStyle={{ zIndex: 100 }} />
             <Legend
               layout="vertical" align="right" verticalAlign="middle"
               formatter={name => <span style={{ color: '#94A3B8', fontSize: '0.78rem' }}>{name}</span>}
