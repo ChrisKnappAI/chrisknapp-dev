@@ -59,8 +59,8 @@
     /* Hotspot dots */
     .hs {
       position: absolute;
-      width: 15px;
-      height: 15px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: rgba(59,130,246,0.9);
       border: 2px solid #93C5FD;
@@ -105,12 +105,12 @@
       color: #F1F5F9;
       padding: 4px 10px;
       border-radius: 5px;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       white-space: nowrap;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.1s ease;
+      transition: opacity 0.15s ease;
       letter-spacing: 0.07em;
       text-transform: uppercase;
       box-shadow: 0 4px 14px rgba(0,0,0,0.45);
@@ -293,13 +293,7 @@
       }
     });
 
-    // Hover
-    dot.addEventListener('mouseenter', () => { lbl.style.opacity = '1'; });
-    dot.addEventListener('mouseleave', () => {
-      if (!dot.classList.contains('speaking')) lbl.style.opacity = '0';
-    });
-
-    // Click → speak
+    // Tap/click → show label + speak together
     dot.addEventListener('click', () => {
       speechSynthesis.cancel();
       clearTimeout(hideTimer);
