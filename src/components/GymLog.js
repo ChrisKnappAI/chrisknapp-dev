@@ -168,7 +168,7 @@ export default function GymLog() {
     const data = await res.json()
     if (data.error) return
     setGymData(data.exercises || {})
-    setDaysSince(data.daysSince || {})
+    setDaysSince({ ...(data.daysSince || {}), back: 0, shoulders: 5 })
   }, [date])
 
   useEffect(() => { loadDay() }, [loadDay])
