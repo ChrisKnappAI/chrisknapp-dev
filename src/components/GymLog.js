@@ -144,7 +144,7 @@ const cardStyle = {
   background: 'var(--c-dark-card)',
   border:     '1px solid var(--c-dark-border)',
   borderRadius: 12,
-  padding: '0.55rem 0.8rem',
+  padding: '0.45rem 0.75rem',
 }
 
 const NAV_BTN = {
@@ -232,7 +232,7 @@ export default function GymLog() {
 
       {/* Header */}
       <div style={{
-        padding: '0.85rem 2rem',
+        padding: '0.72rem 2rem',
         borderBottom: `1px solid ${c.border}`,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         background: c.bg, flexShrink: 0,
@@ -255,32 +255,31 @@ export default function GymLog() {
         </div>
       </div>
 
-      {/* 3-column grid, no scroll */}
-      <div style={{ flex: 1, overflow: 'hidden', padding: '0.6rem 1.2rem' }}>
+      {/* 3-column grid */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0.5rem 1.2rem' }}>
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
-          gap: '0.65rem',
+          gap: '0.55rem',
           alignItems: 'start',
-          height: '100%',
         }}>
 
           {/* Col 1: Back + Legs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {[MUSCLE_GROUPS[0], MUSCLE_GROUPS[5]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
 
           {/* Col 2: Shoulders + Chest + Abs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {[MUSCLE_GROUPS[1], MUSCLE_GROUPS[2], MUSCLE_GROUPS[6]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
 
           {/* Col 3: Biceps + Triceps */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {[MUSCLE_GROUPS[3], MUSCLE_GROUPS[4]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
@@ -299,14 +298,14 @@ function MuscleCard({ group, gymData, onToggle, onUpdateField, onBlur }) {
 
       {!group.absOnly && <ColumnLabels />}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem', marginTop: '0.3rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.08rem', marginTop: '0.22rem' }}>
         {group.subcategories ? (
           group.subcategories.map(sc => (
             <div key={sc.label}>
               <div style={{
                 fontSize: '0.6rem', fontWeight: 700, color: c.muted,
                 textTransform: 'uppercase', letterSpacing: '0.07em',
-                padding: '0.2rem 0.4rem 0.08rem',
+                padding: '0.15rem 0.4rem 0.06rem',
               }}>
                 {sc.label}
               </div>
@@ -343,7 +342,7 @@ function MuscleCard({ group, gymData, onToggle, onUpdateField, onBlur }) {
 
 function ColumnLabels() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.1rem 0.4rem 0' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.08rem 0.4rem 0' }}>
       <div style={{ width: 15, flexShrink: 0 }} />
       <div style={{ flex: 1 }} />
       {[{ label: 'Sets', w: 38 }, { label: 'Reps', w: 38 }, { label: 'Lbs', w: 48 }].map(({ label, w }) => (
@@ -361,7 +360,7 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: '0.4rem',
-      padding: '0.15rem 0.35rem', borderRadius: 6,
+      padding: '0.12rem 0.35rem', borderRadius: 6,
       background:  checked ? c.accentDim : 'transparent',
       border:      `1px solid ${checked ? c.accent : c.rowBorder}`,
       transition:  'all 0.1s',
@@ -427,7 +426,7 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
 function SectionHeader({ label }) {
   return (
     <div style={{
-      paddingBottom: '0.4rem',
+      paddingBottom: '0.32rem',
       borderBottom:  `1px solid ${c.border}`,
     }}>
       <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '-0.01em', color: c.text }}>
