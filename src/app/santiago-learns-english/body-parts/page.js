@@ -4,36 +4,42 @@ import { useState, useRef } from 'react';
 
 // px/py = percentage of image width/height
 // Label appears above the dot (below for dots near top of image)
+// Positions are placeholders — will be updated after calibration tool
 const HOTSPOTS = [
   // ── Front: Face ───────────────────────────────────────────────
   { id: 'hair',     word: 'Hair',     px: 22, py: 6  },
+  { id: 'head',     word: 'Head',     px: 22, py: 18 },
   { id: 'forehead', word: 'Forehead', px: 22, py: 14 },
   { id: 'eyebrow',  word: 'Eyebrow',  px: 19, py: 19 },
+  { id: 'eyelash',  word: 'Eyelash',  px: 26, py: 21 },
   { id: 'eye',      word: 'Eye',      px: 25, py: 22 },
   { id: 'ear',      word: 'Ear',      px: 13, py: 24 },
   { id: 'nose',     word: 'Nose',     px: 22, py: 27 },
   { id: 'cheek',    word: 'Cheek',    px: 17, py: 29 },
   { id: 'mouth',    word: 'Mouth',    px: 22, py: 32 },
+  { id: 'lips',     word: 'Lips',     px: 50, py: 85 },
+  { id: 'teeth',    word: 'Teeth',    px: 51, py: 88 },
+  { id: 'tongue',   word: 'Tongue',   px: 52, py: 91 },
   { id: 'chin',     word: 'Chin',     px: 22, py: 36 },
   // ── Front: Body ───────────────────────────────────────────────
   { id: 'neck',     word: 'Neck',     px: 22, py: 41 },
   { id: 'shoulder', word: 'Shoulder', px: 7,  py: 46 },
   { id: 'chest',    word: 'Chest',    px: 22, py: 51 },
+  { id: 'body',     word: 'Body',     px: 22, py: 57 },
   { id: 'arm',      word: 'Arm',      px: 5,  py: 55 },
   { id: 'elbow',    word: 'Elbow',    px: 4,  py: 63 },
-  { id: 'belly',    word: 'Belly',    px: 22, py: 63 },
+  { id: 'stomach',  word: 'Stomach',  px: 22, py: 63 },
   { id: 'wrist',    word: 'Wrist',    px: 36, py: 65 },
   { id: 'hand',     word: 'Hand',     px: 39, py: 69 },
+  { id: 'thumb',    word: 'Thumb',    px: 42, py: 67 },
   { id: 'finger',   word: 'Finger',   px: 43, py: 74 },
   { id: 'leg',      word: 'Leg',      px: 20, py: 76 },
   { id: 'knee',     word: 'Knee',     px: 19, py: 83 },
-  { id: 'ankle',    word: 'Ankle',    px: 19, py: 91 },
-  { id: 'shoe',     word: 'Shoe',     px: 20, py: 96 },
+  { id: 'foot',     word: 'Foot',     px: 20, py: 96 },
+  { id: 'toe',      word: 'Toe',      px: 21, py: 98 },
   // ── Back ──────────────────────────────────────────────────────
   { id: 'back',     word: 'Back',     px: 76, py: 52 },
-  { id: 'bottom',   word: 'Bottom',   px: 76, py: 68 },
-  { id: 'calf',     word: 'Calf',     px: 74, py: 82 },
-  { id: 'heel',     word: 'Heel',     px: 73, py: 94 },
+  { id: 'butt',     word: 'Butt',     px: 76, py: 68 },
 ];
 
 export default function BodyPartsPage() {

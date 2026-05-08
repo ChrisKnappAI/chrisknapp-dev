@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Parts Calibration Tool</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0F172A;
+      color: #E2E8F0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Left: Image ── */
+    .image-panel {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .img-wrapper {
+      position: relative;
+      cursor: crosshair;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .img-wrapper img {
+      display: block;
+      max-height: 88vh;
+      max-width: 100%;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Placed dots */
+    .placed-dot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #22C55E;
+      border: 2px solid #fff;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 900;
+      color: #fff;
+      pointer-events: none;
+    }
+
+    .placed-dot.current-preview {
+      background: #FACC15;
+      border-color: #FDE047;
+    }
+
+    /* Crosshair preview on hover */
+    .crosshair-h, .crosshair-v {
+      position: absolute;
+      background: rgba(250,204,21,0.3);
+      pointer-events: none;
+    }
+    .crosshair-h { height: 1px; left: 0; right: 0; }
+    .crosshair-v { width: 1px;  top: 0; bottom: 0; }
+
+    /* ── Right: Controls ── */
+    .controls {
+      width: 280px;
+      min-width: 280px;
+      background: #0B1424;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      gap: 14px;
+      overflow-y: auto;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #334155;
+      margin-bottom: 4px;
+    }
+
+    /* Current word */
+    .current-word-box {
+      background: #1E293B;
+      border: 1px solid rgba(250,204,21,0.3);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .current-word-label { font-size: 11px; color: #64748B; margin-bottom: 4px; }
+    .current-word {
+      font-size: 30px;
+      font-weight: 900;
+      color: #FACC15;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .progress-text { font-size: 12px; color: #475569; margin-top: 6px; }
+
+    /* Word queue */
+    .queue {
+      background: #1E293B;
+      border-radius: 8px;
+      padding: 10px;
+      max-height: 180px;
+      overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .queue-item {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .queue-item.done    { background: rgba(34,197,94,0.15);  color: #22C55E;  }
+    .queue-item.active  { background: rgba(250,204,21,0.2);  color: #FACC15; font-weight: 800; }
+    .queue-item.pending { background: rgba(255,255,255,0.04); color: #475569; }
+
+    /* Output */
+    .output-box {
+      background: #020817;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      color: #64748B;
+      height: 140px;
+      overflow-y: auto;
+      white-space: pre;
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: 8px; }
+    .btn {
+      flex: 1;
+      padding: 9px 10px;
+      border: none;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: opacity 0.1s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn.blue   { background: #1D4ED8; color: #fff; }
+    .btn.yellow { background: #FACC15; color: #1E3A8A; }
+    .btn.red    { background: #DC2626; color: #fff; }
+    .btn.gray   { background: #334155; color: #E2E8F0; }
+
+    /* Done state */
+    .done-msg {
+      display: none;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #22C55E;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Image panel -->
+  <div class="image-panel">
+    <div class="img-wrapper" id="img-wrapper">
+      <img src="santiago-body-parts.png" id="photo" alt="Santiago" />
+      <div class="crosshair-h" id="ch-h" style="display:none;"></div>
+      <div class="crosshair-v" id="ch-v" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Controls panel -->
+  <div class="controls">
+
+    <!-- Current word -->
+    <div class="current-word-box">
+      <div class="current-word-label">Click on the photo to place:</div>
+      <div class="current-word" id="current-word">—</div>
+      <div class="progress-text" id="progress-text">0 of 31</div>
+    </div>
+
+    <!-- Word queue -->
+    <div>
+      <div class="section-label">All words</div>
+      <div class="queue" id="queue"></div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+      <button class="btn yellow" onclick="undoLast()">↩ Undo</button>
+      <button class="btn gray"   onclick="skipWord()">Skip →</button>
+    </div>
+
+    <!-- Output -->
+    <div>
+      <div class="section-label">Output — send this to Claude</div>
+      <div class="output-box" id="output"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn blue" onclick="copyOutput()">📋 Copy output</button>
+      <button class="btn red"  onclick="resetAll()">Reset</button>
+    </div>
+
+    <div class="done-msg" id="done-msg">
+      ✅ All placed!<br>Copy the output above and paste it to Claude.
+    </div>
+
+  </div>
+
+<script>
+  const WORDS = [
+    'Hair', 'Head', 'Forehead', 'Eyebrow', 'Eyelash', 'Eye', 'Ear',
+    'Nose', 'Cheek', 'Mouth', 'Lips', 'Teeth', 'Tongue', 'Chin',
+    'Neck', 'Shoulder', 'Chest', 'Body', 'Arm', 'Elbow',
+    'Stomach', 'Wrist', 'Hand', 'Thumb', 'Finger',
+    'Leg', 'Knee', 'Foot', 'Toe',
+    'Back', 'Butt'
+  ];
+
+  let current    = 0;
+  let placements = []; // { word, px, py } — null py/px means skipped
+
+  const wrapper     = document.getElementById('img-wrapper');
+  const photo       = document.getElementById('photo');
+  const currentEl   = document.getElementById('current-word');
+  const progressEl  = document.getElementById('progress-text');
+  const outputEl    = document.getElementById('output');
+  const queueEl     = document.getElementById('queue');
+  const chH         = document.getElementById('ch-h');
+  const chV         = document.getElementById('ch-v');
+
+  // ── Crosshair ────────────────────────────────────────────────────────────
+  photo.addEventListener('mousemove', (e) => {
+    if (current >= WORDS.length) return;
+    const rect = photo.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    chH.style.display = 'block';
+    chV.style.display = 'block';
+    chH.style.top  = y + 'px';
+    chV.style.left = x + 'px';
+  });
+  photo.addEventListener('mouseleave', () => {
+    chH.style.display = 'none';
+    chV.style.display = 'none';
+  });
+
+  // ── Click to place ────────────────────────────────────────────────────────
+  wrapper.addEventListener('click', (e) => {
+    if (current >= WORDS.length) return;
+    if (e.target.classList.contains('placed-dot')) return;
+
+    const rect = photo.getBoundingClientRect();
+    const px   = +((e.clientX - rect.left)  / rect.width  * 100).toFixed(1);
+    const py   = +((e.clientY - rect.top)   / rect.height * 100).toFixed(1);
+
+    place(WORDS[current], px, py);
+    advance();
+  });
+
+  function place(word, px, py) {
+    placements.push({ word, px, py });
+    if (px === null) return; // skipped
+
+    const dot = document.createElement('div');
+    dot.className       = 'placed-dot';
+    dot.dataset.index   = placements.length - 1;
+    dot.style.left      = px + '%';
+    dot.style.top       = py + '%';
+    dot.textContent     = placements.length;
+    wrapper.appendChild(dot);
+  }
+
+  function advance() {
+    current++;
+    updateUI();
+  }
+
+  // ── Undo ─────────────────────────────────────────────────────────────────
+  function undoLast() {
+    if (placements.length === 0) return;
+    placements.pop();
+    current = Math.max(0, current - 1);
+    const dots = wrapper.querySelectorAll('.placed-dot');
+    if (dots.length > 0) dots[dots.length - 1].remove();
+    updateUI();
+  }
+
+  // ── Skip ─────────────────────────────────────────────────────────────────
+  function skipWord() {
+    if (current >= WORDS.length) return;
+    placements.push({ word: WORDS[current], px: null, py: null });
+    advance();
+  }
+
+  // ── Reset ─────────────────────────────────────────────────────────────────
+  function resetAll() {
+    if (!confirm('Reset all placements?')) return;
+    placements = [];
+    current    = 0;
+    wrapper.querySelectorAll('.placed-dot').forEach(d => d.remove());
+    updateUI();
+  }
+
+  // ── Copy output ──────────────────────────────────────────────────────────
+  function copyOutput() {
+    const text = outputEl.textContent;
+    if (!text) { alert('Nothing to copy yet.'); return; }
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied! Paste it to Claude.');
+    }).catch(() => {
+      // Fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert('Copied! Paste it to Claude.');
+    });
+  }
+
+  // ── UI update ─────────────────────────────────────────────────────────────
+  function updateUI() {
+    const done = current >= WORDS.length;
+
+    currentEl.textContent  = done ? '🎉 All done!' : WORDS[current];
+    progressEl.textContent = `${Math.min(current, WORDS.length)} of ${WORDS.length} placed`;
+
+    // Queue pills
+    queueEl.innerHTML = WORDS.map((w, i) => {
+      const placed = placements.find(p => p.word === w);
+      const cls    = placed
+        ? 'done'
+        : i === current ? 'active' : 'pending';
+      return `<span class="queue-item ${cls}">${placed && placed.px === null ? '–' : placed ? '✓' : ''} ${w}</span>`;
+    }).join('');
+
+    // Output
+    const lines = placements
+      .filter(p => p.px !== null)
+      .map(p =>
+        `  { id: '${p.word.toLowerCase()}', word: '${p.word}', px: ${p.px}, py: ${p.py} },`
+      );
+    outputEl.textContent = lines.join('\n');
+
+    // Done message
+    document.getElementById('done-msg').style.display = done ? 'block' : 'none';
+  }
+
+  updateUI();
+</script>
+</body>
+</html>
