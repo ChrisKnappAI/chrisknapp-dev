@@ -234,10 +234,10 @@ export default function GymLog() {
 
       {/* Header */}
       <div style={{
-        padding: '0.72rem 2rem',
+        padding: '1.25rem 2rem',
         borderBottom: `1px solid ${c.border}`,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        background: c.bg, flexShrink: 0,
+        background: c.bg, position: 'sticky', top: 0, zIndex: 10,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Gym Log</span>
