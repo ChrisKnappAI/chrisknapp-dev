@@ -6,9 +6,9 @@ import { useState } from 'react';
 // YouTube ID = the part after ?v= in the URL
 // e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ → id: 'dQw4w9WgXcQ'
 const VIDEOS = [
-  { id: 'hello',              title: 'Hello',                          ytId: 'gghDRJVxFxU' },
+  { id: 'hello',              title: 'Hello Song',                     ytId: 'gghDRJVxFxU' },
   { id: 'little-finger',      title: 'Little Finger',                  ytId: 'eBVqcTEC3zQ' },
-  { id: 'goodbye',            title: 'Goodbye',                        ytId: '0LDArAJf7-c' },
+  { id: 'goodbye',            title: 'Goodbye Song',                   ytId: '0LDArAJf7-c' },
   { id: 'weather',            title: 'How is the Weather',             ytId: 'KBL5aXSJTlE' },
   { id: 'what-is-your-name',  title: 'What is Your Name?',             ytId: 'yqlbn_nI2w8' },
   { id: 'are-you-hungry',     title: 'Are You Hungry?',                ytId: 'ykTR0uFGwE0' },
