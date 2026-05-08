@@ -6,8 +6,9 @@ import { useState } from 'react';
 // YouTube ID = the part after ?v= in the URL
 // e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ → id: 'dQw4w9WgXcQ'
 const VIDEOS = [
-  { id: 'placeholder-1', title: 'Video 1 — coming soon', ytId: null },
-  { id: 'placeholder-2', title: 'Video 2 — coming soon', ytId: null },
+  { id: 'hello-song',          title: 'Hello Song',          ytId: 'gghDRJVxFxU' },
+  { id: 'little-finger-song',  title: 'Little Finger Song',  ytId: 'eBVqcTEC3zQ' },
+  { id: 'goodbye-song',        title: 'Goodbye Song',        ytId: '0LDArAJf7-c' },
 ];
 
 export default function ClassVideosPage() {
