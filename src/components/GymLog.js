@@ -239,9 +239,6 @@ export default function GymLog() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Gym Log</span>
-          <span style={{ fontSize: '0.72rem', fontWeight: 600, color: doneCount === ALL_EXERCISES.length ? '#22C55E' : c.muted }}>
-            {doneCount} / {ALL_EXERCISES.length}
-          </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button onClick={() => shiftDate(-1)} style={NAV_BTN}>←</button>
@@ -296,19 +293,13 @@ function MuscleCard({ group, gymData, onToggle, onUpdateField, onBlur }) {
     <div style={cardStyle}>
       <SectionHeader label={group.label} />
 
-      {!group.absOnly && <ColumnLabels />}
+      {!group.absOnly && !group.subcategories && <ColumnLabels />}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.08rem', marginTop: '0.22rem' }}>
         {group.subcategories ? (
           group.subcategories.map(sc => (
             <div key={sc.label}>
-              <div style={{
-                fontSize: '0.6rem', fontWeight: 700, color: c.muted,
-                textTransform: 'uppercase', letterSpacing: '0.07em',
-                padding: '0.15rem 0.4rem 0.06rem',
-              }}>
-                {sc.label}
-              </div>
+              <SubcatHeader label={sc.label} />
               {sc.exercises.map(ex => (
                 <ExerciseRow
                   key={ex.id}
@@ -336,6 +327,20 @@ function MuscleCard({ group, gymData, onToggle, onUpdateField, onBlur }) {
           ))
         )}
       </div>
+    </div>
+  )
+}
+
+function SubcatHeader({ label }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.15rem 0.35rem 0.06rem' }}>
+      <div style={{ width: 15, flexShrink: 0 }} />
+      <span style={{ flex: 1, fontSize: '0.6rem', fontWeight: 700, color: c.muted, textTransform: 'uppercase', letterSpacing: '0.07em' }}>
+        {label}
+      </span>
+      {[{ label: 'Sets', w: 38 }, { label: 'Reps', w: 38 }, { label: 'Lbs', w: 48 }].map(({ label: l, w }) => (
+        <div key={l} style={{ width: w, textAlign: 'center', fontSize: '0.6rem', color: c.muted, fontWeight: 600 }}>{l}</div>
+      ))}
     </div>
   )
 }
