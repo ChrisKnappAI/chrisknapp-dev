@@ -59,11 +59,11 @@ export default function BodyPartsPage() {
   }
 
   return (
-    <div style={{ padding: '28px 32px' }}>
+    <div style={{ padding: '14px 24px' }}>
 
       {/* Header */}
-      <div style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: 26, fontWeight: 900, color: '#1D3A8A', letterSpacing: '-0.4px' }}>
+      <div style={{ marginBottom: 10 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 900, color: '#1D3A8A', letterSpacing: '-0.4px' }}>
           Body Parts
         </h1>
       </div>

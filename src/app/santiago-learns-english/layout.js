@@ -14,11 +14,12 @@ export default function SantiagoLayout({ children }) {
 
   return (
     <div style={{
-      minHeight:   '100vh',
-      display:     'flex',
+      height:        '100vh',
+      display:       'flex',
       flexDirection: 'column',
-      background:  '#EFF6FF',
-      fontFamily:  "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      background:    '#EFF6FF',
+      fontFamily:    "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      overflow:      'hidden',
     }}>
 
       {/* ── Top bar ── */}
@@ -73,7 +74,7 @@ export default function SantiagoLayout({ children }) {
       </header>
 
       {/* ── Page content ── */}
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, overflowY: 'auto' }}>
         {children}
       </main>
 
