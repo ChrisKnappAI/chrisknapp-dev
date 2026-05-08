@@ -159,14 +159,16 @@ const NAV_BTN = {
 }
 
 export default function GymLog() {
-  const [date,    setDate]    = useState(getToday)
-  const [gymData, setGymData] = useState({})
+  const [date,      setDate]      = useState(getToday)
+  const [gymData,   setGymData]   = useState({})
+  const [daysSince, setDaysSince] = useState({})
 
   const loadDay = useCallback(async () => {
     const res  = await fetch(`/api/gym-log?user=chris&date=${date}`)
     const data = await res.json()
     if (data.error) return
     setGymData(data.exercises || {})
+    setDaysSince(data.daysSince || {})
   }, [date])
 
   useEffect(() => { loadDay() }, [loadDay])
@@ -264,21 +266,21 @@ export default function GymLog() {
           {/* Col 1: Back + Legs */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {[MUSCLE_GROUPS[0], MUSCLE_GROUPS[5]].map(g => (
-              <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
+              <MuscleCard key={g.id} group={g} gymData={gymData} daysSince={daysSince[g.id] ?? null} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
 
           {/* Col 2: Shoulders + Chest + Abs */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {[MUSCLE_GROUPS[1], MUSCLE_GROUPS[2], MUSCLE_GROUPS[6]].map(g => (
-              <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
+              <MuscleCard key={g.id} group={g} gymData={gymData} daysSince={daysSince[g.id] ?? null} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
 
           {/* Col 3: Biceps + Triceps */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {[MUSCLE_GROUPS[3], MUSCLE_GROUPS[4]].map(g => (
-              <MuscleCard key={g.id} group={g} gymData={gymData} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
+              <MuscleCard key={g.id} group={g} gymData={gymData} daysSince={daysSince[g.id] ?? null} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
 
@@ -288,10 +290,10 @@ export default function GymLog() {
   )
 }
 
-function MuscleCard({ group, gymData, onToggle, onUpdateField, onBlur }) {
+function MuscleCard({ group, gymData, daysSince, onToggle, onUpdateField, onBlur }) {
   return (
     <div style={cardStyle}>
-      <SectionHeader label={group.label} />
+      <SectionHeader label={group.label} daysSince={daysSince} />
 
       {!group.absOnly && !group.subcategories && <ColumnLabels />}
 
@@ -428,14 +430,30 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
   )
 }
 
-function SectionHeader({ label }) {
+function lastWorkedColor(days) {
+  if (days === null) return c.muted
+  if (days <= 1)    return '#22C55E'
+  if (days <= 3)    return c.muted
+  return '#F59E0B'
+}
+
+function SectionHeader({ label, daysSince }) {
+  const lastLabel = daysSince === null ? '—'
+    : daysSince === 0 ? 'today'
+    : daysSince === 1 ? 'yesterday'
+    : `${daysSince}d ago`
+
   return (
     <div style={{
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       paddingBottom: '0.32rem',
       borderBottom:  `1px solid ${c.border}`,
     }}>
       <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '-0.01em', color: c.text }}>
         {label}
+      </span>
+      <span style={{ fontSize: '0.62rem', fontWeight: 600, color: lastWorkedColor(daysSince) }}>
+        {lastLabel}
       </span>
     </div>
   )
