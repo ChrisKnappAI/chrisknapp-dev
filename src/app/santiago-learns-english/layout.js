@@ -30,11 +30,10 @@ export default function SantiagoLayout({ children }) {
       }}>
         {/* Logo */}
         <div style={{ padding: '0 20px 24px', borderBottom: '1px solid rgba(255,255,255,0.15)', marginBottom: 20 }}>
-          <div style={{ fontSize: 22, marginBottom: 4 }}>⭐</div>
-          <div style={{ fontSize: 15, fontWeight: 800, color: '#fff', lineHeight: 1.25, letterSpacing: '-0.2px' }}>
-            Santiago<br/>
-            <span style={{ color: '#FDE047' }}>Learns English</span>
+          <div style={{ lineHeight: 1 }}>
+            <span style={{ fontSize: 25, fontWeight: 900, color: '#FDE047' }}>San</span><span style={{ fontSize: 25, fontWeight: 900, color: '#fff' }}>tiago</span>
           </div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.55)', marginTop: 5, letterSpacing: '0.04em' }}>Learns English</div>
         </div>
 
         {/* Lessons */}
@@ -93,12 +92,9 @@ export default function SantiagoLayout({ children }) {
 
         {/* Footer */}
         <div style={{ padding: '16px 16px 0', borderTop: '1px solid rgba(255,255,255,0.15)', marginTop: 16, textAlign: 'center' }}>
-          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.9)', lineHeight: 1.7, fontWeight: 600 }}>
-            Made with ❤️ for<br/>
-            <span style={{ color: '#FDE047', fontWeight: 800, fontSize: 15 }}>Santiago</span><br/>
-            <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, fontWeight: 400 }}>
-              from Aunt Natalie<br/>&amp; Uncle Chris
-            </span>
+          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.75)', lineHeight: 1.6, fontWeight: 500 }}>
+            Made with ❤️ for <span style={{ color: '#FDE047', fontWeight: 800 }}>Santiago</span><br/>
+            <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: 11 }}>from Aunt Natalie &amp; Uncle Chris</span>
           </div>
         </div>
       </div>

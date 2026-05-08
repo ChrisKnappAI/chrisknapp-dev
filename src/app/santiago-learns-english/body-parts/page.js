@@ -63,12 +63,9 @@ export default function BodyPartsPage() {
 
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: 26, fontWeight: 900, color: '#1D3A8A', letterSpacing: '-0.4px', marginBottom: 4 }}>
-          🧍 Body Parts
+        <h1 style={{ fontSize: 26, fontWeight: 900, color: '#1D3A8A', letterSpacing: '-0.4px' }}>
+          Body Parts
         </h1>
-        <p style={{ fontSize: 14, color: '#3B82F6', fontWeight: 600 }}>
-          Tap a dot to hear the word!
-        </p>
       </div>
 
       {/* Photo labels row */}
