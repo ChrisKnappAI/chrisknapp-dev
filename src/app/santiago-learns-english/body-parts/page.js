@@ -92,67 +92,37 @@ export default function BodyPartsPage() {
         {/* Hotspot dots */}
         {HOTSPOTS.map((hs, i) => {
           const isActive = active === hs.id;
-          // Show label above dot; for dots near top of image, show below
-          const labelAbove = hs.py > 12;
-
           return (
-            <div key={hs.id}>
-              {/* Dot */}
-              <div
-                onClick={() => speak(hs)}
-                style={{
-                  position:     'absolute',
-                  left:         `${hs.px}%`,
-                  top:          `${hs.py}%`,
-                  width:         20,
-                  height:        20,
-                  borderRadius: '50%',
-                  background:    isActive ? '#FACC15' : '#1D4ED8',
-                  border:       `2.5px solid ${isActive ? '#FDE047' : '#93C5FD'}`,
-                  cursor:       'pointer',
-                  transform:    `translate(-50%, -50%) scale(${isActive ? 1.5 : 1})`,
-                  transition:   'transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease',
-                  boxShadow:     isActive ? '0 0 0 5px rgba(250,204,21,0.35)' : 'none',
-                  animation:     isActive ? 'none' : `pulse 2.2s ease-out ${i * 0.18}s infinite`,
-                  zIndex: 10,
-                  touchAction: 'manipulation',
-                }}
-              />
-
-              {/* Label */}
-              {isActive && (
-                <div style={{
-                  position:      'absolute',
-                  left:          `${hs.px}%`,
-                  top:            labelAbove ? `calc(${hs.py}% - 32px)` : `calc(${hs.py}% + 18px)`,
-                  transform:     'translateX(-50%)',
-                  background:    '#1D4ED8',
-                  color:         '#fff',
-                  padding:       '5px 12px',
-                  borderRadius:   6,
-                  fontSize:       13,
-                  fontWeight:     800,
-                  whiteSpace:    'nowrap',
-                  pointerEvents: 'none',
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  boxShadow:     '0 4px 14px rgba(0,0,0,0.25)',
-                  zIndex: 20,
-                }}>
-                  {hs.word}
-                </div>
-              )}
-            </div>
+            <div
+              key={hs.id}
+              onClick={() => speak(hs)}
+              style={{
+                position:     'absolute',
+                left:         `${hs.px}%`,
+                top:          `${hs.py}%`,
+                width:         20,
+                height:        20,
+                borderRadius: '50%',
+                background:    isActive ? '#FACC15' : '#1D4ED8',
+                border:       `2.5px solid ${isActive ? '#FDE047' : '#93C5FD'}`,
+                cursor:       'pointer',
+                transform:    'translate(-50%, -50%)',
+                transition:   'background 0.15s ease, border-color 0.15s ease',
+                animation:     isActive ? 'none' : `pulse 2.2s ease-out ${i * 0.18}s infinite`,
+                zIndex: 10,
+                touchAction: 'manipulation',
+              }}
+            />
           );
         })}
       </div>
 
-      {/* Word display */}
-      <div style={{ marginTop: 20, height: 48, display: 'flex', alignItems: 'center', gap: 10 }}>
+      {/* Word display — centered below photo */}
+      <div style={{ maxWidth: 500, width: '100%', marginTop: 20, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
         {active && (
           <>
-            <span style={{ fontSize: 26 }}>🔊</span>
-            <span style={{ fontSize: 30, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
+            <span style={{ fontSize: 28 }}>🔊</span>
+            <span style={{ fontSize: 34, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
               {HOTSPOTS.find(h => h.id === active)?.word}
             </span>
           </>
