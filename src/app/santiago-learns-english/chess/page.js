@@ -64,7 +64,10 @@ export default function ChessPage() {
           src="/santiago-learns-english/chess/santiago-learns-spanish-chess-vocab.png"
           alt="Chess vocabulary"
           draggable={false}
-          style={{ display: 'block', width: '100%', height: 'auto', userSelect: 'none' }}
+          style={{
+            display: 'block', width: '100%', height: 'auto', userSelect: 'none',
+            maxHeight: 'calc(100vh - 220px)', objectFit: 'contain',
+          }}
         />
 
         {HOTSPOTS.map((hs, i) => {
