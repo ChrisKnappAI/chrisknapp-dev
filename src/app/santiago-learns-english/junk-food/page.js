@@ -35,11 +35,6 @@ const ITEMS = [
   { id: 'whipped-cream', word: 'Whipped Cream', es: 'Crema batida',       emoji: '🥛' },
 ];
 
-const CARD_COLORS = [
-  '#FEF3C7', '#DBEAFE', '#FCE7F3', '#DCFCE7',
-  '#EDE9FE', '#FEE2E2', '#FFEDD5', '#E0F2FE',
-];
-
 export default function JunkFoodPage() {
   const [seen, setSeen]     = useState(new Set());
   const [active, setActive] = useState(null);
@@ -73,40 +68,35 @@ export default function JunkFoodPage() {
   }
 
   return (
-    <div style={{ padding: '14px 14px 20px' }}>
+    <div className="jf-page">
 
       {/* Header */}
-      <div style={{ marginBottom: 4 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 900, color: '#1D3A8A', letterSpacing: '-0.4px' }}>
-          Junk Food
-        </h1>
-      </div>
+      <h1 style={{ fontSize: 20, fontWeight: 900, color: '#1D3A8A', letterSpacing: '-0.4px', margin: '0 0 6px' }}>
+        Junk Food
+      </h1>
 
-      {/* Word display — sticky so it stays visible while scrolling */}
+      {/* Word display */}
       <div style={{
-        position:       'sticky',
-        top:             0,
-        zIndex:          5,
-        background:     '#EFF6FF',
-        height:          56,
+        height:         46,
         display:        'flex',
         alignItems:     'center',
         justifyContent: 'center',
         gap:             8,
-        marginBottom:    10,
+        marginBottom:    8,
+        flexShrink:      0,
       }}>
         {activeItem ? (
           <>
-            <span style={{ fontSize: 26 }}>🔊</span>
-            <span style={{ fontSize: 30, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
+            <span style={{ fontSize: 22 }}>🔊</span>
+            <span style={{ fontSize: 26, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
               {activeItem.word}
             </span>
-            <span style={{ fontSize: 20, fontWeight: 600, color: '#64748B' }}>
+            <span style={{ fontSize: 17, fontWeight: 600, color: '#64748B' }}>
               ({activeItem.es})
             </span>
           </>
         ) : (
-          <span style={{ fontSize: 13, color: '#CBD5E1', fontStyle: 'italic' }}>
+          <span style={{ fontSize: 12, color: '#CBD5E1', fontStyle: 'italic' }}>
             Tap a food to hear its name!
           </span>
         )}
@@ -114,7 +104,7 @@ export default function JunkFoodPage() {
 
       {/* Grid */}
       <div className="jf-grid">
-        {shuffled.map((item, i) => {
+        {shuffled.map(item => {
           const isSeen   = seen.has(item.id);
           const isActive = active === item.id;
           return (
@@ -123,18 +113,16 @@ export default function JunkFoodPage() {
               className="jf-card"
               onClick={() => handleClick(item)}
               style={{
-                background:  CARD_COLORS[i % CARD_COLORS.length],
-                borderRadius: 12,
-                aspectRatio: '1',
-                display:     'flex',
-                alignItems:  'center',
+                background:   isSeen ? '#1D4ED8' : '#BFDBFE',
+                borderRadius:  10,
+                display:      'flex',
+                alignItems:   'center',
                 justifyContent: 'center',
-                cursor:      'pointer',
-                opacity:      isSeen ? 0.25 : 1,
-                transition:  'opacity 0.35s ease, box-shadow 0.15s ease',
-                boxShadow:    isActive ? '0 0 0 3px #1D4ED8' : 'none',
-                userSelect:  'none',
-                touchAction: 'manipulation',
+                cursor:       'pointer',
+                transition:   'background 0.25s ease',
+                outline:       isActive ? '3px solid #FDE047' : 'none',
+                userSelect:   'none',
+                touchAction:  'manipulation',
               }}
             >
               {item.emoji}
@@ -144,20 +132,31 @@ export default function JunkFoodPage() {
       </div>
 
       <style>{`
-        .jf-grid {
-          display: grid;
-          gap: 8px;
-          grid-template-columns: repeat(3, 1fr);
+        .jf-page {
+          padding: 10px 10px 0;
+          height: calc(100vh - 116px);
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
         }
-        .jf-card { font-size: 34px; line-height: 1; }
+        .jf-grid {
+          flex: 1;
+          min-height: 0;
+          display: grid;
+          gap: 6px;
+          grid-template-columns: repeat(5, 1fr);
+          grid-template-rows: repeat(6, 1fr);
+        }
+        .jf-card { font-size: 5.5vw; line-height: 1; }
 
         @media (min-width: 480px) {
-          .jf-grid { grid-template-columns: repeat(5, 1fr); gap: 10px; }
-          .jf-card { font-size: 38px; }
-        }
-        @media (min-width: 900px) {
-          .jf-grid { grid-template-columns: repeat(6, 1fr); gap: 10px; }
-          .jf-card { font-size: 40px; }
+          .jf-grid {
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 8px;
+          }
+          .jf-card { font-size: 4vh; }
         }
       `}</style>
 
