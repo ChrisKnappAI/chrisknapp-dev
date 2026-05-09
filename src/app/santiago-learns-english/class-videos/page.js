@@ -116,6 +116,22 @@ const TRANSCRIPTS = {
     { en: "What do you do when you're sleepy?",  es: "¿Qué haces cuando tienes sueño?" },
     { en: "When I'm sleepy, I go to sleep!",     es: "Cuando tengo sueño, ¡me voy a dormir!" },
   ],
+  'are-you-hungry': [
+    { en: "Are you hungry?",             es: "¿Tienes hambre?" },
+    { en: "Yes I am!",                   es: "¡Sí, tengo hambre!" },
+    { en: "Mmm, a banana! Yum yum yum!", es: "¡Mmm, un plátano! Ñam ñam ñam." },
+    { en: "Mmm, an apple! Yum yum yum!", es: "¡Mmm, una manzana! Ñam ñam ñam." },
+    { en: "Mmm, watermelon! Yum yum yum!", es: "¡Mmm, sandía! Ñam ñam ñam." },
+  ],
+  weather: [
+    { en: "How's the weather today?",                       es: "¿Cómo está el tiempo hoy?" },
+    { en: "Is it sunny? Is it rainy? Is it cloudy? Is it snowy?", es: "¿Soleado? ¿Lluvioso? ¿Nublado? ¿Nevando?" },
+    { en: "Let's look outside!",                            es: "¡Miremos afuera!" },
+    { en: "How's the weather? Is it sunny today?",          es: "¿Cómo está el tiempo? ¿Está soleado hoy?" },
+    { en: "How's the weather? Is it rainy today?",          es: "¿Cómo está el tiempo? ¿Está lluvioso hoy?" },
+    { en: "How's the weather? Is it cloudy today?",         es: "¿Cómo está el tiempo? ¿Está nublado hoy?" },
+    { en: "How's the weather? Is it snowy today?",          es: "¿Cómo está el tiempo? ¿Está nevando hoy?" },
+  ],
   'fly-chicken': [
     { en: "How's the weather?",   es: "¿Cómo está el tiempo?" },
     { en: "It's sunny today!",    es: "¡Está soleado hoy!" },
@@ -168,10 +184,10 @@ export default function ClassVideosPage() {
   }
 
   return (
-    <div style={{ padding: '16px 20px', maxWidth: 960 }}>
+    <div style={{ padding: '14px 24px', maxWidth: 960 }}>
 
       {/* Header */}
-      <div style={{ marginBottom: 14 }}>
+      <div style={{ marginBottom: 10 }}>
         <h1 style={{ fontSize: 22, fontWeight: 900, color: '#1D3A8A', letterSpacing: '-0.4px' }}>
           Class Videos
         </h1>

@@ -34,7 +34,7 @@ const HOTSPOTS = [
   { id: 'foot',     word: 'Foot',     es: 'Pie',          px: 28.2, py: 94.2 },
   { id: 'toe',      word: 'Toe',      es: 'Dedo del pie', px: 9.5,  py: 95.4 },
   { id: 'back',     word: 'Back',     es: 'Espalda',      px: 71.7, py: 45.7 },
-  { id: 'butt',     word: 'Butt',     es: 'Cola',         px: 74.4, py: 60.7 },
+  { id: 'butt',     word: 'Butt',     es: 'Poto',         px: 74.4, py: 60.7 },
 ];
 
 export default function BodyPartsPage() {
