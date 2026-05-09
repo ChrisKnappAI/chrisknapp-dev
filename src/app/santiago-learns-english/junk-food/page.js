@@ -8,31 +8,31 @@ const ITEMS = [
   { id: 'french-fries',  word: 'French Fries',  es: 'Papas fritas',       emoji: '🍟' },
   { id: 'fried-chicken', word: 'Fried Chicken', es: 'Pollo frito',        emoji: '🍗' },
   { id: 'soda',          word: 'Soda',          es: 'Gaseosa',            emoji: '🥤' },
-  { id: 'chips',         word: 'Potato Chips',  es: 'Papas chips',        emoji: '🥔' },
+  { id: 'chips',         word: 'Potato Chips',  es: 'Papas chips',        emoji: '🍘' },
   { id: 'candy',         word: 'Candy',         es: 'Dulce',              emoji: '🍬' },
   { id: 'cupcake',       word: 'Cupcake',       es: 'Pastelito',          emoji: '🧁' },
   { id: 'ice-cream',     word: 'Ice Cream',     es: 'Helado',             emoji: '🍦' },
-  { id: 'milkshake',     word: 'Milk Shake',    es: 'Batido',             emoji: '🧋' },
+  { id: 'milkshake',     word: 'Milk Shake',    es: 'Batido',             emoji: '🍨' },
   { id: 'hot-dog',       word: 'Hot Dog',       es: 'Perro caliente',     emoji: '🌭' },
   { id: 'chocolate-bar', word: 'Chocolate Bar', es: 'Barra de chocolate', emoji: '🍫' },
   { id: 'donut',         word: 'Donut',         es: 'Dona',               emoji: '🍩' },
   { id: 'popcorn',       word: 'Popcorn',       es: 'Palomitas',          emoji: '🍿' },
   { id: 'cake',          word: 'Cake',          es: 'Pastel',             emoji: '🎂' },
-  { id: 'nuggets',       word: 'Nuggets',       es: 'Nuggets',            emoji: '🐔' },
+  { id: 'nuggets',       word: 'Nuggets',       es: 'Nuggets',            emoji: '🧆' },
   { id: 'pancakes',      word: 'Pancakes',      es: 'Panqueques',         emoji: '🥞' },
-  { id: 'cotton-candy',  word: 'Cotton Candy',  es: 'Algodón de azúcar',  emoji: '🩷' },
-  { id: 'gum',           word: 'Gum',           es: 'Chicle',             emoji: '🫧' },
+  { id: 'cotton-candy',  word: 'Cotton Candy',  es: 'Algodón de azúcar',  emoji: '🌸' },
+  { id: 'gum',           word: 'Gum',           es: 'Chicle',             emoji: '🌿' },
   { id: 'lollipop',      word: 'Lollipop',      es: 'Chupete',            emoji: '🍭' },
-  { id: 'gummy-bear',    word: 'Gummy Bear',    es: 'Osito de goma',      emoji: '🐻' },
-  { id: 'marshmallow',   word: 'Marshmallow',   es: 'Malvavisco',         emoji: '☁️' },
-  { id: 'popsicle',      word: 'Popsicle',      es: 'Paleta',             emoji: '🧊' },
+  { id: 'gummy-bear',    word: 'Gummy Bear',    es: 'Osito de goma',      emoji: '🧸' },
+  { id: 'marshmallow',   word: 'Marshmallow',   es: 'Malvavisco',         emoji: '🍡' },
+  { id: 'popsicle',      word: 'Popsicle',      es: 'Paleta',             emoji: '🍧' },
   { id: 'brownie',       word: 'Brownie',       es: 'Brownie',            emoji: '🟫' },
-  { id: 'onion-rings',   word: 'Onion Rings',   es: 'Aros de cebolla',    emoji: '🧅' },
-  { id: 'corn-dog',      word: 'Corn Dog',      es: 'Corn dog',           emoji: '🌽' },
+  { id: 'onion-rings',   word: 'Onion Rings',   es: 'Aros de cebolla',    emoji: '🥯' },
+  { id: 'corn-dog',      word: 'Corn Dog',      es: 'Corn dog',           emoji: '🍢' },
   { id: 'cookies',       word: 'Cookies',       es: 'Galletas',           emoji: '🍪' },
   { id: 'pretzel',       word: 'Pretzel',       es: 'Pretzel',            emoji: '🥨' },
-  { id: 'syrup',         word: 'Syrup',         es: 'Jarabe',             emoji: '🍯' },
-  { id: 'whipped-cream', word: 'Whipped Cream', es: 'Crema batida',       emoji: '🥛' },
+  { id: 'syrup',         word: 'Syrup',         es: 'Jarabe',             emoji: '🍁' },
+  { id: 'whipped-cream', word: 'Whipped Cream', es: 'Crema batida',       emoji: '🍰' },
 ];
 
 export default function JunkFoodPage() {
@@ -85,7 +85,7 @@ export default function JunkFoodPage() {
         marginBottom:    8,
         flexShrink:      0,
       }}>
-        {activeItem && (
+        {activeItem ? (
           <>
             <span style={{ fontSize: 16 }}>🔊</span>
             <span style={{ fontSize: 20, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
@@ -95,6 +95,10 @@ export default function JunkFoodPage() {
               ({activeItem.es})
             </span>
           </>
+        ) : (
+          <span style={{ fontSize: 12, color: '#CBD5E1', fontStyle: 'italic' }}>
+            Tap a food to hear its name!
+          </span>
         )}
       </div>
 
