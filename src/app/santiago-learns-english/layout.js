@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 const lessons = [
   { slug: 'body-parts',   label: '🧍 Body Parts',   active: true },
   { slug: 'class-videos', label: '🎬 Class Videos', active: true },
+  { slug: 'junk-food',    label: '🍕 Junk Food',    active: true },
 ];
 
 export default function SantiagoLayout({ children }) {
