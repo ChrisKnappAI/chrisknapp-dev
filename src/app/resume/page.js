@@ -222,7 +222,7 @@ export default function Resume() {
           <Link href="/" className="rv-logo">chris<span>knapp</span>.dev</Link>
           <ul className="rv-nav-links">
             <li><a href="/resume" className="active">Resume</a></li>
-            <li><a href="#">Portfolio</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
             <li><a href="mailto:ChrisKnappAI@Gmail.com">Contact</a></li>
             <li><div className="rv-nav-sep" /></li>
             <li>
