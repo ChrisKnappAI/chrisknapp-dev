@@ -81,7 +81,7 @@ export default function BodyPartsPage() {
           src="/santiago-learns-english/body-parts/santiago-body-parts.png"
           alt="Santiago front and back"
           draggable={false}
-          style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 12, userSelect: 'none' }}
+          style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 12, userSelect: 'none', maxHeight: 'calc(100vh - 220px)', objectFit: 'contain' }}
         />
 
         {/* Hotspot dots */}
