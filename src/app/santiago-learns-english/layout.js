@@ -89,7 +89,7 @@ export default function SantiagoLayout({ children }) {
       }}>
         <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.85)', fontWeight: 500 }}>
           Made with ❤️ for <span style={{ color: '#FDE047', fontWeight: 800 }}>Santiago</span>
-          <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> · from your God Parents</span>
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> · From Your God Parents</span>
         </div>
       </footer>
 
