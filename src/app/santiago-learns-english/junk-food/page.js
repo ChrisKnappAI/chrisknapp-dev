@@ -3,36 +3,36 @@
 import { useState, useRef, useMemo } from 'react';
 
 const ITEMS = [
-  { id: 'pizza',         word: 'Pizza',         es: 'Pizza',              emoji: '🍕' },
-  { id: 'hamburger',     word: 'Hamburger',      es: 'Hamburguesa',        emoji: '🍔' },
-  { id: 'french-fries',  word: 'French Fries',  es: 'Papas fritas',       emoji: '🍟' },
-  { id: 'fried-chicken', word: 'Fried Chicken', es: 'Pollo frito',        emoji: '🍗' },
-  { id: 'soda',          word: 'Soda',          es: 'Gaseosa',            emoji: '🥤' },
-  { id: 'chips',         word: 'Potato Chips',  es: 'Papas chips',        emoji: '🍘' },
-  { id: 'candy',         word: 'Candy',         es: 'Dulce',              emoji: '🍬' },
-  { id: 'cupcake',       word: 'Cupcake',       es: 'Pastelito',          emoji: '🧁' },
-  { id: 'ice-cream',     word: 'Ice Cream',     es: 'Helado',             emoji: '🍦' },
-  { id: 'milkshake',     word: 'Milk Shake',    es: 'Batido',             emoji: '🍨' },
-  { id: 'hot-dog',       word: 'Hot Dog',       es: 'Perro caliente',     emoji: '🌭' },
-  { id: 'chocolate-bar', word: 'Chocolate Bar', es: 'Barra de chocolate', emoji: '🍫' },
-  { id: 'donut',         word: 'Donut',         es: 'Dona',               emoji: '🍩' },
-  { id: 'popcorn',       word: 'Popcorn',       es: 'Palomitas',          emoji: '🍿' },
-  { id: 'cake',          word: 'Cake',          es: 'Pastel',             emoji: '🎂' },
-  { id: 'nuggets',       word: 'Nuggets',       es: 'Nuggets',            emoji: '🧆' },
-  { id: 'pancakes',      word: 'Pancakes',      es: 'Panqueques',         emoji: '🥞' },
-  { id: 'cotton-candy',  word: 'Cotton Candy',  es: 'Algodón de azúcar',  emoji: '🌸' },
-  { id: 'gum',           word: 'Gum',           es: 'Chicle',             emoji: '🌿' },
-  { id: 'lollipop',      word: 'Lollipop',      es: 'Chupete',            emoji: '🍭' },
-  { id: 'gummy-bear',    word: 'Gummy Bear',    es: 'Osito de goma',      emoji: '🧸' },
-  { id: 'marshmallow',   word: 'Marshmallow',   es: 'Malvavisco',         emoji: '🍡' },
-  { id: 'popsicle',      word: 'Popsicle',      es: 'Paleta',             emoji: '🍧' },
-  { id: 'brownie',       word: 'Brownie',       es: 'Brownie',            emoji: '🟫' },
-  { id: 'onion-rings',   word: 'Onion Rings',   es: 'Aros de cebolla',    emoji: '🥯' },
-  { id: 'corn-dog',      word: 'Corn Dog',      es: 'Corn dog',           emoji: '🍢' },
-  { id: 'cookies',       word: 'Cookies',       es: 'Galletas',           emoji: '🍪' },
-  { id: 'pretzel',       word: 'Pretzel',       es: 'Pretzel',            emoji: '🥨' },
-  { id: 'syrup',         word: 'Syrup',         es: 'Jarabe',             emoji: '🍁' },
-  { id: 'whipped-cream', word: 'Whipped Cream', es: 'Crema batida',       emoji: '🍰' },
+  { id: 'pizza',         word: 'Pizza',         es: 'Pizza',              ext: 'jpg' },
+  { id: 'hamburger',     word: 'Hamburger',      es: 'Hamburguesa',        ext: 'jpg' },
+  { id: 'french-fries',  word: 'French Fries',  es: 'Papas fritas',       ext: 'jpg' },
+  { id: 'fried-chicken', word: 'Fried Chicken', es: 'Pollo frito',        ext: 'jpg' },
+  { id: 'soda',          word: 'Soda',          es: 'Gaseosa',            ext: 'jpg' },
+  { id: 'chips',         word: 'Potato Chips',  es: 'Papas chips',        ext: 'jpg' },
+  { id: 'candy',         word: 'Candy',         es: 'Dulce',              ext: 'jpg' },
+  { id: 'cupcake',       word: 'Cupcake',       es: 'Pastelito',          ext: 'jpg' },
+  { id: 'ice-cream',     word: 'Ice Cream',     es: 'Helado',             ext: 'jpg' },
+  { id: 'milkshake',     word: 'Milk Shake',    es: 'Batido',             ext: 'jpg' },
+  { id: 'hot-dog',       word: 'Hot Dog',       es: 'Perro caliente',     ext: 'png' },
+  { id: 'chocolate-bar', word: 'Chocolate Bar', es: 'Barra de chocolate', ext: 'jpg' },
+  { id: 'donut',         word: 'Donut',         es: 'Dona',               ext: 'jpg' },
+  { id: 'popcorn',       word: 'Popcorn',       es: 'Palomitas',          ext: 'jpg' },
+  { id: 'cake',          word: 'Cake',          es: 'Pastel',             ext: 'jpg' },
+  { id: 'nuggets',       word: 'Nuggets',       es: 'Nuggets',            ext: 'jpg' },
+  { id: 'pancakes',      word: 'Pancakes',      es: 'Panqueques',         ext: 'jpg' },
+  { id: 'cotton-candy',  word: 'Cotton Candy',  es: 'Algodón de azúcar',  ext: 'jpg' },
+  { id: 'gum',           word: 'Gum',           es: 'Chicle',             ext: 'jpg' },
+  { id: 'lollipop',      word: 'Lollipop',      es: 'Chupete',            ext: 'jpg' },
+  { id: 'gummy-bear',    word: 'Gummy Bear',    es: 'Osito de goma',      ext: 'jpg' },
+  { id: 'marshmallow',   word: 'Marshmallow',   es: 'Malvavisco',         ext: 'jpg' },
+  { id: 'popsicle',      word: 'Popsicle',      es: 'Paleta',             ext: 'jpg' },
+  { id: 'brownie',       word: 'Brownie',       es: 'Brownie',            ext: 'jpg' },
+  { id: 'onion-rings',   word: 'Onion Rings',   es: 'Aros de cebolla',    ext: 'jpg' },
+  { id: 'corn-dog',      word: 'Corn Dog',      es: 'Corn dog',           ext: 'jpg' },
+  { id: 'cookies',       word: 'Cookies',       es: 'Galletas',           ext: 'png' },
+  { id: 'pretzel',       word: 'Pretzel',       es: 'Pretzel',            ext: 'jpg' },
+  { id: 'syrup',         word: 'Syrup',         es: 'Jarabe',             ext: 'jpg' },
+  { id: 'whipped-cream', word: 'Whipped Cream', es: 'Crema batida',       ext: 'jpg' },
 ];
 
 export default function JunkFoodPage() {
@@ -113,19 +113,42 @@ export default function JunkFoodPage() {
               className="jf-card"
               onClick={() => handleClick(item)}
               style={{
-                background:   isSeen ? '#1D4ED8' : '#BFDBFE',
-                borderRadius:  10,
-                display:      'flex',
-                alignItems:   'center',
+                background:     '#BFDBFE',
+                borderRadius:   10,
+                display:        'flex',
+                alignItems:     'center',
                 justifyContent: 'center',
-                cursor:       'pointer',
-                transition:   'background 0.25s ease',
-                outline:       isActive ? '3px solid #FDE047' : 'none',
-                userSelect:   'none',
-                touchAction:  'manipulation',
+                cursor:         'pointer',
+                outline:         isActive ? '3px solid #FDE047' : 'none',
+                userSelect:     'none',
+                touchAction:    'manipulation',
+                overflow:       'hidden',
+                position:       'relative',
               }}
             >
-              {item.emoji}
+              <img
+                src={`/santiago-learns-english/junk-food/${item.id}.${item.ext}`}
+                alt={item.word}
+                draggable={false}
+                style={{
+                  width:      '100%',
+                  height:     '100%',
+                  objectFit:  'cover',
+                  opacity:     isSeen ? 0.25 : 1,
+                  transition: 'opacity 0.25s ease',
+                  display:    'block',
+                }}
+              />
+              {isSeen && (
+                <div style={{
+                  position:   'absolute',
+                  inset:       0,
+                  background: '#1D4ED8',
+                  opacity:     0.55,
+                  borderRadius: 10,
+                  pointerEvents: 'none',
+                }} />
+              )}
             </div>
           );
         })}
@@ -148,7 +171,7 @@ export default function JunkFoodPage() {
           grid-template-columns: repeat(5, 1fr);
           grid-template-rows: repeat(6, 1fr);
         }
-        .jf-card { font-size: 5.5vw; line-height: 1; }
+        .jf-card { line-height: 1; }
 
         @media (min-width: 480px) {
           .jf-grid {
@@ -156,7 +179,6 @@ export default function JunkFoodPage() {
             grid-template-rows: repeat(5, 1fr);
             gap: 8px;
           }
-          .jf-card { font-size: 4vh; }
         }
       `}</style>
 
