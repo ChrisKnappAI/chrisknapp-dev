@@ -211,7 +211,7 @@ export default function ClassVideosPage() {
   }
 
   return (
-    <div style={{ padding: '14px 24px', maxWidth: 960 }}>
+    <div style={{ padding: '14px 24px', maxWidth: 960, margin: '0 auto' }}>
 
       {/* Header */}
       <div style={{ marginBottom: 10 }}>
