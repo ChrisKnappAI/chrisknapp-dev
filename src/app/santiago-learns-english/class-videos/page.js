@@ -275,9 +275,6 @@ export default function ClassVideosPage() {
         <div style={{ flex: '1 1 190px', minWidth: 170 }}>
           {transcript ? (
             <div style={{ background: '#F1F5F9', borderRadius: 10, padding: '12px 14px' }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10 }}>
-                Tap a line for Spanish 🇵🇪
-              </div>
               {transcript.map((line, idx) => {
                 const key = `${selected.id}-${idx}`;
                 const isActive = activeLine === key;
@@ -285,16 +282,16 @@ export default function ClassVideosPage() {
                   <div
                     key={key}
                     style={{
-                      padding:      '6px 8px',
+                      padding:      '3px 8px',
                       borderRadius:  7,
-                      marginBottom:  3,
+                      marginBottom:  1,
                       background:    isActive ? '#DBEAFE' : 'transparent',
                       cursor:       'pointer',
                       transition:   'background 0.12s',
                       userSelect:   'none',
                     }}
-                    onMouseEnter={() => setActiveLine(key)}
-                    onMouseLeave={() => setActiveLine(null)}
+                    onPointerEnter={(e) => { if (e.pointerType === 'mouse') setActiveLine(key); }}
+                    onPointerLeave={(e) => { if (e.pointerType === 'mouse') setActiveLine(null); }}
                     onClick={() => setActiveLine(p => p === key ? null : key)}
                   >
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#1E293B', lineHeight: 1.4 }}>
