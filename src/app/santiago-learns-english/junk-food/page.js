@@ -77,28 +77,24 @@ export default function JunkFoodPage() {
 
       {/* Word display */}
       <div style={{
-        height:         46,
+        height:         38,
         display:        'flex',
         alignItems:     'center',
         justifyContent: 'center',
-        gap:             8,
+        gap:             6,
         marginBottom:    8,
         flexShrink:      0,
       }}>
-        {activeItem ? (
+        {activeItem && (
           <>
-            <span style={{ fontSize: 22 }}>🔊</span>
-            <span style={{ fontSize: 26, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
+            <span style={{ fontSize: 16 }}>🔊</span>
+            <span style={{ fontSize: 20, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
               {activeItem.word}
             </span>
-            <span style={{ fontSize: 17, fontWeight: 600, color: '#64748B' }}>
+            <span style={{ fontSize: 14, fontWeight: 600, color: '#64748B' }}>
               ({activeItem.es})
             </span>
           </>
-        ) : (
-          <span style={{ fontSize: 12, color: '#CBD5E1', fontStyle: 'italic' }}>
-            Tap a food to hear its name!
-          </span>
         )}
       </div>
 
@@ -133,7 +129,7 @@ export default function JunkFoodPage() {
 
       <style>{`
         .jf-page {
-          padding: 10px 10px 0;
+          padding: 14px 24px 0;
           height: calc(100vh - 116px);
           box-sizing: border-box;
           display: flex;
