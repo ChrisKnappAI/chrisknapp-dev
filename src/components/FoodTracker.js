@@ -6,6 +6,11 @@ function getToday() {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
 }
+function getTomorrow(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number)
+  const next = new Date(y, m - 1, d + 1)
+  return `${next.getFullYear()}-${String(next.getMonth()+1).padStart(2,'0')}-${String(next.getDate()).padStart(2,'0')}`
+}
 function fmt(n) { return Math.round(n * 10) / 10 }
 
 function calcMacros(ing) {
@@ -88,6 +93,11 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
   const [ingredients,     setIngredients]     = useState([])
   const [submitting,      setSubmitting]       = useState(false)
   const [toast,           setToast]            = useState(null)
+  const [dupTomorrow,     setDupTomorrow]      = useState(false)
+  const [dupOtherUser,    setDupOtherUser]     = useState(false)
+
+  const otherUser  = user === 'chris' ? 'natalie' : 'chris'
+  const otherLabel = user === 'chris' ? 'Natalie' : 'Chris'
 
   // ── manual entry state ──
   const [isManual,     setIsManual]     = useState(false)
@@ -134,6 +144,12 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
     setIngredients(prev => prev.map((r, i) => i === idx ? { ...r, [field]: val } : r))
   }
 
+  function applyTopPercent() {
+    if (ingredients.length < 2) return
+    const pct = parseFloat(ingredients[0].user_percent) || 0
+    setIngredients(prev => prev.map(ing => ({ ...ing, user_percent: pct })))
+  }
+
   // ── day log ──
   const [dayLog,     setDayLog]     = useState([])
   const [logLoading, setLogLoading] = useState(false)
@@ -160,67 +176,71 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
   async function handleLog() {
     setSubmitting(true)
 
+    const tomorrow = getTomorrow(date)
+    const targets  = [{ u: user, d: date }]
+    if (dupTomorrow)                targets.push({ u: user,      d: tomorrow })
+    if (dupOtherUser)               targets.push({ u: otherUser, d: date     })
+    if (dupTomorrow && dupOtherUser) targets.push({ u: otherUser, d: tomorrow })
+
+    const dupMsg = targets.length > 1 ? ` (+${targets.length - 1} duplicate${targets.length > 2 ? 's' : ''})` : ''
+
     if (isManual) {
       if (!manualName || !manualCal) { setSubmitting(false); return }
-      const res = await fetch('/api/food/log', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user, date,
-          meal: manualName,
-          meal_version: 'MANUAL',
-          is_cheat: manualCheat,
-          ingredients: [{
-            ingredient:       manualName,
-            serving_metric:   'serving',
-            serving_size:     1,
-            actual_amount:    1,
-            user_percent:     1.0,
-            serving_calories: parseFloat(manualCal)     || 0,
-            serving_fat:      parseFloat(manualFat)     || 0,
-            serving_carbs:    parseFloat(manualCarbs)   || 0,
-            serving_protein:  parseFloat(manualProtein) || 0,
-          }],
-        }),
-      })
-      if (res.ok) {
+      const ing = [{
+        ingredient:       manualName,
+        serving_metric:   'serving',
+        serving_size:     1,
+        actual_amount:    1,
+        user_percent:     1.0,
+        serving_calories: parseFloat(manualCal)     || 0,
+        serving_fat:      parseFloat(manualFat)     || 0,
+        serving_carbs:    parseFloat(manualCarbs)   || 0,
+        serving_protein:  parseFloat(manualProtein) || 0,
+      }]
+      const results = await Promise.all(targets.map(({ u, d }) =>
+        fetch('/api/food/log', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: u, date: d, meal: manualName, meal_version: 'MANUAL', is_cheat: manualCheat, ingredients: ing }),
+        })
+      ))
+      if (results.some(r => r.ok)) {
         await fetchLog()
         setSelectedMeal('')
         setSelectedVersion('')
         setIsManual(false)
         setManualName(''); setManualCal(''); setManualFat(''); setManualCarbs(''); setManualProtein(''); setManualCheat(false)
-        showToast('Meal logged!')
+        showToast(`Meal logged!${dupMsg}`)
       }
       setSubmitting(false)
       return
     }
 
     if (!selectedMeal || !selectedVersion || ingredients.length === 0) { setSubmitting(false); return }
-    const res = await fetch('/api/food/log', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user, date,
-        meal: selectedMeal, meal_version: selectedVersion,
-        ingredients: ingredients.map(ing => ({
-          ingredient:       ing.ingredient,
-          serving_metric:   ing.serving_metric,
-          serving_size:     ing.serving_size,
-          actual_amount:    parseFloat(ing.actual_amount) || 0,
-          user_percent:     parseFloat(ing.user_percent)  || 0,
-          serving_calories: ing.serving_calories,
-          serving_fat:      ing.serving_fat,
-          serving_carbs:    ing.serving_carbs,
-          serving_protein:  ing.serving_protein,
-        })),
-      }),
-    })
-    if (res.ok) {
+    const ings = ingredients.map(ing => ({
+      ingredient:       ing.ingredient,
+      serving_metric:   ing.serving_metric,
+      serving_size:     ing.serving_size,
+      actual_amount:    parseFloat(ing.actual_amount) || 0,
+      user_percent:     parseFloat(ing.user_percent)  || 0,
+      serving_calories: ing.serving_calories,
+      serving_fat:      ing.serving_fat,
+      serving_carbs:    ing.serving_carbs,
+      serving_protein:  ing.serving_protein,
+    }))
+    const results = await Promise.all(targets.map(({ u, d }) =>
+      fetch('/api/food/log', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user: u, date: d, meal: selectedMeal, meal_version: selectedVersion, ingredients: ings }),
+      })
+    ))
+    if (results.some(r => r.ok)) {
       await fetchLog()
       setSelectedMeal('')
       setSelectedVersion('')
       setIngredients([])
-      showToast('Meal logged!')
+      showToast(`Meal logged!${dupMsg}`)
     }
     setSubmitting(false)
   }
@@ -391,7 +411,20 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                       <th style={{ ...thStyle, textAlign: 'left'   }}>Ingredient</th>
                       <th style={{ ...thStyle, textAlign: 'center' }}>Amount</th>
                       <th style={{ ...thStyle, textAlign: 'center' }}>Unit</th>
-                      <th style={{ ...thStyle, textAlign: 'center' }}>% Eaten</th>
+                      <th style={{ ...thStyle, textAlign: 'center' }}>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                          % Eaten
+                          {ingredients.length > 1 && (
+                            <button
+                              onClick={applyTopPercent}
+                              title="Set all rows to top row's %"
+                              style={{ background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.3)', borderRadius: 4, color: c.accentBtn, fontSize: '0.6rem', fontWeight: 700, padding: '0.1rem 0.35rem', cursor: 'pointer', lineHeight: 1.3 }}
+                            >
+                              ↓ all
+                            </button>
+                          )}
+                        </div>
+                      </th>
                       <th style={{ ...thStyle, textAlign: 'center', color: c.calColor }}>Cal</th>
                       <th style={{ ...thStyle, textAlign: 'center', color: '#22C55E'  }}>Protein</th>
                       <th style={{ ...thStyle, textAlign: 'center', color: '#F97316'  }}>Carbs</th>
@@ -441,7 +474,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
             </>
           )}
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.6rem', borderTop: `1px solid ${c.border}`, marginTop: '0.25rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.6rem', borderTop: `1px solid ${c.border}`, marginTop: '0.25rem', gap: '1rem' }}>
             {!isManual && ingredients.length > 0 ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
                 <span style={{ fontSize: '0.68rem', fontWeight: 600, color: c.muted, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Meal Total</span>
@@ -451,6 +484,18 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                 <Chip label="Fat"     value={`${fmt(mealTotals.fat)}g`}     color={c.muted}   />
               </div>
             ) : <div />}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', cursor: 'pointer', fontSize: '0.78rem', color: dupTomorrow ? c.text : c.muted, fontWeight: dupTomorrow ? 600 : 400, whiteSpace: 'nowrap' }}>
+                <input type="checkbox" checked={dupTomorrow} onChange={e => setDupTomorrow(e.target.checked)} style={{ cursor: 'pointer', accentColor: c.accentBtn, width: 13, height: 13 }} />
+                Duplicate for tomorrow
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', cursor: 'pointer', fontSize: '0.78rem', color: dupOtherUser ? c.text : c.muted, fontWeight: dupOtherUser ? 600 : 400, whiteSpace: 'nowrap' }}>
+                <input type="checkbox" checked={dupOtherUser} onChange={e => setDupOtherUser(e.target.checked)} style={{ cursor: 'pointer', accentColor: c.accentBtn, width: 13, height: 13 }} />
+                Duplicate for {otherLabel}
+              </label>
+            </div>
+
             <button
               onClick={handleLog}
               disabled={logBtnDisabled}

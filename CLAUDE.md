@@ -2,7 +2,13 @@
 
 # chrisknapp.dev — Developer Context
 
-Personal website and private dashboard system for Chris Knapp and Natalie Knapp. Two distinct areas: a public portfolio and two password-protected dashboard suites.
+Personal website for Chris Knapp with two distinct purposes:
+
+1. **Public portfolio** — showcase Chris's data/analytics/AI work to employers and recruiters. Currently a landing page with a particle animation hero, stat counters, and resume link. Full portfolio case studies are actively being built (as of May 2026).
+
+2. **Private dashboards** — password-protected self-improvement tools for Chris and Natalie. Health, finances, food tracking, goal logging, care log, and more — all pulling live data from Supabase.
+
+**Deploy pipeline:** Push to `main` on GitHub → Vercel auto-builds and deploys → app pulls data from Supabase at runtime.
 
 ---
 
@@ -23,7 +29,7 @@ src/
   app/
     page.js                        — Public homepage (particle animation, typewriter, stat counters)
     layout.js                      — Root layout (Inter font, globals.css)
-    resume/page.js                 — Resume page
+    resume/page.js                 — Resume page (FULLY BUILT: particle bg, hero, full Progressive timeline, skills grid, education grid, footer with PDF download)
     login/chris/page.js            — Chris login → /chris/finances
     login/natalie/page.js          — Natalie login → /natalie/goals
     chris/
@@ -62,9 +68,7 @@ src/
   lib/
     supabase.js                    — Supabase client using NEXT_PUBLIC env vars
 scripts/
-  backup-supabase.mjs              — Backup all tables → C:\KnappFiles\chrisknapp-dev-data-to-import\backups\
-  restore-supabase.mjs             — Restore from a backup timestamp
-  backup-db.js                     — Export tables to CSV → C:\KnappFiles\chrisknapp-dev-data-backup\
+  backup-db.js                     — Export all tables to CSV → C:\KnappFiles\chrisknapp-dev-data-backup\<timestamp>\
   sync-meals.js                    — Sync meal-ingredient-lookup.csv → Supabase
   migrate.js                       — One-time data migration tool
 ```
@@ -181,5 +185,6 @@ Raw data lives at `C:\KnappFiles\chrisknapp-dev-data-to-import\`:
 
 **Always backup Supabase before any write:**
 ```
-node C:\KnappFiles\chrisknapp-dev\scripts\backup-supabase.mjs
+node C:\KnappFiles\chrisknapp-dev\scripts\backup-db.js
 ```
+Backups land in `C:\KnappFiles\chrisknapp-dev-data-backup\<YYYY-MM-DD_HH-MM-SS>\` — one CSV per table.
