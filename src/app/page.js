@@ -262,7 +262,7 @@ export default function Home() {
           <Link href="/" className="ck-logo">chris<span>knapp</span>.dev</Link>
           <ul className="ck-nav-links">
             <li><Link href="/resume">Resume</Link></li>
-            <li><a href="#">Portfolio</a></li>
+            <li><Link href="/portfolio">Portfolio</Link></li>
             <li><a href="mailto:ChrisKnappAI@Gmail.com">Contact</a></li>
             <li><div className="ck-nav-sep" /></li>
             <li>
@@ -288,7 +288,7 @@ export default function Home() {
             <div className="ck-buttons">
               <a href="mailto:ChrisKnappAI@Gmail.com" className="ck-btn ck-btn-primary">Contact Me</a>
               <Link href="/resume" className="ck-btn ck-btn-outline">My Resume</Link>
-              <a href="#" className="ck-btn ck-btn-outline">Explore Portfolio &nbsp;→</a>
+              <Link href="/portfolio" className="ck-btn ck-btn-outline">Explore Portfolio &nbsp;→</Link>
             </div>
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
