@@ -198,9 +198,6 @@ export default function ChrisGoalsLog() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Care Log</span>
-          <span style={{ fontSize: '0.72rem', fontWeight: 600, color: doneCount === TOTAL_ITEMS ? '#22C55E' : c.muted }}>
-            {doneCount} / {TOTAL_ITEMS}
-          </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button onClick={() => shiftDate(-1)} style={NAV_BTN}>←</button>
