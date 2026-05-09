@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const TRANSCRIPTS = {
   hello: [
@@ -202,30 +202,12 @@ const VIDEOS = [
 export default function ClassVideosPage() {
   const [selected, setSelected] = useState(VIDEOS[0]);
   const [activeLine, setActiveLine] = useState(null);
-  const [isTouch, setIsTouch]       = useState(false);
-
-  useEffect(() => {
-    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
-  }, []);
 
   const transcript = TRANSCRIPTS[selected.id] ?? null;
 
   function handleSelect(e) {
     setSelected(VIDEOS.find(v => v.id === e.target.value));
     setActiveLine(null);
-  }
-
-  function handleLineClick(line, key) {
-    if (isTouch) {
-      speechSynthesis.cancel();
-      const utt   = new SpeechSynthesisUtterance(line.en);
-      utt.lang    = 'en-US';
-      utt.rate    = 0.85;
-      utt.pitch   = 1.05;
-      speechSynthesis.speak(utt);
-    } else {
-      setActiveLine(p => p === key ? null : key);
-    }
   }
 
   return (
@@ -294,7 +276,7 @@ export default function ClassVideosPage() {
           {transcript ? (
             <div style={{ background: '#F1F5F9', borderRadius: 10, padding: '12px 14px' }}>
               <div style={{ fontSize: 10, fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10 }}>
-                {isTouch ? 'Tap a line to hear it 🔊' : 'Click a line for Spanish 🇵🇪'}
+                Tap a line for Spanish 🇵🇪
               </div>
               {transcript.map((line, idx) => {
                 const key = `${selected.id}-${idx}`;
@@ -311,7 +293,9 @@ export default function ClassVideosPage() {
                       transition:   'background 0.12s',
                       userSelect:   'none',
                     }}
-                    onClick={() => handleLineClick(line, key)}
+                    onMouseEnter={() => setActiveLine(key)}
+                    onMouseLeave={() => setActiveLine(null)}
+                    onClick={() => setActiveLine(p => p === key ? null : key)}
                   >
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#1E293B', lineHeight: 1.4 }}>
                       {line.en}
