@@ -438,18 +438,19 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                 </table>
               </div>
 
-              {/* Meal total preview */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', padding: '0.65rem 0.6rem', borderTop: `1px solid ${c.border}`, marginBottom: '1rem' }}>
-                <span style={{ fontSize: '0.68rem', fontWeight: 600, color: c.muted, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Meal Total</span>
-                <Chip label="Cal"     value={fmt(mealTotals.cal)}             color={c.calColor} />
-                <Chip label="Protein" value={`${fmt(mealTotals.protein)}g`}   color="#22C55E"   />
-                <Chip label="Carbs"   value={`${fmt(mealTotals.carbs)}g`}     color="#F97316"   />
-                <Chip label="Fat"     value={`${fmt(mealTotals.fat)}g`}       color={c.muted}   />
-              </div>
             </>
           )}
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.6rem', borderTop: `1px solid ${c.border}`, marginTop: '0.25rem' }}>
+            {!isManual && ingredients.length > 0 ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                <span style={{ fontSize: '0.68rem', fontWeight: 600, color: c.muted, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Meal Total</span>
+                <Chip label="Cal"     value={fmt(mealTotals.cal)}           color={c.calColor} />
+                <Chip label="Protein" value={`${fmt(mealTotals.protein)}g`} color="#22C55E"   />
+                <Chip label="Carbs"   value={`${fmt(mealTotals.carbs)}g`}   color="#F97316"   />
+                <Chip label="Fat"     value={`${fmt(mealTotals.fat)}g`}     color={c.muted}   />
+              </div>
+            ) : <div />}
             <button
               onClick={handleLog}
               disabled={logBtnDisabled}
