@@ -277,7 +277,7 @@ export default function PortfolioPage() {
               </div>
               <div className="pf-card-title">Santiago Learns English</div>
               <p className="pf-card-desc">
-                An interactive bilingual learning app built from scratch for a 3-year-old learning English as a second language. Features real-time speech synthesis, touch-optimized vocabulary cards with real food photography sourced via a custom Wikipedia image pipeline, an interactive body-parts diagram with 32 tappable hotspots, and a video lesson center with bilingual lyrics synced to 16 songs — all designed mobile-first for small hands and short attention spans.
+                An interactive bilingual learning app built from scratch for an 8-year-old learning English as a second language. Features real-time speech synthesis, touch-optimized vocabulary cards with real food photography sourced via a custom Wikipedia image pipeline, an interactive body-parts diagram with 32 tappable hotspots, and a video lesson center with bilingual lyrics synced to 16 songs — all designed mobile-first for small hands and short attention spans.
               </p>
             </div>
             <div className="pf-card-cta">Open App <span className="pf-card-cta-arrow">→</span></div>
