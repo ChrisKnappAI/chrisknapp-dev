@@ -286,9 +286,9 @@ export default function Home() {
             <p className="ck-role">A Strategy &amp; Analytics Leader at Progressive Insurance</p>
             <p className="ck-tw-line"># i build <span id="tw" /><span className="ck-tw-cursor" /></p>
             <div className="ck-buttons">
-              <a href="mailto:ChrisKnappAI@Gmail.com" className="ck-btn ck-btn-primary">Contact Me</a>
+              <Link href="/portfolio" className="ck-btn ck-btn-primary">Explore Portfolio &nbsp;→</Link>
               <Link href="/resume" className="ck-btn ck-btn-outline">My Resume</Link>
-              <Link href="/portfolio" className="ck-btn ck-btn-outline">Explore Portfolio &nbsp;→</Link>
+              <a href="mailto:ChrisKnappAI@Gmail.com" className="ck-btn ck-btn-outline">Contact Me</a>
             </div>
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
