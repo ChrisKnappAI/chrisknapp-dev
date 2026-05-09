@@ -485,24 +485,25 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
               </div>
             ) : <div />}
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', cursor: 'pointer', fontSize: '0.78rem', color: dupTomorrow ? c.text : c.muted, fontWeight: dupTomorrow ? 600 : 400, whiteSpace: 'nowrap' }}>
-                <input type="checkbox" checked={dupTomorrow} onChange={e => setDupTomorrow(e.target.checked)} style={{ cursor: 'pointer', accentColor: c.accentBtn, width: 13, height: 13 }} />
-                Duplicate for tomorrow
-              </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', cursor: 'pointer', fontSize: '0.78rem', color: dupOtherUser ? c.text : c.muted, fontWeight: dupOtherUser ? 600 : 400, whiteSpace: 'nowrap' }}>
-                <input type="checkbox" checked={dupOtherUser} onChange={e => setDupOtherUser(e.target.checked)} style={{ cursor: 'pointer', accentColor: c.accentBtn, width: 13, height: 13 }} />
-                Duplicate for {otherLabel}
-              </label>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+              <button
+                onClick={handleLog}
+                disabled={logBtnDisabled}
+                style={{ background: c.accentBtn, color: 'white', border: 'none', borderRadius: 8, padding: '0.65rem 1.75rem', fontSize: '0.875rem', fontWeight: 600, cursor: logBtnDisabled ? 'not-allowed' : 'pointer', opacity: logBtnDisabled ? 0.4 : 1 }}
+              >
+                {submitting ? 'Logging…' : 'Log Meal'}
+              </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', cursor: logBtnDisabled ? 'not-allowed' : 'pointer', fontSize: '0.78rem', color: logBtnDisabled ? c.muted : (dupTomorrow ? c.text : c.muted), fontWeight: dupTomorrow ? 600 : 400, whiteSpace: 'nowrap', opacity: logBtnDisabled ? 0.4 : 1 }}>
+                  <input type="checkbox" checked={dupTomorrow} onChange={e => setDupTomorrow(e.target.checked)} disabled={logBtnDisabled} style={{ cursor: logBtnDisabled ? 'not-allowed' : 'pointer', accentColor: c.accentBtn, width: 13, height: 13 }} />
+                  Duplicate for Tomorrow
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', cursor: logBtnDisabled ? 'not-allowed' : 'pointer', fontSize: '0.78rem', color: logBtnDisabled ? c.muted : (dupOtherUser ? c.text : c.muted), fontWeight: dupOtherUser ? 600 : 400, whiteSpace: 'nowrap', opacity: logBtnDisabled ? 0.4 : 1 }}>
+                  <input type="checkbox" checked={dupOtherUser} onChange={e => setDupOtherUser(e.target.checked)} disabled={logBtnDisabled} style={{ cursor: logBtnDisabled ? 'not-allowed' : 'pointer', accentColor: c.accentBtn, width: 13, height: 13 }} />
+                  Duplicate for {otherLabel}
+                </label>
+              </div>
             </div>
-
-            <button
-              onClick={handleLog}
-              disabled={logBtnDisabled}
-              style={{ background: c.accentBtn, color: 'white', border: 'none', borderRadius: 8, padding: '0.65rem 1.75rem', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', opacity: logBtnDisabled ? 0.4 : 1 }}
-            >
-              {submitting ? 'Logging…' : 'Log Meal'}
-            </button>
           </div>
         </div>
 
