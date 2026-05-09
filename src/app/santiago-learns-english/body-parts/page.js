@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const HOTSPOTS = [
   { id: 'hair',     word: 'Hair',     es: 'Pelo',         px: 76.9, py: 5.9  },
@@ -38,8 +38,29 @@ const HOTSPOTS = [
 ];
 
 export default function BodyPartsPage() {
-  const [active, setActive] = useState(null);
-  const hideTimer           = useRef(null);
+  const [active, setActive]       = useState(null);
+  const [imgMaxWidth, setImgMaxWidth] = useState(500);
+  const hideTimer                 = useRef(null);
+  const imgRef                    = useRef(null);
+
+  useEffect(() => {
+    // Subtract: layout header (64) + footer (46) + page padding/h1 (46) + front/back label (32) + word display (76) + breathing room (26) = 290
+    const recalc = () => {
+      const img = imgRef.current;
+      if (!img || !img.naturalWidth) return;
+      const ratio   = img.naturalWidth / img.naturalHeight;
+      const availH  = window.innerHeight - 290;
+      setImgMaxWidth(Math.min(500, Math.floor(availH * ratio)));
+    };
+    const img = imgRef.current;
+    if (img?.complete && img?.naturalWidth) recalc();
+    else img?.addEventListener('load', recalc);
+    window.addEventListener('resize', recalc);
+    return () => {
+      img?.removeEventListener('load', recalc);
+      window.removeEventListener('resize', recalc);
+    };
+  }, []);
 
   function speak(hs) {
     if (typeof window === 'undefined') return;
@@ -75,13 +96,14 @@ export default function BodyPartsPage() {
       </div>
 
       {/* Image + hotspots */}
-      <div style={{ position: 'relative', display: 'inline-block', maxWidth: 500, width: '100%' }}>
+      <div style={{ position: 'relative', display: 'inline-block', maxWidth: imgMaxWidth, width: '100%' }}>
         {/* Photo */}
         <img
+          ref={imgRef}
           src="/santiago-learns-english/body-parts/santiago-body-parts.png"
           alt="Santiago front and back"
           draggable={false}
-          style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 12, userSelect: 'none', maxHeight: 'calc(100vh - 220px)', objectFit: 'contain' }}
+          style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 12, userSelect: 'none' }}
         />
 
         {/* Hotspot dots */}

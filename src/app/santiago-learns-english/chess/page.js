@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const HOTSPOTS = [
   { id: 'move',        word: 'To Move',     es: 'Mover',              px: 5.1,  py: 8.6  },
@@ -28,8 +28,29 @@ const HOTSPOTS = [
 ];
 
 export default function ChessPage() {
-  const [active, setActive] = useState(null);
-  const hideTimer           = useRef(null);
+  const [active, setActive]           = useState(null);
+  const [imgMaxWidth, setImgMaxWidth] = useState(700);
+  const hideTimer                     = useRef(null);
+  const imgRef                        = useRef(null);
+
+  useEffect(() => {
+    // Subtract: layout header (64) + footer (46) + page padding/h1 (46) + word display (76) + breathing room (28) = 260
+    const recalc = () => {
+      const img = imgRef.current;
+      if (!img || !img.naturalWidth) return;
+      const ratio  = img.naturalWidth / img.naturalHeight;
+      const availH = window.innerHeight - 260;
+      setImgMaxWidth(Math.min(700, Math.floor(availH * ratio)));
+    };
+    const img = imgRef.current;
+    if (img?.complete && img?.naturalWidth) recalc();
+    else img?.addEventListener('load', recalc);
+    window.addEventListener('resize', recalc);
+    return () => {
+      img?.removeEventListener('load', recalc);
+      window.removeEventListener('resize', recalc);
+    };
+  }, []);
 
   function speak(hs) {
     if (typeof window === 'undefined') return;
@@ -59,15 +80,13 @@ export default function ChessPage() {
       </div>
 
       {/* Image + hotspots */}
-      <div style={{ position: 'relative', display: 'inline-block', maxWidth: 700, width: '100%' }}>
+      <div style={{ position: 'relative', display: 'inline-block', maxWidth: imgMaxWidth, width: '100%' }}>
         <img
+          ref={imgRef}
           src="/santiago-learns-english/chess/santiago-learns-spanish-chess-vocab.png"
           alt="Chess vocabulary"
           draggable={false}
-          style={{
-            display: 'block', width: '100%', height: 'auto', userSelect: 'none',
-            maxHeight: 'calc(100vh - 220px)', objectFit: 'contain',
-          }}
+          style={{ display: 'block', width: '100%', height: 'auto', userSelect: 'none' }}
         />
 
         {HOTSPOTS.map((hs, i) => {
