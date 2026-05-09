@@ -89,12 +89,6 @@ export default function BodyPartsPage() {
         </h1>
       </div>
 
-      {/* Photo labels row — tracks image width */}
-      <div style={{ display: 'flex', maxWidth: imgMaxWidth, width: '100%', marginBottom: 6 }}>
-        <div style={{ flex: 1, textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1D4ED8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Front</div>
-        <div style={{ flex: 1, textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1D4ED8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Back</div>
-      </div>
-
       {/* Image + hotspots — centered flex wrapper so image is always centered on screen */}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ position: 'relative', maxWidth: imgMaxWidth, width: '100%' }}>
