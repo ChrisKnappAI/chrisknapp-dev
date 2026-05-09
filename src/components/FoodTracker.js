@@ -96,6 +96,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
   const [manualProtein,setManualProtein]= useState('')
   const [manualCarbs,  setManualCarbs]  = useState('')
   const [manualFat,    setManualFat]    = useState('')
+  const [manualCheat,  setManualCheat]  = useState(false)
 
   function selectMeal(meal) {
     if (meal === '__MANUAL__') {
@@ -168,6 +169,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
           user, date,
           meal: manualName,
           meal_version: 'MANUAL',
+          is_cheat: manualCheat,
           ingredients: [{
             ingredient:       manualName,
             serving_metric:   'serving',
@@ -186,7 +188,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
         setSelectedMeal('')
         setSelectedVersion('')
         setIsManual(false)
-        setManualName(''); setManualCal(''); setManualFat(''); setManualCarbs(''); setManualProtein('')
+        setManualName(''); setManualCal(''); setManualFat(''); setManualCarbs(''); setManualProtein(''); setManualCheat(false)
         showToast('Meal logged!')
       }
       setSubmitting(false)
@@ -369,6 +371,13 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                   <input type="number" min={0} placeholder="0" value={manualFat} onChange={e => setManualFat(e.target.value)} style={{ ...input, textAlign: 'right' }} />
                 </div>
               </div>
+              <div style={{ marginTop: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <input type="checkbox" id="manual-cheat" checked={manualCheat} onChange={e => setManualCheat(e.target.checked)}
+                  style={{ cursor: 'pointer', accentColor: '#F97316', width: 14, height: 14 }} />
+                <label htmlFor="manual-cheat" style={{ fontSize: '0.8rem', color: manualCheat ? '#F97316' : c.muted, cursor: 'pointer', fontWeight: manualCheat ? 600 : 400 }}>
+                  Cheat meal
+                </label>
+              </div>
             </div>
           )}
 
@@ -488,6 +497,9 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <span style={{ fontSize: '0.84rem', fontWeight: 700, color: c.accent }}>{group.meal}</span>
+                    {group.entries.some(e => e.is_cheat) && (
+                      <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#F97316', background: 'rgba(249,115,22,0.12)', borderRadius: 4, padding: '0.1rem 0.4rem' }}>cheat</span>
+                    )}
                     <span style={{ fontSize: '0.72rem', color: c.muted }}>
                       {fmt(gt.cal)} cal · {fmt(gt.protein)}g P · {fmt(gt.carbs)}g C · {fmt(gt.fat)}g F
                     </span>

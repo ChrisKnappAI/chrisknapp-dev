@@ -16,7 +16,7 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
-  const { user, date, meal, meal_version, ingredients } = await request.json()
+  const { user, date, meal, meal_version, is_cheat, ingredients } = await request.json()
   const loggedAt = new Date().toISOString()
   const entries = []
 
@@ -40,7 +40,7 @@ export async function POST(request) {
       fat:      Math.round(servings * ing.serving_fat     * 10) / 10,
       carbs:    Math.round(servings * ing.serving_carbs   * 10) / 10,
       protein:  Math.round(servings * ing.serving_protein * 10) / 10,
-      is_cheat: false,
+      is_cheat: !!is_cheat,
     })
   }
 
