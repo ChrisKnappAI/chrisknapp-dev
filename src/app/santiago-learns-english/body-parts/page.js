@@ -89,34 +89,35 @@ export default function BodyPartsPage() {
         </h1>
       </div>
 
-      {/* Photo labels row */}
-      <div style={{ display: 'flex', maxWidth: 500, marginBottom: 6 }}>
+      {/* Photo labels row — tracks image width */}
+      <div style={{ display: 'flex', maxWidth: imgMaxWidth, width: '100%', marginBottom: 6 }}>
         <div style={{ flex: 1, textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1D4ED8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Front</div>
         <div style={{ flex: 1, textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1D4ED8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Back</div>
       </div>
 
-      {/* Image + hotspots */}
-      <div style={{ position: 'relative', display: 'inline-block', maxWidth: imgMaxWidth, width: '100%' }}>
-        {/* Photo */}
-        <img
-          ref={imgRef}
-          src="/santiago-learns-english/body-parts/santiago-body-parts.png"
-          alt="Santiago front and back"
-          draggable={false}
-          style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 12, userSelect: 'none' }}
-        />
+      {/* Image + hotspots — centered flex wrapper so image is always centered on screen */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', maxWidth: imgMaxWidth, width: '100%' }}>
+          {/* Photo */}
+          <img
+            ref={imgRef}
+            src="/santiago-learns-english/body-parts/santiago-body-parts.png"
+            alt="Santiago front and back"
+            draggable={false}
+            style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 12, userSelect: 'none' }}
+          />
 
-        {/* Hotspot dots */}
-        {HOTSPOTS.map((hs, i) => {
-          const isActive = active === hs.id;
-          return (
-            <div
-              key={hs.id}
-              onClick={() => speak(hs)}
-              style={{
-                position:     'absolute',
-                left:         `${hs.px}%`,
-                top:          `${hs.py}%`,
+          {/* Hotspot dots */}
+          {HOTSPOTS.map((hs, i) => {
+            const isActive = active === hs.id;
+            return (
+              <div
+                key={hs.id}
+                onClick={() => speak(hs)}
+                style={{
+                  position:     'absolute',
+                  left:         `${hs.px}%`,
+                  top:          `${hs.py}%`,
                 width:         20,
                 height:        20,
                 borderRadius: '50%',
@@ -132,19 +133,20 @@ export default function BodyPartsPage() {
             />
           );
         })}
+        </div>
       </div>
 
-      {/* Word display — centered below photo */}
-      <div style={{ maxWidth: 500, width: '100%', marginTop: 20, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+      {/* Word display — full width, wraps on small screens */}
+      <div style={{ width: '100%', marginTop: 16, minHeight: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, flexWrap: 'wrap', padding: '0 12px', boxSizing: 'border-box' }}>
         {active && (() => {
           const hs = HOTSPOTS.find(h => h.id === active);
           return (
             <>
               <span style={{ fontSize: 28 }}>🔊</span>
-              <span style={{ fontSize: 34, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
+              <span style={{ fontSize: 'clamp(20px, 4vw, 34px)', fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
                 {hs.word}
               </span>
-              <span style={{ fontSize: 22, fontWeight: 600, color: '#64748B' }}>
+              <span style={{ fontSize: 'clamp(14px, 2.5vw, 22px)', fontWeight: 600, color: '#64748B' }}>
                 ({hs.es})
               </span>
             </>

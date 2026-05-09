@@ -79,54 +79,56 @@ export default function ChessPage() {
         </h1>
       </div>
 
-      {/* Image + hotspots */}
-      <div style={{ position: 'relative', display: 'inline-block', maxWidth: imgMaxWidth, width: '100%' }}>
-        <img
-          ref={imgRef}
-          src="/santiago-learns-english/chess/santiago-learns-spanish-chess-vocab.png"
-          alt="Chess vocabulary"
-          draggable={false}
-          style={{ display: 'block', width: '100%', height: 'auto', userSelect: 'none' }}
-        />
+      {/* Image + hotspots — centered flex wrapper so image is always centered on screen */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', maxWidth: imgMaxWidth, width: '100%' }}>
+          <img
+            ref={imgRef}
+            src="/santiago-learns-english/chess/santiago-learns-spanish-chess-vocab.png"
+            alt="Chess vocabulary"
+            draggable={false}
+            style={{ display: 'block', width: '100%', height: 'auto', userSelect: 'none' }}
+          />
 
-        {HOTSPOTS.map((hs, i) => {
-          const isActive = active === hs.id;
-          return (
-            <div
-              key={hs.id}
-              onClick={() => speak(hs)}
-              style={{
-                position:     'absolute',
-                left:         `${hs.px}%`,
-                top:          `${hs.py}%`,
-                width:         22,
-                height:        22,
-                borderRadius: '50%',
-                background:    isActive ? '#FACC15' : '#1D4ED8',
-                border:       `2.5px solid ${isActive ? '#FDE047' : '#93C5FD'}`,
-                cursor:       'pointer',
-                transform:    'translate(-50%, -50%)',
-                transition:   'background 0.15s ease, border-color 0.15s ease',
-                animation:     isActive ? 'none' : `pulse 2.2s ease-out ${i * 0.18}s infinite`,
-                zIndex:        10,
-                touchAction:  'manipulation',
-              }}
-            />
-          );
-        })}
+          {HOTSPOTS.map((hs, i) => {
+            const isActive = active === hs.id;
+            return (
+              <div
+                key={hs.id}
+                onClick={() => speak(hs)}
+                style={{
+                  position:     'absolute',
+                  left:         `${hs.px}%`,
+                  top:          `${hs.py}%`,
+                  width:         22,
+                  height:        22,
+                  borderRadius: '50%',
+                  background:    isActive ? '#FACC15' : '#1D4ED8',
+                  border:       `2.5px solid ${isActive ? '#FDE047' : '#93C5FD'}`,
+                  cursor:       'pointer',
+                  transform:    'translate(-50%, -50%)',
+                  transition:   'background 0.15s ease, border-color 0.15s ease',
+                  animation:     isActive ? 'none' : `pulse 2.2s ease-out ${i * 0.18}s infinite`,
+                  zIndex:        10,
+                  touchAction:  'manipulation',
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
 
-      {/* Word display */}
-      <div style={{ maxWidth: 700, width: '100%', marginTop: 20, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+      {/* Word display — full width, wraps on small screens */}
+      <div style={{ width: '100%', marginTop: 16, minHeight: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, flexWrap: 'wrap', padding: '0 12px', boxSizing: 'border-box' }}>
         {active && (() => {
           const hs = HOTSPOTS.find(h => h.id === active);
           return (
             <>
               <span style={{ fontSize: 28 }}>🔊</span>
-              <span style={{ fontSize: 34, fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
+              <span style={{ fontSize: 'clamp(20px, 4vw, 34px)', fontWeight: 900, color: '#1D4ED8', letterSpacing: '-0.5px' }}>
                 {hs.word}
               </span>
-              <span style={{ fontSize: 22, fontWeight: 600, color: '#64748B' }}>
+              <span style={{ fontSize: 'clamp(14px, 2.5vw, 22px)', fontWeight: 600, color: '#64748B' }}>
                 ({hs.es})
               </span>
             </>
