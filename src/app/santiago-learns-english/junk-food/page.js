@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const ITEMS = [
   { id: 'pizza',         word: 'Pizza',         es: 'Pizza',              ext: 'jpg' },
@@ -40,7 +40,8 @@ export default function JunkFoodPage() {
   const [active, setActive] = useState(null);
   const hideTimer           = useRef(null);
 
-  const shuffled   = useMemo(() => [...ITEMS].sort(() => Math.random() - 0.5), []);
+  const [shuffled, setShuffled] = useState(ITEMS);
+  useEffect(() => { setShuffled([...ITEMS].sort(() => Math.random() - 0.5)); }, []);
   const activeItem = shuffled.find(i => i.id === active);
 
   function handleClick(item) {
