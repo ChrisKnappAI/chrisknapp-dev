@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import PennyBubble    from './_components/PennyBubble.js';
 import SantiagoBubble from './_components/SantiagoBubble.js';
 import PhotoQuestion  from './_components/PhotoQuestion.js';
-import PennyScene, { CORRECT_ANIMS, WRONG_ANIM } from './_components/PennyScene.js';
+import PennyScene, { CORRECT_ANIMS, WRONG_ANIM, SCENES } from './_components/PennyScene.js';
 import { LESSONS }    from './_data/lessons.js';
 import { ENCOURAGEMENT } from './_data/encouragement.js';
 import { pickQuestion }  from './_lib/questionPicker.js';
@@ -53,6 +53,8 @@ export default function ChatWithPenny() {
   const [newUnlock, setNewUnlock]       = useState(null);
   const [showTopicModal, setShowTopicModal] = useState(false);
   const [selectedAnim, setSelectedAnim]    = useState('');
+  const [unlockedScenes, setUnlockedScenes] = useState([]);
+  const [selectedScene, setSelectedScene]   = useState('');
 
   const lastQuestionId = useRef(null);
 
@@ -64,10 +66,11 @@ export default function ChatWithPenny() {
     setActiveTopics(loadActiveTopics());
     try { setCorrectCount(parseInt(localStorage.getItem(COUNT_KEY) || '0')); } catch {}
     fetchUnlocks();
+    fetchScenes();
   }, []);
 
   useEffect(() => {
-    const id = setInterval(fetchUnlocks, 60_000);
+    const id = setInterval(() => { fetchUnlocks(); fetchScenes(); }, 60_000);
     return () => clearInterval(id);
   }, []);
 
@@ -78,6 +81,16 @@ export default function ChatWithPenny() {
       const ids  = data.filter(r => r.unlocked).map(r => r.animation_id);
       setUnlocked(ids);
       setSelectedAnim(prev => (ids.includes(prev) ? prev : ids[0] ?? ''));
+    } catch {}
+  }
+
+  async function fetchScenes() {
+    try {
+      const res  = await fetch('/api/penny/scenes');
+      const data = await res.json();
+      const ids  = data.filter(r => r.unlocked).map(r => r.scene_id);
+      setUnlockedScenes(ids);
+      setSelectedScene(prev => (ids.includes(prev) ? prev : ids[0] ?? ''));
     } catch {}
   }
 
@@ -211,6 +224,29 @@ export default function ChatWithPenny() {
             📚 Topics
           </button>
 
+          {/* Scene dropdown (always shown — at least one scene is always unlocked) */}
+          {unlockedScenes.length > 1 && (
+            <select
+              value={selectedScene}
+              onChange={e => setSelectedScene(e.target.value)}
+              style={{
+                border: '2px solid #1D4ED8', borderRadius: 20, padding: '5px 12px',
+                fontSize: 13, fontWeight: 700, color: '#1D4ED8', background: 'white',
+                fontFamily: 'inherit', cursor: 'pointer',
+              }}
+            >
+              {unlockedScenes.map(id => (
+                <option key={id} value={id}>
+                  {id === 'outdoor' ? '🌳 Outdoor' :
+                   id === 'beach'   ? '🏖️ Beach' :
+                   id === 'classroom' ? '🏫 Classroom' :
+                   id === 'snowy'   ? '❄️ Snowy' :
+                   id === 'city'    ? '🏙️ City' : id}
+                </option>
+              ))}
+            </select>
+          )}
+
           <div style={{ flex: 1 }} />
 
           {/* Animation dropdown + Play (only when animations are unlocked) */}
@@ -247,7 +283,7 @@ export default function ChatWithPenny() {
           boxShadow: '0 8px 36px rgba(29,78,216,0.22)',
           overflow: 'visible', background: '#BFDBFE',
         }}>
-          <PennyScene commandAnim={commandAnim} isPaused={loading} talking={loading} />
+          <PennyScene commandAnim={commandAnim} isPaused={loading} talking={loading} scene={selectedScene || undefined} />
 
           <div style={{ position: 'absolute', top: 14, left: 14, zIndex: 10 }}>
             <PennyBubble english={pennyText} spanish={pennySpanish} loading={loading} />

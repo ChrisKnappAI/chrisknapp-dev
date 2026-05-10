@@ -739,10 +739,11 @@ const ANIM_DURATIONS = {
   flyaway: 10000, layegg: 12000, holdhands: 14000,
 };
 
-export { CORRECT_ANIMS, WRONG_ANIM };
+export { CORRECT_ANIMS, WRONG_ANIM, SCENES };
 
-export default function PennyScene({ commandAnim, isPaused, talking }) {
-  const [scene]      = useState(() => SCENES[Math.floor(Math.random() * SCENES.length)]);
+export default function PennyScene({ commandAnim, isPaused, talking, scene: sceneProp }) {
+  const [randomScene] = useState(() => SCENES[Math.floor(Math.random() * SCENES.length)]);
+  const scene = sceneProp ?? randomScene;
   const [blinking,   setBlinking]   = useState(false);
   const [activeAnim, setActiveAnim] = useState(null);
   const blinkRef     = useRef(null);
