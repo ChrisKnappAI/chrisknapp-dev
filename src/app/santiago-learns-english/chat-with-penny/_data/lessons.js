@@ -124,7 +124,7 @@ export const LESSONS = [
       'column':      'grid column highlighted',
     },
     templates: [
-      { text: 'What chess piece is this?',      expects: 'photo-name'               },
+      { text: 'What chess word is this?',        expects: 'photo-name'               },
       { text: 'Which picture is the {word}?',   expects: 'photo-pick', hint: '{word}' },
     ],
   },
@@ -322,7 +322,7 @@ export const LESSONS = [
     templates: [
       { text: 'How is the weather today?',         expects: 'open'                       },
       { text: 'Is it {word} outside?',             expects: 'yes-no',   hint: '{word}'   },
-      { text: 'What weather is in the photo?',     expects: 'photo-name'                 },
+      { text: 'How is the weather in the photo?',   expects: 'photo-name'                 },
       { text: 'Which picture is {word} weather?',  expects: 'photo-pick', hint: '{word}' },
     ],
   },
