@@ -344,7 +344,8 @@ export default function ChatWithPenny() {
               </button>
             </div>
 
-            {/* Topic groups */}
+            {/* Topic groups — two columns of categories */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 24px' }}>
             {Object.entries(TOPIC_GROUPS).map(([group, lessons]) => (
               <div key={group} style={{ marginBottom: 18 }}>
                 <div style={{
@@ -353,7 +354,7 @@ export default function ChatWithPenny() {
                 }}>
                   {group}
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 10px' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 8px' }}>
                   {lessons.map(lesson => {
                     const on = activeTopics.includes(lesson.id);
                     return (
@@ -379,6 +380,7 @@ export default function ChatWithPenny() {
                 </div>
               </div>
             ))}
+            </div>
 
             {/* Done button */}
             <div style={{ marginTop: 8, display: 'flex', justifyContent: 'flex-end' }}>
