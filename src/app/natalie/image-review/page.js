@@ -119,9 +119,15 @@ export default function ImageReviewPage() {
     setPhase('reviewing');
   };
 
-  /* Copy-paste text for rejected items */
+  /* Copy-paste text for rejected items, grouped by category */
   const rejectedItems = ALL_ITEMS.filter(i => decisions[key(i)] === 'no');
-  const rejectedText  = rejectedItems.map(i => `${i.topicId} / ${i.word}`).join('\n');
+  const byTopic = rejectedItems.reduce((acc, i) => {
+    (acc[i.topicId] = acc[i.topicId] || []).push(i.word);
+    return acc;
+  }, {});
+  const rejectedText = Object.entries(byTopic)
+    .map(([topic, words]) => `${topic}:\n${words.map(w => `  ${w}`).join('\n')}`)
+    .join('\n\n');
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(rejectedText).then(() => {
