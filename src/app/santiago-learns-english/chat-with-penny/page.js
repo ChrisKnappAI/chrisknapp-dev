@@ -9,6 +9,7 @@ import { LESSONS }    from './_data/lessons.js';
 import { ENCOURAGEMENT } from './_data/encouragement.js';
 import { pickQuestion }  from './_lib/questionPicker.js';
 import { gradeAnswer }   from './_lib/grader.js';
+import { gradeLocal }    from './_lib/localGrader.js';
 import { speakLive, playRandomEncouragement } from './_lib/tts.js';
 
 const STORAGE_KEY = 'penny-active-topics';
@@ -150,14 +151,13 @@ export default function ChatWithPenny() {
     setLoading(true);
 
     try {
-      const activeLabels = LESSONS.filter(l => activeTopics.includes(l.id)).map(l => l.label);
-      const result = await gradeAnswer({ question: currentQuestion, answer, activeTopics: activeLabels });
+      const result = gradeLocal(currentQuestion, answer);
 
       if (result.correct) {
         await handleCorrect();
       } else {
         setPennyText(result.english);
-        setPennySpanish(result.spanish ?? '');
+        setPennySpanish('');
         triggerAnim(WRONG_ANIM);
         await speakLive(result.english).catch(() => {});
       }
