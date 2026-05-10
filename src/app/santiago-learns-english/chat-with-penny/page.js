@@ -147,10 +147,10 @@ export default function ChatWithPenny() {
     if (!nextQ) return;
     lastQuestionId.current = nextQ.id;
 
-    const combined = `${phrase}\nNext question:\n${nextQ.text}`;
+    const combined = `${phrase.en}\nNext question:\n${nextQ.text}`;
     const combinedSpanish = nextQ.spanish
-      ? `${phrase}\nSiguiente pregunta:\n${nextQ.spanish}`
-      : phrase;
+      ? `${phrase.es}\nSiguiente pregunta:\n${nextQ.spanish}`
+      : phrase.es;
     setPennyText(combined);
     setPennySpanish(combinedSpanish);
     setPennyHint(null);
