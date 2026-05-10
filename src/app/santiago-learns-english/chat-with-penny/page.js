@@ -177,8 +177,10 @@ export default function ChatWithPenny() {
         const hint        = currentQuestion.hint;
         const lesson      = LESSONS.find(l => l.id === currentQuestion.topic);
         const spanishWord = hint ? (lesson?.spanishVocab?.[hint] ?? hint) : null;
-        setPennyText('Not quite. Try again, Santiago!');
-        setPennySpanish('¡No exactamente. ¡Inténtalo de nuevo, Santiago!');
+        setPennyText(`Not quite. Try again, Santiago!\n${currentQuestion.text}`);
+        setPennySpanish(currentQuestion.spanish
+          ? `¡No exactamente. ¡Inténtalo de nuevo, Santiago!\n${currentQuestion.spanish}`
+          : '¡No exactamente. ¡Inténtalo de nuevo, Santiago!');
         setPennyHint(hint ? `Hint: ${hint}` : null);
         setPennyHintSpanish(spanishWord ? `Pista: ${spanishWord}` : null);
         triggerAnim(WRONG_ANIM);
