@@ -8,9 +8,8 @@ import PennyScene, { CORRECT_ANIMS, WRONG_ANIM, SCENES } from './_components/Pen
 import { LESSONS }    from './_data/lessons.js';
 import { ENCOURAGEMENT } from './_data/encouragement.js';
 import { pickQuestion }  from './_lib/questionPicker.js';
-import { gradeAnswer }   from './_lib/grader.js';
 import { gradeLocal }    from './_lib/localGrader.js';
-import { speakLive, playRandomEncouragement } from './_lib/tts.js';
+import { speakLive }     from './_lib/tts.js';
 
 const STORAGE_KEY = 'penny-active-topics';
 const COUNT_KEY   = 'penny-correct-count';
@@ -136,7 +135,7 @@ export default function ChatWithPenny() {
       await fetch('/api/penny/unlocks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ animation_id: justUnlocked.id }),
+        body: JSON.stringify({ animation_id: justUnlocked.id, unlocked: true }),
       });
       fetchUnlocks();
       setTimeout(() => setNewUnlock(null), 4000);
@@ -176,17 +175,21 @@ export default function ChatWithPenny() {
       } else {
         const hint        = currentQuestion.hint;
         const lesson      = LESSONS.find(l => l.id === currentQuestion.topic);
-        const spanishWord = hint ? (lesson?.spanishVocab?.[hint] ?? hint) : null;
+        const isSubjectiveYesNo = currentQuestion.expects === 'yes-no' && hint !== 'yes' && hint !== 'no';
+        const displayHint = isSubjectiveYesNo ? 'Try: yes or no!' : hint;
+        const displayHintSpanish = isSubjectiveYesNo ? '¡Intenta: sí o no!' : (hint ? (lesson?.spanishVocab?.[hint] ?? hint) : null);
         setPennyText(`Not quite. Try again, Santiago!\n${currentQuestion.text}`);
         setPennySpanish(currentQuestion.spanish
           ? `¡No exactamente. ¡Inténtalo de nuevo, Santiago!\n${currentQuestion.spanish}`
           : '¡No exactamente. ¡Inténtalo de nuevo, Santiago!');
-        setPennyHint(hint ? `Hint: ${hint}` : null);
-        setPennyHintSpanish(spanishWord ? `Pista: ${spanishWord}` : null);
+        setPennyHint(displayHint ? `Hint: ${displayHint}` : null);
+        setPennyHintSpanish(displayHintSpanish ? `Pista: ${displayHintSpanish}` : null);
         triggerAnim(WRONG_ANIM);
-        await speakLive(hint
-          ? `Not quite. Try again, Santiago! Hint: ${hint}`
-          : 'Not quite. Try again, Santiago!'
+        await speakLive(isSubjectiveYesNo
+          ? 'Not quite. Try saying yes or no, Santiago!'
+          : hint
+            ? `Not quite. Try again, Santiago! Hint: ${hint}`
+            : 'Not quite. Try again, Santiago!'
         ).catch(() => {});
       }
     } catch (err) {
@@ -361,7 +364,15 @@ export default function ChatWithPenny() {
                 topicVocab={currentTopicVocab}
                 lesson={currentLesson}
                 onCorrect={async () => { await handleCorrect(); }}
-                onWrong={askNextQuestion}
+                onWrong={() => {
+                  triggerAnim(WRONG_ANIM);
+                  const sp = currentLesson?.spanishVocab?.[currentQuestion.hint] ?? currentQuestion.hint;
+                  setPennyText(`Not quite! Find the ${currentQuestion.hint}!`);
+                  setPennySpanish(`¡No exactamente! ¡Encuentra ${sp}!`);
+                  setPennyHint(null);
+                  setPennyHintSpanish(null);
+                  setTimeout(() => askNextQuestion(), 1800);
+                }}
               />
             </div>
           )}

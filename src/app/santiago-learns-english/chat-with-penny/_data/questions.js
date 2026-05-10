@@ -135,10 +135,16 @@ function expandFamily(lesson) {
         }
 
       } else if (tpl.text.includes('{role}')) {
-        // "Do you have a {role}?" — generated for ALL members including has: false
+        // Skip name-requiring templates for members with no names
+        if (tpl.hint === '{name}' && (!member.has || member.names.length === 0)) continue;
+
         const text    = tpl.text.replace(/{role}/g, member.role);
         const spanish = tpl.spanish?.replace(/{role}/g, lesson.spanishVocab?.[member.role] ?? member.role) ?? null;
-        const hint    = tpl.hint === '{has}' ? (member.has ? 'yes' : 'no') : tpl.hint;
+        const rawHint = tpl.hint === '{has}' ? (member.has ? 'yes' : 'no') : tpl.hint;
+        const hint    = rawHint
+          ?.replace(/{name}/g, member.names[0] ?? '')
+          .replace(/{role}/g, member.role) ?? null;
+        const acceptAny = tpl.hint === '{name}' && member.names.length > 1 ? member.names : null;
 
         questions.push({
           id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(member.role)}`,
@@ -148,7 +154,7 @@ function expandFamily(lesson) {
           group:     lesson.group,
           expects:   tpl.expects,
           hint,
-          acceptAny: null,
+          acceptAny,
           hasPhoto:  false,
           photoType: null,
         });

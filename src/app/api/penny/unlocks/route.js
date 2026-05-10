@@ -21,7 +21,7 @@ export async function POST(req) {
 
   const { error } = await sb
     .from('penny_unlocks')
-    .update({ unlocked, updated_at: new Date().toISOString() })
+    .upsert({ animation_id, unlocked: unlocked ?? true, updated_at: new Date().toISOString() })
     .eq('animation_id', animation_id);
 
   if (error) return Response.json({ error: error.message }, { status: 500 });

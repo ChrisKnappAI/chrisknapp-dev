@@ -94,15 +94,15 @@ export const LESSONS = [
       { role: 'cousin',       names: [],                                       has: false },
       { role: 'grandfather',  names: ['Alcides'],                              has: true  },
       { role: 'grandmother',  names: ['Marlene'],                              has: true  },
-      { role: 'godparent',    names: ['Chris'],                                has: true  },
-      { role: 'godmother',    names: ['Natalie'],                              has: true  },
+      { role: 'godfather',    names: ['Chris'],                                has: true  },
+      { role: 'godmother',   names: ['Natalie'],                              has: true  },
       { role: 'baby brother', names: ['Mateo'],                                has: true  },
     ],
     spanishVocab: {
       'mom': 'mamá', 'dad': 'papá', 'uncle': 'tío', 'aunt': 'tía',
       'brother': 'hermano', 'sister': 'hermana', 'cousin': 'primo',
       'grandfather': 'abuelo', 'grandmother': 'abuela',
-      'godparent': 'padrino', 'godmother': 'madrina', 'baby brother': 'hermanito',
+      'godfather': 'padrino', 'godmother': 'madrina', 'baby brother': 'hermanito',
     },
     templates: [
       { text: 'Is {name} your {role}?',           spanish: '¿Es {name} tu {role}?',                 expects: 'yes-no', hint: 'yes'   },

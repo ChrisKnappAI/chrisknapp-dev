@@ -47,7 +47,12 @@ Rules:
     messages:   [{ role: 'user', content: prompt }],
   });
 
-  const json = JSON.parse(message.content[0].text);
+  let json;
+  try {
+    json = JSON.parse(message.content[0].text);
+  } catch {
+    return Response.json({ correct: false, english: "Hmm, I didn't understand that. Try again!", spanish: "¡Inténtalo de nuevo!" }, { status: 200 });
+  }
 
   return Response.json(json);
 }
