@@ -134,7 +134,7 @@ export default function ChatWithPenny() {
 
       if (result.correct) {
         triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
-        await playRandomEncouragement(ENCOURAGEMENT.length);
+        await playRandomEncouragement(ENCOURAGEMENT.length).catch(() => {});
 
         const newCount = correctCount + 1;
         setCorrectCount(newCount);
@@ -147,12 +147,12 @@ export default function ChatWithPenny() {
         }
       } else {
         triggerAnim(WRONG_ANIM);
-        await speakLive(result.english);
+        await speakLive(result.english).catch(() => {});
       }
 
       setPennyText("Do you want to ask me something? 😊");
       setPennySpanish("¿Me quieres preguntar algo?");
-      await speakLive("Do you want to ask me something?");
+      await speakLive("Do you want to ask me something?").catch(() => {});
       setPhase('offer-question');
 
     } catch (err) {
@@ -179,7 +179,7 @@ export default function ChatWithPenny() {
       });
       setPennyText(result.english);
       setPennySpanish(result.spanish);
-      await speakLive(result.english);
+      await speakLive(result.english).catch(() => {});
     } catch (err) {
       console.error(err);
     } finally {
