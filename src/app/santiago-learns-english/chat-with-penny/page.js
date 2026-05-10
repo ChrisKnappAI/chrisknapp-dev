@@ -312,7 +312,7 @@ export default function ChatWithPenny() {
         >
           <div style={{
             background: 'white', borderRadius: 20, border: '3px solid #1D4ED8',
-            padding: '24px 28px', width: '90%', maxWidth: 480,
+            padding: '24px 28px', width: '90%', maxWidth: 720,
             maxHeight: '80vh', overflowY: 'auto',
             boxShadow: '0 12px 48px rgba(29,78,216,0.18)',
           }}>
@@ -345,7 +345,7 @@ export default function ChatWithPenny() {
             </div>
 
             {/* Topic groups — two columns of categories */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0 24px' }}>
             {Object.entries(TOPIC_GROUPS).map(([group, lessons]) => (
               <div key={group} style={{ marginBottom: 18 }}>
                 <div style={{
