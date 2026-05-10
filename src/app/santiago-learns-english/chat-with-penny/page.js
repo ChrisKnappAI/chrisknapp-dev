@@ -353,7 +353,7 @@ export default function ChatWithPenny() {
                 }}>
                   {group}
                 </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 10px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 10px' }}>
                   {lessons.map(lesson => {
                     const on = activeTopics.includes(lesson.id);
                     return (
