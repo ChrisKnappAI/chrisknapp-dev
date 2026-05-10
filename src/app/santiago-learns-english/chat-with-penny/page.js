@@ -259,7 +259,7 @@ export default function ChatWithPenny() {
               value={input}
               onChange={setInput}
               onSubmit={phase === 'offer-question' ? handleSantiagoQuestion : handleAnswer}
-              disabled={loading || phase === 'asking' || phase === 'grading'}
+              disabled={loading || phase === 'asking' || phase === 'grading' || (currentQuestion?.photoType === 'pick' && phase === 'waiting-answer')}
             />
           </div>
 
