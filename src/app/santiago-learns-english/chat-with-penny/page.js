@@ -249,17 +249,17 @@ export default function ChatWithPenny() {
 
           <div style={{ flex: 1 }} />
 
-          {/* Animation dropdown + Play (only when animations are unlocked) */}
+          {/* Animation split-button (only when animations are unlocked) */}
           {unlockedItems.length > 0 && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'stretch', border: '2px solid #1D4ED8', borderRadius: 20, overflow: 'hidden' }}>
               <select
                 value={selectedAnim}
                 onChange={e => setSelectedAnim(e.target.value)}
                 style={{
-                  border: '2px solid #1D4ED8', borderRadius: 20, padding: '5px 12px',
-                  fontSize: 13, fontWeight: 700, color: '#1D4ED8', background: 'white',
-                  fontFamily: 'inherit', cursor: 'pointer', appearance: 'none',
-                  paddingRight: 28,
+                  border: 'none', borderRight: '1px solid #1D4ED8',
+                  padding: '5px 12px', fontSize: 13, fontWeight: 700,
+                  color: '#1D4ED8', background: 'white',
+                  fontFamily: 'inherit', cursor: 'pointer', outline: 'none',
                 }}
               >
                 {unlockedItems.map(u => (
@@ -268,9 +268,13 @@ export default function ChatWithPenny() {
               </select>
               <button
                 onClick={() => selectedAnim && triggerAnim(selectedAnim)}
-                style={{ ...btnBase, background: '#1D4ED8', color: 'white' }}
+                style={{
+                  border: 'none', background: '#1D4ED8', color: 'white',
+                  padding: '5px 14px', fontSize: 13, fontWeight: 700,
+                  cursor: 'pointer', fontFamily: 'inherit',
+                }}
               >
-                ▶ Play
+                Go
               </button>
             </div>
           )}
