@@ -121,9 +121,6 @@ export default function ChatWithPenny() {
 
   async function handleCorrect() {
     const phrase = ENCOURAGEMENT[Math.floor(Math.random() * ENCOURAGEMENT.length)];
-    setPennyText(phrase);
-    setPennySpanish('');
-    triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
 
     const newCount = correctCount + 1;
     setCorrectCount(newCount);
@@ -141,7 +138,19 @@ export default function ChatWithPenny() {
       setTimeout(() => setNewUnlock(null), 4000);
     }
 
-    await speakLive(phrase).catch(() => {});
+    // Pick next question and combine praise + question into one bubble
+    const nextQ = pickQuestion(activeTopics, lastQuestionId.current);
+    if (!nextQ) return;
+    lastQuestionId.current = nextQ.id;
+
+    const combined = `${phrase} Next question: ${nextQ.text}`;
+    setPennyText(combined);
+    setPennySpanish(nextQ.spanish ?? '');
+    setQuestion(nextQ);
+    triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
+    setPhase('waiting-answer');
+
+    await speakLive(combined).catch(() => {});
   }
 
   async function handleAnswer() {
@@ -156,16 +165,20 @@ export default function ChatWithPenny() {
       if (result.correct) {
         await handleCorrect();
       } else {
-        setPennyText(result.english);
+        const hint = currentQuestion.hint;
+        const msg  = hint
+          ? `Not quite. Try again, Santiago! (hint: ${hint})`
+          : 'Not quite. Try again, Santiago!';
+        setPennyText(msg);
         setPennySpanish('');
         triggerAnim(WRONG_ANIM);
-        await speakLive(result.english).catch(() => {});
+        await speakLive(msg).catch(() => {});
       }
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
-      setTimeout(askNextQuestion, 800);
+      // No auto-advance — correct path picks next question inline, wrong path stays
     }
   }
 
@@ -332,7 +345,7 @@ export default function ChatWithPenny() {
                 question={currentQuestion}
                 topicVocab={currentTopicVocab}
                 lesson={currentLesson}
-                onCorrect={async () => { await handleCorrect(); setTimeout(askNextQuestion, 400); }}
+                onCorrect={async () => { await handleCorrect(); }}
                 onWrong={askNextQuestion}
               />
             </div>
