@@ -45,7 +45,8 @@ export default function ChatWithPenny() {
   const [currentQuestion, setQuestion]  = useState(null);
   const [pennyText, setPennyText]       = useState("Hi! I'm Penny! 🐧 Let's practice English!");
   const [pennySpanish, setPennySpanish] = useState('¡Hola! Soy Penny! ¡Practiquemos inglés!');
-  const [pennyHint, setPennyHint]       = useState(null);
+  const [pennyHint, setPennyHint]             = useState(null);
+  const [pennyHintSpanish, setPennyHintSpanish] = useState(null);
   const [input, setInput]               = useState('');
   const [loading, setLoading]           = useState(false);
   const [phase, setPhase]               = useState('asking');
@@ -116,6 +117,7 @@ export default function ChatWithPenny() {
     setPennyText(q.text);
     setPennySpanish(q.spanish ?? '');
     setPennyHint(null);
+    setPennyHintSpanish(null);
     triggerAnim('wave');
     setPhase('waiting-answer');
     speakLive(q.text).catch(() => {});
@@ -146,9 +148,13 @@ export default function ChatWithPenny() {
     lastQuestionId.current = nextQ.id;
 
     const combined = `${phrase}\nNext question:\n${nextQ.text}`;
+    const combinedSpanish = nextQ.spanish
+      ? `${phrase}\nSiguiente pregunta:\n${nextQ.spanish}`
+      : phrase;
     setPennyText(combined);
-    setPennySpanish(nextQ.spanish ?? '');
+    setPennySpanish(combinedSpanish);
     setPennyHint(null);
+    setPennyHintSpanish(null);
     setQuestion(nextQ);
     triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
     setPhase('waiting-answer');
@@ -168,10 +174,13 @@ export default function ChatWithPenny() {
       if (result.correct) {
         await handleCorrect();
       } else {
-        const hint = currentQuestion.hint;
+        const hint        = currentQuestion.hint;
+        const lesson      = LESSONS.find(l => l.id === currentQuestion.topic);
+        const spanishWord = hint ? (lesson?.spanishVocab?.[hint] ?? hint) : null;
         setPennyText('Not quite. Try again, Santiago!');
+        setPennySpanish('¡No exactamente. ¡Inténtalo de nuevo, Santiago!');
         setPennyHint(hint ? `Hint: ${hint}` : null);
-        setPennySpanish('');
+        setPennyHintSpanish(spanishWord ? `Pista: ${spanishWord}` : null);
         triggerAnim(WRONG_ANIM);
         await speakLive(hint
           ? `Not quite. Try again, Santiago! Hint: ${hint}`
@@ -313,7 +322,7 @@ export default function ChatWithPenny() {
           <PennyScene commandAnim={commandAnim} isPaused={loading} talking={loading} scene={selectedScene || undefined} />
 
           <div style={{ position: 'absolute', top: 14, left: 14, zIndex: 10 }}>
-            <PennyBubble english={pennyText} spanish={pennySpanish} hint={pennyHint} loading={loading} />
+            <PennyBubble english={pennyText} spanish={pennySpanish} hint={pennyHint} hintSpanish={pennyHintSpanish} loading={loading} />
           </div>
 
           <div style={{ position: 'absolute', top: 14, right: 14, zIndex: 10 }}>

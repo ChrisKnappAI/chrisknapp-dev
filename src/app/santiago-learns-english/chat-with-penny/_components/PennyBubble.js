@@ -14,7 +14,7 @@
 
 import { useState, useEffect } from 'react';
 
-export default function PennyBubble({ english, spanish, loading, hint }) {
+export default function PennyBubble({ english, spanish, loading, hint, hintSpanish }) {
   const [showSpanish, setShowSpanish] = useState(false);
 
   // Reset translation toggle when a new message arrives
@@ -47,8 +47,10 @@ export default function PennyBubble({ english, spanish, loading, hint }) {
             ? `🇵🇪 ${spanish}`
             : english
         }
-        {hint && !loading && !showSpanish && (
-          <div style={{ color: '#9CA3AF', fontWeight: 600, marginTop: 5 }}>{hint}</div>
+        {(hint || hintSpanish) && !loading && (
+          <div style={{ color: '#9CA3AF', fontWeight: 600, marginTop: 5 }}>
+            {showSpanish ? (hintSpanish ?? hint) : hint}
+          </div>
         )}
         {spanish && !loading && (
           <div style={{ fontSize: 10, fontWeight: 600, color: '#9CA3AF', marginTop: 4 }}>
