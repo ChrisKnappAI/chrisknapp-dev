@@ -28,7 +28,7 @@ export default function ChrisSidebar() {
   }
 
   return (
-    <aside style={{
+    <aside className="chris-sidebar" style={{
       width: 232, minHeight: '100vh', background: 'var(--c-dark-sidebar)',
       borderRight: '1px solid var(--c-dark-border)',
       display: 'flex', flexDirection: 'column',

@@ -256,7 +256,7 @@ export default function GymLog() {
 
       {/* 3-column grid */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '1rem 1.2rem' }}>
-        <div style={{
+        <div className="gym-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
           gap: '0.55rem',
@@ -402,6 +402,7 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
       ].map(({ field, val, w }) => (
         <input
           key={field}
+          className="gym-input"
           type="number"
           min="0"
           step={field === 'lbs' ? 'any' : '1'}

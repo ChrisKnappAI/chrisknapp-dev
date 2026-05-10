@@ -30,6 +30,14 @@ html { font-family: var(--font-inter), system-ui, sans-serif; }
 
 body { margin: 0; }
 
+/* Mobile: hide sidebar, full-width content, single-column gym grid */
+@media (max-width: 768px) {
+  .chris-sidebar { display: none !important; }
+  .chris-content { margin-left: 0 !important; }
+  .gym-grid { grid-template-columns: 1fr !important; }
+  .gym-input { height: 32px !important; font-size: 0.9rem !important; }
+}
+
 /* Remove number input spinners */
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
