@@ -53,7 +53,7 @@ export default function PhotoQuestion({ question, topicVocab, lesson, onCorrect,
   return (
     <div style={{
       display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',
-      gap: 10, padding: 12,
+      gap: 6, padding: 6,
       background: 'white', borderRadius: 16, border: '3px solid #1D4ED8',
     }}>
       {choices.map(word => {
@@ -69,7 +69,7 @@ export default function PhotoQuestion({ question, topicVocab, lesson, onCorrect,
             onClick={() => handlePick(word)}
             style={{
               border: `3px solid ${borderColor}`,
-              borderRadius: 12,
+              borderRadius: 10,
               overflow: 'hidden',
               cursor: selected ? 'default' : 'pointer',
               padding: 0,
@@ -81,7 +81,7 @@ export default function PhotoQuestion({ question, topicVocab, lesson, onCorrect,
             <img
               src={imgPath(word, lesson)}
               alt={word}
-              style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', display: 'block' }}
+              style={{ width: 100, height: 100, objectFit: 'cover', display: 'block' }}
             />
           </button>
         );

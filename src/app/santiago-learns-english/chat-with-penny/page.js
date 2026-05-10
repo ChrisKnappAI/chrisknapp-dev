@@ -323,11 +323,11 @@ export default function ChatWithPenny() {
         }}>
           <PennyScene commandAnim={commandAnim} isPaused={loading} talking={loading} scene={selectedScene || undefined} />
 
-          <div style={{ position: 'absolute', top: 14, left: 14, zIndex: 10 }}>
+          <div style={{ position: 'absolute', top: 14, left: 14, zIndex: 30 }}>
             <PennyBubble english={pennyText} spanish={pennySpanish} hint={pennyHint} hintSpanish={pennyHintSpanish} loading={loading} />
           </div>
 
-          <div style={{ position: 'absolute', top: 14, right: 14, zIndex: 10 }}>
+          <div style={{ position: 'absolute', top: 14, right: 14, zIndex: 30 }}>
             <SantiagoBubble
               value={input}
               onChange={setInput}

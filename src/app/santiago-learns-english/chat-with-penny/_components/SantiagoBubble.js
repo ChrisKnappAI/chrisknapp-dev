@@ -28,7 +28,8 @@ export default function SantiagoBubble({ value, onChange, onSubmit, disabled }) 
       }}>
         <textarea
           value={value}
-          onChange={e => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value.slice(0, 50))}
+          maxLength={50}
           onKeyDown={e => {
             if (e.key === 'Enter' && !e.shiftKey && !disabled) {
               e.preventDefault();
