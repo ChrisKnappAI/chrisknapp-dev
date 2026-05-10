@@ -879,4 +879,3 @@ export default function PennyScene({ commandAnim, isPaused, talking }) {
   );
 }
 
-export { CORRECT_ANIMS };
