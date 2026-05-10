@@ -45,6 +45,7 @@ export default function ChatWithPenny() {
   const [currentQuestion, setQuestion]  = useState(null);
   const [pennyText, setPennyText]       = useState("Hi! I'm Penny! 🐧 Let's practice English!");
   const [pennySpanish, setPennySpanish] = useState('¡Hola! Soy Penny! ¡Practiquemos inglés!');
+  const [pennyHint, setPennyHint]       = useState(null);
   const [input, setInput]               = useState('');
   const [loading, setLoading]           = useState(false);
   const [phase, setPhase]               = useState('asking');
@@ -114,6 +115,7 @@ export default function ChatWithPenny() {
     setQuestion(q);
     setPennyText(q.text);
     setPennySpanish(q.spanish ?? '');
+    setPennyHint(null);
     triggerAnim('wave');
     setPhase('waiting-answer');
     speakLive(q.text).catch(() => {});
@@ -143,9 +145,10 @@ export default function ChatWithPenny() {
     if (!nextQ) return;
     lastQuestionId.current = nextQ.id;
 
-    const combined = `${phrase} Next question: ${nextQ.text}`;
+    const combined = `${phrase}\nNext question:\n${nextQ.text}`;
     setPennyText(combined);
     setPennySpanish(nextQ.spanish ?? '');
+    setPennyHint(null);
     setQuestion(nextQ);
     triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
     setPhase('waiting-answer');
@@ -166,13 +169,14 @@ export default function ChatWithPenny() {
         await handleCorrect();
       } else {
         const hint = currentQuestion.hint;
-        const msg  = hint
-          ? `Not quite. Try again, Santiago! (hint: ${hint})`
-          : 'Not quite. Try again, Santiago!';
-        setPennyText(msg);
+        setPennyText('Not quite. Try again, Santiago!');
+        setPennyHint(hint ? `Hint: ${hint}` : null);
         setPennySpanish('');
         triggerAnim(WRONG_ANIM);
-        await speakLive(msg).catch(() => {});
+        await speakLive(hint
+          ? `Not quite. Try again, Santiago! Hint: ${hint}`
+          : 'Not quite. Try again, Santiago!'
+        ).catch(() => {});
       }
     } catch (err) {
       console.error(err);
@@ -309,7 +313,7 @@ export default function ChatWithPenny() {
           <PennyScene commandAnim={commandAnim} isPaused={loading} talking={loading} scene={selectedScene || undefined} />
 
           <div style={{ position: 'absolute', top: 14, left: 14, zIndex: 10 }}>
-            <PennyBubble english={pennyText} spanish={pennySpanish} loading={loading} />
+            <PennyBubble english={pennyText} spanish={pennySpanish} hint={pennyHint} loading={loading} />
           </div>
 
           <div style={{ position: 'absolute', top: 14, right: 14, zIndex: 10 }}>
