@@ -92,8 +92,7 @@ const css = `
   }
   .shimmying { animation: shimmy 2.8s ease-in-out forwards; }
 
-  #sunglasses-group { display: none; }
-  .magicking .penguin-svg #sunglasses-group { display: block; }
+  #sunglasses-group { display: block; }
   @keyframes magic-anim {
     0%   { transform: translate(0,0)    rotate(0deg);  }
     8%   { transform: translate(0,-10px) rotate(-4deg); }
