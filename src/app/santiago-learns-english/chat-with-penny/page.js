@@ -118,50 +118,10 @@ export default function ChatWithPenny() {
     speakLive(q.text).catch(() => {});
   }
 
-  async function handleAnswer() {
-    if (!input.trim() || loading) return;
-    const answer = input.trim();
+  function handleAnswer() {
+    if (!input.trim()) return;
     setInput('');
-    setLoading(true);
-    setPhase('grading');
-
-    try {
-      const activeLabels = LESSONS.filter(l => activeTopics.includes(l.id)).map(l => l.label);
-      const result = await gradeAnswer({ question: currentQuestion, answer, activeTopics: activeLabels });
-
-      setPennyText(result.english);
-      setPennySpanish(result.spanish);
-
-      if (result.correct) {
-        triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
-        await playRandomEncouragement(ENCOURAGEMENT.length).catch(() => {});
-
-        const newCount = correctCount + 1;
-        setCorrectCount(newCount);
-        localStorage.setItem(COUNT_KEY, newCount);
-
-        const justUnlocked = UNLOCKABLE.find(u => u.threshold === newCount && !unlocked.includes(u.id));
-        if (justUnlocked) {
-          setNewUnlock(justUnlocked);
-          setTimeout(() => setNewUnlock(null), 4000);
-        }
-      } else {
-        triggerAnim(WRONG_ANIM);
-        await speakLive(result.english).catch(() => {});
-      }
-
-      setPennyText("Do you want to ask me something? 😊");
-      setPennySpanish("¿Me quieres preguntar algo?");
-      await speakLive("Do you want to ask me something?").catch(() => {});
-      setPhase('offer-question');
-
-    } catch (err) {
-      console.error(err);
-      setPennyText("Oops! Something went wrong. Try again!");
-      setPhase('waiting-answer');
-    } finally {
-      setLoading(false);
-    }
+    askNextQuestion();
   }
 
   async function handleSantiagoQuestion() {
