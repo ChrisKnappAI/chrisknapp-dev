@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import PennyBubble    from './_components/PennyBubble.js';
 import SantiagoBubble from './_components/SantiagoBubble.js';
 import PhotoQuestion  from './_components/PhotoQuestion.js';
-import PennyScene, { CORRECT_ANIMS, WRONG_ANIM, SCENES } from './_components/PennyScene.js';
-import { LESSONS }    from './_data/lessons.js';
+import PennyScene, { CORRECT_ANIMS, WRONG_ANIM } from './_components/PennyScene.js';
+import { LESSONS }       from './_data/lessons.js';
 import { ENCOURAGEMENT } from './_data/encouragement.js';
 import { pickQuestion }  from './_lib/questionPicker.js';
 import { gradeLocal }    from './_lib/localGrader.js';
@@ -34,27 +34,38 @@ function loadActiveTopics() {
   return LESSONS.map(l => l.id);
 }
 
+// ── Question type classification ──────────────────────────────────────────────
+// Type 1: photo-pick  (click one of 6 images)
+// Type 2: photo-name  (see one image, type the word)
+// Type 3: free-form   (no photo — goes to Claude API)
+function getQuestionType(q) {
+  if (!q) return 3;
+  if (q.hasPhoto && q.photoType === 'pick') return 1;
+  if (q.hasPhoto && q.photoType === 'name') return 2;
+  return 3;
+}
+
 const btnBase = {
   border: '2px solid #1D4ED8', borderRadius: 20, fontFamily: 'inherit',
   fontSize: 13, fontWeight: 700, cursor: 'pointer', padding: '6px 16px',
 };
 
 export default function ChatWithPenny() {
-  const [activeTopics, setActiveTopics] = useState([]);
-  const [currentQuestion, setQuestion]  = useState(null);
-  const [pennyText, setPennyText]       = useState("Hi! I'm Penny! 🐧 Let's practice English!");
-  const [pennySpanish, setPennySpanish] = useState('¡Hola! Soy Penny! ¡Practiquemos inglés!');
-  const [pennyHint, setPennyHint]             = useState(null);
+  const [activeTopics, setActiveTopics]     = useState([]);
+  const [currentQuestion, setQuestion]      = useState(null);
+  const [pennyText, setPennyText]           = useState("Hi! I'm Penny! 🐧 Let's practice English!");
+  const [pennySpanish, setPennySpanish]     = useState('¡Hola! Soy Penny! ¡Practiquemos inglés!');
+  const [pennyHint, setPennyHint]           = useState(null);
   const [pennyHintSpanish, setPennyHintSpanish] = useState(null);
-  const [input, setInput]               = useState('');
-  const [loading, setLoading]           = useState(false);
-  const [phase, setPhase]               = useState('asking');
-  const [commandAnim, setCommandAnim]   = useState(null);
-  const [correctCount, setCorrectCount] = useState(0);
-  const [unlocked, setUnlocked]         = useState([]);
-  const [newUnlock, setNewUnlock]       = useState(null);
+  const [input, setInput]                   = useState('');
+  const [loading, setLoading]               = useState(false);
+  const [commandAnim, setCommandAnim]       = useState(null);
+  const [correctCount, setCorrectCount]     = useState(0);
+  const [attemptKey, setAttemptKey]         = useState(0);
+  const [unlocked, setUnlocked]             = useState([]);
+  const [newUnlock, setNewUnlock]           = useState(null);
   const [showTopicModal, setShowTopicModal] = useState(false);
-  const [selectedAnim, setSelectedAnim]    = useState('');
+  const [selectedAnim, setSelectedAnim]     = useState('');
   const [unlockedScenes, setUnlockedScenes] = useState([]);
   const [selectedScene, setSelectedScene]   = useState('');
 
@@ -64,16 +75,12 @@ export default function ChatWithPenny() {
     setCommandAnim({ name, ts: Date.now() });
   }
 
+  // ── Init ───────────────────────────────────────────────────────────────────
   useEffect(() => {
     setActiveTopics(loadActiveTopics());
     try { setCorrectCount(parseInt(localStorage.getItem(COUNT_KEY) || '0')); } catch {}
     fetchUnlocks();
     fetchScenes();
-  }, []);
-
-  useEffect(() => {
-    const id = setInterval(() => { fetchUnlocks(); fetchScenes(); }, 60_000);
-    return () => clearInterval(id);
   }, []);
 
   async function fetchUnlocks() {
@@ -99,15 +106,14 @@ export default function ChatWithPenny() {
   }
 
   useEffect(() => {
-    if (activeTopics.length) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(activeTopics));
-    }
+    if (activeTopics.length) localStorage.setItem(STORAGE_KEY, JSON.stringify(activeTopics));
   }, [activeTopics]);
 
   useEffect(() => {
     if (activeTopics.length && !currentQuestion) askNextQuestion();
   }, [activeTopics]);
 
+  // ── Question flow ──────────────────────────────────────────────────────────
   function askNextQuestion() {
     const q = pickQuestion(activeTopics, lastQuestionId.current);
     if (!q) return;
@@ -118,13 +124,12 @@ export default function ChatWithPenny() {
     setPennyHint(null);
     setPennyHintSpanish(null);
     triggerAnim('wave');
-    setPhase('waiting-answer');
     speakLive(q.text).catch(() => {});
   }
 
-  async function handleCorrect() {
-    const phrase = ENCOURAGEMENT[Math.floor(Math.random() * ENCOURAGEMENT.length)];
-
+  // ── Correct answer handler (Types 1 & 2) ──────────────────────────────────
+  async function handleCorrect(answer = '') {
+    const phrase   = ENCOURAGEMENT[Math.floor(Math.random() * ENCOURAGEMENT.length)];
     const newCount = correctCount + 1;
     setCorrectCount(newCount);
     localStorage.setItem(COUNT_KEY, String(newCount));
@@ -133,34 +138,77 @@ export default function ChatWithPenny() {
     if (justUnlocked) {
       setNewUnlock(justUnlocked);
       await fetch('/api/penny/unlocks', {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ animation_id: justUnlocked.id, unlocked: true }),
+        body:    JSON.stringify({ animation_id: justUnlocked.id, unlocked: true }),
       });
       fetchUnlocks();
       setTimeout(() => setNewUnlock(null), 4000);
     }
 
-    // Pick next question and combine praise + question into one bubble
     const nextQ = pickQuestion(activeTopics, lastQuestionId.current);
     if (!nextQ) return;
     lastQuestionId.current = nextQ.id;
 
-    const combined = `${phrase.en}\nNext question:\n${nextQ.text}`;
-    const combinedSpanish = nextQ.spanish
-      ? `${phrase.es}\nSiguiente pregunta:\n${nextQ.spanish}`
-      : phrase.es;
-    setPennyText(combined);
-    setPennySpanish(combinedSpanish);
+    // Build vocab/response line based on question type + answer length
+    const qType     = getQuestionType(currentQuestion);
+    const wordCount = answer.trim().split(/\s+/).filter(Boolean).length;
+    let vocabLine   = '';
+    let vocabLineEs = '';
+
+    if (qType === 1 || (qType === 2 && wordCount < 5)) {
+      // Pre-recorded vocab phrase (placeholder until phrases are built)
+      const word = currentQuestion.hint;
+      if (word) {
+        vocabLine   = `[Vocab phrase: ${word}]`;
+        vocabLineEs = `[Frase de vocabulario: ${word}]`;
+      }
+    } else if (qType === 2 && wordCount >= 5) {
+      // Santiago gave a longer answer — Claude gives a personalized response
+      vocabLine   = `[Claude API: personalized response to "${answer}"]`;
+      vocabLineEs = `[Claude API: respuesta personalizada]`;
+    }
+
+    const parts   = [phrase.en, vocabLine, 'Next question:', nextQ.text].filter(Boolean);
+    const partsEs = [phrase.es, vocabLineEs, 'Siguiente pregunta:', nextQ.spanish ?? nextQ.text].filter(Boolean);
+
+    setPennyText(parts.join('\n'));
+    setPennySpanish(partsEs.join('\n'));
     setPennyHint(null);
     setPennyHintSpanish(null);
     setQuestion(nextQ);
     triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
-    setPhase('waiting-answer');
 
-    await speakLive(combined).catch(() => {});
+    // Speak only real text, skip placeholders
+    const speakText = parts.filter(p => !p.startsWith('[')).join(' ');
+    await speakLive(speakText).catch(() => {});
   }
 
+  // ── Type 3 handler: always moves on, Claude grades + responds ─────────────
+  async function handleType3Response(answer) {
+    const nextQ = pickQuestion(activeTopics, lastQuestionId.current);
+    if (!nextQ) return;
+    lastQuestionId.current = nextQ.id;
+
+    // Placeholder — Claude API call goes here (grades correct/wrong, responds, moves on regardless)
+    const apiLine   = `[Claude API: grade + respond to "${answer}"]`;
+    const apiLineEs = `[Claude API: calificar + responder a "${answer}"]`;
+
+    const parts   = [apiLine, 'Next question:', nextQ.text];
+    const partsEs = [apiLineEs, 'Siguiente pregunta:', nextQ.spanish ?? nextQ.text];
+
+    setPennyText(parts.join('\n'));
+    setPennySpanish(partsEs.join('\n'));
+    setPennyHint(null);
+    setPennyHintSpanish(null);
+    setQuestion(nextQ);
+    triggerAnim('wave');
+
+    // Speak next question while we wait for real API to be wired
+    await speakLive(nextQ.text).catch(() => {});
+  }
+
+  // ── Main answer handler ────────────────────────────────────────────────────
   async function handleAnswer() {
     if (!input.trim() || loading) return;
     const answer = input.trim();
@@ -168,77 +216,53 @@ export default function ChatWithPenny() {
     setLoading(true);
 
     try {
-      const result = gradeLocal(currentQuestion, answer);
+      const qType = getQuestionType(currentQuestion);
 
-      if (result.correct) {
-        await handleCorrect();
+      if (qType === 3) {
+        await handleType3Response(answer);
       } else {
-        const hint        = currentQuestion.hint;
-        const lesson      = LESSONS.find(l => l.id === currentQuestion.topic);
-        const isSubjectiveYesNo = currentQuestion.expects === 'yes-no' && hint !== 'yes' && hint !== 'no';
-        const displayHint = isSubjectiveYesNo ? 'Try: yes or no!' : hint;
-        const displayHintSpanish = isSubjectiveYesNo ? '¡Intenta: sí o no!' : (hint ? (lesson?.spanishVocab?.[hint] ?? hint) : null);
-        setPennyText(`Not quite. Try again, Santiago!\n${currentQuestion.text}`);
-        setPennySpanish(currentQuestion.spanish
-          ? `¡No exactamente. ¡Inténtalo de nuevo, Santiago!\n${currentQuestion.spanish}`
-          : '¡No exactamente. ¡Inténtalo de nuevo, Santiago!');
-        setPennyHint(displayHint ? `Hint: ${displayHint}` : null);
-        setPennyHintSpanish(displayHintSpanish ? `Pista: ${displayHintSpanish}` : null);
-        triggerAnim(WRONG_ANIM);
-        await speakLive(isSubjectiveYesNo
-          ? 'Not quite. Try saying yes or no, Santiago!'
-          : hint
-            ? `Not quite. Try again, Santiago! Hint: ${hint}`
-            : 'Not quite. Try again, Santiago!'
-        ).catch(() => {});
+        const result = gradeLocal(currentQuestion, answer);
+        if (result.correct) {
+          await handleCorrect(answer);
+        } else {
+          const hint    = currentQuestion.hint;
+          const lesson  = LESSONS.find(l => l.id === currentQuestion.topic);
+          const isSubjectiveYesNo = currentQuestion.expects === 'yes-no' && hint !== 'yes' && hint !== 'no';
+          const displayHint   = isSubjectiveYesNo ? 'Try: yes or no!' : hint;
+          const displayHintEs = isSubjectiveYesNo
+            ? '¡Intenta: sí o no!'
+            : (hint ? (lesson?.spanishVocab?.[hint] ?? hint) : null);
+
+          setPennyText(`Not quite. Try again, Santiago!\n${currentQuestion.text}`);
+          setPennySpanish(currentQuestion.spanish
+            ? `¡No exactamente! ¡Inténtalo de nuevo, Santiago!\n${currentQuestion.spanish}`
+            : '¡No exactamente! ¡Inténtalo de nuevo, Santiago!');
+          setPennyHint(displayHint ? `Hint: ${displayHint}` : null);
+          setPennyHintSpanish(displayHintEs ? `Pista: ${displayHintEs}` : null);
+          triggerAnim(WRONG_ANIM);
+
+          await speakLive(isSubjectiveYesNo
+            ? 'Not quite. Try saying yes or no, Santiago!'
+            : hint
+              ? `Not quite. Try again, Santiago! Hint: ${hint}`
+              : 'Not quite. Try again, Santiago!'
+          ).catch(() => {});
+        }
       }
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
-      // No auto-advance — correct path picks next question inline, wrong path stays
     }
-  }
-
-  async function handleSantiagoQuestion() {
-    if (!input.trim() || loading) return;
-    const question = input.trim();
-    setInput('');
-    setLoading(true);
-
-    try {
-      const activeLabels = LESSONS.filter(l => activeTopics.includes(l.id)).map(l => l.label);
-      const result = await gradeAnswer({
-        question: { text: '[Santiago is asking Penny a question]', expects: 'open' },
-        answer: question,
-        activeTopics: activeLabels,
-      });
-      setPennyText(result.english);
-      setPennySpanish(result.spanish);
-      await speakLive(result.english).catch(() => {});
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-      setTimeout(askNextQuestion, 1500);
-    }
-  }
-
-  function skipToNextQuestion() {
-    setInput('');
-    askNextQuestion();
   }
 
   function toggleTopic(id) {
-    setActiveTopics(prev =>
-      prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
-    );
+    setActiveTopics(prev => prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]);
   }
 
-  const currentLesson    = currentQuestion ? LESSONS.find(l => l.id === currentQuestion.topic) : null;
+  const currentLesson     = currentQuestion ? LESSONS.find(l => l.id === currentQuestion.topic) : null;
   const currentTopicVocab = currentLesson?.vocab ?? [];
-
-  const unlockedItems = UNLOCKABLE.filter(u => unlocked.includes(u.id));
+  const unlockedItems     = UNLOCKABLE.filter(u => unlocked.includes(u.id));
 
   return (
     <div style={{
@@ -247,13 +271,10 @@ export default function ChatWithPenny() {
       alignItems: 'center', padding: 24, boxSizing: 'border-box',
     }}>
 
-      {/* ── Main column ── */}
       <div style={{ width: '100%', maxWidth: 880, display: 'flex', flexDirection: 'column', gap: 12 }}>
 
         {/* ── Toolbar ── */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-
-          {/* Topics button */}
           <button
             onClick={() => setShowTopicModal(true)}
             style={{ ...btnBase, background: 'white', color: '#1D4ED8' }}
@@ -261,7 +282,6 @@ export default function ChatWithPenny() {
             📚 Topics
           </button>
 
-          {/* Scene dropdown (always shown — at least one scene is always unlocked) */}
           {unlockedScenes.length > 1 && (
             <select
               value={selectedScene}
@@ -274,11 +294,11 @@ export default function ChatWithPenny() {
             >
               {unlockedScenes.map(id => (
                 <option key={id} value={id}>
-                  {id === 'outdoor' ? '🌳 Outdoor' :
-                   id === 'beach'   ? '🏖️ Beach' :
+                  {id === 'outdoor'   ? '🌳 Outdoor'   :
+                   id === 'beach'     ? '🏖️ Beach'    :
                    id === 'classroom' ? '🏫 Classroom' :
-                   id === 'snowy'   ? '❄️ Snowy' :
-                   id === 'city'    ? '🏙️ City' : id}
+                   id === 'snowy'     ? '❄️ Snowy'     :
+                   id === 'city'      ? '🏙️ City'     : id}
                 </option>
               ))}
             </select>
@@ -286,7 +306,6 @@ export default function ChatWithPenny() {
 
           <div style={{ flex: 1 }} />
 
-          {/* Animation split-button (only when animations are unlocked) */}
           {unlockedItems.length > 0 && (
             <div style={{ display: 'flex', alignItems: 'stretch', border: '2px solid #1D4ED8', borderRadius: 20, overflow: 'hidden' }}>
               <select
@@ -327,20 +346,24 @@ export default function ChatWithPenny() {
           <PennyScene commandAnim={commandAnim} isPaused={loading} talking={loading} scene={selectedScene || undefined} />
 
           <div style={{ position: 'absolute', top: 14, left: 14, zIndex: 30 }}>
-            <PennyBubble english={pennyText} spanish={pennySpanish} hint={pennyHint} hintSpanish={pennyHintSpanish} loading={loading} />
+            <PennyBubble
+              english={pennyText} spanish={pennySpanish}
+              hint={pennyHint} hintSpanish={pennyHintSpanish}
+              loading={loading}
+            />
           </div>
 
           <div style={{ position: 'absolute', top: 14, right: 14, zIndex: 30 }}>
             <SantiagoBubble
               value={input}
               onChange={setInput}
-              onSubmit={phase === 'offer-question' ? handleSantiagoQuestion : handleAnswer}
-              disabled={loading || phase === 'asking' || phase === 'grading' || (currentQuestion?.photoType === 'pick' && phase === 'waiting-answer')}
+              onSubmit={handleAnswer}
+              disabled={loading || currentQuestion?.photoType === 'pick'}
             />
           </div>
 
-          {/* photo-name: single image, user types the answer */}
-          {currentQuestion?.hasPhoto && currentQuestion.photoType === 'name' && phase === 'waiting-answer' && (
+          {/* Type 2: photo-name — single image, Santiago types the word */}
+          {currentQuestion?.hasPhoto && currentQuestion.photoType === 'name' && (
             <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
               <div style={{ background: 'white', borderRadius: 16, border: '3px solid #1D4ED8', padding: 8 }}>
                 <img
@@ -355,15 +378,15 @@ export default function ChatWithPenny() {
             </div>
           )}
 
-          {/* photo-pick: 6-image grid, user clicks the correct one */}
-          {currentQuestion?.hasPhoto && currentQuestion.photoType === 'pick' && phase === 'waiting-answer' && (
+          {/* Type 1: photo-pick — 6-image grid, Santiago clicks the right one */}
+          {currentQuestion?.hasPhoto && currentQuestion.photoType === 'pick' && (
             <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
               <PhotoQuestion
-                key={currentQuestion.id}
+                key={`${currentQuestion.id}-${attemptKey}`}
                 question={currentQuestion}
                 topicVocab={currentTopicVocab}
                 lesson={currentLesson}
-                onCorrect={async () => { await handleCorrect(); }}
+                onCorrect={async () => { await handleCorrect(''); }}
                 onWrong={() => {
                   triggerAnim(WRONG_ANIM);
                   const sp = currentLesson?.spanishVocab?.[currentQuestion.hint] ?? currentQuestion.hint;
@@ -371,7 +394,8 @@ export default function ChatWithPenny() {
                   setPennySpanish(`¡No exactamente! ¡Encuentra ${sp}!`);
                   setPennyHint(null);
                   setPennyHintSpanish(null);
-                  setTimeout(() => askNextQuestion(), 1800);
+                  // Show red border briefly, then reset grid so Santiago can try again
+                  setTimeout(() => setAttemptKey(k => k + 1), 800);
                 }}
               />
             </div>
@@ -389,12 +413,14 @@ export default function ChatWithPenny() {
           </div>
         )}
 
-        {/* ── Skip / Next button ── */}
-        {phase === 'offer-question' && (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <button onClick={skipToNextQuestion} style={{ ...btnBase, background: 'white', color: '#1D4ED8' }}>
-              ➡ Next Question
-            </button>
+        {/* ── No topics warning ── */}
+        {activeTopics.length === 0 && (
+          <div style={{
+            textAlign: 'center', padding: '10px 20px',
+            background: '#FEE2E2', border: '2px solid #EF4444',
+            borderRadius: 14, fontSize: 14, fontWeight: 700, color: '#991B1B',
+          }}>
+            No topics selected! Open 📚 Topics and pick at least one.
           </div>
         )}
 
@@ -420,8 +446,6 @@ export default function ChatWithPenny() {
             maxHeight: '80vh', overflowY: 'auto',
             boxShadow: '0 12px 48px rgba(29,78,216,0.18)',
           }}>
-
-            {/* Modal header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <div style={{ fontSize: 18, fontWeight: 800, color: '#1D4ED8' }}>📚 Topics</div>
               <button
@@ -432,7 +456,6 @@ export default function ChatWithPenny() {
               </button>
             </div>
 
-            {/* Select All / Clear All */}
             <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
               <button
                 onClick={() => setActiveTopics(LESSONS.map(l => l.id))}
@@ -448,45 +471,43 @@ export default function ChatWithPenny() {
               </button>
             </div>
 
-            {/* Topic groups — two columns of categories */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0 24px' }}>
-            {Object.entries(TOPIC_GROUPS).map(([group, lessons]) => (
-              <div key={group} style={{ marginBottom: 18 }}>
-                <div style={{
-                  fontSize: 11, fontWeight: 700, color: '#6B7280',
-                  letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 8,
-                }}>
-                  {group}
+              {Object.entries(TOPIC_GROUPS).map(([group, lessons]) => (
+                <div key={group} style={{ marginBottom: 18 }}>
+                  <div style={{
+                    fontSize: 11, fontWeight: 700, color: '#6B7280',
+                    letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 8,
+                  }}>
+                    {group}
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 8px' }}>
+                    {lessons.map(lesson => {
+                      const on = activeTopics.includes(lesson.id);
+                      return (
+                        <label key={lesson.id} style={{
+                          display: 'flex', alignItems: 'center', gap: 6,
+                          padding: '5px 12px', borderRadius: 20, cursor: 'pointer',
+                          border: `1.5px solid ${on ? '#1D4ED8' : '#E5E7EB'}`,
+                          background: on ? '#EFF6FF' : 'white',
+                          fontSize: 13, fontWeight: 600,
+                          color: on ? '#1D4ED8' : '#6B7280',
+                          userSelect: 'none',
+                        }}>
+                          <input
+                            type="checkbox"
+                            checked={on}
+                            onChange={() => toggleTopic(lesson.id)}
+                            style={{ display: 'none' }}
+                          />
+                          {lesson.label}
+                        </label>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 8px' }}>
-                  {lessons.map(lesson => {
-                    const on = activeTopics.includes(lesson.id);
-                    return (
-                      <label key={lesson.id} style={{
-                        display: 'flex', alignItems: 'center', gap: 6,
-                        padding: '5px 12px', borderRadius: 20, cursor: 'pointer',
-                        border: `1.5px solid ${on ? '#1D4ED8' : '#E5E7EB'}`,
-                        background: on ? '#EFF6FF' : 'white',
-                        fontSize: 13, fontWeight: 600,
-                        color: on ? '#1D4ED8' : '#6B7280',
-                        userSelect: 'none',
-                      }}>
-                        <input
-                          type="checkbox"
-                          checked={on}
-                          onChange={() => toggleTopic(lesson.id)}
-                          style={{ display: 'none' }}
-                        />
-                        {lesson.label}
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
+              ))}
             </div>
 
-            {/* Done button */}
             <div style={{ marginTop: 8, display: 'flex', justifyContent: 'flex-end' }}>
               <button
                 onClick={() => setShowTopicModal(false)}
