@@ -12,6 +12,10 @@ const toolItems = [
   { label: 'Goals Log', href: '/natalie/goal-tracker', icon: '✓' },
 ]
 
+const santiagoItems = [
+  { label: 'Penny Animations', href: '/natalie/penny-unlocks', icon: '🐧' },
+]
+
 export default function NatalieSidebar() {
   const pathname = usePathname()
 
@@ -44,6 +48,9 @@ export default function NatalieSidebar() {
 
         <SectionLabel>Tools</SectionLabel>
         {toolItems.map(item => <NavItem key={item.href} item={item} active={pathname === item.href} />)}
+
+        <SectionLabel>Santiago Learns English</SectionLabel>
+        {santiagoItems.map(item => <NavItem key={item.href} item={item} active={pathname === item.href} />)}
       </nav>
 
       <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid var(--c-beige-border)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
