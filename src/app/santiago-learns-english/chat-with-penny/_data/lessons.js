@@ -33,9 +33,9 @@ export const LESSONS = [
       'confused', 'hot', 'cold',
     ],
     templates: [
-      { text: 'How do you feel today?',       expects: 'emotion'              },
-      { text: 'Do you feel {word} today?',     expects: 'yes-no', hint: '{word}' },
-      { text: 'Do you feel {word} right now?', expects: 'yes-no', hint: '{word}' },
+      { text: 'How do you feel today?',       spanish: '¿Cómo te sientes hoy?',            expects: 'emotion'              },
+      { text: 'Do you feel {word} today?',    spanish: '¿Te sientes {word} hoy?',           expects: 'yes-no', hint: '{word}' },
+      { text: 'Do you feel {word} right now?', spanish: '¿Te sientes {word} ahora mismo?',  expects: 'yes-no', hint: '{word}' },
     ],
   },
 
@@ -48,9 +48,9 @@ export const LESSONS = [
     type: 'standard',
     vocab: ['swim', 'fly', 'sing', 'run', 'jump', 'climb', 'stomp', 'dance', 'crawl'],
     templates: [
-      { text: 'Can you {word}?',   expects: 'yes-no', hint: '{word}' },
-      { text: 'What can you do?',  expects: 'ability'                },
-      { text: "What can't you do?", expects: 'ability'               },
+      { text: 'Can you {word}?',    spanish: '¿Puedes {word}?',          expects: 'yes-no', hint: '{word}' },
+      { text: 'What can you do?',   spanish: '¿Qué puedes hacer?',       expects: 'ability'                },
+      { text: "What can't you do?", spanish: '¿Qué no puedes hacer?',    expects: 'ability'               },
     ],
   },
 
@@ -89,12 +89,9 @@ export const LESSONS = [
       { role: 'baby brother', names: ['Mateo'],                                has: true  },
     ],
     templates: [
-      // "Is Chris your uncle?" — only generated for members where has: true
-      { text: 'Is {name} your {role}?',           expects: 'yes-no', hint: 'yes'   },
-      // "What is the name of your mom?" — only for has: true
-      { text: 'What is the name of your {role}?', expects: 'name',   hint: '{name}' },
-      // "Do you have a sister?" — generated for ALL members (has: false → answer is "no")
-      { text: 'Do you have a {role}?',            expects: 'yes-no', hint: '{has}'  },
+      { text: 'Is {name} your {role}?',           spanish: '¿Es {name} tu {role}?',                 expects: 'yes-no', hint: 'yes'   },
+      { text: 'What is the name of your {role}?', spanish: '¿Cuál es el nombre de tu {role}?',      expects: 'name',   hint: '{name}' },
+      { text: 'Do you have a {role}?',            spanish: '¿Tienes {role}?',                        expects: 'yes-no', hint: '{has}'  },
     ],
   },
 
@@ -124,8 +121,8 @@ export const LESSONS = [
       'column':      'grid column highlighted',
     },
     templates: [
-      { text: 'What chess word is this?',        expects: 'photo-name'               },
-      { text: 'Which picture is the {word}?',   expects: 'photo-pick', hint: '{word}' },
+      { text: 'What chess word is this?',       spanish: '¿Qué palabra de ajedrez es esta?', expects: 'photo-name'               },
+      { text: 'Which picture is the {word}?',   spanish: '¿Cuál imagen es {word}?',          expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -144,12 +141,12 @@ export const LESSONS = [
     months: ['January','February','March','April','May','June',
              'July','August','September','October','November','December'],
     templates: [
-      { text: 'What day of the week is it?',  expects: 'current-day'                          },
-      { text: 'What month is it?',             expects: 'current-month'                        },
-      { text: 'What day is after {day}?',      expects: 'sequence', seq: 'days',   dir: 'after'  },
-      { text: 'What month is after {month}?',  expects: 'sequence', seq: 'months', dir: 'after'  },
-      { text: 'What day is before {day}?',     expects: 'sequence', seq: 'days',   dir: 'before' },
-      { text: 'What month is before {month}?', expects: 'sequence', seq: 'months', dir: 'before' },
+      { text: 'What day of the week is it?',  spanish: '¿Qué día de la semana es hoy?',    expects: 'current-day'                          },
+      { text: 'What month is it?',             spanish: '¿Qué mes es?',                     expects: 'current-month'                        },
+      { text: 'What day is after {day}?',      spanish: '¿Qué día sigue después de {day}?', expects: 'sequence', seq: 'days',   dir: 'after'  },
+      { text: 'What month is after {month}?',  spanish: '¿Qué mes sigue después de {month}?', expects: 'sequence', seq: 'months', dir: 'after'  },
+      { text: 'What day is before {day}?',     spanish: '¿Qué día está antes de {day}?',   expects: 'sequence', seq: 'days',   dir: 'before' },
+      { text: 'What month is before {month}?', spanish: '¿Qué mes está antes de {month}?', expects: 'sequence', seq: 'months', dir: 'before' },
     ],
   },
 
@@ -169,10 +166,8 @@ export const LESSONS = [
       'playroom': 'kids playroom toys',
     },
     templates: [
-      // Shows ONE photo of a room — Santiago types the name
-      { text: 'What room is this?',            expects: 'photo-name'              },
-      // Shows 6 room photos — Santiago clicks the correct one
-      { text: 'Which picture is the {word}?',  expects: 'photo-pick', hint: '{word}' },
+      { text: 'What room is this?',           spanish: '¿Qué habitación es esta?',  expects: 'photo-name'              },
+      { text: 'Which picture is the {word}?', spanish: '¿Cuál imagen es {word}?',   expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -212,8 +207,8 @@ export const LESSONS = [
       'butt':     null,  // SKIP — add a cartoon image manually to /santiago/images/vocab/butt.jpg
     },
     templates: [
-      { text: 'What body part is this?',         expects: 'photo-name'               },
-      { text: 'Which picture is the {word}?',    expects: 'photo-pick', hint: '{word}' },
+      { text: 'What body part is this?',        spanish: '¿Qué parte del cuerpo es esta?', expects: 'photo-name'               },
+      { text: 'Which picture is the {word}?',   spanish: '¿Cuál imagen es {word}?',        expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -269,9 +264,9 @@ export const LESSONS = [
       'whipped cream':  '/santiago-learns-english/chat-with-penny/images/junk-food/whipped-cream.jpg',
     },
     templates: [
-      { text: 'Do you like {word}?',       expects: 'yes-no',    hint: '{word}' },
-      { text: 'What junk food is this?',    expects: 'photo-name'               },
-      { text: 'Find the {word}!',           expects: 'photo-pick', hint: '{word}' },
+      { text: 'Do you like {word}?',      spanish: '¿Te gusta {word}?',              expects: 'yes-no',    hint: '{word}' },
+      { text: 'What junk food is this?',  spanish: '¿Qué comida chatarra es esta?',  expects: 'photo-name'               },
+      { text: 'Find the {word}!',         spanish: '¡Encuentra {word}!',             expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -287,9 +282,9 @@ export const LESSONS = [
       'strawberry', 'mango', 'watermelon', 'pineapple',
     ],
     templates: [
-      { text: 'Is the {word} your favorite fruit?', expects: 'yes-no',   hint: '{word}' },
-      { text: 'What fruit is this?',            expects: 'photo-name'              },
-      { text: 'Find the {word}!',               expects: 'photo-pick', hint: '{word}' },
+      { text: 'Is the {word} your favorite fruit?', spanish: '¿Es {word} tu fruta favorita?', expects: 'yes-no',   hint: '{word}' },
+      { text: 'What fruit is this?',                spanish: '¿Qué fruta es esta?',            expects: 'photo-name'              },
+      { text: 'Find the {word}!',                   spanish: '¡Encuentra {word}!',             expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -306,9 +301,9 @@ export const LESSONS = [
       'butter', 'jelly', 'oatmeal', 'avocado', 'cheese',
     ],
     templates: [
-      { text: 'Do you like {word}?',              expects: 'yes-no',    hint: '{word}' },
-      { text: 'What breakfast food is this?',      expects: 'photo-name'               },
-      { text: 'Which picture is the {word}?',      expects: 'photo-pick', hint: '{word}' },
+      { text: 'Do you like {word}?',             spanish: '¿Te gusta {word}?',                  expects: 'yes-no',    hint: '{word}' },
+      { text: 'What breakfast food is this?',    spanish: '¿Qué alimento de desayuno es este?', expects: 'photo-name'               },
+      { text: 'Which picture is the {word}?',    spanish: '¿Cuál imagen es {word}?',            expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -321,10 +316,10 @@ export const LESSONS = [
     type: 'standard',
     vocab: ['sunny', 'cloudy', 'stormy', 'windy', 'rainy', 'snowy'],
     templates: [
-      { text: 'How is the weather today?',         expects: 'open'                       },
-      { text: 'Is it {word} outside?',             expects: 'yes-no',   hint: '{word}'   },
-      { text: 'How is the weather in the photo?',   expects: 'photo-name'                 },
-      { text: 'Which picture is {word} weather?',  expects: 'photo-pick', hint: '{word}' },
+      { text: 'How is the weather today?',        spanish: '¿Cómo está el clima hoy?',           expects: 'open'                       },
+      { text: 'Is it {word} outside?',            spanish: '¿Está {word} afuera?',               expects: 'yes-no',   hint: '{word}'   },
+      { text: 'How is the weather in the photo?', spanish: '¿Cómo está el clima en la foto?',    expects: 'photo-name'                 },
+      { text: 'Which picture is {word} weather?', spanish: '¿Cuál imagen muestra clima {word}?', expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -343,10 +338,10 @@ export const LESSONS = [
       'bird', 'parrot', 'fish', 'turtle',
     ],
     templates: [
-      { text: 'Is a {word} a good pet?',               expects: 'yes-no',     hint: '{word}' },
-      { text: 'What pet is this?',                     expects: 'photo-name'               },
-      { text: 'Find the {word}!',                      expects: 'photo-pick', hint: '{word}' },
-      { text: 'Are {word}s pets or zoo animals?',        expects: 'pet-or-zoo', hint: 'pet',
+      { text: 'Is a {word} a good pet?',          spanish: '¿Es {word} una buena mascota?',              expects: 'yes-no',     hint: '{word}' },
+      { text: 'What pet is this?',                spanish: '¿Qué mascota es esta?',                      expects: 'photo-name'               },
+      { text: 'Find the {word}!',                 spanish: '¡Encuentra {word}!',                         expects: 'photo-pick', hint: '{word}' },
+      { text: 'Are {word}s pets or zoo animals?', spanish: '¿Son {word}s mascotas o animales de zoológico?', expects: 'pet-or-zoo', hint: 'pet',
         filterVocab: ['dog', 'cat'] },
     ],
   },
@@ -367,10 +362,10 @@ export const LESSONS = [
       'polar bear', 'hippo', 'snake', 'kangaroo', 'shark',
     ],
     templates: [
-      { text: 'Do you like {word}s?',                  expects: 'yes-no',     hint: '{word}' },
-      { text: 'What animal is this?',                  expects: 'photo-name'               },
-      { text: 'Find the {word}!',                      expects: 'photo-pick', hint: '{word}' },
-      { text: 'Are {word}s pets or zoo animals?',        expects: 'pet-or-zoo', hint: 'zoo animal',
+      { text: 'Do you like {word}s?',              spanish: '¿Te gustan los {word}?',                     expects: 'yes-no',     hint: '{word}' },
+      { text: 'What animal is this?',              spanish: '¿Qué animal es este?',                       expects: 'photo-name'               },
+      { text: 'Find the {word}!',                  spanish: '¡Encuentra {word}!',                         expects: 'photo-pick', hint: '{word}' },
+      { text: 'Are {word}s pets or zoo animals?',  spanish: '¿Son {word}s mascotas o animales de zoológico?', expects: 'pet-or-zoo', hint: 'zoo animal',
         filterVocab: ['tiger', 'lion', 'elephant', 'bear'] },
     ],
   },
@@ -387,8 +382,8 @@ export const LESSONS = [
       'horse', 'goat', 'rooster',
     ],
     templates: [
-      { text: 'What animal is this?',       expects: 'photo-name'               },
-      { text: 'Which picture is a {word}?', expects: 'photo-pick', hint: '{word}' },
+      { text: 'What animal is this?',       spanish: '¿Qué animal es este?',   expects: 'photo-name'               },
+      { text: 'Which picture is a {word}?', spanish: '¿Cuál imagen es {word}?', expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -404,8 +399,8 @@ export const LESSONS = [
       'crayon', 'eraser', 'desk', 'chair', 'backpack', 'glue',
     ],
     templates: [
-      { text: 'What is this?',                expects: 'photo-name'               },
-      { text: 'Find the {word}!',             expects: 'photo-pick', hint: '{word}' },
+      { text: 'What is this?',    spanish: '¿Qué es esto?',       expects: 'photo-name'               },
+      { text: 'Find the {word}!', spanish: '¡Encuentra {word}!',  expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -422,8 +417,8 @@ export const LESSONS = [
       'octagon', 'cross',
     ],
     templates: [
-      { text: 'What shape is this?',          expects: 'photo-name'               },
-      { text: 'Find the {word}!',             expects: 'photo-pick', hint: '{word}' },
+      { text: 'What shape is this?', spanish: '¿Qué figura es esta?',  expects: 'photo-name'               },
+      { text: 'Find the {word}!',    spanish: '¡Encuentra {word}!',    expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -446,9 +441,9 @@ export const LESSONS = [
       'sweet potatoes': '/santiago-learns-english/chat-with-penny/images/lunch-dinner/sweet-potato.jpg',
     },
     templates: [
-      { text: 'Do you like {word}?',          expects: 'yes-no',    hint: '{word}' },
-      { text: 'What food is this?',            expects: 'photo-name'               },
-      { text: 'Find the {word}!',              expects: 'photo-pick', hint: '{word}' },
+      { text: 'Do you like {word}?', spanish: '¿Te gusta {word}?',   expects: 'yes-no',    hint: '{word}' },
+      { text: 'What food is this?',  spanish: '¿Qué comida es esta?', expects: 'photo-name'               },
+      { text: 'Find the {word}!',    spanish: '¡Encuentra {word}!',   expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -476,9 +471,9 @@ export const LESSONS = [
       'sweet potatoes': '/santiago-learns-english/chat-with-penny/images/vegetables/sweet-potato.jpg',
     },
     templates: [
-      { text: 'Do you like {word}?',            expects: 'yes-no',    hint: '{word}' },
-      { text: 'What vegetable is this?',        expects: 'photo-name'               },
-      { text: 'Find the {word}!',               expects: 'photo-pick', hint: '{word}' },
+      { text: 'Do you like {word}?',      spanish: '¿Te gusta {word}?',       expects: 'yes-no',    hint: '{word}' },
+      { text: 'What vegetable is this?',  spanish: '¿Qué vegetal es este?',    expects: 'photo-name'               },
+      { text: 'Find the {word}!',         spanish: '¡Encuentra {word}!',       expects: 'photo-pick', hint: '{word}' },
     ],
   },
 

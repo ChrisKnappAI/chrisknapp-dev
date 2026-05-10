@@ -40,6 +40,7 @@ function expandStandard(lesson) {
         questions.push({
           id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(word)}`,
           text:      tpl.text.replace(/{word}/g, word),
+          spanish:   tpl.spanish?.replace(/{word}/g, word) ?? null,
           topic:     lesson.id,
           group:     lesson.group,
           expects:   tpl.expects,
@@ -60,10 +61,11 @@ function expandStandard(lesson) {
           questions.push({
             id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(word)}`,
             text:      tpl.text,
+            spanish:   tpl.spanish ?? null,
             topic:     lesson.id,
             group:     lesson.group,
             expects:   tpl.expects,
-            hint:      word,         // Claude checks for this word in Santiago's answer
+            hint:      word,
             acceptAny: null,
             hasPhoto:  true,
             photoType: 'name',
@@ -73,6 +75,7 @@ function expandStandard(lesson) {
         questions.push({
           id:        `${lesson.id}__${slugify(tpl.text)}`,
           text:      tpl.text,
+          spanish:   tpl.spanish ?? null,
           topic:     lesson.id,
           group:     lesson.group,
           expects:   tpl.expects,
@@ -113,10 +116,14 @@ function expandFamily(lesson) {
           const text = tpl.text
             .replace(/{name}/g, name)
             .replace(/{role}/g, member.role);
+          const spanish = tpl.spanish
+            ?.replace(/{name}/g, name)
+            .replace(/{role}/g, member.role) ?? null;
 
           questions.push({
             id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(member.role)}__${slugify(name)}`,
             text,
+            spanish,
             topic:     lesson.id,
             group:     lesson.group,
             expects:   tpl.expects,
@@ -129,12 +136,14 @@ function expandFamily(lesson) {
 
       } else if (tpl.text.includes('{role}')) {
         // "Do you have a {role}?" — generated for ALL members including has: false
-        const text = tpl.text.replace(/{role}/g, member.role);
-        const hint = tpl.hint === '{has}' ? (member.has ? 'yes' : 'no') : tpl.hint;
+        const text    = tpl.text.replace(/{role}/g, member.role);
+        const spanish = tpl.spanish?.replace(/{role}/g, member.role) ?? null;
+        const hint    = tpl.hint === '{has}' ? (member.has ? 'yes' : 'no') : tpl.hint;
 
         questions.push({
           id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(member.role)}`,
           text,
+          spanish,
           topic:     lesson.id,
           group:     lesson.group,
           expects:   tpl.expects,
@@ -158,10 +167,10 @@ function expandSequence(lesson) {
   for (const tpl of lesson.templates) {
 
     if (tpl.expects === 'current-day' || tpl.expects === 'current-month') {
-      // Single question, no substitution — Claude knows today's real date
       questions.push({
         id:        `${lesson.id}__${slugify(tpl.text)}`,
         text:      tpl.text,
+        spanish:   tpl.spanish ?? null,
         topic:     lesson.id,
         group:     lesson.group,
         expects:   tpl.expects,
@@ -176,17 +185,21 @@ function expandSequence(lesson) {
     // before/after questions — expand over the sequence array
     const items = lesson[tpl.seq]; // e.g. lesson.days or lesson.months
     for (let i = 0; i < items.length; i++) {
-      const word   = items[i];
-      const before = items[(i - 1 + items.length) % items.length];
-      const after  = items[(i + 1) % items.length];
-      const hint   = tpl.dir === 'after' ? after : before;
-      const text   = tpl.text
+      const word    = items[i];
+      const before  = items[(i - 1 + items.length) % items.length];
+      const after   = items[(i + 1) % items.length];
+      const hint    = tpl.dir === 'after' ? after : before;
+      const text    = tpl.text
         .replace('{day}',   word)
         .replace('{month}', word);
+      const spanish = tpl.spanish
+        ?.replace('{day}',   word)
+        .replace('{month}', word) ?? null;
 
       questions.push({
         id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(word)}`,
         text,
+        spanish,
         topic:     lesson.id,
         group:     lesson.group,
         expects:   tpl.expects,

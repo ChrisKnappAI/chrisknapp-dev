@@ -112,7 +112,7 @@ export default function ChatWithPenny() {
     lastQuestionId.current = q.id;
     setQuestion(q);
     setPennyText(q.text);
-    setPennySpanish('');
+    setPennySpanish(q.spanish ?? '');
     triggerAnim('wave');
     setPhase('waiting-answer');
     speakLive(q.text).catch(() => {});
