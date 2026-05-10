@@ -141,13 +141,40 @@ const css = `
   }
   .egg-gone { animation: egg-disappear 0.35s ease-in forwards; transform-origin: bottom center; }
 
-  @keyframes baby-pop-kf {
-    0%   { transform: scale(0) translateY(30px);   opacity: 0; }
-    55%  { transform: scale(1.15) translateY(-8px); opacity: 1; }
-    78%  { transform: scale(0.94) translateY(3px);  }
-    100% { transform: scale(1) translateY(0);       opacity: 1; }
+  @keyframes penny-egg-right {
+    0%   { transform: translateX(0);    }
+    22%  { transform: translateX(18px) rotate(-4deg); }
+    44%  { transform: translateX(40px) rotate(4deg);  }
+    66%  { transform: translateX(56px) rotate(-3deg); }
+    84%  { transform: translateX(63px) rotate(2deg);  }
+    100% { transform: translateX(65px) rotate(0deg);  }
   }
-  .baby-pop-anim { animation: baby-pop-kf 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards; transform-origin: bottom center; }
+  .penny-egg-right { animation: penny-egg-right 0.9s ease-in-out forwards; transform-origin: bottom center; }
+
+  @keyframes penny-egg-return {
+    0%   { transform: translateX(65px) rotate(0deg);  }
+    18%  { transform: translateX(50px) rotate(4deg);  }
+    36%  { transform: translateX(34px) rotate(-4deg); }
+    54%  { transform: translateX(18px) rotate(3deg);  }
+    72%  { transform: translateX(7px)  rotate(-2deg); }
+    88%  { transform: translateX(2px)  rotate(1deg);  }
+    100% { transform: translateX(0)    rotate(0deg);  }
+  }
+  .penny-egg-return { animation: penny-egg-return 3.5s ease-in-out forwards; transform-origin: bottom center; }
+
+  @keyframes baby-hatch-and-go {
+    0%   { transform: scale(0) translateY(20px) translateX(0);    opacity: 0; }
+    9%   { transform: scale(1.1) translateY(-5px) translateX(0);  opacity: 1; }
+    14%  { transform: scale(1) translateY(0) translateX(0);        opacity: 1; }
+    22%  { transform: translateX(0)    rotate(0deg);  }
+    35%  { transform: translateX(-30px) rotate(-5deg); }
+    48%  { transform: translateX(-65px) rotate(5deg);  }
+    62%  { transform: translateX(-105px) rotate(-5deg); }
+    74%  { transform: translateX(-142px) rotate(4deg);  opacity: 1; }
+    88%  { transform: translateX(-184px) rotate(-4deg); opacity: 0.6; }
+    100% { transform: translateX(-225px) rotate(3deg);  opacity: 0; }
+  }
+  .baby-hatch-and-go { animation: baby-hatch-and-go 3.5s ease-in-out forwards; transform-origin: bottom center; }
 
   @keyframes fly-away-anim {
     0%   { transform: translate(0, 0)          rotate(0deg);   }
@@ -887,14 +914,16 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
   }, [activeAnim]);
 
   const pennyClass = [
-    activeAnim === 'bounce'                          && 'bouncing',
-    activeAnim === 'shimmy'                          && 'shimmying',
-    activeAnim === 'flyaway'                         && 'flyingaway',
-    activeAnim === 'sleep'                           && 'sleeping',
-    activeAnim === 'backflip'                        && 'backflipping',
-    activeAnim === 'magic'                           && 'magicking',
-    activeAnim === 'layegg' && layEggPhase === 1     && 'squatting',
-    activeAnim === 'holdhands'                       && 'holding',
+    activeAnim === 'bounce'                                          && 'bouncing',
+    activeAnim === 'shimmy'                                          && 'shimmying',
+    activeAnim === 'flyaway'                                         && 'flyingaway',
+    activeAnim === 'sleep'                                           && 'sleeping',
+    activeAnim === 'backflip'                                        && 'backflipping',
+    activeAnim === 'magic'                                           && 'magicking',
+    activeAnim === 'layegg' && layEggPhase === 1                     && 'squatting',
+    activeAnim === 'layegg' && layEggPhase >= 2 && layEggPhase <= 4  && 'penny-egg-right',
+    activeAnim === 'layegg' && layEggPhase === 5                     && 'penny-egg-return',
+    activeAnim === 'holdhands'                                       && 'holding',
   ].filter(Boolean).join(' ');
 
   return (
@@ -925,7 +954,7 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
           <span className="heart-floater" style={{ bottom:'52%', left:'28%', animationDelay:'6.6s', animationFillMode:'backwards' }}>♥</span>
         </>}
 
-        {/* Egg hatch — phase-sequenced */}
+        {/* Egg — behind Penny (DOM order: before Penny, no explicit z-index) */}
         {activeAnim === 'layegg' && layEggPhase >= 2 && layEggPhase <= 5 && (
           <div
             key={`egg-${layEggPhase}`}
@@ -934,14 +963,9 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
               layEggPhase === 3 ? 'egg-wobble' :
               layEggPhase === 4 ? 'egg-shake'  : 'egg-gone'
             }
-            style={{ position:'absolute', bottom:0, left:'calc(6% + 74px)', zIndex:6 }}
+            style={{ position:'absolute', bottom:0, left:'calc(6% + 55px)' }}
           >
             <EggSVG showCracks={layEggPhase >= 4} />
-          </div>
-        )}
-        {activeAnim === 'layegg' && layEggPhase === 5 && (
-          <div className="baby-pop-anim" style={{ position:'absolute', bottom:0, left:'calc(6% + 52px)', zIndex:7 }}>
-            <BabyPenguin />
           </div>
         )}
 
@@ -957,6 +981,13 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
             />
           </div>
         </div>
+
+        {/* Baby — after Penny in DOM so it renders on top */}
+        {activeAnim === 'layegg' && layEggPhase === 5 && (
+          <div className="baby-hatch-and-go" style={{ position:'absolute', bottom:0, left:'calc(6% + 55px)' }}>
+            <BabyPenguin />
+          </div>
+        )}
 
         {/* Santiago */}
         <div style={{ position:'absolute', bottom:'0%', right:'6%' }}>
