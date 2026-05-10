@@ -106,42 +106,48 @@ const css = `
   }
   .magicking { animation: magic-anim 8s ease-in-out forwards; }
 
-  @keyframes lay-egg-anim {
-    0%   { transform: translate(0,0)    rotate(0deg);  }
-    12%  { transform: translate(0,14px) rotate(3deg);  }
-    22%  { transform: translate(0,12px) rotate(-2deg); }
-    30%  { transform: translate(0,0)    rotate(0deg);  }
-    100% { transform: translate(0,0)    rotate(0deg);  }
+  @keyframes squat-down {
+    0%   { transform: translateY(0)    scaleY(1);    }
+    40%  { transform: translateY(10px) scaleY(0.88); }
+    65%  { transform: translateY(12px) scaleY(0.86); }
+    100% { transform: translateY(0)    scaleY(1);    }
   }
-  .layingegg { animation: lay-egg-anim 12s linear forwards; }
+  .squatting { animation: squat-down 1.0s ease-in-out forwards; transform-origin: bottom center; }
 
-  @keyframes egg-appear {
-    0%,18%  { opacity:0; transform: scale(0.3) translateY(30px); }
-    30%     { opacity:1; transform: scale(1) translateY(0); }
-    50%     { transform: scale(1.04) translateY(0); }
-    55%     { transform: scale(1) translateY(0); }
-    62%     { transform: scale(1.05) rotate(5deg); }
-    68%     { transform: scale(1) rotate(-6deg); }
-    74%     { transform: scale(1.07) rotate(8deg); }
-    80%     { opacity:0.3; transform: scale(0.5) translateY(30px); }
-    85%,100% { opacity:0; transform: scale(0) translateY(50px); }
+  @keyframes egg-pop {
+    0%   { transform: scale(0);    opacity: 0; }
+    70%  { transform: scale(1.12); opacity: 1; }
+    100% { transform: scale(1);    opacity: 1; }
   }
-  .egg-anim { animation: egg-appear 12s linear forwards; transform-origin: bottom center; }
+  .egg-appear { animation: egg-pop 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards; transform-origin: bottom center; }
 
-  @keyframes crack-appear {
-    0%,55%  { opacity:0; }
-    63%     { opacity:1; }
-    80%,100% { opacity:0; }
+  @keyframes egg-wobble-anim {
+    0%,100% { transform: rotate(0deg);  }
+    30%     { transform: rotate(-7deg); }
+    70%     { transform: rotate(7deg);  }
   }
-  .egg-crack-1, .egg-crack-2 { animation: crack-appear 12s linear forwards; }
+  .egg-wobble { animation: egg-wobble-anim 0.5s ease-in-out 6 forwards; transform-origin: bottom center; }
 
-  @keyframes baby-hatch {
-    0%,78%  { opacity:0; transform: scale(0.2) translateY(30px); }
-    88%     { opacity:1; transform: scale(1.1) translateY(-8px); }
-    94%     { transform: scale(0.95) translateY(2px); }
-    100%    { opacity:1; transform: scale(1) translateY(0); }
+  @keyframes egg-shake-anim {
+    0%,100% { transform: rotate(0deg) translateX(0);     }
+    30%     { transform: rotate(-13deg) translateX(-4px); }
+    70%     { transform: rotate(13deg)  translateX(4px);  }
   }
-  .baby-anim { animation: baby-hatch 12s linear forwards; transform-origin: bottom center; }
+  .egg-shake { animation: egg-shake-anim 0.18s ease-in-out infinite; transform-origin: bottom center; }
+
+  @keyframes egg-disappear {
+    0%   { transform: scale(1);                    opacity: 1; }
+    100% { transform: scale(0.2) translateY(20px); opacity: 0; }
+  }
+  .egg-gone { animation: egg-disappear 0.35s ease-in forwards; transform-origin: bottom center; }
+
+  @keyframes baby-pop-kf {
+    0%   { transform: scale(0) translateY(30px);   opacity: 0; }
+    55%  { transform: scale(1.15) translateY(-8px); opacity: 1; }
+    78%  { transform: scale(0.94) translateY(3px);  }
+    100% { transform: scale(1) translateY(0);       opacity: 1; }
+  }
+  .baby-pop-anim { animation: baby-pop-kf 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards; transform-origin: bottom center; }
 
   @keyframes fly-away-anim {
     0%   { transform: translate(0, 0)          rotate(0deg);   }
@@ -742,15 +748,15 @@ function GreenPenny() {
   );
 }
 
-function EggSVG() {
+function EggSVG({ showCracks = false }) {
   return (
     <svg viewBox="0 0 80 104" style={{ width:64, height:'auto', display:'block', overflow:'visible' }}
       xmlns="http://www.w3.org/2000/svg">
-      <g className="egg-anim">
-        <ellipse cx="40" cy="58" rx="28" ry="38" fill="#FFF9E6" stroke="#D4A800" strokeWidth="2.5"/>
-        <path className="egg-crack-1" d="M34,46 L38,56 L32,62" fill="none" stroke="#C84B00" strokeWidth="2" strokeLinecap="round"/>
-        <path className="egg-crack-2" d="M46,44 L42,54 L48,60" fill="none" stroke="#C84B00" strokeWidth="2" strokeLinecap="round"/>
-      </g>
+      <ellipse cx="40" cy="58" rx="28" ry="38" fill="#FFF9E6" stroke="#D4A800" strokeWidth="2.5"/>
+      {showCracks && <>
+        <path d="M34,46 L38,56 L32,62" fill="none" stroke="#C84B00" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M46,44 L42,54 L48,60" fill="none" stroke="#C84B00" strokeWidth="2" strokeLinecap="round"/>
+      </>}
     </svg>
   );
 }
@@ -797,13 +803,15 @@ export { CORRECT_ANIMS, WRONG_ANIM, SCENES };
 export default function PennyScene({ commandAnim, isPaused, talking, scene: sceneProp }) {
   const [randomScene] = useState(() => SCENES[Math.floor(Math.random() * SCENES.length)]);
   const scene = sceneProp ?? randomScene;
-  const [blinking,   setBlinking]   = useState(false);
-  const [activeAnim, setActiveAnim] = useState(null);
-  const blinkRef     = useRef(null);
-  const animTimerRef = useRef(null);
-  const idleTimerRef = useRef(null);
-  const isPausedRef  = useRef(isPaused);
-  isPausedRef.current = isPaused;
+  const [blinking,     setBlinking]     = useState(false);
+  const [activeAnim,   setActiveAnim]   = useState(null);
+  const [layEggPhase,  setLayEggPhase]  = useState(0);
+  const blinkRef       = useRef(null);
+  const animTimerRef   = useRef(null);
+  const idleTimerRef   = useRef(null);
+  const layEggTimers   = useRef([]);
+  const isPausedRef    = useRef(isPaused);
+  isPausedRef.current  = isPaused;
 
   function runAnim(name) {
     clearTimeout(animTimerRef.current);
@@ -858,15 +866,35 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     if (!isPaused && !activeAnim) scheduleIdle();
   }, [isPaused]);
 
+  // Layegg phase sequencer
+  useEffect(() => {
+    layEggTimers.current.forEach(clearTimeout);
+    layEggTimers.current = [];
+    if (activeAnim !== 'layegg') { setLayEggPhase(0); return; }
+    // phase 1: Penny squats (immediate)
+    setLayEggPhase(1);
+    // phase 2: egg appears
+    layEggTimers.current.push(setTimeout(() => setLayEggPhase(2), 1200));
+    // phase 3: egg wobbles
+    layEggTimers.current.push(setTimeout(() => setLayEggPhase(3), 2800));
+    // phase 4: egg shakes hard + cracks
+    layEggTimers.current.push(setTimeout(() => setLayEggPhase(4), 6500));
+    // phase 5: egg gone, baby pops
+    layEggTimers.current.push(setTimeout(() => setLayEggPhase(5), 8500));
+    // phase 0: cleanup
+    layEggTimers.current.push(setTimeout(() => setLayEggPhase(0), 12000));
+    return () => { layEggTimers.current.forEach(clearTimeout); };
+  }, [activeAnim]);
+
   const pennyClass = [
-    activeAnim === 'bounce'    && 'bouncing',
-    activeAnim === 'shimmy'    && 'shimmying',
-    activeAnim === 'flyaway'   && 'flyingaway',
-    activeAnim === 'sleep'     && 'sleeping',
-    activeAnim === 'backflip'  && 'backflipping',
-    activeAnim === 'magic'     && 'magicking',
-    activeAnim === 'layegg'    && 'layingegg',
-    activeAnim === 'holdhands' && 'holding',
+    activeAnim === 'bounce'                          && 'bouncing',
+    activeAnim === 'shimmy'                          && 'shimmying',
+    activeAnim === 'flyaway'                         && 'flyingaway',
+    activeAnim === 'sleep'                           && 'sleeping',
+    activeAnim === 'backflip'                        && 'backflipping',
+    activeAnim === 'magic'                           && 'magicking',
+    activeAnim === 'layegg' && layEggPhase === 1     && 'squatting',
+    activeAnim === 'holdhands'                       && 'holding',
   ].filter(Boolean).join(' ');
 
   return (
@@ -897,11 +925,25 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
           <span className="heart-floater" style={{ bottom:'52%', left:'28%', animationDelay:'6.6s', animationFillMode:'backwards' }}>♥</span>
         </>}
 
-        {/* Egg hatch */}
-        {activeAnim === 'layegg' && <>
-          <div style={{ position:'absolute', bottom:0, left:'calc(6% + 50px)' }}><EggSVG /></div>
-          <div className="baby-anim" style={{ position:'absolute', bottom:0, left:'calc(6% + 50px)' }}><BabyPenguin /></div>
-        </>}
+        {/* Egg hatch — phase-sequenced */}
+        {activeAnim === 'layegg' && layEggPhase >= 2 && layEggPhase <= 5 && (
+          <div
+            key={`egg-${layEggPhase}`}
+            className={
+              layEggPhase === 2 ? 'egg-appear' :
+              layEggPhase === 3 ? 'egg-wobble' :
+              layEggPhase === 4 ? 'egg-shake'  : 'egg-gone'
+            }
+            style={{ position:'absolute', bottom:0, left:'calc(6% + 74px)', zIndex:6 }}
+          >
+            <EggSVG showCracks={layEggPhase >= 4} />
+          </div>
+        )}
+        {activeAnim === 'layegg' && layEggPhase === 5 && (
+          <div className="baby-pop-anim" style={{ position:'absolute', bottom:0, left:'calc(6% + 52px)', zIndex:7 }}>
+            <BabyPenguin />
+          </div>
+        )}
 
         {/* Penny */}
         <div className={pennyClass} style={{ position:'absolute', bottom:'0%', left:'6%' }}>
