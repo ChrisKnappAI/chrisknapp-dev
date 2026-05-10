@@ -263,7 +263,24 @@ export default function ChatWithPenny() {
             />
           </div>
 
-          {currentQuestion?.hasPhoto && phase === 'waiting-answer' && (
+          {/* photo-name: single image, user types the answer */}
+          {currentQuestion?.hasPhoto && currentQuestion.photoType === 'name' && phase === 'waiting-answer' && (
+            <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
+              <div style={{ background: 'white', borderRadius: 16, border: '3px solid #1D4ED8', padding: 8 }}>
+                <img
+                  src={
+                    currentLesson?.imageMap?.[currentQuestion.hint]
+                    ?? `/santiago-learns-english/chat-with-penny/images/${currentQuestion.topic}/${currentQuestion.hint?.replace(/\s+/g, '-')}.jpg`
+                  }
+                  alt=""
+                  style={{ width: 220, height: 220, objectFit: 'cover', borderRadius: 10, display: 'block' }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* photo-pick: 6-image grid, user clicks the correct one */}
+          {currentQuestion?.hasPhoto && currentQuestion.photoType === 'pick' && phase === 'waiting-answer' && (
             <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
               <PhotoQuestion
                 question={currentQuestion}
