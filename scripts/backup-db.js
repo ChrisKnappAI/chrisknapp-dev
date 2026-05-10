@@ -9,21 +9,30 @@ const path = require('path')
 const SUPABASE_URL = 'https://kkwafiscyshdailnourb.supabase.co'
 const SUPABASE_KEY = 'sb_publishable_qRH4PzN7D0_lOOapNGIgqA_KCsOjI_w'
 const BACKUP_ROOT  = 'C:\\KnappFiles\\chrisknapp-dev-data-backup'
+const ENV_PATH     = 'C:\\KnappFiles\\chrisknapp-dev-data-to-import\\.env'
 
-const TABLES = [
-  'net_worth_snapshots',
-  'meal_ingredient_lookup',
-  'food_log',
-  'goal_tracker_chris',
-  'goal_tracker_natalie',
-  'care_log_chris',
-  'health_body_stats',
-  'health_activity_daily',
-  'health_sleep_daily',
-  'health_workouts',
-]
+function readEnvFile(p) {
+  if (!fs.existsSync(p)) return {}
+  return fs.readFileSync(p, 'utf-8').split('\n').reduce((acc, line) => {
+    const m = line.match(/^([^=]+)=(.*)$/)
+    if (m) acc[m[1].trim()] = m[2].trim()
+    return acc
+  }, {})
+}
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+const env        = readEnvFile(ENV_PATH)
+const SERVICE_KEY = env.SUPABASE_SERVICE_KEY || SUPABASE_KEY
+
+const supabase = createClient(SUPABASE_URL, SERVICE_KEY)
+
+async function getPublicTables() {
+  const resp = await fetch(`${SUPABASE_URL}/rest/v1/`, {
+    headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` }
+  })
+  if (!resp.ok) throw new Error(`Schema fetch failed: ${resp.statusText}`)
+  const spec = await resp.json()
+  return Object.keys(spec.definitions || {}).sort()
+}
 
 function toCSV(rows) {
   if (!rows.length) return ''
@@ -58,15 +67,18 @@ async function fetchAll(tableName) {
 }
 
 async function main() {
+  const tables = await getPublicTables()
+
   const now = new Date()
   const pad = n => String(n).padStart(2, '0')
   const ts  = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`
   const dir = path.join(BACKUP_ROOT, ts)
   fs.mkdirSync(dir, { recursive: true })
 
-  console.log(`Backup → ${dir}\n`)
+  console.log(`Backup → ${dir}`)
+  console.log(`Tables: ${tables.join(', ')}\n`)
 
-  for (const tableName of TABLES) {
+  for (const tableName of tables) {
     process.stdout.write(`  ${tableName}... `)
     const rows = await fetchAll(tableName)
     fs.writeFileSync(path.join(dir, `${tableName}.csv`), toCSV(rows), 'utf-8')

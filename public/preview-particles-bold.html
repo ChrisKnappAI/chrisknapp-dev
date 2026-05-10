@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chris Knapp — Strategy & Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#0F172A; color:#F1F5F9; font-family:'Inter',system-ui,sans-serif; min-height:100vh; }
+  #canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+  .page { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; }
+  nav { position:sticky; top:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:1.25rem 4rem; border-bottom:1px solid rgba(255,255,255,0.06); backdrop-filter:blur(12px); background:rgba(15,23,42,0.75); }
+  .logo { font-size:1.05rem; font-weight:800; color:#F1F5F9; text-decoration:none; letter-spacing:-.02em; }
+  .logo span { color:#3B82F6; }
+  .nav-links { display:flex; align-items:center; gap:.15rem; list-style:none; }
+  .nav-links a { color:#94A3B8; text-decoration:none; font-size:.82rem; font-weight:500; padding:.4rem .7rem; border-radius:6px; }
+  .nav-sep { width:1px; height:14px; background:rgba(255,255,255,0.1); margin:0 .4rem; }
+  .hero { flex:1; display:flex; align-items:center; justify-content:center; gap:5rem; padding:5rem 4rem 4rem; max-width:1200px; margin:0 auto; width:100%; }
+  .hero-left { flex:1; min-width:0; }
+  .badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.22); color:#38BDF8; font-size:.7rem; font-weight:700; padding:.3rem .85rem; border-radius:100px; text-transform:uppercase; letter-spacing:.1em; margin-bottom:1.6rem; }
+  .badge-dot { width:5px; height:5px; background:#38BDF8; border-radius:50%; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+  .greeting { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:400; color:#94A3B8; margin-bottom:.15rem; }
+  .hero-name { font-size:clamp(3rem,6vw,4.75rem); font-weight:900; line-height:1; letter-spacing:-.04em; margin-bottom:1rem; }
+  .hero-name span { color:#3B82F6; }
+  .hero-role { font-size:clamp(.95rem,1.5vw,1.1rem); color:#94A3B8; line-height:1.6; margin-bottom:1.75rem; }
+  .tw-line { font-family:'Courier New',monospace; font-size:.95rem; color:#3B82F6; margin-bottom:2.75rem; min-height:1.6em; }
+  .tw-cursor { display:inline-block; width:2px; height:.95em; background:#3B82F6; margin-left:1px; vertical-align:text-bottom; animation:blink .75s step-end infinite; }
+  @keyframes blink { 50%{opacity:0} }
+  .hero-buttons { display:flex; flex-wrap:wrap; gap:.85rem; }
+  .btn { display:inline-flex; align-items:center; padding:.7rem 1.4rem; border-radius:8px; font-size:.875rem; font-weight:600; text-decoration:none; border:1px solid transparent; }
+  .btn-primary { background:#3B82F6; color:#fff; box-shadow:0 4px 15px rgba(59,130,246,.25); }
+  .btn-outline { background:transparent; color:#F1F5F9; border-color:rgba(255,255,255,0.1); }
+  .hero-right { flex-shrink:0; width:340px; }
+  .photo-wrap { position:relative; width:300px; height:380px; margin:0 auto; }
+  .photo-glow { position:absolute; inset:-20px; background:radial-gradient(ellipse at center,rgba(59,130,246,.15) 0%,transparent 70%); border-radius:24px; }
+  .photo-decor { position:absolute; inset:0; border:1px solid rgba(59,130,246,.25); border-radius:16px; transform:rotate(4deg); }
+  .photo-box { position:relative; width:100%; height:100%; background:#1E293B; border-radius:16px; border:1px solid rgba(255,255,255,0.1); overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.75rem; color:#475569; font-size:.8rem; text-align:center; padding:2rem; }
+  .photo-box::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; background:linear-gradient(90deg,#3B82F6,#EA580C); }
+  .photo-icon { font-size:2.5rem; opacity:.2; }
+  .stats-bar { border-top:1px solid rgba(255,255,255,0.06); background:rgba(30,41,59,.6); backdrop-filter:blur(8px); }
+  .stats-inner { max-width:1200px; margin:0 auto; padding:0 4rem; display:grid; grid-template-columns:repeat(4,1fr); }
+  .stat-item { padding:2.25rem 1.5rem; text-align:center; border-right:1px solid rgba(255,255,255,0.06); }
+  .stat-item:last-child { border-right:none; }
+  .stat-num { font-size:clamp(2rem,3vw,2.75rem); font-weight:900; letter-spacing:-.04em; color:#3B82F6; line-height:1; margin-bottom:.5rem; }
+  .stat-label { font-size:.72rem; color:#94A3B8; font-weight:500; text-transform:uppercase; letter-spacing:.08em; line-height:1.5; }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="page">
+  <nav>
+    <a href="#" class="logo">chris<span>knapp</span>.dev</a>
+    <ul class="nav-links">
+      <li><a href="#">Resume</a></li>
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><div class="nav-sep"></div></li>
+      <li><a href="#" style="display:flex;align-items:center;gap:.3rem"><span style="font-size:.65rem;opacity:.5">🔒</span>Chris's Dashboard</a></li>
+      <li><a href="#" style="display:flex;align-items:center;gap:.3rem"><span style="font-size:.65rem;opacity:.5">🔒</span>Natalie's Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="badge"><div class="badge-dot"></div>Strategy · Analytics · AI</div>
+      <p class="greeting">Hey, I'm</p>
+      <h1 class="hero-name">Chris <span>Knapp</span></h1>
+      <p class="hero-role">Strategy &amp; Analytics Leader at<br>Progressive Insurance</p>
+      <p class="tw-line"># i build <span id="tw"></span><span class="tw-cursor"></span></p>
+      <div class="hero-buttons">
+        <a href="#" class="btn btn-primary">Contact Me</a>
+        <a href="#" class="btn btn-outline">My Resume</a>
+        <a href="#" class="btn btn-outline">Explore Portfolio &nbsp;→</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="photo-wrap">
+        <div class="photo-glow"></div>
+        <div class="photo-decor"></div>
+        <div class="photo-box">
+          <div class="photo-icon">📷</div>
+          <div style="opacity:.35;line-height:1.6">Add your B&W photo here</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-num" data-target="120" data-prefix="$" data-suffix="M+">$0M+</div><div class="stat-label">Profit from Strategy<br>&amp; Analytics Projects</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="170" data-suffix="M+">0M+</div><div class="stat-label">Customers<br>Analyzed</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="50" data-suffix="+">0+</div><div class="stat-label">Experimental Designs<br>Implemented</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="16" data-suffix="+">0+</div><div class="stat-label">Years of<br>Experience</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+const mouse = { x:-9999, y:-9999 };
+
+function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+resize(); window.addEventListener('resize', resize);
+document.addEventListener('mousemove', e => { mouse.x=e.clientX; mouse.y=e.clientY; });
+
+class Particle {
+  constructor() { this.init(); }
+  init() {
+    this.x = Math.random()*W; this.y = Math.random()*H;
+    this.vx = (Math.random()-.5)*.6; this.vy = (Math.random()-.5)*.6;
+    this.r = Math.random()*2+0.5;
+    this.a = Math.random()*.25+.15;
+  }
+  update() {
+    const dx=mouse.x-this.x, dy=mouse.y-this.y, dist=Math.hypot(dx,dy);
+    if(dist<160){ this.vx+=dx*.0004; this.vy+=dy*.0004; }
+    this.vx*=.985; this.vy*=.985;
+    this.x+=this.vx; this.y+=this.vy;
+    if(this.x<0) this.x=W; else if(this.x>W) this.x=0;
+    if(this.y<0) this.y=H; else if(this.y>H) this.y=0;
+  }
+  draw(alpha, r) {
+    ctx.beginPath(); ctx.arc(this.x, this.y, r ?? this.r, 0, Math.PI*2);
+    ctx.fillStyle=`rgba(59,130,246,${alpha ?? this.a})`;
+    ctx.fill();
+  }
+}
+
+const pts = Array.from({length:120}, ()=>new Particle());
+
+// 3 pulse zones that drift slowly around the canvas
+const zones = [
+  { x: 0, y: 0, vx: 0.4, vy: 0.3 },
+  { x: 0, y: 0, vx: -0.3, vy: 0.5 },
+  { x: 0, y: 0, vx: 0.5, vy: -0.4 },
+  { x: 0, y: 0, vx: -0.45, vy: -0.35 },
+];
+function initZones() {
+  zones[0].x = W*0.2;  zones[0].y = H*0.4;
+  zones[1].x = W*0.6;  zones[1].y = H*0.3;
+  zones[2].x = W*0.8;  zones[2].y = H*0.7;
+  zones[3].x = W*0.4;  zones[3].y = H*0.75;
+}
+initZones();
+window.addEventListener('resize', initZones);
+
+const ZONE_RADIUS = 180;
+
+function updateZones() {
+  zones.forEach(z => {
+    z.x += z.vx; z.y += z.vy;
+    if (z.x < 0 || z.x > W) z.vx *= -1;
+    if (z.y < 0 || z.y > H) z.vy *= -1;
+  });
+}
+
+function zoneInfluence(p) {
+  let max = 0;
+  zones.forEach(z => {
+    const d = Math.hypot(p.x - z.x, p.y - z.y);
+    if (d < ZONE_RADIUS) max = Math.max(max, 1 - d / ZONE_RADIUS);
+  });
+  return max;
+}
+
+function drawLines() {
+  for(let i=0;i<pts.length;i++) {
+    for(let j=i+1;j<pts.length;j++) {
+      const d=Math.hypot(pts[i].x-pts[j].x, pts[i].y-pts[j].y);
+      if(d<150) {
+        const inf = Math.max(zoneInfluence(pts[i]), zoneInfluence(pts[j]));
+        const alpha = (1-d/150) * (0.08 + inf * 0.28);
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(59,130,246,${alpha})`;
+        ctx.lineWidth = 0.8 + inf * 0.6;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+(function animate() {
+  ctx.clearRect(0,0,W,H);
+  updateZones();
+  pts.forEach(p => {
+    const inf = zoneInfluence(p);
+    // boost speed near a zone
+    p.vx += (Math.random()-0.5) * inf * 0.08;
+    p.vy += (Math.random()-0.5) * inf * 0.08;
+    p.update();
+    // boost opacity near a zone
+    const boostedAlpha = Math.min(p.a + inf * 0.45, 0.85);
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r + inf*1.5, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(59,130,246,${boostedAlpha})`;
+    ctx.fill();
+  });
+  drawLines();
+  requestAnimationFrame(animate);
+})();
+
+// Typewriter
+const words=['analytics that drive decisions','AI-powered tools','visualizations customers screenshot','strategy that moves the needle','rigorous experimental designs'];
+let wi=0,ci=0,del=false;
+const twEl=document.getElementById('tw');
+function type() {
+  const w=words[wi];
+  if(!del){twEl.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(type,2000);return;}}
+  else{twEl.textContent=w.slice(0,--ci);if(ci===0){del=false;wi=(wi+1)%words.length;}}
+  setTimeout(type,del?55:95);
+}
+setTimeout(type,800);
+
+// Stat counters
+function animateStats() {
+  document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target),prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'';
+    const dur=1600,start=performance.now();
+    function step(now){const pct=Math.min((now-start)/dur,1),e=1-Math.pow(1-pct,3);el.textContent=`${prefix}${Math.floor(e*target)}${suffix}`;if(pct<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  });
+}
+new IntersectionObserver(e=>{if(e[0].isIntersecting)animateStats();},{threshold:.3})
+  .observe(document.querySelector('.stats-bar'));
+</script>
+</body>
+</html>

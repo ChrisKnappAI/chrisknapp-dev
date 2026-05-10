@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BG Preview — Matrix Rain</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0F172A; font-family:'Inter',sans-serif; color:#F1F5F9; overflow-x:hidden; }
+  canvas { position:fixed; inset:0; z-index:0; }
+  .ui { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1.25rem 4rem; border-bottom:1px solid rgba(255,255,255,0.06); backdrop-filter:blur(12px); background:rgba(15,23,42,0.6); }
+  .logo { font-size:1.05rem; font-weight:800; text-decoration:none; color:#F1F5F9; letter-spacing:-0.02em; }
+  .logo span { color:#3B82F6; }
+  .hero { flex:1; display:flex; align-items:center; padding:5rem 4rem 4rem; max-width:900px; }
+  .badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(59,130,246,0.15); border:1px solid rgba(59,130,246,0.3); color:#38BDF8; font-size:.7rem; font-weight:700; padding:.3rem .85rem; border-radius:100px; text-transform:uppercase; letter-spacing:.1em; margin-bottom:1.6rem; }
+  .greeting { font-size:1.4rem; font-weight:400; color:#94A3B8; margin-bottom:.15rem; }
+  h1 { font-size:clamp(3rem,6vw,4.75rem); font-weight:900; line-height:1; letter-spacing:-.04em; margin-bottom:1rem; }
+  h1 span { color:#3B82F6; }
+  .role { font-size:1.1rem; color:#94A3B8; margin-bottom:2.5rem; }
+  .btns { display:flex; gap:1rem; }
+  .btn { padding:.7rem 1.4rem; border-radius:8px; font-size:.875rem; font-weight:600; text-decoration:none; cursor:pointer; border:1px solid transparent; }
+  .btn-p { background:#3B82F6; color:#fff; border-color:#3B82F6; }
+  .btn-o { background:transparent; color:#F1F5F9; border-color:rgba(255,255,255,0.15); }
+  .label { position:fixed; bottom:1.5rem; right:2rem; font-size:.75rem; color:rgba(255,255,255,0.25); z-index:10; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="ui">
+  <nav><a class="logo" href="#">chris<span>knapp</span>.dev</a></nav>
+  <div class="hero">
+    <div>
+      <div class="badge">Strategy · Analytics · AI</div>
+      <p class="greeting">Hey, I'm</p>
+      <h1>Chris <span>Knapp</span></h1>
+      <p class="role">Strategy &amp; Analytics Leader at Progressive Insurance</p>
+      <div class="btns">
+        <a href="#" class="btn btn-p">Contact Me</a>
+        <a href="#" class="btn btn-o">My Resume</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="label">PREVIEW: Matrix Rain</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H, cols, drops;
+
+const FONT_SIZE = 16;
+// Mix of binary, digits, and a few symbols for variety
+const CHARS = '01001101010011000110001101001001'.split('').concat(
+  '10100111011001100110010101100100'.split('')
+);
+
+function init() {
+  W = canvas.width = innerWidth;
+  H = canvas.height = innerHeight;
+  cols = Math.floor(W / FONT_SIZE);
+  drops = Array.from({ length: cols }, () => ({
+    y: Math.random() * -H / FONT_SIZE,   // start above screen
+    speed: 0.4 + Math.random() * 1.0,    // varied speeds
+    length: 8 + Math.floor(Math.random() * 20), // trail length
+    chars: Array.from({ length: 30 }, () => CHARS[Math.floor(Math.random() * CHARS.length)]),
+    mutateTimer: 0,
+    active: Math.random() > 0.25,        // ~75% of columns active
+    bright: Math.random() > 0.7,         // some columns brighter
+  }));
+}
+init();
+window.addEventListener('resize', init);
+
+// occasionally mutate characters in each column
+function mutateChars() {
+  drops.forEach(d => {
+    if (++d.mutateTimer > 3) {
+      d.mutateTimer = 0;
+      const idx = Math.floor(Math.random() * d.chars.length);
+      d.chars[idx] = CHARS[Math.floor(Math.random() * CHARS.length)];
+    }
+  });
+}
+
+function draw() {
+  // dark fade — faster = shorter trail, slower = longer trail
+  ctx.fillStyle = 'rgba(15,23,42,0.18)';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.font = `${FONT_SIZE}px 'Courier New', monospace`;
+
+  drops.forEach((d, i) => {
+    if (!d.active) return;
+    const x = i * FONT_SIZE;
+
+    d.chars.forEach((ch, ci) => {
+      const charY = Math.floor(d.y - ci);
+      if (charY < 0 || charY * FONT_SIZE > H) return;
+
+      const isHead = ci === 0;
+      const trailRatio = ci / d.length;
+      if (trailRatio > 1) return;
+
+      let alpha, color;
+      if (isHead) {
+        // bright white/cyan head
+        color = d.bright ? 'rgba(200,240,255,1)' : 'rgba(147,197,253,1)';
+      } else {
+        // blue gradient trail fading out
+        alpha = Math.max(0, (1 - trailRatio) * (d.bright ? 0.9 : 0.65));
+        const brightness = Math.floor(60 + (1 - trailRatio) * 120);
+        color = `rgba(${Math.floor(brightness * 0.4)},${Math.floor(brightness * 0.7)},${brightness},${alpha})`;
+      }
+
+      ctx.fillStyle = color;
+      ctx.fillText(ch, x, charY * FONT_SIZE);
+    });
+
+    d.y += d.speed;
+    if (d.y * FONT_SIZE > H + d.length * FONT_SIZE) {
+      d.y = Math.random() * -10;
+      d.speed = 0.4 + Math.random() * 1.0;
+      d.bright = Math.random() > 0.7;
+    }
+  });
+
+  mutateChars();
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

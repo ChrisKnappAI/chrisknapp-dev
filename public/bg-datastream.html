@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BG Preview — Data Streams</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0F172A; font-family:'Inter',sans-serif; color:#F1F5F9; overflow-x:hidden; }
+  canvas { position:fixed; inset:0; z-index:0; }
+  .ui { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1.25rem 4rem; border-bottom:1px solid rgba(255,255,255,0.06); backdrop-filter:blur(12px); background:rgba(15,23,42,0.6); }
+  .logo { font-size:1.05rem; font-weight:800; text-decoration:none; color:#F1F5F9; letter-spacing:-0.02em; }
+  .logo span { color:#3B82F6; }
+  .hero { flex:1; display:flex; align-items:center; padding:5rem 4rem 4rem; max-width:900px; }
+  .badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(59,130,246,0.15); border:1px solid rgba(59,130,246,0.3); color:#38BDF8; font-size:.7rem; font-weight:700; padding:.3rem .85rem; border-radius:100px; text-transform:uppercase; letter-spacing:.1em; margin-bottom:1.6rem; }
+  .greeting { font-size:1.4rem; font-weight:400; color:#94A3B8; margin-bottom:.15rem; }
+  h1 { font-size:clamp(3rem,6vw,4.75rem); font-weight:900; line-height:1; letter-spacing:-.04em; margin-bottom:1rem; }
+  h1 span { color:#3B82F6; }
+  .role { font-size:1.1rem; color:#94A3B8; margin-bottom:2.5rem; }
+  .btns { display:flex; gap:1rem; }
+  .btn { padding:.7rem 1.4rem; border-radius:8px; font-size:.875rem; font-weight:600; text-decoration:none; cursor:pointer; border:1px solid transparent; }
+  .btn-p { background:#3B82F6; color:#fff; border-color:#3B82F6; }
+  .btn-o { background:transparent; color:#F1F5F9; border-color:rgba(255,255,255,0.15); }
+  .label { position:fixed; bottom:1.5rem; right:2rem; font-size:.75rem; color:rgba(255,255,255,0.25); z-index:10; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="ui">
+  <nav><a class="logo" href="#">chris<span>knapp</span>.dev</a></nav>
+  <div class="hero">
+    <div>
+      <div class="badge">Strategy · Analytics · AI</div>
+      <p class="greeting">Hey, I'm</p>
+      <h1>Chris <span>Knapp</span></h1>
+      <p class="role">Strategy &amp; Analytics Leader at Progressive Insurance</p>
+      <div class="btns">
+        <a href="#" class="btn btn-p">Contact Me</a>
+        <a href="#" class="btn btn-o">My Resume</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="label">PREVIEW: Data Streams</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H, streams = [], packets = [];
+
+const COLORS = [
+  { r:59,  g:130, b:246 },  // blue
+  { r:56,  g:189, b:248 },  // sky
+  { r:99,  g:102, b:241 },  // indigo
+  { r:52,  g:211, b:153 },  // green (accent)
+];
+
+function init() {
+  W = canvas.width = innerWidth;
+  H = canvas.height = innerHeight;
+  streams = [];
+  packets = [];
+
+  const streamCount = 18;
+  for (let i = 0; i < streamCount; i++) {
+    const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+    const dir = Math.random() > 0.3 ? 1 : -1; // mostly left-to-right
+    streams.push({
+      y: (H / streamCount) * i + (Math.random() - 0.5) * 30,
+      speed: (1.5 + Math.random() * 3.5) * dir,
+      width: 1 + Math.random() * 2.5,
+      alpha: 0.15 + Math.random() * 0.35,
+      color: c,
+      dashOffset: 0,
+      dashLen: 20 + Math.random() * 60,
+      gapLen: 30 + Math.random() * 120,
+    });
+  }
+}
+init();
+window.addEventListener('resize', init);
+
+// Data packets — bright rectangles that shoot along streams
+class Packet {
+  constructor(stream) {
+    this.stream = stream;
+    const c = stream.color;
+    this.x = stream.speed > 0 ? -80 : W + 80;
+    this.y = stream.y;
+    this.speed = stream.speed * (1.5 + Math.random());
+    this.w = 30 + Math.random() * 70;
+    this.h = 4 + Math.random() * 6;
+    this.alpha = 0.7 + Math.random() * 0.3;
+    this.color = `rgba(${c.r},${c.g},${c.b}`;
+    this.label = Math.random() > 0.5 ?
+      ['170M', '$120M', '50+', '16yr', '0x2F', '0xA1', 'AI', 'ML', 'SQL', '∑', 'β'][Math.floor(Math.random() * 11)] : null;
+    this.done = false;
+  }
+  update() {
+    this.x += this.speed;
+    if (this.speed > 0 && this.x > W + 100) this.done = true;
+    if (this.speed < 0 && this.x < -100) this.done = true;
+  }
+  draw() {
+    // glow behind packet
+    const gw = this.w + 40, gh = 24;
+    const gx = this.x - 20, gy = this.y - gh / 2;
+    const grad = ctx.createLinearGradient(gx, 0, gx + gw, 0);
+    grad.addColorStop(0, `${this.color},0)`);
+    grad.addColorStop(0.3, `${this.color},0.2)`);
+    grad.addColorStop(0.7, `${this.color},0.2)`);
+    grad.addColorStop(1, `${this.color},0)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(gx, gy, gw, gh);
+
+    // packet body
+    ctx.fillStyle = `${this.color},${this.alpha})`;
+    ctx.beginPath();
+    ctx.roundRect(this.x, this.y - this.h / 2, this.w, this.h, 2);
+    ctx.fill();
+
+    // bright leading edge
+    const edgeX = this.speed > 0 ? this.x + this.w : this.x;
+    const edgeGrad = ctx.createLinearGradient(edgeX - 8, 0, edgeX + 8, 0);
+    edgeGrad.addColorStop(0, `${this.color},0)`);
+    edgeGrad.addColorStop(0.5, 'rgba(200,230,255,0.9)');
+    edgeGrad.addColorStop(1, `${this.color},0)`);
+    ctx.fillStyle = edgeGrad;
+    ctx.fillRect(edgeX - 8, this.y - this.h / 2 - 2, 16, this.h + 4);
+
+    // label
+    if (this.label && this.w > 35) {
+      ctx.fillStyle = 'rgba(200,230,255,0.9)';
+      ctx.font = `bold 9px 'Courier New', monospace`;
+      ctx.textAlign = this.speed > 0 ? 'left' : 'right';
+      const lx = this.speed > 0 ? this.x + 5 : this.x + this.w - 5;
+      ctx.fillText(this.label, lx, this.y + 3);
+      ctx.textAlign = 'left';
+    }
+  }
+}
+
+// spawn packets
+setInterval(() => {
+  const stream = streams[Math.floor(Math.random() * streams.length)];
+  packets.push(new Packet(stream));
+}, 120);
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // draw stream lines
+  streams.forEach(s => {
+    s.dashOffset -= s.speed * 0.5;
+    ctx.beginPath();
+    ctx.setLineDash([s.dashLen, s.gapLen]);
+    ctx.lineDashOffset = s.dashOffset;
+    ctx.moveTo(0, s.y);
+    ctx.lineTo(W, s.y);
+    ctx.strokeStyle = `rgba(${s.color.r},${s.color.g},${s.color.b},${s.alpha})`;
+    ctx.lineWidth = s.width;
+    ctx.stroke();
+    ctx.setLineDash([]);
+  });
+
+  // draw + update packets
+  packets = packets.filter(p => !p.done);
+  packets.forEach(p => { p.update(); p.draw(); });
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

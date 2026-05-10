@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chris Knapp — Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:        #0F172A;
+            --bg-card:   #1E293B;
+            --bg-card2:  #162032;
+            --blue:      #3B82F6;
+            --blue-dark: #2563EB;
+            --orange:    #EA580C;
+            --sky:       #38BDF8;
+            --green:     #34D399;
+            --text:      #F1F5F9;
+            --muted:     #94A3B8;
+            --dim:       #475569;
+            --border:    rgba(255,255,255,0.06);
+            --border-md: rgba(255,255,255,0.1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ── CANVAS ── */
+        #canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 4rem;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            background: rgba(15,23,42,0.8);
+        }
+
+        .nav-logo {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-logo span { color: var(--blue); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.4rem 0.7rem;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav-links a.active { color: var(--blue); }
+
+        .nav-sep {
+            width: 1px; height: 14px;
+            background: var(--border-md);
+            margin: 0 0.4rem;
+        }
+
+        .nav-private { display: flex !important; align-items: center; gap: 0.3rem; }
+        .nav-lock { font-size: 0.65rem; opacity: 0.5; }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.15s, background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+            border: 1px solid transparent;
+            letter-spacing: -0.01em;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary {
+            background: var(--blue);
+            color: #fff;
+            border-color: var(--blue);
+            box-shadow: 0 4px 15px rgba(59,130,246,0.25);
+        }
+        .btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border-color: var(--border-md);
+        }
+        .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+        /* ── MAIN CONTENT ── */
+        .content {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+            width: 100%;
+        }
+
+        /* ── HERO ── */
+        .resume-hero {
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(59,130,246,0.04) 0%, transparent 100%);
+            padding: 4rem 0 3rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .resume-hero .content {
+            padding-bottom: 0;
+        }
+
+        .rh-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.2);
+            color: var(--sky);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.3rem 0.85rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.4rem;
+        }
+
+        .rh-name {
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 0.6rem;
+        }
+        .rh-name span { color: var(--blue); }
+
+        .rh-role {
+            font-size: 1rem;
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+            font-weight: 400;
+        }
+
+        .rh-summary {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--text);
+            opacity: 0.75;
+            max-width: 680px;
+            margin-bottom: 2rem;
+        }
+
+        .rh-actions {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        /* ── SECTION TITLES ── */
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--blue);
+            margin-bottom: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── EXPERIENCE ── */
+        .exp-section { margin-bottom: 3.5rem; }
+
+        /* Company block */
+        .company-block {
+            margin-bottom: 3rem;
+        }
+
+        .company-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .co-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            border: 1px solid var(--border-md);
+        }
+        .co-logo.pgr { background: rgba(59,130,246,0.15); color: var(--blue); }
+        .co-logo.ag  { background: rgba(52,211,153,0.12); color: var(--green); font-size: 0.8rem; }
+        .co-logo.blm { background: rgba(234,88,12,0.1);  color: var(--orange); font-size: 0.8rem; }
+        .co-logo.dc  { background: rgba(148,163,184,0.1); color: var(--muted); font-size: 0.8rem; }
+
+        .co-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.01em;
+        }
+        .co-tenure {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 0.1rem;
+        }
+
+        /* Role group inside a company */
+        .role-group {
+            border-left: 2px solid var(--border-md);
+            padding-left: 1.5rem;
+            margin-bottom: 1.75rem;
+            position: relative;
+        }
+        .role-group::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background: var(--blue);
+            border-radius: 50%;
+            border: 2px solid var(--bg);
+        }
+
+        .role-progression {
+            margin-bottom: 0.4rem;
+        }
+
+        .role-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        .role-row:first-child .role-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .role-row:not(:first-child) .role-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+        }
+        .role-dates {
+            font-size: 0.78rem;
+            color: var(--dim);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .role-row:first-child .role-dates { color: var(--muted); }
+
+        .role-team {
+            font-size: 0.78rem;
+            color: var(--dim);
+            margin-bottom: 0.85rem;
+            font-style: italic;
+        }
+
+        .role-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+        .role-bullets li {
+            font-size: 0.875rem;
+            line-height: 1.65;
+            color: var(--text);
+            opacity: 0.8;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .role-bullets li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+            font-size: 0.75rem;
+            top: 0.1em;
+            opacity: 0.7;
+        }
+
+        /* Prior experience (compact) */
+        .prior-block {
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+        }
+        .prior-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dim);
+            margin-bottom: 1rem;
+        }
+        .prior-rows { display: flex; flex-direction: column; gap: 0.6rem; }
+        .prior-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .prior-left { display: flex; align-items: center; gap: 0.75rem; }
+        .prior-role {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .prior-sep { color: var(--dim); font-size: 0.75rem; }
+        .prior-company { font-size: 0.82rem; color: var(--muted); }
+        .prior-dates { font-size: 0.75rem; color: var(--dim); white-space: nowrap; }
+
+        /* ── SKILLS ── */
+        .skills-section { margin-bottom: 3.5rem; }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .skill-group {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+        .skill-group-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 0.85rem;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+        .tag.blue {
+            background: rgba(59,130,246,0.1);
+            border-color: rgba(59,130,246,0.2);
+            color: var(--sky);
+        }
+        .tag.orange {
+            background: rgba(234,88,12,0.08);
+            border-color: rgba(234,88,12,0.18);
+            color: #fb923c;
+        }
+
+        /* ── EDUCATION ── */
+        .edu-section { margin-bottom: 3.5rem; }
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .edu-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.1rem 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .edu-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue), transparent);
+        }
+        .edu-item.cert::before {
+            background: linear-gradient(90deg, var(--orange), transparent);
+        }
+        .edu-degree {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        .edu-school {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 0.25rem;
+        }
+        .edu-meta {
+            font-size: 0.72rem;
+            color: var(--dim);
+        }
+
+        /* ── FOOTER ── */
+        .resume-footer {
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 0;
+            margin-top: auto;
+        }
+        .resume-footer .content {
+            padding-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-actions { display: flex; gap: 0.85rem; }
+        .footer-brand {
+            font-size: 0.82rem;
+            color: var(--dim);
+        }
+        .footer-brand span { color: var(--blue); }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<div class="page">
+
+    <!-- NAV -->
+    <nav>
+        <a href="preview-homepage.html" class="nav-logo">chris<span>knapp</span>.dev</a>
+        <ul class="nav-links">
+            <li><a href="preview-resume.html" class="active">Resume</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><div class="nav-sep"></div></li>
+            <li><a href="/chris" class="nav-private"><span class="nav-lock">🔒</span> Chris's Dashboard</a></li>
+            <li><a href="/natalie" class="nav-private"><span class="nav-lock">🔒</span> Natalie's Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="resume-hero">
+        <div class="content">
+            <div class="rh-badge">Customer Strategy &amp; Analytics Leader</div>
+            <h1 class="rh-name">Chris <span>Knapp</span></h1>
+            <p class="rh-role">Manager, Customer Strategy · Progressive Insurance · Daytona Beach, FL</p>
+            <p class="rh-summary">
+                Strategic analytics leader with 14+ years at Progressive Insurance. Delivered $120M+ in annual
+                profit through customer strategy and analytics. Expert in experimental design, predictive modeling,
+                and AI-forward analytics. Proven people leader across Customer Experience and Claims Control.
+            </p>
+            <div class="rh-actions">
+                <a href="Chris Knapp Resume 20260219.pdf" download class="btn btn-primary">Download PDF</a>
+                <a href="https://linkedin.com/in/chrisknappfl/" target="_blank" class="btn btn-outline">LinkedIn &nbsp;→</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- EXPERIENCE -->
+        <div class="exp-section">
+            <h2 class="section-title">Experience</h2>
+
+            <!-- PROGRESSIVE -->
+            <div class="company-block">
+                <div class="company-header">
+                    <div class="co-logo pgr">P</div>
+                    <div>
+                        <div class="co-name">Progressive Insurance</div>
+                        <div class="co-tenure">Aug 2012 – Present &nbsp;·&nbsp; 14 years</div>
+                    </div>
+                </div>
+
+                <!-- CXJ Roles -->
+                <div class="role-group">
+                    <div class="role-progression">
+                        <div class="role-row">
+                            <span class="role-title">Manager, Customer Strategy</span>
+                            <span class="role-dates">Jan 2026 – Present</span>
+                        </div>
+                        <div class="role-row">
+                            <span class="role-title">Manager, Data Analysis</span>
+                            <span class="role-dates">Mar 2024 – Jan 2026</span>
+                        </div>
+                        <div class="role-row">
+                            <span class="role-title">Assoc Manager, Data Analysis</span>
+                            <span class="role-dates">Jun 2023 – Mar 2024</span>
+                        </div>
+                    </div>
+                    <div class="role-team">CX Journeys · Onboarding &amp; Renewal Team</div>
+                    <ul class="role-bullets">
+                        <li>Delivered $60M in annual profit retention through customer outreach strategy, retaining 40,000+ policies annually</li>
+                        <li>Pioneered AI analytics initiative forecasted to generate $75M in additional annual profit</li>
+                        <li>Doubled outbound call staffing through data storytelling and stakeholder influence, retaining 23,000+ additional policies</li>
+                        <li>Recognized internal expert in statistical experimental design; shaped company-wide test governance methodology</li>
+                        <li>Developed Associate Manager to Manager readiness; now leading own team</li>
+                    </ul>
+                </div>
+
+                <!-- Lead Marketing -->
+                <div class="role-group">
+                    <div class="role-progression">
+                        <div class="role-row">
+                            <span class="role-title">Lead Marketing Process Analyst</span>
+                            <span class="role-dates">Feb 2018 – Jun 2023</span>
+                        </div>
+                    </div>
+                    <div class="role-team">CX Journeys · Renewal &amp; Endorsement Team</div>
+                    <ul class="role-bullets">
+                        <li>Redefined measurement methodology for outbound call programs, enabling new projects that drove significant policy retention</li>
+                        <li>Collaborated with IT and Data Science on predictive models and customer targeting methodology</li>
+                    </ul>
+                </div>
+
+                <!-- Claims Manager -->
+                <div class="role-group">
+                    <div class="role-progression">
+                        <div class="role-row">
+                            <span class="role-title">Assoc Manager, Data Analysis</span>
+                            <span class="role-dates">Jan 2017 – Feb 2018</span>
+                        </div>
+                    </div>
+                    <div class="role-team">Claims Control · Subrogation &amp; Liability Team</div>
+                    <ul class="role-bullets">
+                        <li>Built comprehensive reporting suite (Tableau, Power BI, SSRS) using Python, R, SAS, and SQL</li>
+                        <li>Key contributor to data governance initiative; certified three new metrics across Claims Control</li>
+                    </ul>
+                </div>
+
+                <!-- Data Analyst roles -->
+                <div class="role-group">
+                    <div class="role-progression">
+                        <div class="role-row">
+                            <span class="role-title">Data Analyst IV</span>
+                            <span class="role-dates">Oct 2015 – Jan 2017</span>
+                        </div>
+                        <div class="role-row">
+                            <span class="role-title">Data Analyst III</span>
+                            <span class="role-dates">Oct 2013 – Oct 2015</span>
+                        </div>
+                        <div class="role-row">
+                            <span class="role-title">Data Analyst II</span>
+                            <span class="role-dates">Aug 2012 – Oct 2013</span>
+                        </div>
+                    </div>
+                    <div class="role-team">Claims Control · Trend, BI, PIP, COLL &amp; Salvage Teams</div>
+                    <ul class="role-bullets">
+                        <li>Led trend analysis across six coverage lines; presented findings to PGR executive and Claims senior leadership</li>
+                        <li>Managed COA retuning process across Claims IT, ISO vendor, and cross-functional stakeholders</li>
+                        <li>Formally mentored interns, analysts, and consultants across Claims Control</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PRIOR EXPERIENCE -->
+            <div class="prior-block">
+                <div class="prior-title">Prior Experience</div>
+                <div class="prior-rows">
+                    <div class="prior-row">
+                        <div class="prior-left">
+                            <span class="prior-role">Business Intelligence Intern</span>
+                            <span class="prior-sep">·</span>
+                            <span class="prior-company">American Greetings</span>
+                        </div>
+                        <span class="prior-dates">Jun – Aug 2012</span>
+                    </div>
+                    <div class="prior-row">
+                        <div class="prior-left">
+                            <span class="prior-role">Statistician Intern</span>
+                            <span class="prior-sep">·</span>
+                            <span class="prior-company">Bright Line Marketing</span>
+                        </div>
+                        <span class="prior-dates">Jan – Jun 2012</span>
+                    </div>
+                    <div class="prior-row">
+                        <div class="prior-left">
+                            <span class="prior-role">Analytics Consultant</span>
+                            <span class="prior-sep">·</span>
+                            <span class="prior-company">Dotcom Parts</span>
+                        </div>
+                        <span class="prior-dates">Aug 2010 – Jan 2012</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="skills-section">
+            <h2 class="section-title">Skills &amp; Tools</h2>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <div class="skill-group-label">Analytics &amp; Statistics</div>
+                    <div class="tags">
+                        <span class="tag">Experimental Design</span>
+                        <span class="tag">Predictive Modeling</span>
+                        <span class="tag">Statistical Analysis</span>
+                        <span class="tag">A/B Testing</span>
+                        <span class="tag">Trend Analysis</span>
+                        <span class="tag">Root Cause Analysis</span>
+                        <span class="tag">GLM</span>
+                        <span class="tag">Decision Trees</span>
+                        <span class="tag">Clustering</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-label">Tools &amp; Platforms</div>
+                    <div class="tags">
+                        <span class="tag">SAS</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">R</span>
+                        <span class="tag">Tableau</span>
+                        <span class="tag">Power BI</span>
+                        <span class="tag">Excel</span>
+                        <span class="tag">SSRS</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-label">Leadership</div>
+                    <div class="tags">
+                        <span class="tag">Team Development</span>
+                        <span class="tag">Strategic Planning</span>
+                        <span class="tag">Stakeholder Management</span>
+                        <span class="tag">Data Storytelling</span>
+                        <span class="tag">Cross-functional Leadership</span>
+                        <span class="tag">Mentorship</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-label">Emerging Tech</div>
+                    <div class="tags">
+                        <span class="tag blue">AI / LLM Integration</span>
+                        <span class="tag blue">Machine Learning</span>
+                        <span class="tag blue">Claude API</span>
+                        <span class="tag blue">Next.js</span>
+                        <span class="tag blue">Supabase</span>
+                        <span class="tag blue">Data Governance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="edu-section">
+            <h2 class="section-title">Education</h2>
+            <div class="edu-grid">
+                <div class="edu-item">
+                    <div class="edu-degree">MS, Statistics</div>
+                    <div class="edu-school">University of Akron</div>
+                    <div class="edu-meta">2017 &nbsp;·&nbsp; GPA 3.9 / 4.0</div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-degree">BBA, Finance</div>
+                    <div class="edu-school">Kent State University</div>
+                    <div class="edu-meta">2012 &nbsp;·&nbsp; GPA 4.0 / 4.0</div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-degree">BS, Mathematics</div>
+                    <div class="edu-school">Kent State University</div>
+                    <div class="edu-meta">2012 &nbsp;·&nbsp; GPA 4.0 / 4.0</div>
+                </div>
+                <div class="edu-item cert">
+                    <div class="edu-degree">Executive Education for Managers</div>
+                    <div class="edu-school">Progressive Insurance</div>
+                    <div class="edu-meta">2025</div>
+                </div>
+                <div class="edu-item cert">
+                    <div class="edu-degree">Emotionally Intelligent Leader</div>
+                    <div class="edu-school">Case Western University</div>
+                    <div class="edu-meta">2017</div>
+                </div>
+                <div class="edu-item cert">
+                    <div class="edu-degree">Summer Mathematics Institute</div>
+                    <div class="edu-school">Cornell University</div>
+                    <div class="edu-meta">2009</div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /content -->
+
+    <!-- FOOTER -->
+    <div class="resume-footer">
+        <div class="content">
+            <div class="footer-actions">
+                <a href="Chris Knapp Resume 20260219.pdf" download class="btn btn-primary">Download PDF Resume</a>
+                <a href="https://linkedin.com/in/chrisknappfl/" target="_blank" class="btn btn-outline">View LinkedIn &nbsp;→</a>
+            </div>
+            <div class="footer-brand">chris<span>knapp</span>.dev</div>
+        </div>
+    </div>
+
+</div><!-- /page -->
+
+<script>
+/* ── SUBTLE PARTICLE BACKGROUND ── */
+const canvas = document.getElementById('canvas');
+const ctx    = canvas.getContext('2d');
+let W = 0, H = 0;
+
+function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+class Dot {
+    constructor() { this.init(); }
+    init() {
+        this.x  = Math.random() * W;
+        this.y  = Math.random() * H;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.r  = Math.random() * 1.2 + 0.4;
+        this.a  = Math.random() * 0.3 + 0.1;
+    }
+    update() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0) this.x = W; else if (this.x > W) this.x = 0;
+        if (this.y < 0) this.y = H; else if (this.y > H) this.y = 0;
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(59,130,246,${this.a})`;
+        ctx.fill();
+    }
+}
+
+const dots = Array.from({ length: 50 }, () => new Dot());
+
+(function animate() {
+    ctx.clearRect(0, 0, W, H);
+    dots.forEach(d => { d.update(); d.draw(); });
+    requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>

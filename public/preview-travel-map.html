@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Map — Preview</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+      background: #0F172A;
+      color: #E2E8F0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 232px;
+      min-width: 232px;
+      background: #0B1424;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      padding: 24px 0 0;
+    }
+    .sidebar-logo {
+      padding: 0 20px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+    .sidebar-logo span { color: #3B82F6; }
+    .sidebar-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 0 0 12px;
+    }
+    .nav-section { padding: 0 10px; margin-bottom: 4px; }
+    .nav-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0 10px;
+      margin-bottom: 4px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #64748B;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.1s, color 0.1s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.04); color: #CBD5E1; }
+    .nav-item.active {
+      background: rgba(59,130,246,0.12);
+      color: #60A5FA;
+      font-weight: 500;
+    }
+    .nav-icon { font-size: 14px; width: 16px; text-align: center; opacity: 0.85; }
+
+    /* ── Main ── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 18px 28px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .header-left h1 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #F1F5F9;
+      letter-spacing: -0.3px;
+    }
+    .header-left p {
+      font-size: 12px;
+      color: #475569;
+      margin-top: 2px;
+    }
+    .stats-row { display: flex; gap: 28px; align-items: center; }
+    .stat { text-align: right; }
+    .stat-value {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #475569;
+      margin-top: 3px;
+    }
+    .stat.blue .stat-value  { color: #3B82F6; }
+    .stat.orange .stat-value { color: #F97316; }
+    .stat.white .stat-value  { color: #F1F5F9; }
+    .stat-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ── Legend bar ── */
+    .legend-bar {
+      padding: 8px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-shrink: 0;
+      background: #0F172A;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: #64748B;
+    }
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Map ── */
+    #map { flex: 1; }
+    .leaflet-container { background: #0D1829 !important; }
+    .leaflet-control-zoom a {
+      background: #1E293B !important;
+      color: #94A3B8 !important;
+      border-color: rgba(255,255,255,0.1) !important;
+    }
+    .leaflet-control-zoom a:hover { background: #273548 !important; color: #F1F5F9 !important; }
+    .leaflet-control-attribution { display: none; }
+
+    /* ── Tooltip ── */
+    #trip-tooltip {
+      position: fixed;
+      background: #1E293B;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 14px 16px;
+      pointer-events: none;
+      z-index: 9999;
+      width: 230px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      opacity: 0;
+      transition: opacity 0.12s ease;
+    }
+    #trip-tooltip.visible { opacity: 1; }
+
+    .tt-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #F1F5F9;
+      letter-spacing: -0.2px;
+      margin-bottom: 2px;
+    }
+    .tt-country {
+      font-size: 12px;
+      color: #475569;
+      margin-bottom: 10px;
+    }
+    .tt-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .tt-badge.visited     { background: rgba(59,130,246,0.15); color: #60A5FA; }
+    .tt-badge.bucket_list { background: rgba(249,115,22,0.15);  color: #FB923C; }
+
+    .tt-date {
+      font-size: 12px;
+      color: #64748B;
+      margin-bottom: 8px;
+    }
+    .tt-notes {
+      font-size: 12px;
+      color: #94A3B8;
+      line-height: 1.55;
+    }
+    .tt-who {
+      font-size: 11px;
+      color: #334155;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-logo">chris<span>knapp</span>.dev</div>
+    <div class="sidebar-divider"></div>
+    <div class="nav-section">
+      <div class="nav-label">Chris</div>
+      <a class="nav-item" href="#"><span class="nav-icon">💰</span> Finances</a>
+      <a class="nav-item" href="#"><span class="nav-icon">🏋️</span> Body</a>
+      <a class="nav-item" href="#"><span class="nav-icon">🍽️</span> Food</a>
+      <a class="nav-item" href="#"><span class="nav-icon">📋</span> Care Log</a>
+      <a class="nav-item" href="#"><span class="nav-icon">📚</span> Learning</a>
+      <a class="nav-item" href="#"><span class="nav-icon">💪</span> Gym</a>
+      <a class="nav-item active" href="#"><span class="nav-icon">✈️</span> Travel</a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <div class="header">
+      <div class="header-left">
+        <h1>Travel Map</h1>
+        <p>Our journeys — past and future</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat blue">
+          <div class="stat-value" id="stat-visited">—</div>
+          <div class="stat-label">Visited</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat orange">
+          <div class="stat-value" id="stat-bucket">—</div>
+          <div class="stat-label">Bucket List</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat white">
+          <div class="stat-value" id="stat-countries">—</div>
+          <div class="stat-label">Countries</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend-bar">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#3B82F6;"></div>
+        Visited
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#F97316;box-shadow:0 0 0 2px rgba(249,115,22,0.2);"></div>
+        Bucket List
+      </div>
+    </div>
+
+    <div id="map"></div>
+  </div>
+
+  <!-- Tooltip -->
+  <div id="trip-tooltip">
+    <div class="tt-name"  id="tt-name"></div>
+    <div class="tt-country" id="tt-country"></div>
+    <div class="tt-badge"   id="tt-badge"></div>
+    <div class="tt-date"    id="tt-date"></div>
+    <div class="tt-notes"   id="tt-notes"></div>
+    <div class="tt-who"     id="tt-who"></div>
+  </div>
+
+<script>
+  const trips = [
+    // ── Visited ──────────────────────────────────────────────────────────────
+    {
+      name: "Lima", country: "Peru",
+      lat: -12.0464, lon: -77.0428,
+      status: "visited", who: "both",
+      visit_date: "Nov 2023",
+      notes: "Visited Natalie's family. Incredible ceviche, unbelievable hospitality."
+    },
+    {
+      name: "Machu Picchu", country: "Peru",
+      lat: -13.5319, lon: -71.9675,
+      status: "visited", who: "both",
+      visit_date: "Nov 2023",
+      notes: "Sunrise hike through the Sun Gate. One of the best days of our lives."
+    },
+    {
+      name: "Cozumel", country: "Mexico",
+      lat: 20.4230, lon: -86.9223,
+      status: "visited", who: "both",
+      visit_date: "Jan 2026",
+      notes: "Cruise stop. Snorkeling at Palancar Reef — clearest water imaginable."
+    },
+    {
+      name: "Nassau", country: "Bahamas",
+      lat: 25.0343, lon: -77.3963,
+      status: "visited", who: "both",
+      visit_date: "Jan 2026",
+      notes: "Cruise stop. Spent the day at Atlantis, beach bar at sunset."
+    },
+    {
+      name: "Grand Cayman", country: "Cayman Islands",
+      lat: 19.3133, lon: -81.2546,
+      status: "visited", who: "both",
+      visit_date: "Jan 2026",
+      notes: "Cruise stop. Stingray City — swimming with rays in open water."
+    },
+    {
+      name: "New York City", country: "USA",
+      lat: 40.7128, lon: -74.0060,
+      status: "visited", who: "chris",
+      visit_date: "Mar 2022",
+      notes: "Solo work trip. Caught a show on Broadway, walked the High Line."
+    },
+
+    // ── Bucket List ───────────────────────────────────────────────────────────
+    {
+      name: "Tokyo", country: "Japan",
+      lat: 35.6762, lon: 139.6503,
+      status: "bucket_list", who: "both",
+      notes: "Top of the list. Targeting cherry blossom season."
+    },
+    {
+      name: "Kyoto", country: "Japan",
+      lat: 35.0116, lon: 135.7681,
+      status: "bucket_list", who: "both",
+      notes: "Bamboo groves, ancient temples, a night in a ryokan."
+    },
+    {
+      name: "Rome", country: "Italy",
+      lat: 41.9028, lon: 12.4964,
+      status: "bucket_list", who: "both",
+      notes: "History, pasta, endless espresso. See the Colosseum at golden hour."
+    },
+    {
+      name: "Amalfi Coast", country: "Italy",
+      lat: 40.6340, lon: 14.6027,
+      status: "bucket_list", who: "both",
+      notes: "Cliffside drives, lemon groves, turquoise water."
+    },
+    {
+      name: "Reykjavik", country: "Iceland",
+      lat: 64.1466, lon: -21.9426,
+      status: "bucket_list", who: "both",
+      notes: "Northern lights, geothermal pools, midnight sun."
+    },
+    {
+      name: "Santorini", country: "Greece",
+      lat: 36.3932, lon: 25.4615,
+      status: "bucket_list", who: "both",
+      notes: "Caldera views, white-washed cliffs, wine at sunset."
+    },
+    {
+      name: "Queenstown", country: "New Zealand",
+      lat: -45.0312, lon: 168.6626,
+      status: "bucket_list", who: "both",
+      notes: "Adventure capital of the world. Fjords, bungee, heli-hike."
+    },
+    {
+      name: "Patagonia", country: "Argentina",
+      lat: -51.6230, lon: -69.2168,
+      status: "bucket_list", who: "both",
+      notes: "End of the world. Torres del Paine, glaciers, silence."
+    },
+  ];
+
+  // ── Stats ──────────────────────────────────────────────────────────────────
+  const visited  = trips.filter(t => t.status === 'visited');
+  const bucket   = trips.filter(t => t.status === 'bucket_list');
+  const countries = new Set(visited.map(t => t.country)).size;
+  document.getElementById('stat-visited').textContent  = visited.length;
+  document.getElementById('stat-bucket').textContent   = bucket.length;
+  document.getElementById('stat-countries').textContent = countries;
+
+  // ── Map ────────────────────────────────────────────────────────────────────
+  const map = L.map('map', {
+    center: [22, 15],
+    zoom: 2,
+    zoomControl: true,
+    attributionControl: false,
+    minZoom: 2,
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom: 18,
+  }).addTo(map);
+
+  // ── Tooltip logic ──────────────────────────────────────────────────────────
+  const tooltipEl  = document.getElementById('trip-tooltip');
+  let tooltipActive = false;
+
+  function showTooltip(e, trip) {
+    document.getElementById('tt-name').textContent    = trip.name;
+    document.getElementById('tt-country').textContent = trip.country;
+
+    const badge = document.getElementById('tt-badge');
+    badge.className = 'tt-badge ' + trip.status;
+    badge.textContent = trip.status === 'visited' ? '✓  Visited' : '★  Bucket List';
+
+    const dateEl = document.getElementById('tt-date');
+    if (trip.visit_date) {
+      dateEl.textContent    = trip.visit_date;
+      dateEl.style.display  = 'block';
+    } else {
+      dateEl.style.display  = 'none';
+    }
+
+    document.getElementById('tt-notes').textContent = trip.notes || '';
+
+    const whoEl = document.getElementById('tt-who');
+    whoEl.textContent =
+      trip.who === 'both'    ? 'Chris & Natalie' :
+      trip.who === 'chris'   ? 'Chris' :
+      'Natalie';
+
+    tooltipActive = true;
+    tooltipEl.classList.add('visible');
+    positionTooltip(e.originalEvent);
+  }
+
+  function positionTooltip(mouseEvent) {
+    if (!tooltipActive) return;
+    const x  = mouseEvent.clientX;
+    const y  = mouseEvent.clientY;
+    const tw = tooltipEl.offsetWidth;
+    const th = tooltipEl.offsetHeight;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    let left = x + 18;
+    let top  = y - 16;
+
+    if (left + tw > vw - 12) left = x - tw - 18;
+    if (top  + th > vh - 12) top  = vh - th - 12;
+
+    tooltipEl.style.left = left + 'px';
+    tooltipEl.style.top  = top  + 'px';
+  }
+
+  function hideTooltip() {
+    tooltipActive = false;
+    tooltipEl.classList.remove('visible');
+  }
+
+  document.getElementById('map').addEventListener('mousemove', (e) => {
+    positionTooltip(e);
+  });
+
+  // ── Markers ────────────────────────────────────────────────────────────────
+  trips.forEach(trip => {
+    const isVisited = trip.status === 'visited';
+    const color     = isVisited ? '#3B82F6' : '#F97316';
+    const stroke    = isVisited ? '#93C5FD' : '#FDBA74';
+    const baseR     = isVisited ? 8 : 7;
+    const hoverR    = isVisited ? 11 : 10;
+
+    const marker = L.circleMarker([trip.lat, trip.lon], {
+      radius:      baseR,
+      fillColor:   color,
+      color:       stroke,
+      weight:      1.5,
+      opacity:     0.9,
+      fillOpacity: 0.85,
+    }).addTo(map);
+
+    marker.on('mouseover', (e) => {
+      marker.setStyle({ radius: hoverR, fillOpacity: 1, weight: 2 });
+      showTooltip(e, trip);
+    });
+
+    marker.on('mousemove', (e) => {
+      positionTooltip(e.originalEvent);
+    });
+
+    marker.on('mouseout', () => {
+      marker.setStyle({ radius: baseR, fillOpacity: 0.85, weight: 1.5 });
+      hideTooltip();
+    });
+  });
+</script>
+</body>
+</html>
