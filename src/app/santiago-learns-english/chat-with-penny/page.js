@@ -283,6 +283,7 @@ export default function ChatWithPenny() {
           {currentQuestion?.hasPhoto && currentQuestion.photoType === 'pick' && phase === 'waiting-answer' && (
             <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
               <PhotoQuestion
+                key={currentQuestion.id}
                 question={currentQuestion}
                 topicVocab={currentTopicVocab}
                 lesson={currentLesson}

@@ -435,15 +435,20 @@ export const LESSONS = [
     label: 'Lunch & Dinner',
     type: 'standard',
     vocab: [
-      'rice', 'potato', 'chicken', 'beef', 'soup',
-      'pasta', 'salad', 'sweet potato', 'tea', 'lemonade',
+      'rice', 'potatoes', 'chicken', 'beef', 'soup',
+      'pasta', 'salad', 'sweet potatoes', 'tea', 'lemonade',
       'steak', 'lasagna', 'lentils', 'turkey', 'cocoa',
       'wine', 'beans', 'tuna',
     ],
+    // imageMap needed because files are singular-named but vocab is plural
+    imageMap: {
+      'potatoes':      '/santiago-learns-english/chat-with-penny/images/lunch-dinner/potato.jpg',
+      'sweet potatoes': '/santiago-learns-english/chat-with-penny/images/lunch-dinner/sweet-potato.jpg',
+    },
     templates: [
       { text: 'Do you like {word}?',          expects: 'yes-no',    hint: '{word}' },
       { text: 'What food is this?',            expects: 'photo-name'               },
-      { text: 'Which picture is the {word}?',  expects: 'photo-pick', hint: '{word}' },
+      { text: 'Find the {word}!',              expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -455,10 +460,21 @@ export const LESSONS = [
     label: 'Vegetables',
     type: 'standard',
     vocab: [
-      'broccoli', 'onion', 'carrot', 'tomato', 'corn',
-      'cucumber', 'lettuce', 'pepper', 'garlic', 'spinach',
-      'cabbage', 'beet', 'potato', 'sweet potato', 'peas', 'green beans',
+      'broccoli', 'onions', 'carrots', 'tomatoes', 'corn',
+      'cucumbers', 'lettuce', 'peppers', 'garlic', 'spinach',
+      'cabbage', 'beets', 'potatoes', 'sweet potatoes', 'peas', 'green beans',
     ],
+    // imageMap needed because files are singular-named (carrot.jpg) but vocab is plural
+    imageMap: {
+      'onions':        '/santiago-learns-english/chat-with-penny/images/vegetables/onion.jpg',
+      'carrots':       '/santiago-learns-english/chat-with-penny/images/vegetables/carrot.jpg',
+      'tomatoes':      '/santiago-learns-english/chat-with-penny/images/vegetables/tomato.jpg',
+      'cucumbers':     '/santiago-learns-english/chat-with-penny/images/vegetables/cucumber.jpg',
+      'peppers':       '/santiago-learns-english/chat-with-penny/images/vegetables/pepper.jpg',
+      'beets':         '/santiago-learns-english/chat-with-penny/images/vegetables/beet.jpg',
+      'potatoes':      '/santiago-learns-english/chat-with-penny/images/vegetables/potato.jpg',
+      'sweet potatoes': '/santiago-learns-english/chat-with-penny/images/vegetables/sweet-potato.jpg',
+    },
     templates: [
       { text: 'Do you like {word}?',            expects: 'yes-no',    hint: '{word}' },
       { text: 'What vegetable is this?',        expects: 'photo-name'               },
