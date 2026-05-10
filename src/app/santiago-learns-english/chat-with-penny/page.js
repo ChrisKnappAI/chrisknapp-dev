@@ -118,10 +118,55 @@ export default function ChatWithPenny() {
     speakLive(q.text).catch(() => {});
   }
 
-  function handleAnswer() {
-    if (!input.trim()) return;
+  async function handleCorrect() {
+    const phrase = ENCOURAGEMENT[Math.floor(Math.random() * ENCOURAGEMENT.length)];
+    setPennyText(phrase);
+    setPennySpanish('');
+    triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
+
+    const newCount = correctCount + 1;
+    setCorrectCount(newCount);
+    localStorage.setItem(COUNT_KEY, String(newCount));
+
+    const justUnlocked = UNLOCKABLE.find(u => u.threshold === newCount && !unlocked.includes(u.id));
+    if (justUnlocked) {
+      setNewUnlock(justUnlocked);
+      await fetch('/api/penny/unlocks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ animation_id: justUnlocked.id }),
+      });
+      fetchUnlocks();
+      setTimeout(() => setNewUnlock(null), 4000);
+    }
+
+    await speakLive(phrase).catch(() => {});
+  }
+
+  async function handleAnswer() {
+    if (!input.trim() || loading) return;
+    const answer = input.trim();
     setInput('');
-    askNextQuestion();
+    setLoading(true);
+
+    try {
+      const activeLabels = LESSONS.filter(l => activeTopics.includes(l.id)).map(l => l.label);
+      const result = await gradeAnswer({ question: currentQuestion, answer, activeTopics: activeLabels });
+
+      if (result.correct) {
+        await handleCorrect();
+      } else {
+        setPennyText(result.english);
+        setPennySpanish(result.spanish ?? '');
+        triggerAnim(WRONG_ANIM);
+        await speakLive(result.english).catch(() => {});
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+      setTimeout(askNextQuestion, 800);
+    }
   }
 
   async function handleSantiagoQuestion() {
@@ -287,7 +332,7 @@ export default function ChatWithPenny() {
                 question={currentQuestion}
                 topicVocab={currentTopicVocab}
                 lesson={currentLesson}
-                onCorrect={askNextQuestion}
+                onCorrect={async () => { await handleCorrect(); setTimeout(askNextQuestion, 400); }}
                 onWrong={askNextQuestion}
               />
             </div>
