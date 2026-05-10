@@ -90,8 +90,10 @@ export default function ChatWithPenny() {
       const data = await res.json();
       const ids  = data.filter(r => r.unlocked).map(r => r.scene_id);
       setUnlockedScenes(ids);
-      setSelectedScene(prev => (ids.includes(prev) ? prev : ids[0] ?? ''));
-    } catch {}
+      setSelectedScene(prev => (ids.includes(prev) ? prev : ids[0] ?? 'outdoor'));
+    } catch {
+      setSelectedScene('outdoor');
+    }
   }
 
   useEffect(() => {

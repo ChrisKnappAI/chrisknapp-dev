@@ -828,8 +828,7 @@ const ANIM_DURATIONS = {
 export { CORRECT_ANIMS, WRONG_ANIM, SCENES };
 
 export default function PennyScene({ commandAnim, isPaused, talking, scene: sceneProp }) {
-  const [randomScene] = useState(() => SCENES[Math.floor(Math.random() * SCENES.length)]);
-  const scene = sceneProp ?? randomScene;
+  const scene = sceneProp;
   const [blinking,     setBlinking]     = useState(false);
   const [activeAnim,   setActiveAnim]   = useState(null);
   const [layEggPhase,  setLayEggPhase]  = useState(0);
@@ -930,8 +929,8 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     <>
       <style>{css}</style>
 
-      {/* Background — clipped */}
-      <div style={{ position:'absolute', inset:0, borderRadius:16, overflow:'hidden' }}>
+      {/* Background — clipped, fades in once scene is known */}
+      <div style={{ position:'absolute', inset:0, borderRadius:16, overflow:'hidden', opacity: scene ? 1 : 0, transition: 'opacity 0.4s ease' }}>
         {scene === 'outdoor'   && <OutdoorScene />}
         {scene === 'beach'     && <BeachScene />}
         {scene === 'classroom' && <ClassroomScene />}
