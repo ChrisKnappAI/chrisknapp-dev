@@ -286,8 +286,8 @@ export default function ChatWithPenny() {
                 question={currentQuestion}
                 topicVocab={currentTopicVocab}
                 lesson={currentLesson}
-                onCorrect={() => handleAnswer()}
-                onWrong={() => handleAnswer()}
+                onCorrect={askNextQuestion}
+                onWrong={askNextQuestion}
               />
             </div>
           )}
