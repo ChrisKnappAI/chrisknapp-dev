@@ -92,14 +92,65 @@ const css = `
   }
   .shimmying { animation: shimmy 2.8s ease-in-out forwards; }
 
+  #sunglasses-group { display: none; }
+  .magicking .penguin-svg #sunglasses-group { display: block; }
+  @keyframes magic-anim {
+    0%   { transform: translate(0,0)    rotate(0deg);  }
+    8%   { transform: translate(0,-10px) rotate(-4deg); }
+    20%  { transform: translate(6px,-14px) rotate(4deg); }
+    36%  { transform: translate(-5px,-10px) rotate(-3deg); }
+    52%  { transform: translate(5px,-12px) rotate(3deg); }
+    68%  { transform: translate(-4px,-8px) rotate(-2deg); }
+    84%  { transform: translate(2px,-6px) rotate(2deg); }
+    100% { transform: translate(0,0)    rotate(0deg);  }
+  }
+  .magicking { animation: magic-anim 8s ease-in-out forwards; }
+
+  @keyframes lay-egg-anim {
+    0%   { transform: translate(0,0)    rotate(0deg);  }
+    12%  { transform: translate(0,14px) rotate(3deg);  }
+    22%  { transform: translate(0,12px) rotate(-2deg); }
+    30%  { transform: translate(0,0)    rotate(0deg);  }
+    100% { transform: translate(0,0)    rotate(0deg);  }
+  }
+  .layingegg { animation: lay-egg-anim 12s linear forwards; }
+
+  @keyframes egg-appear {
+    0%,18%  { opacity:0; transform: scale(0.3) translateY(30px); }
+    30%     { opacity:1; transform: scale(1) translateY(0); }
+    50%     { transform: scale(1.04) translateY(0); }
+    55%     { transform: scale(1) translateY(0); }
+    62%     { transform: scale(1.05) rotate(5deg); }
+    68%     { transform: scale(1) rotate(-6deg); }
+    74%     { transform: scale(1.07) rotate(8deg); }
+    80%     { opacity:0.3; transform: scale(0.5) translateY(30px); }
+    85%,100% { opacity:0; transform: scale(0) translateY(50px); }
+  }
+  .egg-anim { animation: egg-appear 12s linear forwards; transform-origin: bottom center; }
+
+  @keyframes crack-appear {
+    0%,55%  { opacity:0; }
+    63%     { opacity:1; }
+    80%,100% { opacity:0; }
+  }
+  .egg-crack-1, .egg-crack-2 { animation: crack-appear 12s linear forwards; }
+
+  @keyframes baby-hatch {
+    0%,78%  { opacity:0; transform: scale(0.2) translateY(30px); }
+    88%     { opacity:1; transform: scale(1.1) translateY(-8px); }
+    94%     { transform: scale(0.95) translateY(2px); }
+    100%    { opacity:1; transform: scale(1) translateY(0); }
+  }
+  .baby-anim { animation: baby-hatch 12s linear forwards; transform-origin: bottom center; }
+
   @keyframes fly-away-anim {
     0%   { transform: translate(0, 0)          rotate(0deg);   }
     8%   { transform: translate(30px, -55px)   rotate(-10deg); }
     20%  { transform: translate(100px, -180px) rotate(-16deg); }
-    38%  { transform: translate(255px, -440px) rotate(-22deg); }
-    40%  { transform: translate(268px, -470px) rotate(-25deg); }
-    41%  { transform: translate(860px, 0)      rotate(0deg);   }
-    45%  { transform: translate(860px, 0)      rotate(0deg);   }
+    38%  { transform: translate(255px, -440px) rotate(-22deg); opacity: 1; }
+    40%  { transform: translate(268px, -470px) rotate(-25deg); opacity: 0; }
+    41%  { transform: translate(860px, 0)      rotate(0deg);   opacity: 0; }
+    45%  { transform: translate(860px, 0)      rotate(0deg);   opacity: 1; }
     52%  { transform: translate(710px, 0)      rotate(-12deg); }
     58%  { transform: translate(565px, 0)      rotate(12deg);  }
     64%  { transform: translate(430px, 0)      rotate(-12deg); }
@@ -582,21 +633,23 @@ function PenguinSVG({ talking, blinking, looking, waving, flapping }) {
           <ellipse cx="391" cy="220" rx="5"  ry="6"  fill="white"/>
           <ellipse cx="379" cy="232" rx="2"  ry="2.5" fill="white" opacity="0.6"/>
         </g>
-        <g id="sunglass-left">
-          <rect x="258" y="204" width="72" height="48" rx="8" fill="url(#pc-lens)"/>
-          <path d="M266,214 Q282,208 300,213" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.16"/>
-          <rect x="258" y="204" width="72" height="48" rx="8" fill="none" stroke="#F5C400" strokeWidth="7"/>
+        <g id="sunglasses-group">
+          <g id="sunglass-left">
+            <rect x="258" y="204" width="72" height="48" rx="8" fill="url(#pc-lens)"/>
+            <path d="M266,214 Q282,208 300,213" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.16"/>
+            <rect x="258" y="204" width="72" height="48" rx="8" fill="none" stroke="#F5C400" strokeWidth="7"/>
+          </g>
+          <g id="sunglass-right">
+            <rect x="350" y="204" width="72" height="48" rx="8" fill="url(#pc-lens)"/>
+            <path d="M358,214 Q374,208 392,213" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.16"/>
+            <rect x="350" y="204" width="72" height="48" rx="8" fill="none" stroke="#F5C400" strokeWidth="7"/>
+          </g>
+          <path d="M330,228 Q340,223 350,228" fill="none" stroke="#F5C400" strokeWidth="5.5" strokeLinecap="round"/>
+          <path d="M261,228 Q240,228 222,224" fill="none" stroke="#F5C400" strokeWidth="5.5" strokeLinecap="round"/>
+          <rect x="214" y="219" width="12" height="10" rx="3.5" fill="#F5C400"/>
+          <path d="M419,228 Q440,228 458,224" fill="none" stroke="#F5C400" strokeWidth="5.5" strokeLinecap="round"/>
+          <rect x="454" y="219" width="12" height="10" rx="3.5" fill="#F5C400"/>
         </g>
-        <g id="sunglass-right">
-          <rect x="350" y="204" width="72" height="48" rx="8" fill="url(#pc-lens)"/>
-          <path d="M358,214 Q374,208 392,213" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.16"/>
-          <rect x="350" y="204" width="72" height="48" rx="8" fill="none" stroke="#F5C400" strokeWidth="7"/>
-        </g>
-        <path d="M330,228 Q340,223 350,228" fill="none" stroke="#F5C400" strokeWidth="5.5" strokeLinecap="round"/>
-        <path d="M261,228 Q240,228 222,224" fill="none" stroke="#F5C400" strokeWidth="5.5" strokeLinecap="round"/>
-        <rect x="214" y="219" width="12" height="10" rx="3.5" fill="#F5C400"/>
-        <path d="M419,228 Q440,228 458,224" fill="none" stroke="#F5C400" strokeWidth="5.5" strokeLinecap="round"/>
-        <rect x="454" y="219" width="12" height="10" rx="3.5" fill="#F5C400"/>
         <g id="beak">
           <path id="beak-upper" d="M320,272 Q340,268 360,272 Q356,287 340,297 Q324,287 320,272Z" fill="url(#pc-beakGrad)"/>
           <path id="beak-lower" d="M326,284 Q340,296 354,284 Q350,304 340,310 Q330,304 326,284Z" fill="#E65100" opacity="0.85"/>
@@ -867,6 +920,13 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
         <div style={{ position:'absolute', bottom:'0%', right:'6%' }}>
           <Boy />
         </div>
+
+        {/* Magic sparkles */}
+        {activeAnim === 'magic' && <>
+          <span className="z-letter" style={{ bottom:'62%', left:'9%',  animationDelay:'0.2s', color:'#7C3AED' }}>✨</span>
+          <span className="z-letter" style={{ bottom:'70%', left:'14%', animationDelay:'1.1s', color:'#F59E0B' }}>⭐</span>
+          <span className="z-letter" style={{ bottom:'65%', left:'18%', animationDelay:'2.0s', color:'#7C3AED' }}>✨</span>
+        </>}
 
         {/* Zzz */}
         {activeAnim === 'sleep' && <>
