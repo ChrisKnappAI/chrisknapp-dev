@@ -286,9 +286,9 @@ export const LESSONS = [
       'strawberry', 'mango', 'watermelon', 'pineapple',
     ],
     templates: [
-      { text: 'Do you like {word}?',          expects: 'yes-no',    hint: '{word}' },
-      { text: 'What fruit is this?',           expects: 'photo-name'              },
-      { text: 'Which picture is a {word}?',    expects: 'photo-pick', hint: '{word}' },
+      { text: 'Is {word} your favorite fruit?',  expects: 'yes-no',    hint: '{word}' },
+      { text: 'What fruit is this?',            expects: 'photo-name'              },
+      { text: 'Find the {word}!',               expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -342,10 +342,10 @@ export const LESSONS = [
       'bird', 'parrot', 'fish', 'turtle',
     ],
     templates: [
-      { text: 'Do you like {word}?',                   expects: 'yes-no',    hint: '{word}' },
+      { text: 'Is a {word} a good pet?',               expects: 'yes-no',     hint: '{word}' },
       { text: 'What pet is this?',                     expects: 'photo-name'               },
-      { text: 'Which picture is a {word}?',            expects: 'photo-pick', hint: '{word}' },
-      { text: 'Is a {word} a pet or a zoo animal?',    expects: 'pet-or-zoo', hint: 'pet',
+      { text: 'Find the {word}!',                      expects: 'photo-pick', hint: '{word}' },
+      { text: 'Is the {word} a pet or a zoo animal?',  expects: 'pet-or-zoo', hint: 'pet',
         filterVocab: ['dog', 'cat'] },
     ],
   },
@@ -366,10 +366,10 @@ export const LESSONS = [
       'polar bear', 'hippo', 'snake', 'kangaroo', 'shark',
     ],
     templates: [
-      { text: 'Do you like {word}?',                   expects: 'yes-no',    hint: '{word}' },
+      { text: 'Do you like {word}s?',                  expects: 'yes-no',     hint: '{word}' },
       { text: 'What animal is this?',                  expects: 'photo-name'               },
-      { text: 'Which picture is a {word}?',            expects: 'photo-pick', hint: '{word}' },
-      { text: 'Is a {word} a pet or a zoo animal?',    expects: 'pet-or-zoo', hint: 'zoo animal',
+      { text: 'Find the {word}!',                      expects: 'photo-pick', hint: '{word}' },
+      { text: 'Is the {word} a pet or a zoo animal?',  expects: 'pet-or-zoo', hint: 'zoo animal',
         filterVocab: ['tiger', 'lion', 'elephant', 'bear'] },
     ],
   },
@@ -404,7 +404,7 @@ export const LESSONS = [
     ],
     templates: [
       { text: 'What is this?',                expects: 'photo-name'               },
-      { text: 'Which picture is a {word}?',   expects: 'photo-pick', hint: '{word}' },
+      { text: 'Find the {word}!',             expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -422,7 +422,7 @@ export const LESSONS = [
     ],
     templates: [
       { text: 'What shape is this?',          expects: 'photo-name'               },
-      { text: 'Which picture is a {word}?',   expects: 'photo-pick', hint: '{word}' },
+      { text: 'Find the {word}!',             expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
@@ -459,9 +459,9 @@ export const LESSONS = [
       'cabbage', 'beet', 'potato', 'sweet potato', 'peas', 'green beans',
     ],
     templates: [
-      { text: 'Do you like {word}?',          expects: 'yes-no',    hint: '{word}' },
-      { text: 'What vegetable is this?',       expects: 'photo-name'               },
-      { text: 'Which picture is a {word}?',    expects: 'photo-pick', hint: '{word}' },
+      { text: 'Is {word} yummy or yucky?',      expects: 'yes-no',    hint: '{word}' },
+      { text: 'What vegetable is this?',        expects: 'photo-name'               },
+      { text: 'Find the {word}!',               expects: 'photo-pick', hint: '{word}' },
     ],
   },
 
