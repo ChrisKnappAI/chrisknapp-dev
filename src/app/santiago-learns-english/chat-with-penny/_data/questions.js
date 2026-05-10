@@ -40,7 +40,7 @@ function expandStandard(lesson) {
         questions.push({
           id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(word)}`,
           text:      tpl.text.replace(/{word}/g, word),
-          spanish:   tpl.spanish?.replace(/{word}/g, word) ?? null,
+          spanish:   tpl.spanish?.replace(/{word}/g, lesson.spanishVocab?.[word] ?? word) ?? null,
           topic:     lesson.id,
           group:     lesson.group,
           expects:   tpl.expects,
@@ -118,7 +118,7 @@ function expandFamily(lesson) {
             .replace(/{role}/g, member.role);
           const spanish = tpl.spanish
             ?.replace(/{name}/g, name)
-            .replace(/{role}/g, member.role) ?? null;
+            .replace(/{role}/g, lesson.spanishVocab?.[member.role] ?? member.role) ?? null;
 
           questions.push({
             id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(member.role)}__${slugify(name)}`,
@@ -137,7 +137,7 @@ function expandFamily(lesson) {
       } else if (tpl.text.includes('{role}')) {
         // "Do you have a {role}?" — generated for ALL members including has: false
         const text    = tpl.text.replace(/{role}/g, member.role);
-        const spanish = tpl.spanish?.replace(/{role}/g, member.role) ?? null;
+        const spanish = tpl.spanish?.replace(/{role}/g, lesson.spanishVocab?.[member.role] ?? member.role) ?? null;
         const hint    = tpl.hint === '{has}' ? (member.has ? 'yes' : 'no') : tpl.hint;
 
         questions.push({
@@ -189,12 +189,13 @@ function expandSequence(lesson) {
       const before  = items[(i - 1 + items.length) % items.length];
       const after   = items[(i + 1) % items.length];
       const hint    = tpl.dir === 'after' ? after : before;
+      const spanishWord = lesson.spanishVocab?.[word] ?? word;
       const text    = tpl.text
         .replace('{day}',   word)
         .replace('{month}', word);
       const spanish = tpl.spanish
-        ?.replace('{day}',   word)
-        .replace('{month}', word) ?? null;
+        ?.replace('{day}',   spanishWord)
+        .replace('{month}', spanishWord) ?? null;
 
       questions.push({
         id:        `${lesson.id}__${slugify(tpl.text)}__${slugify(word)}`,

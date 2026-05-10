@@ -32,6 +32,12 @@ export const LESSONS = [
       'surprised', 'thirsty', 'tired', 'sick', 'sleepy',
       'confused', 'hot', 'cold',
     ],
+    spanishVocab: {
+      'hungry': 'hambriento', 'angry': 'enojado', 'happy': 'feliz', 'sad': 'triste',
+      'scared': 'asustado', 'surprised': 'sorprendido', 'thirsty': 'sediento',
+      'tired': 'cansado', 'sick': 'enfermo', 'sleepy': 'soñoliento',
+      'confused': 'confundido', 'hot': 'caliente', 'cold': 'frío',
+    },
     templates: [
       { text: 'How do you feel today?',       spanish: '¿Cómo te sientes hoy?',            expects: 'emotion'              },
       { text: 'Do you feel {word} today?',    spanish: '¿Te sientes {word} hoy?',           expects: 'yes-no', hint: '{word}' },
@@ -47,6 +53,10 @@ export const LESSONS = [
     label: 'Things I Can Do',
     type: 'standard',
     vocab: ['swim', 'fly', 'sing', 'run', 'jump', 'climb', 'stomp', 'dance', 'crawl'],
+    spanishVocab: {
+      'swim': 'nadar', 'fly': 'volar', 'sing': 'cantar', 'run': 'correr',
+      'jump': 'saltar', 'climb': 'escalar', 'stomp': 'pisotear', 'dance': 'bailar', 'crawl': 'gatear',
+    },
     templates: [
       { text: 'Can you {word}?',    spanish: '¿Puedes {word}?',          expects: 'yes-no', hint: '{word}' },
       { text: 'What can you do?',   spanish: '¿Qué puedes hacer?',       expects: 'ability'                },
@@ -88,6 +98,12 @@ export const LESSONS = [
       { role: 'godmother',    names: ['Natalie'],                              has: true  },
       { role: 'baby brother', names: ['Mateo'],                                has: true  },
     ],
+    spanishVocab: {
+      'mom': 'mamá', 'dad': 'papá', 'uncle': 'tío', 'aunt': 'tía',
+      'brother': 'hermano', 'sister': 'hermana', 'cousin': 'primo',
+      'grandfather': 'abuelo', 'grandmother': 'abuela',
+      'godparent': 'padrino', 'godmother': 'madrina', 'baby brother': 'hermanito',
+    },
     templates: [
       { text: 'Is {name} your {role}?',           spanish: '¿Es {name} tu {role}?',                 expects: 'yes-no', hint: 'yes'   },
       { text: 'What is the name of your {role}?', spanish: '¿Cuál es el nombre de tu {role}?',      expects: 'name',   hint: '{name}' },
@@ -120,6 +136,11 @@ export const LESSONS = [
       'row':         'grid row highlighted',
       'column':      'grid column highlighted',
     },
+    spanishVocab: {
+      'chess board': 'tablero de ajedrez', 'pawn': 'peón', 'knight': 'caballo',
+      'queen': 'reina', 'king': 'rey', 'rook': 'torre', 'bishop': 'alfil',
+      'square': 'casilla', 'row': 'fila', 'column': 'columna',
+    },
     templates: [
       { text: 'What chess word is this?',       spanish: '¿Qué palabra de ajedrez es esta?', expects: 'photo-name'               },
       { text: 'Which picture is the {word}?',   spanish: '¿Cuál imagen es {word}?',          expects: 'photo-pick', hint: '{word}' },
@@ -140,6 +161,13 @@ export const LESSONS = [
     days:   ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
     months: ['January','February','March','April','May','June',
              'July','August','September','October','November','December'],
+    spanishVocab: {
+      'Monday': 'lunes', 'Tuesday': 'martes', 'Wednesday': 'miércoles',
+      'Thursday': 'jueves', 'Friday': 'viernes', 'Saturday': 'sábado', 'Sunday': 'domingo',
+      'January': 'enero', 'February': 'febrero', 'March': 'marzo', 'April': 'abril',
+      'May': 'mayo', 'June': 'junio', 'July': 'julio', 'August': 'agosto',
+      'September': 'septiembre', 'October': 'octubre', 'November': 'noviembre', 'December': 'diciembre',
+    },
     templates: [
       { text: 'What day of the week is it?',  spanish: '¿Qué día de la semana es hoy?',    expects: 'current-day'                          },
       { text: 'What month is it?',             spanish: '¿Qué mes es?',                     expects: 'current-month'                        },
@@ -164,6 +192,11 @@ export const LESSONS = [
     ],
     searchQuery: {
       'playroom': 'kids playroom toys',
+    },
+    spanishVocab: {
+      'living room': 'sala', 'kitchen': 'cocina', 'bathroom': 'baño',
+      'bedroom': 'dormitorio', 'dining room': 'comedor', 'laundry room': 'lavandería',
+      'garden': 'jardín', 'garage': 'garaje', 'playroom': 'cuarto de juegos', 'office': 'oficina',
     },
     templates: [
       { text: 'What room is this?',           spanish: '¿Qué habitación es esta?',  expects: 'photo-name'              },
@@ -205,6 +238,16 @@ export const LESSONS = [
       'toe':      'toe close up',
       'back':     'person back muscles',
       'butt':     null,  // SKIP — add a cartoon image manually to /santiago/images/vocab/butt.jpg
+    },
+    spanishVocab: {
+      'hair': 'cabello', 'head': 'cabeza', 'face': 'cara', 'forehead': 'frente',
+      'eyebrow': 'ceja', 'eyelash': 'pestaña', 'eye': 'ojo', 'ear': 'oreja',
+      'nose': 'nariz', 'cheek': 'mejilla', 'mouth': 'boca', 'lips': 'labios',
+      'teeth': 'dientes', 'tongue': 'lengua', 'chin': 'mentón', 'neck': 'cuello',
+      'shoulder': 'hombro', 'chest': 'pecho', 'arm': 'brazo', 'elbow': 'codo',
+      'stomach': 'estómago', 'wrist': 'muñeca', 'hand': 'mano', 'thumb': 'pulgar',
+      'finger': 'dedo', 'leg': 'pierna', 'knee': 'rodilla', 'foot': 'pie',
+      'toe': 'dedo del pie', 'back': 'espalda', 'butt': 'trasero',
     },
     templates: [
       { text: 'What body part is this?',        spanish: '¿Qué parte del cuerpo es esta?', expects: 'photo-name'               },
@@ -263,6 +306,18 @@ export const LESSONS = [
       'syrup':          '/santiago-learns-english/chat-with-penny/images/junk-food/syrup.jpg',
       'whipped cream':  '/santiago-learns-english/chat-with-penny/images/junk-food/whipped-cream.jpg',
     },
+    spanishVocab: {
+      'pizza': 'pizza', 'hamburgers': 'hamburguesas', 'french fries': 'papas fritas',
+      'fried chicken': 'pollo frito', 'soda': 'refresco', 'potato chips': 'papitas',
+      'candy': 'dulces', 'cupcakes': 'pastelitos', 'ice cream': 'helado',
+      'milkshakes': 'batidos', 'hot dogs': 'hot dogs', 'chocolate bars': 'barras de chocolate',
+      'donuts': 'donas', 'popcorn': 'palomitas', 'cake': 'pastel', 'nuggets': 'nuggets',
+      'pancakes': 'panqueques', 'cotton candy': 'algodón de azúcar', 'gum': 'chicle',
+      'lollipops': 'paletas', 'gummy bears': 'ositos de goma', 'marshmallows': 'malvaviscos',
+      'popsicles': 'paletas de hielo', 'brownies': 'brownies', 'onion rings': 'aros de cebolla',
+      'corn dogs': 'perros envueltos en maíz', 'cookies': 'galletas', 'pretzels': 'pretzels',
+      'syrup': 'jarabe', 'whipped cream': 'crema batida',
+    },
     templates: [
       { text: 'Do you like {word}?',      spanish: '¿Te gusta {word}?',              expects: 'yes-no',    hint: '{word}' },
       { text: 'What junk food is this?',  spanish: '¿Qué comida chatarra es esta?',  expects: 'photo-name'               },
@@ -281,6 +336,11 @@ export const LESSONS = [
       'apple', 'banana', 'orange', 'grape', 'pear',
       'strawberry', 'mango', 'watermelon', 'pineapple',
     ],
+    spanishVocab: {
+      'apple': 'manzana', 'banana': 'plátano', 'orange': 'naranja', 'grape': 'uva',
+      'pear': 'pera', 'strawberry': 'fresa', 'mango': 'mango',
+      'watermelon': 'sandía', 'pineapple': 'piña',
+    },
     templates: [
       { text: 'Is the {word} your favorite fruit?', spanish: '¿Es {word} tu fruta favorita?', expects: 'yes-no',   hint: '{word}' },
       { text: 'What fruit is this?',                spanish: '¿Qué fruta es esta?',            expects: 'photo-name'              },
@@ -300,6 +360,12 @@ export const LESSONS = [
       'coffee', 'milk', 'honey', 'sugar', 'toast',
       'butter', 'jelly', 'oatmeal', 'avocado', 'cheese',
     ],
+    spanishVocab: {
+      'water': 'agua', 'orange juice': 'jugo de naranja', 'yogurt': 'yogur',
+      'bread': 'pan', 'cereal': 'cereal', 'coffee': 'café', 'milk': 'leche',
+      'honey': 'miel', 'sugar': 'azúcar', 'toast': 'tostada', 'butter': 'mantequilla',
+      'jelly': 'mermelada', 'oatmeal': 'avena', 'avocado': 'aguacate', 'cheese': 'queso',
+    },
     templates: [
       { text: 'Do you like {word}?',             spanish: '¿Te gusta {word}?',                  expects: 'yes-no',    hint: '{word}' },
       { text: 'What breakfast food is this?',    spanish: '¿Qué alimento de desayuno es este?', expects: 'photo-name'               },
@@ -315,6 +381,10 @@ export const LESSONS = [
     label: 'Weather',
     type: 'standard',
     vocab: ['sunny', 'cloudy', 'stormy', 'windy', 'rainy', 'snowy'],
+    spanishVocab: {
+      'sunny': 'soleado', 'cloudy': 'nublado', 'stormy': 'tormentoso',
+      'windy': 'ventoso', 'rainy': 'lluvioso', 'snowy': 'nevado',
+    },
     templates: [
       { text: 'How is the weather today?',        spanish: '¿Cómo está el clima hoy?',           expects: 'open'                       },
       { text: 'Is it {word} outside?',            spanish: '¿Está {word} afuera?',               expects: 'yes-no',   hint: '{word}'   },
@@ -337,6 +407,10 @@ export const LESSONS = [
       'dog', 'cat', 'guinea pig', 'rabbit', 'chicken',
       'bird', 'parrot', 'fish', 'turtle',
     ],
+    spanishVocab: {
+      'dog': 'perro', 'cat': 'gato', 'guinea pig': 'cobayo', 'rabbit': 'conejo',
+      'chicken': 'pollo', 'bird': 'pájaro', 'parrot': 'loro', 'fish': 'pez', 'turtle': 'tortuga',
+    },
     templates: [
       { text: 'Is a {word} a good pet?',          spanish: '¿Es {word} una buena mascota?',              expects: 'yes-no',     hint: '{word}' },
       { text: 'What pet is this?',                spanish: '¿Qué mascota es esta?',                      expects: 'photo-name'               },
@@ -361,6 +435,13 @@ export const LESSONS = [
       'elephant', 'zebra', 'bear', 'giraffe', 'penguin',
       'polar bear', 'hippo', 'snake', 'kangaroo', 'shark',
     ],
+    spanishVocab: {
+      'tiger': 'tigre', 'lion': 'león', 'monkey': 'mono', 'dolphin': 'delfín',
+      'crocodile': 'cocodrilo', 'elephant': 'elefante', 'zebra': 'cebra',
+      'bear': 'oso', 'giraffe': 'jirafa', 'penguin': 'pingüino',
+      'polar bear': 'oso polar', 'hippo': 'hipopótamo', 'snake': 'serpiente',
+      'kangaroo': 'canguro', 'shark': 'tiburón',
+    },
     templates: [
       { text: 'Do you like {word}s?',              spanish: '¿Te gustan los {word}?',                     expects: 'yes-no',     hint: '{word}' },
       { text: 'What animal is this?',              spanish: '¿Qué animal es este?',                       expects: 'photo-name'               },
@@ -381,6 +462,10 @@ export const LESSONS = [
       'pig', 'sheep', 'cow', 'duck', 'hen',
       'horse', 'goat', 'rooster',
     ],
+    spanishVocab: {
+      'pig': 'cerdo', 'sheep': 'oveja', 'cow': 'vaca', 'duck': 'pato',
+      'hen': 'gallina', 'horse': 'caballo', 'goat': 'cabra', 'rooster': 'gallo',
+    },
     templates: [
       { text: 'What animal is this?',       spanish: '¿Qué animal es este?',   expects: 'photo-name'               },
       { text: 'Which picture is a {word}?', spanish: '¿Cuál imagen es {word}?', expects: 'photo-pick', hint: '{word}' },
@@ -398,6 +483,11 @@ export const LESSONS = [
       'ruler', 'book', 'notebook', 'pen', 'pencil',
       'crayon', 'eraser', 'desk', 'chair', 'backpack', 'glue',
     ],
+    spanishVocab: {
+      'ruler': 'regla', 'book': 'libro', 'notebook': 'cuaderno', 'pen': 'bolígrafo',
+      'pencil': 'lápiz', 'crayon': 'crayón', 'eraser': 'borrador',
+      'desk': 'escritorio', 'chair': 'silla', 'backpack': 'mochila', 'glue': 'pegamento',
+    },
     templates: [
       { text: 'What is this?',    spanish: '¿Qué es esto?',       expects: 'photo-name'               },
       { text: 'Find the {word}!', spanish: '¡Encuentra {word}!',  expects: 'photo-pick', hint: '{word}' },
@@ -416,6 +506,12 @@ export const LESSONS = [
       'diamond', 'pentagon', 'oval', 'heart', 'hexagon',
       'octagon', 'cross',
     ],
+    spanishVocab: {
+      'triangle': 'triángulo', 'circle': 'círculo', 'square': 'cuadrado',
+      'rectangle': 'rectángulo', 'star': 'estrella', 'diamond': 'rombo',
+      'pentagon': 'pentágono', 'oval': 'óvalo', 'heart': 'corazón',
+      'hexagon': 'hexágono', 'octagon': 'octágono', 'cross': 'cruz',
+    },
     templates: [
       { text: 'What shape is this?', spanish: '¿Qué figura es esta?',  expects: 'photo-name'               },
       { text: 'Find the {word}!',    spanish: '¡Encuentra {word}!',    expects: 'photo-pick', hint: '{word}' },
@@ -439,6 +535,13 @@ export const LESSONS = [
     imageMap: {
       'potatoes':      '/santiago-learns-english/chat-with-penny/images/lunch-dinner/potato.jpg',
       'sweet potatoes': '/santiago-learns-english/chat-with-penny/images/lunch-dinner/sweet-potato.jpg',
+    },
+    spanishVocab: {
+      'rice': 'arroz', 'potatoes': 'papas', 'chicken': 'pollo', 'beef': 'carne de res',
+      'soup': 'sopa', 'pasta': 'pasta', 'salad': 'ensalada', 'sweet potatoes': 'camotes',
+      'tea': 'té', 'lemonade': 'limonada', 'steak': 'bistec', 'lasagna': 'lasaña',
+      'lentils': 'lentejas', 'turkey': 'pavo', 'cocoa': 'cacao',
+      'wine': 'vino', 'beans': 'frijoles', 'tuna': 'atún',
     },
     templates: [
       { text: 'Do you like {word}?', spanish: '¿Te gusta {word}?',   expects: 'yes-no',    hint: '{word}' },
@@ -469,6 +572,13 @@ export const LESSONS = [
       'beets':         '/santiago-learns-english/chat-with-penny/images/vegetables/beet.jpg',
       'potatoes':      '/santiago-learns-english/chat-with-penny/images/vegetables/potato.jpg',
       'sweet potatoes': '/santiago-learns-english/chat-with-penny/images/vegetables/sweet-potato.jpg',
+    },
+    spanishVocab: {
+      'broccoli': 'brócoli', 'onions': 'cebollas', 'carrots': 'zanahorias',
+      'tomatoes': 'tomates', 'corn': 'maíz', 'cucumbers': 'pepinos',
+      'lettuce': 'lechuga', 'peppers': 'pimientos', 'garlic': 'ajo',
+      'spinach': 'espinaca', 'cabbage': 'repollo', 'beets': 'remolacha',
+      'potatoes': 'papas', 'sweet potatoes': 'camotes', 'peas': 'guisantes', 'green beans': 'ejotes',
     },
     templates: [
       { text: 'Do you like {word}?',      spanish: '¿Te gusta {word}?',       expects: 'yes-no',    hint: '{word}' },

@@ -696,36 +696,52 @@ function PenguinSVG({ talking, blinking, looking, waving, flapping }) {
 
 function Boy() {
   return (
-    <svg viewBox="0 5 220 322" style={{ width:148, height:'auto', display:'block', overflow:'visible' }}
+    <svg viewBox="0 0 180 340" style={{ width:130, height:'auto', display:'block', overflow:'visible' }}
       xmlns="http://www.w3.org/2000/svg">
-      <rect x="78"  y="228" width="24" height="70" rx="12" fill="#1565C0"/>
-      <rect x="118" y="228" width="24" height="70" rx="12" fill="#1565C0"/>
-      <ellipse cx="90"  cy="298" rx="20" ry="11" fill="#1A1208"/>
-      <ellipse cx="130" cy="298" rx="20" ry="11" fill="#1A1208"/>
-      <rect x="62" y="154" width="96" height="75" rx="18" fill="#E53935"/>
-      <rect x="96" y="144" width="28" height="22" rx="8" fill="#C88B50"/>
-      <path d="M64,164 C48,174 40,198 44,218 C46,228 58,230 66,222 C62,204 64,182 70,168Z" fill="#E53935"/>
-      <ellipse cx="46" cy="220" rx="13" ry="11" fill="#C88B50" transform="rotate(-12 46 220)"/>
-      <path d="M156,164 C172,174 180,198 176,218 C174,228 162,230 154,222 C158,204 156,182 150,168Z" fill="#E53935"/>
-      <ellipse cx="174" cy="220" rx="13" ry="11" fill="#C88B50" transform="rotate(12 174 220)"/>
-      <circle cx="110" cy="100" r="76" fill="#C88B50"/>
-      <path d="M44,84 C50,40 80,16 110,16 C140,16 170,40 176,84 C164,58 140,46 110,46 C80,46 56,58 44,84Z" fill="#1A1208"/>
-      <path d="M37,92 C33,72 40,52 48,46" fill="none" stroke="#1A1208" strokeWidth="10" strokeLinecap="round"/>
-      <path d="M183,92 C187,72 180,52 172,46" fill="none" stroke="#1A1208" strokeWidth="10" strokeLinecap="round"/>
-      <circle cx="36"  cy="100" r="15" fill="#C88B50"/>
-      <circle cx="184" cy="100" r="15" fill="#C88B50"/>
-      <circle cx="85"  cy="96"  r="13" fill="white"/>
-      <circle cx="135" cy="96"  r="13" fill="white"/>
-      <circle cx="87"  cy="98"  r="8"  fill="#2C1A00"/>
-      <circle cx="137" cy="98"  r="8"  fill="#2C1A00"/>
-      <circle cx="91"  cy="93"  r="3"  fill="white"/>
-      <circle cx="141" cy="93"  r="3"  fill="white"/>
-      <path d="M74,80 Q85,74 96,78"    fill="none" stroke="#1A1208" strokeWidth="3.5" strokeLinecap="round"/>
-      <path d="M124,78 Q135,74 146,80" fill="none" stroke="#1A1208" strokeWidth="3.5" strokeLinecap="round"/>
-      <ellipse cx="110" cy="112" rx="9" ry="6" fill="#A8703A" opacity="0.55"/>
-      <path d="M90,130 Q110,148 130,130" fill="none" stroke="#7A4010" strokeWidth="3.5" strokeLinecap="round"/>
-      <path d="M95,154 L110,172 L125,154" fill="none" stroke="#C62828" strokeWidth="3"/>
-      <text x="110" y="212" textAnchor="middle" fill="#FFCDD2" fontSize="30" fontWeight="900" fontFamily="Arial">7</text>
+      {/* Shoes */}
+      <ellipse cx="73"  cy="314" rx="21" ry="10" fill="#1A1208"/>
+      <ellipse cx="107" cy="314" rx="21" ry="10" fill="#1A1208"/>
+      {/* Legs — longer for taller look */}
+      <rect x="63" y="226" width="23" height="90" rx="11.5" fill="#1565C0"/>
+      <rect x="94" y="226" width="23" height="90" rx="11.5" fill="#1565C0"/>
+      {/* Arms */}
+      <path d="M52,160 C35,170 28,198 32,220 C34,230 45,232 52,224 C47,206 48,182 55,168Z" fill="#E53935"/>
+      <ellipse cx="34" cy="222" rx="12" ry="10" fill="#C88B50" transform="rotate(-10 34 222)"/>
+      <path d="M128,160 C145,170 152,198 148,220 C146,230 135,232 128,224 C133,206 132,182 125,168Z" fill="#E53935"/>
+      <ellipse cx="146" cy="222" rx="12" ry="10" fill="#C88B50" transform="rotate(10 146 222)"/>
+      {/* Shirt — no V-collar */}
+      <rect x="52" y="140" width="76" height="88" rx="16" fill="#E53935"/>
+      {/* Neck */}
+      <rect x="80" y="128" width="20" height="18" rx="9" fill="#C88B50"/>
+      {/* Head */}
+      <circle cx="90" cy="78" r="52" fill="#C88B50"/>
+      {/* Curly hair — wider flat curls, extends fully to both sides */}
+      <path d="M40,72 C40,52 44,38 52,30 C58,24 64,20 70,22 C70,14 78,8 86,10 C90,6 96,8 100,12 C106,8 116,14 122,24 C132,34 140,54 142,72 C128,58 110,50 90,52 C70,54 52,60 40,72Z" fill="#1A1208"/>
+      <ellipse cx="66"  cy="26" rx="22" ry="9" fill="#1A1208"/>
+      <ellipse cx="90"  cy="18" rx="22" ry="9" fill="#1A1208"/>
+      <ellipse cx="114" cy="26" rx="22" ry="9" fill="#1A1208"/>
+      <path d="M60,22 C64,16 72,14 76,16"   fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      <path d="M84,14 C88,10 93,10 97,12"   fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      <path d="M108,22 C112,16 118,14 123,16" fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      {/* Ears */}
+      <circle cx="40"  cy="80" r="11" fill="#C88B50"/>
+      <circle cx="140" cy="80" r="11" fill="#C88B50"/>
+      {/* Eyes */}
+      <circle cx="74"  cy="74" r="11"  fill="white"/>
+      <circle cx="74"  cy="76" r="7.5" fill="#2C1A00"/>
+      <circle cx="79"  cy="71" r="2.5" fill="white"/>
+      <circle cx="106" cy="74" r="11"  fill="white"/>
+      <circle cx="106" cy="76" r="7.5" fill="#2C1A00"/>
+      <circle cx="111" cy="71" r="2.5" fill="white"/>
+      {/* Eyebrows */}
+      <path d="M64,60 Q74,55 84,59"  fill="none" stroke="#1A1208" strokeWidth="3" strokeLinecap="round"/>
+      <path d="M96,59 Q106,55 116,60" fill="none" stroke="#1A1208" strokeWidth="3" strokeLinecap="round"/>
+      {/* Nose */}
+      <ellipse cx="90" cy="90" rx="8" ry="5" fill="#A8703A" opacity="0.5"/>
+      {/* Mouth */}
+      <path d="M76,104 Q90,118 104,104" fill="none" stroke="#7A4010" strokeWidth="3.5" strokeLinecap="round"/>
+      {/* Shirt number */}
+      <text x="90" y="208" textAnchor="middle" fill="rgba(255,255,255,0.65)" fontSize="28" fontWeight="900" fontFamily="Arial">7</text>
     </svg>
   );
 }
