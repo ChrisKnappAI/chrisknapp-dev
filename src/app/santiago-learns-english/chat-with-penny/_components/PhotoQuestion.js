@@ -22,11 +22,14 @@ function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
-function imgPath(word) {
-  return `/santiago/images/vocab/${word.replace(/\s+/g, '_')}.jpg`;
+const BASE = '/santiago-learns-english/chat-with-penny/images';
+
+function imgPath(word, lesson) {
+  if (lesson?.imageMap?.[word]) return lesson.imageMap[word];
+  return `${BASE}/${lesson?.id}/${word.replace(/\s+/g, '-')}.jpg`;
 }
 
-export default function PhotoQuestion({ question, topicVocab, onCorrect, onWrong }) {
+export default function PhotoQuestion({ question, topicVocab, lesson, onCorrect, onWrong }) {
   const [selected, setSelected] = useState(null);
 
   const correctWord = question.hint;
@@ -76,7 +79,7 @@ export default function PhotoQuestion({ question, topicVocab, onCorrect, onWrong
             }}
           >
             <img
-              src={imgPath(word)}
+              src={imgPath(word, lesson)}
               alt={word}
               style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', display: 'block' }}
             />

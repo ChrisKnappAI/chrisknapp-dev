@@ -159,9 +159,8 @@ export default function ChatWithPenny() {
     );
   }
 
-  const currentTopicVocab = currentQuestion
-    ? LESSONS.find(l => l.id === currentQuestion.topic)?.vocab ?? []
-    : [];
+  const currentLesson    = currentQuestion ? LESSONS.find(l => l.id === currentQuestion.topic) : null;
+  const currentTopicVocab = currentLesson?.vocab ?? [];
 
   const unlockedItems = UNLOCKABLE.filter(u => unlocked.includes(u.id));
 
@@ -269,6 +268,7 @@ export default function ChatWithPenny() {
               <PhotoQuestion
                 question={currentQuestion}
                 topicVocab={currentTopicVocab}
+                lesson={currentLesson}
                 onCorrect={() => handleAnswer()}
                 onWrong={() => handleAnswer()}
               />
