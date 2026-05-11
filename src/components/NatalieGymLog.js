@@ -87,27 +87,27 @@ const MUSCLE_GROUPS = [
 const ALL_EXERCISES = MUSCLE_GROUPS.flatMap(g => g.exercises)
 
 const c = {
-  bg:        'var(--c-beige)',
+  bg:        '#FEF0F3',
   card:      '#FFFFFF',
-  border:    'var(--c-beige-border)',
-  text:      '#1E2A38',
-  muted:     '#A89A85',
-  accent:    '#0EA5E9',
-  accentDim: 'rgba(14,165,233,0.08)',
-  rowBorder: 'rgba(0,0,0,0.07)',
+  border:    'rgba(210,100,130,0.14)',
+  text:      '#5C2035',
+  muted:     '#C28A9A',
+  accent:    '#D4547A',
+  accentDim: 'rgba(212,84,122,0.09)',
+  rowBorder: 'rgba(210,100,130,0.15)',
 }
 
 const cardStyle = {
   background:   '#FFFFFF',
-  border:       '1px solid var(--c-beige-border)',
+  border:       '1px solid rgba(210,100,130,0.14)',
   borderRadius: 12,
   padding:      '0.45rem 0.75rem',
 }
 
 const NAV_BTN = {
   background:   '#FFFFFF',
-  border:       '1px solid var(--c-beige-border)',
-  color:        '#A89A85',
+  border:       '1px solid rgba(210,100,130,0.22)',
+  color:        '#C28A9A',
   borderRadius: 6,
   padding:      '0.32rem 0.65rem',
   cursor:       'pointer',
@@ -295,7 +295,7 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
       {/* Checkbox */}
       <div onClick={onToggle} style={{
         width: 15, height: 15, borderRadius: 3, flexShrink: 0,
-        border:     `2px solid ${checked ? c.accent : 'rgba(0,0,0,0.2)'}`,
+        border:     `2px solid ${checked ? c.accent : 'rgba(210,100,130,0.3)'}`,
         background: checked ? c.accent : 'transparent',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         transition: 'all 0.1s', cursor: 'pointer',
@@ -332,8 +332,8 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
           onClick={e => e.stopPropagation()}
           style={{
             width: w, height: 24, borderRadius: 5,
-            border:     '1px solid rgba(0,0,0,0.12)',
-            background: 'rgba(0,0,0,0.03)',
+            border:     '1px solid rgba(210,100,130,0.2)',
+            background: 'rgba(254,240,243,0.7)',
             color:      val != null ? c.text : c.muted,
             fontSize:   '0.72rem',
             fontWeight: val != null ? 600 : 400,
@@ -352,9 +352,9 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
 
 function lastWorkedColor(days) {
   if (days === null) return c.muted
-  if (days <= 1)    return '#16A34A'
+  if (days <= 1)    return '#BE185D'
   if (days <= 3)    return c.muted
-  return '#D97706'
+  return '#C2672A'
 }
 
 function SectionHeader({ label, daysSince }) {
@@ -367,7 +367,7 @@ function SectionHeader({ label, daysSince }) {
     <div style={{
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       paddingBottom: '0.32rem',
-      borderBottom:  '1px solid var(--c-beige-border)',
+      borderBottom:  `1px solid ${c.border}`,
     }}>
       <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '-0.01em', color: c.text }}>
         {label}
