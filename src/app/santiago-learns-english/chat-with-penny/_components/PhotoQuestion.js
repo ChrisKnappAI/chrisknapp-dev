@@ -16,7 +16,7 @@
  *   onWrong       () => void — called when Santiago picks a wrong photo
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5);
@@ -29,16 +29,21 @@ function imgPath(word, lesson) {
   return `${BASE}/${lesson?.id}/${word.replace(/\s+/g, '-')}.jpg`;
 }
 
-export default function PhotoQuestion({ question, topicVocab, lesson, onCorrect, onWrong }) {
+export default function PhotoQuestion({ question, topicVocab, lesson, onCorrect, onWrong, resetSignal }) {
   const [selected, setSelected] = useState(null);
 
   const correctWord = question.hint;
 
-  // Pick 5 random distractors from the same topic (excluding the correct word) → 6 total
+  // Reshuffle only when the question changes — not on wrong-answer retries
   const choices = useMemo(() => {
     const distractors = shuffle(topicVocab.filter(w => w !== correctWord)).slice(0, 5);
     return shuffle([correctWord, ...distractors]);
   }, [question.id]);
+
+  // Clear selection on wrong-answer retry without remounting (keeps same photos in same spots)
+  useEffect(() => {
+    setSelected(null);
+  }, [resetSignal]);
 
   function handlePick(word) {
     if (selected) return; // already answered

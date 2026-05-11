@@ -382,7 +382,8 @@ export default function ChatWithPenny() {
           {currentQuestion?.hasPhoto && currentQuestion.photoType === 'pick' && (
             <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
               <PhotoQuestion
-                key={`${currentQuestion.id}-${attemptKey}`}
+                key={currentQuestion.id}
+                resetSignal={attemptKey}
                 question={currentQuestion}
                 topicVocab={currentTopicVocab}
                 lesson={currentLesson}
@@ -394,7 +395,7 @@ export default function ChatWithPenny() {
                   setPennySpanish(`¡No exactamente! ¡Encuentra ${sp}!`);
                   setPennyHint(null);
                   setPennyHintSpanish(null);
-                  // Show red border briefly, then reset grid so Santiago can try again
+                  // Show red border briefly, then clear selection — same photos stay in same spots
                   setTimeout(() => setAttemptKey(k => k + 1), 800);
                 }}
               />
