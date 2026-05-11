@@ -53,10 +53,12 @@ const btnBase = {
 export default function ChatWithPenny() {
   const [activeTopics, setActiveTopics]     = useState([]);
   const [currentQuestion, setQuestion]      = useState(null);
-  const [pennyText, setPennyText]           = useState("Hi! I'm Penny! 🐧 Let's practice English!");
-  const [pennySpanish, setPennySpanish]     = useState('¡Hola! Soy Penny! ¡Practiquemos inglés!');
-  const [pennyHint, setPennyHint]           = useState(null);
-  const [pennyHintSpanish, setPennyHintSpanish] = useState(null);
+  const [pennyText, setPennyText]                   = useState("Hi! I'm Penny! 🐧 Let's practice English!");
+  const [pennySpanish, setPennySpanish]             = useState('¡Hola! Soy Penny! ¡Practiquemos inglés!');
+  const [pennyResponse, setPennyResponse]           = useState(null);
+  const [pennyResponseSpanish, setPennyResponseSpanish] = useState(null);
+  const [pennyHint, setPennyHint]                   = useState(null);
+  const [pennyHintSpanish, setPennyHintSpanish]     = useState(null);
   const [input, setInput]                   = useState('');
   const [loading, setLoading]               = useState(false);
   const [commandAnim, setCommandAnim]       = useState(null);
@@ -121,6 +123,8 @@ export default function ChatWithPenny() {
     setQuestion(q);
     setPennyText(q.text);
     setPennySpanish(q.spanish ?? '');
+    setPennyResponse(null);
+    setPennyResponseSpanish(null);
     setPennyHint(null);
     setPennyHintSpanish(null);
     triggerAnim('wave');
@@ -169,18 +173,21 @@ export default function ChatWithPenny() {
       vocabLineEs = `[Claude API: respuesta personalizada]`;
     }
 
-    const parts   = [phrase.en, vocabLine, 'Next question:', nextQ.text].filter(Boolean);
-    const partsEs = [phrase.es, vocabLineEs, 'Siguiente pregunta:', nextQ.spanish ?? nextQ.text].filter(Boolean);
+    // Response section (pink) — encouragement + vocab phrase
+    const responseParts   = [phrase.en, vocabLine].filter(Boolean);
+    const responsePartsEs = [phrase.es, vocabLineEs].filter(Boolean);
 
-    setPennyText(parts.join('\n'));
-    setPennySpanish(partsEs.join('\n'));
+    setPennyResponse(responseParts.join('\n'));
+    setPennyResponseSpanish(responsePartsEs.join('\n'));
+    setPennyText('Next question:\n' + nextQ.text);
+    setPennySpanish('Siguiente pregunta:\n' + (nextQ.spanish ?? nextQ.text));
     setPennyHint(null);
     setPennyHintSpanish(null);
     setQuestion(nextQ);
     triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
 
-    // Speak only real text, skip placeholders
-    const speakText = parts.filter(p => !p.startsWith('[')).join(' ');
+    // Speak encouragement + next question, skip placeholders
+    const speakText = [...responseParts.filter(p => !p.startsWith('[')), 'Next question:', nextQ.text].join(' ');
     await speakLive(speakText).catch(() => {});
   }
 
@@ -194,11 +201,10 @@ export default function ChatWithPenny() {
     const apiLine   = `[Claude API: grade + respond to "${answer}"]`;
     const apiLineEs = `[Claude API: calificar + responder a "${answer}"]`;
 
-    const parts   = [apiLine, 'Next question:', nextQ.text];
-    const partsEs = [apiLineEs, 'Siguiente pregunta:', nextQ.spanish ?? nextQ.text];
-
-    setPennyText(parts.join('\n'));
-    setPennySpanish(partsEs.join('\n'));
+    setPennyResponse(apiLine);
+    setPennyResponseSpanish(apiLineEs);
+    setPennyText('Next question:\n' + nextQ.text);
+    setPennySpanish('Siguiente pregunta:\n' + (nextQ.spanish ?? nextQ.text));
     setPennyHint(null);
     setPennyHintSpanish(null);
     setQuestion(nextQ);
@@ -233,6 +239,8 @@ export default function ChatWithPenny() {
             ? '¡Intenta: sí o no!'
             : (hint ? (lesson?.spanishVocab?.[hint] ?? hint) : null);
 
+          setPennyResponse(null);
+          setPennyResponseSpanish(null);
           setPennyText(`Not quite. Try again, Santiago!\n${currentQuestion.text}`);
           setPennySpanish(currentQuestion.spanish
             ? `¡No exactamente! ¡Inténtalo de nuevo, Santiago!\n${currentQuestion.spanish}`
@@ -349,6 +357,7 @@ export default function ChatWithPenny() {
             <PennyBubble
               english={pennyText} spanish={pennySpanish}
               hint={pennyHint} hintSpanish={pennyHintSpanish}
+              response={pennyResponse} responseSpanish={pennyResponseSpanish}
               loading={loading}
             />
           </div>
@@ -391,6 +400,8 @@ export default function ChatWithPenny() {
                 onWrong={() => {
                   triggerAnim(WRONG_ANIM);
                   const sp = currentLesson?.spanishVocab?.[currentQuestion.hint] ?? currentQuestion.hint;
+                  setPennyResponse(null);
+                  setPennyResponseSpanish(null);
                   setPennyText(`Not quite! Find the ${currentQuestion.hint}!`);
                   setPennySpanish(`¡No exactamente! ¡Encuentra ${sp}!`);
                   setPennyHint(null);
