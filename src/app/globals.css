@@ -34,6 +34,8 @@ body { margin: 0; }
 @media (max-width: 768px) {
   .chris-sidebar { display: none !important; }
   .chris-content { margin-left: 0 !important; }
+  .natalie-sidebar { display: none !important; }
+  .natalie-content { margin-left: 0 !important; }
   .gym-grid { grid-template-columns: 1fr !important; }
   .gym-input { height: 32px !important; font-size: 0.9rem !important; }
 }

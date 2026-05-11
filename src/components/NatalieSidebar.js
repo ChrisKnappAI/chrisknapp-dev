@@ -30,7 +30,7 @@ export default function NatalieSidebar() {
   }
 
   return (
-    <aside style={{
+    <aside className="natalie-sidebar" style={{
       width: 232, minHeight: '100vh', background: 'var(--c-beige-sidebar)',
       borderRight: '1px solid var(--c-beige-border)',
       display: 'flex', flexDirection: 'column',
