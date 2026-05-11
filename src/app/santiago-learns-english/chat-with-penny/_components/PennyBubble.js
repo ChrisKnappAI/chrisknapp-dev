@@ -34,7 +34,7 @@ export default function PennyBubble({ english, spanish, loading, hint, hintSpani
         border: '3px solid #111',
         borderRadius: 16,
         padding: '11px 15px',
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: 700,
         lineHeight: 1.45,
         whiteSpace: 'pre-wrap',
@@ -48,7 +48,7 @@ export default function PennyBubble({ english, spanish, loading, hint, hintSpani
             {/* Response section — pink, shown when there's encouragement/feedback */}
             {response && (
               <div style={{
-                color: showSpanish ? '#9D174D' : '#BE185D',
+                color: showSpanish ? '#DB2777' : '#EC4899',
                 marginBottom: 8,
                 paddingBottom: 8,
                 borderBottom: '1.5px solid #FBCFE8',

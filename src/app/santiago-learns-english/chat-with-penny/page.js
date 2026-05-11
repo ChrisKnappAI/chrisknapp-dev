@@ -177,10 +177,10 @@ export default function ChatWithPenny() {
     const responseParts   = [phrase.en, vocabLine].filter(Boolean);
     const responsePartsEs = [phrase.es, vocabLineEs].filter(Boolean);
 
-    setPennyResponse(responseParts.join('\n'));
-    setPennyResponseSpanish(responsePartsEs.join('\n'));
-    setPennyText('Next question:\n' + nextQ.text);
-    setPennySpanish('Siguiente pregunta:\n' + (nextQ.spanish ?? nextQ.text));
+    setPennyResponse(responseParts.join(' '));
+    setPennyResponseSpanish(responsePartsEs.join(' '));
+    setPennyText('Next question: ' + nextQ.text);
+    setPennySpanish('Siguiente pregunta: ' + (nextQ.spanish ?? nextQ.text));
     setPennyHint(null);
     setPennyHintSpanish(null);
     setQuestion(nextQ);
@@ -203,8 +203,8 @@ export default function ChatWithPenny() {
 
     setPennyResponse(apiLine);
     setPennyResponseSpanish(apiLineEs);
-    setPennyText('Next question:\n' + nextQ.text);
-    setPennySpanish('Siguiente pregunta:\n' + (nextQ.spanish ?? nextQ.text));
+    setPennyText('Next question: ' + nextQ.text);
+    setPennySpanish('Siguiente pregunta: ' + (nextQ.spanish ?? nextQ.text));
     setPennyHint(null);
     setPennyHintSpanish(null);
     setQuestion(nextQ);
@@ -238,9 +238,9 @@ export default function ChatWithPenny() {
 
           setPennyResponse(null);
           setPennyResponseSpanish(null);
-          setPennyText(`Not quite. Try again, Santiago!\n${currentQuestion.text}`);
+          setPennyText(`Not quite. Try again, Santiago! ${currentQuestion.text}`);
           setPennySpanish(currentQuestion.spanish
-            ? `¡No exactamente! ¡Inténtalo de nuevo, Santiago!\n${currentQuestion.spanish}`
+            ? `¡No exactamente! ¡Inténtalo de nuevo, Santiago! ${currentQuestion.spanish}`
             : '¡No exactamente! ¡Inténtalo de nuevo, Santiago!');
           setPennyHint(displayHint ? `Hint: ${displayHint}` : null);
           setPennyHintSpanish(displayHintEs ? `Pista: ${displayHintEs}` : null);
