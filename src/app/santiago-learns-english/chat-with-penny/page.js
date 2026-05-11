@@ -112,7 +112,8 @@ export default function ChatWithPenny() {
   }, [activeTopics]);
 
   useEffect(() => {
-    if (activeTopics.length && !currentQuestion) askNextQuestion();
+    if (!activeTopics.length) return;
+    if (!currentQuestion || !activeTopics.includes(currentQuestion.topic)) askNextQuestion();
   }, [activeTopics]);
 
   // ── Question flow ──────────────────────────────────────────────────────────
