@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-const EXERCISE_GROUP = {
+const EXERCISE_GROUP_CHRIS = {
   'lat-pulldown-wide':                    'back',
   'lat-pulldown-narrow':                  'back',
   'lat-pulldown-neutral':                 'back',
@@ -55,21 +55,56 @@ const EXERCISE_GROUP = {
   'abs':                                  'abs',
 }
 
-const ALL_GROUPS = ['back', 'shoulders', 'chest', 'biceps', 'triceps', 'legs', 'abs']
+const EXERCISE_GROUP_NATALIE = {
+  'n-lat-pulldown':           'back',
+  'n-seated-row':             'back',
+  'n-leg-press':              'legs',
+  'n-leg-extension':          'legs',
+  'n-adductor-machine':       'legs',
+  'n-seated-leg-curl':        'legs',
+  'n-seated-calf-extension':  'legs',
+  'n-shoulder-press-db':      'shoulders',
+  'n-arnold-press-db':        'shoulders',
+  'n-machine-lateral-raise':  'shoulders',
+  'n-lateral-raise-db':       'shoulders',
+  'n-rear-delt-fly-machine':  'shoulders',
+  'n-chest-press-machine':    'chest',
+  'n-push-ups':               'chest',
+  'n-intense-abs':            'core',
+  'n-isometric-core':         'core',
+  'n-hit':                    'core',
+  'n-curl-db-seated':         'biceps',
+  'n-hammer-curl-db-seated':  'biceps',
+  'n-preacher-curl-machine':  'biceps',
+  'n-skull-crushers':         'triceps',
+  'n-machine-pushdowns':      'triceps',
+  'n-hip-abduction-machine':  'booty',
+  'n-leg-press-high-foot':    'booty',
+  'n-kickback-machine':       'booty',
+  'n-glute-bridges-bands':    'booty',
+  'n-donkey-kicks-bands':     'booty',
+}
+
+const ALL_GROUPS_CHRIS   = ['back', 'shoulders', 'chest', 'biceps', 'triceps', 'legs', 'abs']
+const ALL_GROUPS_NATALIE = ['back', 'legs', 'shoulders', 'chest', 'core', 'biceps', 'triceps', 'booty']
 
 // GET /api/gym-log?user=chris&date=2026-05-08
-// Returns { exercises: { [exercise_id]: { checked, sets, reps, lbs } }, daysSince: { [group]: number|null } }
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
   const date = searchParams.get('date')
+  const user = searchParams.get('user') || 'chris'
+
+  const table         = user === 'natalie' ? 'gym_log_natalie' : 'gym_log_chris'
+  const exerciseGroup = user === 'natalie' ? EXERCISE_GROUP_NATALIE : EXERCISE_GROUP_CHRIS
+  const allGroups     = user === 'natalie' ? ALL_GROUPS_NATALIE : ALL_GROUPS_CHRIS
 
   const [{ data, error }, { data: recent }] = await Promise.all([
     supabase
-      .from('gym_log_chris')
+      .from(table)
       .select('exercise_id, checked, sets, reps, lbs')
       .eq('log_date', date),
     supabase
-      .from('gym_log_chris')
+      .from(table)
       .select('exercise_id, log_date')
       .eq('checked', true)
       .lte('log_date', date)
@@ -90,12 +125,12 @@ export async function GET(request) {
 
   const groupLastDate = {}
   for (const row of (recent || [])) {
-    const group = EXERCISE_GROUP[row.exercise_id]
+    const group = exerciseGroup[row.exercise_id]
     if (group && !groupLastDate[group]) groupLastDate[group] = row.log_date
   }
 
   const daysSince = {}
-  for (const g of ALL_GROUPS) {
+  for (const g of allGroups) {
     if (groupLastDate[g]) {
       const d1 = new Date(date)
       const d2 = new Date(groupLastDate[g])
@@ -111,7 +146,9 @@ export async function GET(request) {
 // POST /api/gym-log
 // Body: { user, date, exercise_id, checked, sets, reps, lbs }
 export async function POST(request) {
-  const { date, exercise_id, checked, sets, reps, lbs } = await request.json()
+  const { user, date, exercise_id, checked, sets, reps, lbs } = await request.json()
+
+  const table = user === 'natalie' ? 'gym_log_natalie' : 'gym_log_chris'
 
   const row = {
     log_date:    date,
@@ -124,7 +161,7 @@ export async function POST(request) {
   }
 
   const { error } = await supabase
-    .from('gym_log_chris')
+    .from(table)
     .upsert(row, { onConflict: 'log_date,exercise_id' })
   if (error) return NextResponse.json({ error }, { status: 500 })
   return NextResponse.json({ success: true })

@@ -10,6 +10,7 @@ const toolItems = [
   { label: "Chris's Food Log", href: '/natalie/food/chris', icon: '○' },
   { label: "Natalie's Food Log", href: '/natalie/food/natalie', icon: '○' },
   { label: 'Goals Log', href: '/natalie/goal-tracker', icon: '✓' },
+  { label: 'Gym Log', href: '/natalie/gym', icon: '◉' },
 ]
 
 const santiagoItems = [
