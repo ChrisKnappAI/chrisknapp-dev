@@ -715,14 +715,23 @@ function Boy() {
       <rect x="80" y="128" width="20" height="18" rx="9" fill="#C88B50"/>
       {/* Head */}
       <circle cx="90" cy="78" r="52" fill="#C88B50"/>
-      {/* Curly hair — wider flat curls, extends fully to both sides */}
-      <path d="M40,72 C40,52 44,38 52,30 C58,24 64,20 70,22 C70,14 78,8 86,10 C90,6 96,8 100,12 C106,8 116,14 122,24 C132,34 140,54 142,72 C128,58 110,50 90,52 C70,54 52,60 40,72Z" fill="#1A1208"/>
-      <ellipse cx="66"  cy="26" rx="22" ry="9" fill="#1A1208"/>
-      <ellipse cx="90"  cy="18" rx="22" ry="9" fill="#1A1208"/>
-      <ellipse cx="114" cy="26" rx="22" ry="9" fill="#1A1208"/>
-      <path d="M60,22 C64,16 72,14 76,16"   fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
-      <path d="M84,14 C88,10 93,10 97,12"   fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
-      <path d="M108,22 C112,16 118,14 123,16" fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      {/* Curly hair — 10 curls */}
+      <path d="M38,76 C36,58 38,44 44,36 C48,28 54,28 58,34 C60,24 66,18 72,20 C74,12 80,8 88,10 C92,6 98,8 102,14 C108,10 116,14 120,22 C124,20 130,28 136,38 C142,48 144,62 142,76 C128,62 110,54 90,56 C70,58 52,64 38,76Z" fill="#1A1208"/>
+      <ellipse cx="42"  cy="42" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="54"  cy="32" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="66"  cy="24" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="78"  cy="18" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="90"  cy="14" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="100" cy="14" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="112" cy="18" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="124" cy="24" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="136" cy="32" rx="14" ry="9" fill="#1A1208"/>
+      <ellipse cx="142" cy="42" rx="12" ry="9" fill="#1A1208"/>
+      <path d="M36,40 C40,34 46,32 50,36"     fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      <path d="M60,22 C64,16 70,15 74,20"     fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      <path d="M82,12 C86,8 92,8 96,12"       fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      <path d="M106,12 C110,8 116,10 120,16"  fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
+      <path d="M128,22 C132,16 138,16 140,22" fill="none" stroke="#2D1F0E" strokeWidth="2" strokeLinecap="round" opacity="0.45"/>
       {/* Ears */}
       <circle cx="40"  cy="80" r="11" fill="#C88B50"/>
       <circle cx="140" cy="80" r="11" fill="#C88B50"/>

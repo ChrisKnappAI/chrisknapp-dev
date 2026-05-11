@@ -23,9 +23,9 @@ export const LESSONS = [
   // ─── Feelings & Emotions ─────────────────────────────────────────────────────
 
   {
-    group: 'People & Feelings',
+    group: 'Feelings & Actions',
     id: 'feelings',
-    label: 'Feelings & Emotions',
+    label: 'Feelings',
     type: 'standard',
     vocab: [
       'hungry', 'angry', 'happy', 'sad', 'scared',
@@ -48,9 +48,9 @@ export const LESSONS = [
   // ─── Abilities ───────────────────────────────────────────────────────────────
 
   {
-    group: 'Actions & Abilities',
+    group: 'Feelings & Actions',
     id: 'ability',
-    label: 'Things I Can Do',
+    label: 'Abilities',
     type: 'standard',
     vocab: ['swim', 'fly', 'sing', 'run', 'jump', 'climb', 'stomp', 'dance', 'crawl'],
     spanishVocab: {
@@ -80,9 +80,9 @@ export const LESSONS = [
   //   {has}   — substitutes "yes" or "no" based on the has field
 
   {
-    group: 'People & Feelings',
+    group: 'Foundation',
     id: 'family',
-    label: 'Family Members',
+    label: 'Family',
     type: 'family',
     members: [
       { role: 'mom',          names: ['Cecilia'],                              has: true  },
@@ -117,7 +117,7 @@ export const LESSONS = [
   // (e.g. "knight" → medieval knight, "bishop" → religious bishop, "queen" → person)
 
   {
-    group: 'Games & Activities',
+    group: 'School',
     id: 'chess',
     label: 'Chess',
     type: 'standard',
@@ -154,7 +154,7 @@ export const LESSONS = [
   // "What day is it?" and "What month is it?" have no hint — Claude knows today's real date
 
   {
-    group: 'Time & Calendar',
+    group: 'Foundation',
     id: 'days-months',
     label: 'Days & Months',
     type: 'sequence',
@@ -181,9 +181,9 @@ export const LESSONS = [
   // ─── Rooms of the House ──────────────────────────────────────────────────────
 
   {
-    group: 'Home & Places',
+    group: 'Places',
     id: 'rooms',
-    label: 'Rooms of the House',
+    label: 'Rooms',
     type: 'standard',
     vocab: [
       'living room', 'kitchen', 'bathroom', 'bedroom',
@@ -213,7 +213,7 @@ export const LESSONS = [
   // (e.g. "toe" alone returns abstract results — "human toe" is more specific)
 
   {
-    group: 'My Body',
+    group: 'Foundation',
     id: 'body-parts',
     label: 'Body Parts',
     type: 'standard',
@@ -262,7 +262,7 @@ export const LESSONS = [
   // imageMap connects each vocab word → its image path (filenames differ from vocab words)
 
   {
-    group: 'Food & Things I Like',
+    group: 'Food',
     id: 'junk-food',
     label: 'Junk Food',
     type: 'standard',
@@ -328,7 +328,7 @@ export const LESSONS = [
   // ─── Fruits ──────────────────────────────────────────────────────────────────
 
   {
-    group: 'Food & Things I Like',
+    group: 'Food',
     id: 'fruits',
     label: 'Fruits',
     type: 'standard',
@@ -351,9 +351,9 @@ export const LESSONS = [
   // ─── Breakfast ───────────────────────────────────────────────────────────────
 
   {
-    group: 'Food & Things I Like',
+    group: 'Food',
     id: 'breakfast',
-    label: 'Breakfast',
+    label: 'Breakfast Foods',
     type: 'standard',
     vocab: [
       'water', 'orange juice', 'yogurt', 'bread', 'cereal',
@@ -376,7 +376,7 @@ export const LESSONS = [
   // ─── Weather ─────────────────────────────────────────────────────────────────
 
   {
-    group: 'Nature & Weather',
+    group: 'Foundation',
     id: 'weather',
     label: 'Weather',
     type: 'standard',
@@ -475,9 +475,9 @@ export const LESSONS = [
   // ─── Classroom Objects ───────────────────────────────────────────────────────
 
   {
-    group: 'School & Learning',
+    group: 'School',
     id: 'classroom',
-    label: 'Classroom Objects',
+    label: 'Classroom',
     type: 'standard',
     vocab: [
       'ruler', 'book', 'notebook', 'pen', 'pencil',
@@ -497,7 +497,7 @@ export const LESSONS = [
   // ─── Shapes ──────────────────────────────────────────────────────────────────
 
   {
-    group: 'Colors & Shapes',
+    group: 'Foundation',
     id: 'shapes',
     label: 'Shapes',
     type: 'standard',
@@ -521,7 +521,7 @@ export const LESSONS = [
   // ─── Lunch & Dinner ──────────────────────────────────────────────────────────
 
   {
-    group: 'Food & Things I Like',
+    group: 'Food',
     id: 'lunch-dinner',
     label: 'Lunch & Dinner',
     type: 'standard',
@@ -553,7 +553,7 @@ export const LESSONS = [
   // ─── Vegetables ──────────────────────────────────────────────────────────────
 
   {
-    group: 'Food & Things I Like',
+    group: 'Food',
     id: 'vegetables',
     label: 'Vegetables',
     type: 'standard',
