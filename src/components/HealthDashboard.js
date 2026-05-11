@@ -44,7 +44,7 @@ const WORKOUT_TOTAL_CLR = '#bfdbfe'
 // Update these to match your current nutrition targets
 const NUTRITION_TARGETS = { calories: 2100, fat: 70, carbs: 210, protein: 160 }
 
-const TODAY = new Date().toISOString().slice(0, 10)
+const TODAY = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' })
 
 // ── Date helpers ───────────────────────────────────────────────
 

@@ -3,8 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 
 function getToday() {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+  return new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' })
 }
 function getTomorrow(dateStr) {
   const [y, m, d] = dateStr.split('-').map(Number)
