@@ -36,7 +36,7 @@ body { margin: 0; }
   .chris-content { margin-left: 0 !important; }
   .natalie-sidebar { display: none !important; }
   .natalie-content { margin-left: 0 !important; }
-  .natalie-gym-header { flex-direction: column !important; align-items: stretch !important; gap: 0.75rem !important; padding: 1rem 1rem 0.85rem !important; }
+  .natalie-gym-header { flex-direction: column !important; align-items: center !important; gap: 0.75rem !important; padding: 1rem 1rem 0.85rem !important; }
   .natalie-gym-header-nav { justify-content: center !important; }
   .gym-grid { grid-template-columns: 1fr !important; }
   .gym-input { height: 32px !important; font-size: 0.9rem !important; }
