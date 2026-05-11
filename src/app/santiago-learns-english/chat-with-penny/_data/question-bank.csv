@@ -1,0 +1,639 @@
+TopicGroup,Topic,QuestionType,Question,Answer,QuestionSpanish
+School,Chess,Type 1 - Photo Pick,Which picture is the chess board?,chess board,¿Cuál imagen es el tablero de ajedrez?
+School,Chess,Type 1 - Photo Pick,Which picture is the pawn?,pawn,¿Cuál imagen es el peón?
+School,Chess,Type 1 - Photo Pick,Which picture is the knight?,knight,¿Cuál imagen es el caballo?
+School,Chess,Type 1 - Photo Pick,Which picture is the queen?,queen,¿Cuál imagen es la reina?
+School,Chess,Type 1 - Photo Pick,Which picture is the king?,king,¿Cuál imagen es el rey?
+School,Chess,Type 1 - Photo Pick,Which picture is the rook?,rook,¿Cuál imagen es la torre?
+School,Chess,Type 1 - Photo Pick,Which picture is the bishop?,bishop,¿Cuál imagen es el alfil?
+School,Chess,Type 1 - Photo Pick,Which picture is the square?,square,¿Cuál imagen es la casilla?
+School,Chess,Type 1 - Photo Pick,Which picture is the row?,row,¿Cuál imagen es la fila?
+School,Chess,Type 1 - Photo Pick,Which picture is the column?,column,¿Cuál imagen es la columna?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the living room?,living room,¿Cuál imagen es la sala?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the kitchen?,kitchen,¿Cuál imagen es la cocina?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the bathroom?,bathroom,¿Cuál imagen es el baño?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the bedroom?,bedroom,¿Cuál imagen es el dormitorio?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the dining room?,dining room,¿Cuál imagen es el comedor?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the laundry room?,laundry room,¿Cuál imagen es la lavandería?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the garden?,garden,¿Cuál imagen es el jardín?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the garage?,garage,¿Cuál imagen es el garaje?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the playroom?,playroom,¿Cuál imagen es el cuarto de juegos?
+Places,Rooms,Type 1 - Photo Pick,Which picture is the office?,office,¿Cuál imagen es la oficina?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the hair?,hair,¿Cuál imagen es el cabello?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the head?,head,¿Cuál imagen es la cabeza?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the face?,face,¿Cuál imagen es la cara?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the forehead?,forehead,¿Cuál imagen es la frente?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the eyebrow?,eyebrow,¿Cuál imagen es la ceja?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the eyelash?,eyelash,¿Cuál imagen es la pestaña?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the eye?,eye,¿Cuál imagen es el ojo?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the ear?,ear,¿Cuál imagen es la oreja?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the nose?,nose,¿Cuál imagen es la nariz?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the cheek?,cheek,¿Cuál imagen es la mejilla?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the mouth?,mouth,¿Cuál imagen es la boca?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the lips?,lips,¿Cuál imagen es los labios?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the teeth?,teeth,¿Cuál imagen es los dientes?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the tongue?,tongue,¿Cuál imagen es la lengua?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the chin?,chin,¿Cuál imagen es el mentón?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the neck?,neck,¿Cuál imagen es el cuello?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the shoulder?,shoulder,¿Cuál imagen es el hombro?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the chest?,chest,¿Cuál imagen es el pecho?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the arm?,arm,¿Cuál imagen es el brazo?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the elbow?,elbow,¿Cuál imagen es el codo?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the stomach?,stomach,¿Cuál imagen es el estómago?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the wrist?,wrist,¿Cuál imagen es la muñeca?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the hand?,hand,¿Cuál imagen es la mano?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the thumb?,thumb,¿Cuál imagen es el pulgar?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the finger?,finger,¿Cuál imagen es el dedo?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the leg?,leg,¿Cuál imagen es la pierna?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the knee?,knee,¿Cuál imagen es la rodilla?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the foot?,foot,¿Cuál imagen es el pie?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the toe?,toe,¿Cuál imagen es el dedo del pie?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the back?,back,¿Cuál imagen es la espalda?
+Foundation,Body Parts,Type 1 - Photo Pick,Which picture is the butt?,butt,¿Cuál imagen es el trasero?
+Food,Junk Food,Type 1 - Photo Pick,Find the pizza!,pizza,¡Encuentra la pizza!
+Food,Junk Food,Type 1 - Photo Pick,Find the hamburgers!,hamburgers,¡Encuentra las hamburguesas!
+Food,Junk Food,Type 1 - Photo Pick,Find the french fries!,french fries,¡Encuentra las papas fritas!
+Food,Junk Food,Type 1 - Photo Pick,Find the fried chicken!,fried chicken,¡Encuentra el pollo frito!
+Food,Junk Food,Type 1 - Photo Pick,Find the soda!,soda,¡Encuentra el refresco!
+Food,Junk Food,Type 1 - Photo Pick,Find the potato chips!,potato chips,¡Encuentra las papitas!
+Food,Junk Food,Type 1 - Photo Pick,Find the candy!,candy,¡Encuentra los dulces!
+Food,Junk Food,Type 1 - Photo Pick,Find the cupcakes!,cupcakes,¡Encuentra los pastelitos!
+Food,Junk Food,Type 1 - Photo Pick,Find the ice cream!,ice cream,¡Encuentra el helado!
+Food,Junk Food,Type 1 - Photo Pick,Find the milkshakes!,milkshakes,¡Encuentra los batidos!
+Food,Junk Food,Type 1 - Photo Pick,Find the hot dogs!,hot dogs,¡Encuentra los hot dogs!
+Food,Junk Food,Type 1 - Photo Pick,Find the chocolate bars!,chocolate bars,¡Encuentra las barras de chocolate!
+Food,Junk Food,Type 1 - Photo Pick,Find the donuts!,donuts,¡Encuentra las donas!
+Food,Junk Food,Type 1 - Photo Pick,Find the popcorn!,popcorn,¡Encuentra las palomitas!
+Food,Junk Food,Type 1 - Photo Pick,Find the cake!,cake,¡Encuentra el pastel!
+Food,Junk Food,Type 1 - Photo Pick,Find the nuggets!,nuggets,¡Encuentra los nuggets!
+Food,Junk Food,Type 1 - Photo Pick,Find the pancakes!,pancakes,¡Encuentra los panqueques!
+Food,Junk Food,Type 1 - Photo Pick,Find the cotton candy!,cotton candy,¡Encuentra el algodón de azúcar!
+Food,Junk Food,Type 1 - Photo Pick,Find the gum!,gum,¡Encuentra el chicle!
+Food,Junk Food,Type 1 - Photo Pick,Find the lollipops!,lollipops,¡Encuentra las paletas!
+Food,Junk Food,Type 1 - Photo Pick,Find the gummy bears!,gummy bears,¡Encuentra los ositos de goma!
+Food,Junk Food,Type 1 - Photo Pick,Find the marshmallows!,marshmallows,¡Encuentra los malvaviscos!
+Food,Junk Food,Type 1 - Photo Pick,Find the popsicles!,popsicles,¡Encuentra las paletas de hielo!
+Food,Junk Food,Type 1 - Photo Pick,Find the brownies!,brownies,¡Encuentra los brownies!
+Food,Junk Food,Type 1 - Photo Pick,Find the onion rings!,onion rings,¡Encuentra los aros de cebolla!
+Food,Junk Food,Type 1 - Photo Pick,Find the corn dogs!,corn dogs,¡Encuentra los perros en maíz!
+Food,Junk Food,Type 1 - Photo Pick,Find the cookies!,cookies,¡Encuentra las galletas!
+Food,Junk Food,Type 1 - Photo Pick,Find the pretzels!,pretzels,¡Encuentra los pretzels!
+Food,Junk Food,Type 1 - Photo Pick,Find the syrup!,syrup,¡Encuentra el jarabe!
+Food,Junk Food,Type 1 - Photo Pick,Find the whipped cream!,whipped cream,¡Encuentra la crema batida!
+Food,Fruits,Type 1 - Photo Pick,Find the apple!,apple,¡Encuentra la manzana!
+Food,Fruits,Type 1 - Photo Pick,Find the banana!,banana,¡Encuentra el plátano!
+Food,Fruits,Type 1 - Photo Pick,Find the orange!,orange,¡Encuentra la naranja!
+Food,Fruits,Type 1 - Photo Pick,Find the grape!,grape,¡Encuentra la uva!
+Food,Fruits,Type 1 - Photo Pick,Find the pear!,pear,¡Encuentra la pera!
+Food,Fruits,Type 1 - Photo Pick,Find the strawberry!,strawberry,¡Encuentra la fresa!
+Food,Fruits,Type 1 - Photo Pick,Find the mango!,mango,¡Encuentra el mango!
+Food,Fruits,Type 1 - Photo Pick,Find the watermelon!,watermelon,¡Encuentra la sandía!
+Food,Fruits,Type 1 - Photo Pick,Find the pineapple!,pineapple,¡Encuentra la piña!
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the water?,water,¿Cuál imagen es el agua?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the orange juice?,orange juice,¿Cuál imagen es el jugo de naranja?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the yogurt?,yogurt,¿Cuál imagen es el yogur?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the bread?,bread,¿Cuál imagen es el pan?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the cereal?,cereal,¿Cuál imagen es el cereal?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the coffee?,coffee,¿Cuál imagen es el café?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the milk?,milk,¿Cuál imagen es la leche?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the honey?,honey,¿Cuál imagen es la miel?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the sugar?,sugar,¿Cuál imagen es el azúcar?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the toast?,toast,¿Cuál imagen es la tostada?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the butter?,butter,¿Cuál imagen es la mantequilla?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the jelly?,jelly,¿Cuál imagen es la mermelada?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the oatmeal?,oatmeal,¿Cuál imagen es la avena?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the avocado?,avocado,¿Cuál imagen es el aguacate?
+Food,Breakfast Foods,Type 1 - Photo Pick,Which picture is the cheese?,cheese,¿Cuál imagen es el queso?
+Foundation,Weather,Type 1 - Photo Pick,Which picture is sunny weather?,sunny,¿Cuál imagen muestra clima soleado?
+Foundation,Weather,Type 1 - Photo Pick,Which picture is cloudy weather?,cloudy,¿Cuál imagen muestra clima nublado?
+Foundation,Weather,Type 1 - Photo Pick,Which picture is stormy weather?,stormy,¿Cuál imagen muestra clima tormentoso?
+Foundation,Weather,Type 1 - Photo Pick,Which picture is windy weather?,windy,¿Cuál imagen muestra clima ventoso?
+Foundation,Weather,Type 1 - Photo Pick,Which picture is rainy weather?,rainy,¿Cuál imagen muestra clima lluvioso?
+Foundation,Weather,Type 1 - Photo Pick,Which picture is snowy weather?,snowy,¿Cuál imagen muestra clima nevado?
+Animals,Pets,Type 1 - Photo Pick,Find the dog!,dog,¡Encuentra el perro!
+Animals,Pets,Type 1 - Photo Pick,Find the cat!,cat,¡Encuentra el gato!
+Animals,Pets,Type 1 - Photo Pick,Find the guinea pig!,guinea pig,¡Encuentra el cobayo!
+Animals,Pets,Type 1 - Photo Pick,Find the rabbit!,rabbit,¡Encuentra el conejo!
+Animals,Pets,Type 1 - Photo Pick,Find the chicken!,chicken,¡Encuentra la gallina!
+Animals,Pets,Type 1 - Photo Pick,Find the bird!,bird,¡Encuentra el pájaro!
+Animals,Pets,Type 1 - Photo Pick,Find the parrot!,parrot,¡Encuentra el loro!
+Animals,Pets,Type 1 - Photo Pick,Find the fish!,fish,¡Encuentra el pez!
+Animals,Pets,Type 1 - Photo Pick,Find the turtle!,turtle,¡Encuentra la tortuga!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the tiger!,tiger,¡Encuentra el tigre!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the lion!,lion,¡Encuentra el león!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the monkey!,monkey,¡Encuentra el mono!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the dolphin!,dolphin,¡Encuentra el delfín!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the crocodile!,crocodile,¡Encuentra el cocodrilo!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the elephant!,elephant,¡Encuentra el elefante!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the zebra!,zebra,¡Encuentra la cebra!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the bear!,bear,¡Encuentra el oso!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the giraffe!,giraffe,¡Encuentra la jirafa!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the penguin!,penguin,¡Encuentra el pingüino!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the polar bear!,polar bear,¡Encuentra el oso polar!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the hippo!,hippo,¡Encuentra el hipopótamo!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the snake!,snake,¡Encuentra la serpiente!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the kangaroo!,kangaroo,¡Encuentra el canguro!
+Animals,Zoo Animals,Type 1 - Photo Pick,Find the shark!,shark,¡Encuentra el tiburón!
+Animals,Farm Animals,Type 1 - Photo Pick,Which picture is a pig?,pig,¿Cuál imagen es un cerdo?
+Animals,Farm Animals,Type 1 - Photo Pick,Which picture is a sheep?,sheep,¿Cuál imagen es una oveja?
+Animals,Farm Animals,Type 1 - Photo Pick,Which picture is a cow?,cow,¿Cuál imagen es una vaca?
+Animals,Farm Animals,Type 1 - Photo Pick,Which picture is a duck?,duck,¿Cuál imagen es un pato?
+Animals,Farm Animals,Type 1 - Photo Pick,Which picture is a hen?,hen,¿Cuál imagen es una gallina?
+Animals,Farm Animals,Type 1 - Photo Pick,Which picture is a horse?,horse,¿Cuál imagen es un caballo?
+Animals,Farm Animals,Type 1 - Photo Pick,Which picture is a goat?,goat,¿Cuál imagen es una cabra?
+Animals,Farm Animals,Type 1 - Photo Pick,Which picture is a rooster?,rooster,¿Cuál imagen es un gallo?
+School,Classroom,Type 1 - Photo Pick,Find the ruler!,ruler,¡Encuentra la regla!
+School,Classroom,Type 1 - Photo Pick,Find the book!,book,¡Encuentra el libro!
+School,Classroom,Type 1 - Photo Pick,Find the notebook!,notebook,¡Encuentra el cuaderno!
+School,Classroom,Type 1 - Photo Pick,Find the pen!,pen,¡Encuentra el bolígrafo!
+School,Classroom,Type 1 - Photo Pick,Find the pencil!,pencil,¡Encuentra el lápiz!
+School,Classroom,Type 1 - Photo Pick,Find the crayon!,crayon,¡Encuentra el crayón!
+School,Classroom,Type 1 - Photo Pick,Find the eraser!,eraser,¡Encuentra el borrador!
+School,Classroom,Type 1 - Photo Pick,Find the desk!,desk,¡Encuentra el escritorio!
+School,Classroom,Type 1 - Photo Pick,Find the chair!,chair,¡Encuentra la silla!
+School,Classroom,Type 1 - Photo Pick,Find the backpack!,backpack,¡Encuentra la mochila!
+School,Classroom,Type 1 - Photo Pick,Find the glue!,glue,¡Encuentra el pegamento!
+Foundation,Shapes,Type 1 - Photo Pick,Find the triangle!,triangle,¡Encuentra el triángulo!
+Foundation,Shapes,Type 1 - Photo Pick,Find the circle!,circle,¡Encuentra el círculo!
+Foundation,Shapes,Type 1 - Photo Pick,Find the square!,square,¡Encuentra el cuadrado!
+Foundation,Shapes,Type 1 - Photo Pick,Find the rectangle!,rectangle,¡Encuentra el rectángulo!
+Foundation,Shapes,Type 1 - Photo Pick,Find the star!,star,¡Encuentra la estrella!
+Foundation,Shapes,Type 1 - Photo Pick,Find the diamond!,diamond,¡Encuentra el rombo!
+Foundation,Shapes,Type 1 - Photo Pick,Find the pentagon!,pentagon,¡Encuentra el pentágono!
+Foundation,Shapes,Type 1 - Photo Pick,Find the oval!,oval,¡Encuentra el óvalo!
+Foundation,Shapes,Type 1 - Photo Pick,Find the heart!,heart,¡Encuentra el corazón!
+Foundation,Shapes,Type 1 - Photo Pick,Find the hexagon!,hexagon,¡Encuentra el hexágono!
+Foundation,Shapes,Type 1 - Photo Pick,Find the octagon!,octagon,¡Encuentra el octágono!
+Foundation,Shapes,Type 1 - Photo Pick,Find the cross!,cross,¡Encuentra la cruz!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the rice!,rice,¡Encuentra el arroz!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the potatoes!,potatoes,¡Encuentra las papas!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the chicken!,chicken,¡Encuentra el pollo!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the beef!,beef,¡Encuentra la carne de res!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the soup!,soup,¡Encuentra la sopa!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the pasta!,pasta,¡Encuentra la pasta!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the salad!,salad,¡Encuentra la ensalada!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the sweet potatoes!,sweet potatoes,¡Encuentra los camotes!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the tea!,tea,¡Encuentra el té!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the lemonade!,lemonade,¡Encuentra la limonada!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the steak!,steak,¡Encuentra el bistec!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the lasagna!,lasagna,¡Encuentra la lasaña!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the lentils!,lentils,¡Encuentra las lentejas!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the turkey!,turkey,¡Encuentra el pavo!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the cocoa!,cocoa,¡Encuentra el cacao!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the wine!,wine,¡Encuentra el vino!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the beans!,beans,¡Encuentra los frijoles!
+Food,Lunch & Dinner,Type 1 - Photo Pick,Find the tuna!,tuna,¡Encuentra el atún!
+Food,Vegetables,Type 1 - Photo Pick,Find the broccoli!,broccoli,¡Encuentra el brócoli!
+Food,Vegetables,Type 1 - Photo Pick,Find the onions!,onions,¡Encuentra las cebollas!
+Food,Vegetables,Type 1 - Photo Pick,Find the carrots!,carrots,¡Encuentra las zanahorias!
+Food,Vegetables,Type 1 - Photo Pick,Find the tomatoes!,tomatoes,¡Encuentra los tomates!
+Food,Vegetables,Type 1 - Photo Pick,Find the corn!,corn,¡Encuentra el maíz!
+Food,Vegetables,Type 1 - Photo Pick,Find the cucumbers!,cucumbers,¡Encuentra los pepinos!
+Food,Vegetables,Type 1 - Photo Pick,Find the lettuce!,lettuce,¡Encuentra la lechuga!
+Food,Vegetables,Type 1 - Photo Pick,Find the peppers!,peppers,¡Encuentra los pimientos!
+Food,Vegetables,Type 1 - Photo Pick,Find the garlic!,garlic,¡Encuentra el ajo!
+Food,Vegetables,Type 1 - Photo Pick,Find the spinach!,spinach,¡Encuentra la espinaca!
+Food,Vegetables,Type 1 - Photo Pick,Find the cabbage!,cabbage,¡Encuentra el repollo!
+Food,Vegetables,Type 1 - Photo Pick,Find the beets!,beets,¡Encuentra la remolacha!
+Food,Vegetables,Type 1 - Photo Pick,Find the potatoes!,potatoes,¡Encuentra las papas!
+Food,Vegetables,Type 1 - Photo Pick,Find the sweet potatoes!,sweet potatoes,¡Encuentra los camotes!
+Food,Vegetables,Type 1 - Photo Pick,Find the peas!,peas,¡Encuentra los guisantes!
+Food,Vegetables,Type 1 - Photo Pick,Find the green beans!,green beans,¡Encuentra los ejotes!
+School,Chess,Type 2 - Photo Name,What chess word is this?,chess board,¿Qué palabra de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess piece is this?,pawn,¿Qué pieza de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess piece is this?,knight,¿Qué pieza de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess piece is this?,queen,¿Qué pieza de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess piece is this?,king,¿Qué pieza de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess piece is this?,rook,¿Qué pieza de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess piece is this?,bishop,¿Qué pieza de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess word is this?,square,¿Qué palabra de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess word is this?,row,¿Qué palabra de ajedrez es esta?
+School,Chess,Type 2 - Photo Name,What chess word is this?,column,¿Qué palabra de ajedrez es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,living room,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,kitchen,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,bathroom,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,bedroom,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,dining room,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,laundry room,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,garden,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,garage,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,playroom,¿Qué habitación es esta?
+Places,Rooms,Type 2 - Photo Name,What room is this?,office,¿Qué habitación es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,hair,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,head,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,face,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,forehead,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,eyebrow,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,eyelash,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,eye,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,ear,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,nose,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,cheek,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,mouth,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,lips,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,teeth,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,tongue,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,chin,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,neck,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,shoulder,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,chest,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,arm,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,elbow,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,stomach,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,wrist,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,hand,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,thumb,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,finger,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,leg,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,knee,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,foot,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,toe,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,back,¿Qué parte del cuerpo es esta?
+Foundation,Body Parts,Type 2 - Photo Name,What body part is this?,butt,¿Qué parte del cuerpo es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,pizza,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,hamburgers,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,french fries,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,fried chicken,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,soda,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,potato chips,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,candy,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,cupcakes,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,ice cream,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,milkshakes,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,hot dogs,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,chocolate bars,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,donuts,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,popcorn,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,cake,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,nuggets,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,pancakes,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,cotton candy,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,gum,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,lollipops,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,gummy bears,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,marshmallows,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,popsicles,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,brownies,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,onion rings,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,corn dogs,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,cookies,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,pretzels,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,syrup,¿Qué comida chatarra es esta?
+Food,Junk Food,Type 2 - Photo Name,What junk food is this?,whipped cream,¿Qué comida chatarra es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,apple,¿Qué fruta es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,banana,¿Qué fruta es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,orange,¿Qué fruta es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,grape,¿Qué fruta es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,pear,¿Qué fruta es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,strawberry,¿Qué fruta es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,mango,¿Qué fruta es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,watermelon,¿Qué fruta es esta?
+Food,Fruits,Type 2 - Photo Name,What fruit is this?,pineapple,¿Qué fruta es esta?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,water,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,orange juice,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,yogurt,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,bread,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,cereal,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,coffee,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,milk,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,honey,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,sugar,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,toast,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,butter,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,jelly,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,oatmeal,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,avocado,¿Qué alimento de desayuno es este?
+Food,Breakfast Foods,Type 2 - Photo Name,What breakfast food is this?,cheese,¿Qué alimento de desayuno es este?
+Foundation,Weather,Type 2 - Photo Name,How is the weather in the photo?,sunny,¿Cómo está el clima en la foto?
+Foundation,Weather,Type 2 - Photo Name,How is the weather in the photo?,cloudy,¿Cómo está el clima en la foto?
+Foundation,Weather,Type 2 - Photo Name,How is the weather in the photo?,stormy,¿Cómo está el clima en la foto?
+Foundation,Weather,Type 2 - Photo Name,How is the weather in the photo?,windy,¿Cómo está el clima en la foto?
+Foundation,Weather,Type 2 - Photo Name,How is the weather in the photo?,rainy,¿Cómo está el clima en la foto?
+Foundation,Weather,Type 2 - Photo Name,How is the weather in the photo?,snowy,¿Cómo está el clima en la foto?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,dog,¿Qué mascota es esta?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,cat,¿Qué mascota es esta?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,guinea pig,¿Qué mascota es esta?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,rabbit,¿Qué mascota es esta?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,chicken,¿Qué mascota es esta?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,bird,¿Qué mascota es esta?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,parrot,¿Qué mascota es esta?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,fish,¿Qué mascota es esta?
+Animals,Pets,Type 2 - Photo Name,What pet is this?,turtle,¿Qué mascota es esta?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,tiger,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,lion,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,monkey,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,dolphin,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,crocodile,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,elephant,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,zebra,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,bear,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,giraffe,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,penguin,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,polar bear,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,hippo,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,snake,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,kangaroo,¿Qué animal es este?
+Animals,Zoo Animals,Type 2 - Photo Name,What animal is this?,shark,¿Qué animal es este?
+Animals,Farm Animals,Type 2 - Photo Name,What animal is this?,pig,¿Qué animal es este?
+Animals,Farm Animals,Type 2 - Photo Name,What animal is this?,sheep,¿Qué animal es este?
+Animals,Farm Animals,Type 2 - Photo Name,What animal is this?,cow,¿Qué animal es este?
+Animals,Farm Animals,Type 2 - Photo Name,What animal is this?,duck,¿Qué animal es este?
+Animals,Farm Animals,Type 2 - Photo Name,What animal is this?,hen,¿Qué animal es este?
+Animals,Farm Animals,Type 2 - Photo Name,What animal is this?,horse,¿Qué animal es este?
+Animals,Farm Animals,Type 2 - Photo Name,What animal is this?,goat,¿Qué animal es este?
+Animals,Farm Animals,Type 2 - Photo Name,What animal is this?,rooster,¿Qué animal es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,ruler,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,book,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,notebook,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,pen,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,pencil,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,crayon,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,eraser,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,desk,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,chair,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,backpack,¿Qué objeto del salón de clases es este?
+School,Classroom,Type 2 - Photo Name,What classroom object is this?,glue,¿Qué objeto del salón de clases es este?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,triangle,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,circle,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,square,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,rectangle,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,star,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,diamond,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,pentagon,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,oval,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,heart,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,hexagon,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,octagon,¿Qué figura es esta?
+Foundation,Shapes,Type 2 - Photo Name,What shape is this?,cross,¿Qué figura es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,rice,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,potatoes,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,chicken,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,beef,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,soup,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,pasta,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,salad,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,sweet potatoes,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,tea,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,lemonade,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,steak,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,lasagna,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,lentils,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,turkey,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,cocoa,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,wine,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,beans,¿Qué comida es esta?
+Food,Lunch & Dinner,Type 2 - Photo Name,What food is this?,tuna,¿Qué comida es esta?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,broccoli,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,onions,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,carrots,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,tomatoes,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,corn,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,cucumbers,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,lettuce,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,peppers,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,garlic,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,spinach,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,cabbage,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,beets,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,potatoes,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,sweet potatoes,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,peas,¿Qué vegetal es este?
+Food,Vegetables,Type 2 - Photo Name,What vegetable is this?,green beans,¿Qué vegetal es este?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),How do you feel today?,,¿Cómo te sientes hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Is your dad hungry?,,¿Tu papá tiene hambre?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Is your mom angry?,,¿Tu mamá está enojada?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel happy today?,,¿Te sientes feliz hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel sad today?,,¿Te sientes triste hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your mom feel scared today?,,¿Tu mamá se siente asustada hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your mom feel surprised today?,,¿Tu mamá se siente sorprendida hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your mom feel thirsty today?,,¿Tu mamá tiene sed hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your mom feel tired today?,,¿Tu mamá se siente cansada hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your mom feel sick today?,,¿Tu mamá se siente enferma hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your mom feel sleepy today?,,¿Tu mamá tiene sueño hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your mom feel confused today?,,¿Tu mamá se siente confundida hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your dad feel hot today?,,¿Tu papá siente calor hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your dad feel cold today?,,¿Tu papá siente frío hoy?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your dad feel hungry right now?,,¿Tu papá tiene hambre ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your dad feel angry right now?,,¿Tu papá está enojado ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your dad feel happy right now?,,¿Tu papá se siente feliz ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your dad feel sad right now?,,¿Tu papá se siente triste ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Does your dad feel scared right now?,,¿Tu papá se siente asustado ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel surprised right now?,,¿Te sientes sorprendido ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel thirsty right now?,,¿Tienes sed ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel tired right now?,,¿Te sientes cansado ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel sick right now?,,¿Te sientes enfermo ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel sleepy right now?,,¿Tienes sueño ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel confused right now?,,¿Te sientes confundido ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel hot right now?,,¿Sientes calor ahora mismo?
+Feelings & Actions,Feelings,Type 3 - Free Form (Claude),Do you feel cold right now?,,¿Sientes frío ahora mismo?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can you swim?,,¿Puedes nadar?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can you fly?,,¿Puedes volar?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can your dad sing?,,¿Tu papá puede cantar?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can your dad run fast?,,¿Tu papá puede correr rápido?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can your dad jump high?,,¿Tu papá puede saltar alto?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can you climb?,,¿Puedes escalar?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can you stomp?,,¿Puedes pisotear?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can you dance?,,¿Puedes bailar?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),Can you crawl?,,¿Puedes gatear?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),What abilities can you do?,,¿Qué habilidades puedes hacer?
+Feelings & Actions,Abilities,Type 3 - Free Form (Claude),What abilities can't you do?,,¿Qué habilidades no puedes hacer?
+Foundation,Family,Type 3 - Free Form (Claude),Is Cecilia your mom?,yes,¿Es Cecilia tu mamá?
+Foundation,Family,Type 3 - Free Form (Claude),Is Josue your dad?,yes,¿Es Josue tu papá?
+Foundation,Family,Type 3 - Free Form (Claude),Is Chris your uncle?,"yes, but also godfather",¿Es Chris tu tío?
+Foundation,Family,Type 3 - Free Form (Claude),Is Natalie your aunt?,"yes, but also godmother",¿Es Natalie tu tía?
+Foundation,Family,Type 3 - Free Form (Claude),Is Valentina your aunt?,yes,¿Es Valentina tu tía?
+Foundation,Family,Type 3 - Free Form (Claude),Is Valeria your daughter?,"no, your aunt",¿Es Valeria tu hija?
+Foundation,Family,Type 3 - Free Form (Claude),Is Nadya your uncle?,"no, your aunt",¿Es Nadya tu tío?
+Foundation,Family,Type 3 - Free Form (Claude),Is Mateo your brother?,yes,¿Es Mateo tu hermano?
+Foundation,Family,Type 3 - Free Form (Claude),Is Alcides your uncle?,"no, your grandpa",¿Es Alcides tu tío?
+Foundation,Family,Type 3 - Free Form (Claude),Is Marlene your grandmother?,yes,¿Es Marlene tu abuela?
+Foundation,Family,Type 3 - Free Form (Claude),Is Chris your godfather?,"yes, but also uncle",¿Es Chris tu padrino?
+Foundation,Family,Type 3 - Free Form (Claude),Is Natalie your godmother?,"yes, but also aunt",¿Es Natalie tu madrina?
+Foundation,Family,Type 3 - Free Form (Claude),Is Mateo your baby brother?,yes,¿Es Mateo tu hermanito?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your mom?,Cecilia,¿Cuál es el nombre de tu mamá?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your dad?,Josue,¿Cuál es el nombre de tu papá?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your uncle?,"Chris, he is smart",¿Cuál es el nombre de tu tío?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your aunt?,"Valeria, Valentina, Nadya, and Natalie",¿Cuál es el nombre de tu tía?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your brother?,Mateo,¿Cuál es el nombre de tu hermano?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your grandfather?,Alcides,¿Cuál es el nombre de tu abuelo?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your grandmother?,Marlene,¿Cuál es el nombre de tu abuela?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your godfather?,"Chris, he is cool",¿Cuál es el nombre de tu padrino?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your godmother?,Natalie,¿Cuál es el nombre de tu madrina?
+Foundation,Family,Type 3 - Free Form (Claude),What is the name of your baby brother?,Mateo,¿Cuál es el nombre de tu hermanito?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a mom?,"yes, Cecilia",¿Tienes mamá?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a dad?,"yes, Josue",¿Tienes papá?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have an uncle?,"yes, Chris",¿Tienes un tío?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have an aunt?,"yes, 4 of them, Valeria, Valentina, Nadya, and Natalie",¿Tienes una tía?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a brother?,Mateo - expected to be born June 2026,¿Tienes un hermano?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a sister?,No,¿Tienes una hermana?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a cousin?,No,¿Tienes un primo?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a grandfather?,"Yes, Alcides",¿Tienes un abuelo?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a grandmother?,"Yes, Marlene",¿Tienes una abuela?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a godfather?,"Yes, Chris, he is smart",¿Tienes un padrino?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a godmother?,"Yes, Natalie",¿Tienes una madrina?
+Foundation,Family,Type 3 - Free Form (Claude),Do you have a baby brother?,"Yes, Mateo, expected to be born June 2026",¿Tienes un hermanito?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day of the week is it?,,¿Qué día de la semana es hoy?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is it?,,¿Qué mes es?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is after Monday?,Tuesday,¿Qué día sigue después del lunes?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is after Tuesday?,Wednesday,¿Qué día sigue después del martes?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is after Wednesday?,Thursday,¿Qué día sigue después del miércoles?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is after Thursday?,Friday,¿Qué día sigue después del jueves?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is after Friday?,Saturday,¿Qué día sigue después del viernes?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is after Saturday?,Sunday,¿Qué día sigue después del sábado?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is after Sunday?,Monday,¿Qué día sigue después del domingo?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after January?,Feb,¿Qué mes sigue después de enero?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after February?,Mar,¿Qué mes sigue después de febrero?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after March?,Apr,¿Qué mes sigue después de marzo?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after April?,May,¿Qué mes sigue después de abril?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after May?,Jun,¿Qué mes sigue después de mayo?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after June?,Jul,¿Qué mes sigue después de junio?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after July?,Aug,¿Qué mes sigue después de julio?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after August?,Sep,¿Qué mes sigue después de agosto?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after September?,Oct,¿Qué mes sigue después de septiembre?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after October?,Nov,¿Qué mes sigue después de octubre?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after November?,Dec,¿Qué mes sigue después de noviembre?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is after December?,Jan,¿Qué mes sigue después de diciembre?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is before Monday?,Sunday,¿Qué día está antes del lunes?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is before Tuesday?,Monday,¿Qué día está antes del martes?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is before Wednesday?,Tuesday,¿Qué día está antes del miércoles?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is before Thursday?,Wednesday,¿Qué día está antes del jueves?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is before Friday?,Thursday,¿Qué día está antes del viernes?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is before Saturday?,Friday,¿Qué día está antes del sábado?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What day is before Sunday?,Saturday,¿Qué día está antes del domingo?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before January?,Dec,¿Qué mes está antes de enero?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before February?,Jan,¿Qué mes está antes de febrero?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before March?,Feb,¿Qué mes está antes de marzo?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before April?,Mar,¿Qué mes está antes de abril?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before May?,Apr,¿Qué mes está antes de mayo?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before June?,May,¿Qué mes está antes de junio?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before July?,Jun,¿Qué mes está antes de julio?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before August?,Jul,¿Qué mes está antes de agosto?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before September?,Aug,¿Qué mes está antes de septiembre?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before October?,Sep,¿Qué mes está antes de octubre?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before November?,Oct,¿Qué mes está antes de noviembre?
+Foundation,Days & Months,Type 3 - Free Form (Claude),What month is before December?,Nov,¿Qué mes está antes de diciembre?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like pizza?,,¿Te gusta la pizza?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like hamburgers?,,¿Te gustan las hamburguesas?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like french fries?,,¿Te gustan las papas fritas?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like fried chicken?,,¿Te gusta el pollo frito?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like soda?,,¿Te gusta el refresco?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like potato chips?,,¿Te gustan las papitas?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like candy?,,¿Te gustan los dulces?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like cupcakes?,,¿Te gustan los pastelitos?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like ice cream?,,¿Te gusta el helado?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like milkshakes?,,¿Te gustan los batidos?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like hot dogs?,,¿Te gustan los hot dogs?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like chocolate bars?,,¿Te gustan las barras de chocolate?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like donuts?,,¿Te gustan las donas?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like popcorn?,,¿Te gustan las palomitas?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like cake?,,¿Te gusta el pastel?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like nuggets?,,¿Te gustan los nuggets?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like pancakes?,,¿Te gustan los panqueques?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like cotton candy?,,¿Te gusta el algodón de azúcar?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like gum?,,¿Te gusta el chicle?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like lollipops?,,¿Te gustan las paletas?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like gummy bears?,,¿Te gustan los ositos de goma?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like marshmallows?,,¿Te gustan los malvaviscos?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like popsicles?,,¿Te gustan las paletas de hielo?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like brownies?,,¿Te gustan los brownies?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like onion rings?,,¿Te gustan los aros de cebolla?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like corn dogs?,,¿Te gustan los perros en maíz?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like cookies?,,¿Te gustan las galletas?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like pretzels?,,¿Te gustan los pretzels?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like syrup?,,¿Te gusta el jarabe?
+Food,Junk Food,Type 3 - Free Form (Claude),Do you like whipped cream?,,¿Te gusta la crema batida?
+Food,Fruits,Type 3 - Free Form (Claude),Is the apple your favorite fruit?,,¿Es la manzana tu fruta favorita?
+Food,Fruits,Type 3 - Free Form (Claude),Is the banana your favorite fruit?,,¿Es el plátano tu fruta favorita?
+Food,Fruits,Type 3 - Free Form (Claude),Is the orange your favorite fruit?,,¿Es la naranja tu fruta favorita?
+Food,Fruits,Type 3 - Free Form (Claude),Is the grape your favorite fruit?,,¿Es la uva tu fruta favorita?
+Food,Fruits,Type 3 - Free Form (Claude),Is the pear your favorite fruit?,,¿Es la pera tu fruta favorita?
+Food,Fruits,Type 3 - Free Form (Claude),Is the strawberry your favorite fruit?,,¿Es la fresa tu fruta favorita?
+Food,Fruits,Type 3 - Free Form (Claude),Is the mango your favorite fruit?,,¿Es el mango tu fruta favorita?
+Food,Fruits,Type 3 - Free Form (Claude),Is the watermelon your favorite fruit?,,¿Es la sandía tu fruta favorita?
+Food,Fruits,Type 3 - Free Form (Claude),Is the pineapple your favorite fruit?,,¿Es la piña tu fruta favorita?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer water or orange juice?,,¿Prefieres agua o jugo de naranja?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer orange juice or yogurt?,,¿Prefieres jugo de naranja o yogur?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer yogurt or bread?,,¿Prefieres yogur o pan?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer bread or cereal?,,¿Prefieres pan o cereal?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer cereal or coffee?,,¿Prefieres cereal o café?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer coffee or milk?,,¿Prefieres café o leche?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer milk or honey?,,¿Prefieres leche o miel?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer honey or sugar?,,¿Prefieres miel o azúcar?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer sugar or toast?,,¿Prefieres azúcar o tostada?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer toast or butter?,,¿Prefieres tostada o mantequilla?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer butter or jelly?,,¿Prefieres mantequilla o mermelada?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer jelly or oatmeal?,,¿Prefieres mermelada o avena?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer oatmeal or avocado?,,¿Prefieres avena o aguacate?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer avocado or cheese?,,¿Prefieres aguacate o queso?
+Food,Breakfast Foods,Type 3 - Free Form (Claude),Do you prefer cheese or water?,,¿Prefieres queso o agua?
+Foundation,Weather,Type 3 - Free Form (Claude),How is the weather today?,,¿Cómo está el clima hoy?
+Foundation,Weather,Type 3 - Free Form (Claude),Is it sunny outside?,,¿Está soleado afuera?
+Foundation,Weather,Type 3 - Free Form (Claude),Is it cloudy outside?,,¿Está nublado afuera?
+Foundation,Weather,Type 3 - Free Form (Claude),Is it stormy outside?,,¿Hay tormenta afuera?
+Foundation,Weather,Type 3 - Free Form (Claude),Is it windy outside?,,¿Hay viento afuera?
+Foundation,Weather,Type 3 - Free Form (Claude),Is it rainy outside?,,¿Está lloviendo afuera?
+Foundation,Weather,Type 3 - Free Form (Claude),Is it snowy outside?,,¿Está nevando afuera?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Dog eat a Cat?,,¿Puede un perro comerse a un gato?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Cat eat a Guinea Pig?,,¿Puede un gato comerse a un cobayo?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Guinea Pig eat a Rabbit?,,¿Puede un cobayo comerse a un conejo?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Rabbit eat a Chicken?,,¿Puede un conejo comerse a una gallina?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Chicken eat a Bird?,,¿Puede una gallina comerse a un pájaro?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Bird eat a Parrot?,,¿Puede un pájaro comerse a un loro?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Parrot eat a Fish?,,¿Puede un loro comerse a un pez?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Fish eat a Turtle?,,¿Puede un pez comerse a una tortuga?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Turtle eat a Dog?,,¿Puede una tortuga comerse a un perro?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Dog eat a Fish?,,¿Puede un perro comerse a un pez?
+Animals,Pets,Type 3 - Free Form (Claude),Can a Fish eat a Tiger?,,¿Puede un pez comerse a un tigre?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Tiger eat a Lion?,,¿Puede un tigre comerse a un león?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Lion eat a Monkey?,,¿Puede un león comerse a un mono?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Monkey eat a Dolphin?,,¿Puede un mono comerse a un delfín?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Dolphin eat a Crocodile?,,¿Puede un delfín comerse a un cocodrilo?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Crocodile eat a Elephant?,,¿Puede un cocodrilo comerse a un elefante?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Elephant eat a Zebra?,,¿Puede un elefante comerse a una cebra?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Zebra eat a Bear?,,¿Puede una cebra comerse a un oso?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Bear eat a Giraffe?,,¿Puede un oso comerse a una jirafa?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Giraffe eat a Penguin?,,¿Puede una jirafa comerse a un pingüino?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Penguin eat a Polar Bear?,,¿Puede un pingüino comerse a un oso polar?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Polar Bear eat a Hippo?,,¿Puede un oso polar comerse a un hipopótamo?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Hippo eat a Snake?,,¿Puede un hipopótamo comerse a una serpiente?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Snake eat a Kangaroo?,,¿Puede una serpiente comerse a un canguro?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a Kangaroo eat a Shark?,,¿Puede un canguro comerse a un tiburón?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can a shark eat me?,,¿Puede un tiburón comerme?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Are tigers purple?,,¿Son los tigres de color morado?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Can lions sing?,,¿Pueden los leones cantar?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Do elephants love soccer?,,¿Aman los elefantes el fútbol?
+Animals,Zoo Animals,Type 3 - Free Form (Claude),Are bears ugly?,,¿Son los osos feos?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),What color is rice?,,¿De qué color es el arroz?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Are potatoes squares?,,¿Son las papas cuadradas?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Do you prefer chicken or beef?,,¿Prefieres pollo o carne de res?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Is soup hot or cold?,,¿La sopa está caliente o fría?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Do you eat pasta with your hands?,,¿Comes pasta con las manos?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Do you prefer potatoes or sweet potatoes?,,¿Prefieres papas o camotes?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Do you like salad or lasagna?,,¿Te gusta la ensalada o la lasaña?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),What color is wine?,,¿De qué color es el vino?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),What color is lemonade?,,¿De qué color es la limonada?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Do you drink tea?,,¿Tomas té?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Do you eat steak?,,¿Comes bistec?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Is lasagna in your kitchen?,,¿Hay lasaña en tu cocina?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),I don't like lentils.  Do you?,,No me gustan las lentejas. ¿Y a ti?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),I don't like turkey.  Do you?,,No me gusta el pavo. ¿Y a ti?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),I love cocoa!  Do you?,,¡Me encanta el cacao! ¿Y a ti?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Who likes wine?,,¿A quién le gusta el vino?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Who likes beans?,,¿A quién le gustan los frijoles?
+Food,Lunch & Dinner,Type 3 - Free Form (Claude),Does the shark like tuna?,,¿Al tiburón le gusta el atún?
+Food,Vegetables,Type 3 - Free Form (Claude),Ewww broccoli.  Do you like broccoli?,,¡Puaj el brócoli! ¿Te gusta el brócoli?
+Food,Vegetables,Type 3 - Free Form (Claude),I love onions.  Do you?,,¡Me encantan las cebollas! ¿Y a ti?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like carrots?,,¿Te gustan las zanahorias?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like tomatoes?,,¿Te gustan los tomates?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like corn?,,¿Te gusta el maíz?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you prefer cucumbers or corn?,,¿Prefieres pepinos o maíz?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like lettuce?,,¿Te gusta la lechuga?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like peppers?,,¿Te gustan los pimientos?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like garlic?,,¿Te gusta el ajo?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like spinach?,,¿Te gusta la espinaca?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like cabbage?,,¿Te gusta el repollo?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like beets?,,¿Te gusta la remolacha?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like potatoes?,,¿Te gustan las papas?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like sweet potatoes?,,¿Te gustan los camotes?
+Food,Vegetables,Type 3 - Free Form (Claude),Do you like peas?,,¿Te gustan los guisantes?
+Food,Vegetables,Type 3 - Free Form (Claude),Does Natalie like green beans?,,¿A Natalie le gustan los ejotes?

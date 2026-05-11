@@ -18,16 +18,15 @@ function esc(v) {
     : s;
 }
 
-const headers = ['Question Type', 'Topic', 'Group', 'Question', 'Expected Answer', 'Hint', 'Accept Any'];
+const headers = ['Topic', 'TopicGroup', 'QuestionType', 'Question', 'Answer', 'QuestionSpanish'];
 
 const rows = QUESTIONS.map(q => [
-  getType(q),
   q.topic,
   q.group,
+  getType(q),
   q.text,
-  q.expects,
   q.hint ?? '',
-  q.acceptAny ? q.acceptAny.join(' / ') : '',
+  q.spanish ?? '',
 ].map(esc).join(','));
 
 const csv = [headers.join(','), ...rows].join('\n');
