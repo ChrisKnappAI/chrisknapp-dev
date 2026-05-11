@@ -32,7 +32,7 @@ function imgPath(word, lesson) {
 export default function PhotoQuestion({ question, topicVocab, lesson, onCorrect, onWrong, resetSignal }) {
   const [selected, setSelected] = useState(null);
 
-  const correctWord = question.hint;
+  const correctWord = question.answer;
 
   // Reshuffle only when the question changes — not on wrong-answer retries
   const choices = useMemo(() => {

@@ -162,7 +162,7 @@ export default function ChatWithPenny() {
 
     if (qType === 1 || (qType === 2 && wordCount < 5)) {
       // Pre-recorded vocab phrase (placeholder until phrases are built)
-      const word = currentQuestion.hint;
+      const word = currentQuestion.answer;
       if (word) {
         vocabLine   = `[Vocab phrase: ${word}]`;
         vocabLineEs = `[Frase de vocabulario: ${word}]`;
@@ -231,13 +231,10 @@ export default function ChatWithPenny() {
         if (result.correct) {
           await handleCorrect(answer);
         } else {
-          const hint    = currentQuestion.hint;
+          const answer  = currentQuestion.answer;
           const lesson  = LESSONS.find(l => l.id === currentQuestion.topic);
-          const isSubjectiveYesNo = currentQuestion.expects === 'yes-no' && hint !== 'yes' && hint !== 'no';
-          const displayHint   = isSubjectiveYesNo ? 'Try: yes or no!' : hint;
-          const displayHintEs = isSubjectiveYesNo
-            ? '¡Intenta: sí o no!'
-            : (hint ? (lesson?.spanishVocab?.[hint] ?? hint) : null);
+          const displayHint   = answer ?? null;
+          const displayHintEs = answer ? (lesson?.spanishVocab?.[answer] ?? answer) : null;
 
           setPennyResponse(null);
           setPennyResponseSpanish(null);
@@ -249,11 +246,9 @@ export default function ChatWithPenny() {
           setPennyHintSpanish(displayHintEs ? `Pista: ${displayHintEs}` : null);
           triggerAnim(WRONG_ANIM);
 
-          await speakLive(isSubjectiveYesNo
-            ? 'Not quite. Try saying yes or no, Santiago!'
-            : hint
-              ? `Not quite. Try again, Santiago! Hint: ${hint}`
-              : 'Not quite. Try again, Santiago!'
+          await speakLive(answer
+            ? `Not quite. Try again, Santiago! Hint: ${answer}`
+            : 'Not quite. Try again, Santiago!'
           ).catch(() => {});
         }
       }
@@ -377,8 +372,8 @@ export default function ChatWithPenny() {
               <div style={{ background: 'white', borderRadius: 16, border: '3px solid #1D4ED8', padding: 8 }}>
                 <img
                   src={
-                    currentLesson?.imageMap?.[currentQuestion.hint]
-                    ?? `/santiago-learns-english/chat-with-penny/images/${currentQuestion.topic}/${currentQuestion.hint?.replace(/\s+/g, '-')}.jpg`
+                    currentLesson?.imageMap?.[currentQuestion.answer]
+                    ?? `/santiago-learns-english/chat-with-penny/images/${currentQuestion.topic}/${currentQuestion.answer?.replace(/\s+/g, '-')}.jpg`
                   }
                   alt=""
                   style={{ width: 220, height: 220, objectFit: 'cover', borderRadius: 10, display: 'block' }}
@@ -399,10 +394,10 @@ export default function ChatWithPenny() {
                 onCorrect={async () => { await handleCorrect(''); }}
                 onWrong={() => {
                   triggerAnim(WRONG_ANIM);
-                  const sp = currentLesson?.spanishVocab?.[currentQuestion.hint] ?? currentQuestion.hint;
+                  const sp = currentLesson?.spanishVocab?.[currentQuestion.answer] ?? currentQuestion.answer;
                   setPennyResponse(null);
                   setPennyResponseSpanish(null);
-                  setPennyText(`Not quite! Find the ${currentQuestion.hint}!`);
+                  setPennyText(`Not quite! Find the ${currentQuestion.answer}!`);
                   setPennySpanish(`¡No exactamente! ¡Encuentra ${sp}!`);
                   setPennyHint(null);
                   setPennyHintSpanish(null);

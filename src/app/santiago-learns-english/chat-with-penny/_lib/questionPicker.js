@@ -5,7 +5,7 @@
  * Avoids repeating the same question twice in a row.
  */
 
-import { QUESTIONS } from '../_data/questions.js';
+import { QUESTIONS } from '../_data/question-bank.js';
 
 /**
  * Returns a random question from the active topics.
