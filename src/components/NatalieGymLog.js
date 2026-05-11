@@ -188,14 +188,14 @@ export default function NatalieGymLog() {
     <div style={{ color: c.text, height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
       {/* Header */}
-      <div style={{
+      <div className="natalie-gym-header" style={{
         padding: '1.25rem 2rem',
         borderBottom: `1px solid ${c.border}`,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         background: c.bg, position: 'sticky', top: 0, zIndex: 10,
       }}>
         <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Gym Log</span>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div className="natalie-gym-header-nav" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button onClick={() => shiftDate(-1)} style={NAV_BTN}>←</button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: '#FFFFFF', border: `1px solid ${c.border}`, borderRadius: 8, padding: '0.28rem 0.7rem' }}>
             <span style={{ fontSize: '0.83rem', fontWeight: 600, minWidth: 76, textAlign: 'center' }}>{friendlyDate(date)}</span>
