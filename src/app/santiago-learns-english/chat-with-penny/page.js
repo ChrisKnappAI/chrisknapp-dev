@@ -172,9 +172,16 @@ export default function ChatWithPenny() {
         }
       }
     } else if (qType === 2 && wordCount >= 5) {
-      // Santiago gave a longer answer — Claude gives a personalized response
-      vocabLine   = `[Claude API: personalized response to "${answer}"]`;
-      vocabLineEs = `[Claude API: respuesta personalizada]`;
+      try {
+        const res  = await fetch('/api/penny/grade', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ question: currentQuestion, answer }),
+        });
+        const data = await res.json();
+        vocabLine   = data.english ?? '';
+        vocabLineEs = data.spanish ?? '';
+      } catch {}
     }
 
     // Response section (pink) — encouragement + vocab phrase
