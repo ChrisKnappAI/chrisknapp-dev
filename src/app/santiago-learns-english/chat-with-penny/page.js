@@ -16,9 +16,10 @@ const STORAGE_KEY = 'penny-active-topics';
 const COUNT_KEY   = 'penny-correct-count';
 
 const UNLOCKABLE = [
-  { id: 'flyaway',   threshold: 5,  icon: '🐦', label: 'Fly Away'   },
-  { id: 'layegg',    threshold: 10, icon: '🥚', label: 'Lay Egg'    },
-  { id: 'holdhands', threshold: 15, icon: '💕', label: 'Hold Hands' },
+  { id: 'flyaway',   threshold: 5,  icon: '🐦', label: 'Fly Away'        },
+  { id: 'layegg',    threshold: 10, icon: '🥚', label: 'Lay Egg'         },
+  { id: 'holdhands', threshold: 15, icon: '💕', label: 'Hold Hands'      },
+  { id: 'puppy',     threshold: 20, icon: '🐶', label: "Penny's Puppy"   },
 ];
 
 const TOPIC_GROUPS = LESSONS.reduce((acc, l) => {

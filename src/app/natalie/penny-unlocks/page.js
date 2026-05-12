@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 const ANIMATIONS = [
   { id: 'flyaway',    label: 'Fly Away',   icon: '🐦', desc: 'Penny soars off the screen and flies back in' },
   { id: 'layegg',    label: 'Lay Egg',     icon: '🥚', desc: 'Penny lays an egg that hatches into a baby penguin' },
-  { id: 'holdhands', label: 'Hold Hands',  icon: '💕', desc: 'A friend penguin walks in and holds hands with Penny' },
+  { id: 'holdhands', label: 'Hold Hands',    icon: '💕', desc: 'A friend penguin walks in and holds hands with Penny' },
+  { id: 'puppy',     label: "Penny's Puppy", icon: '🐶', desc: "A puppy runs in, sits next to Penny, sticks its tongue out, then runs off" },
 ];
 
 const SCENES = [

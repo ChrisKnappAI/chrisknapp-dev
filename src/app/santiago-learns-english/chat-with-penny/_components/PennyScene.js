@@ -587,6 +587,51 @@ const css = `
   }
   .uw-bubble { animation: bubble-rise linear infinite; }
 
+  /* ── PENNY'S PUPPY ─────────────────────────────────────────────────────────── */
+  #puppy-tail { transform-box: fill-box; transform-origin: 80% 90%; }
+  @keyframes puppy-tail-wag {
+    0%,100% { transform: rotate(-25deg); }
+    50%     { transform: rotate(40deg);  }
+  }
+  .puppy-sitting .dog-svg #puppy-tail { animation: puppy-tail-wag 0.55s ease-in-out infinite; }
+
+  @keyframes puppy-tongue-pop {
+    0%   { transform: scaleY(0); opacity: 0; }
+    70%  { transform: scaleY(1.15); opacity: 1; }
+    100% { transform: scaleY(1); opacity: 1; }
+  }
+  .puppy-tongue { transform-box: fill-box; transform-origin: top center; animation: puppy-tongue-pop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+  @keyframes puppy-run-in {
+    0%   { transform: translateX(750px) rotate(6deg);  }
+    14%  { transform: translateX(578px) rotate(-9deg); }
+    28%  { transform: translateX(410px) rotate(9deg);  }
+    42%  { transform: translateX(262px) rotate(-8deg); }
+    56%  { transform: translateX(142px) rotate(7deg);  }
+    70%  { transform: translateX(60px)  rotate(-5deg); }
+    84%  { transform: translateX(14px)  rotate(2deg);  }
+    100% { transform: translateX(0)     rotate(0deg);  }
+  }
+  .puppy-running-in { animation: puppy-run-in 2.5s ease-out forwards; transform-origin: bottom center; }
+
+  @keyframes puppy-sit-idle {
+    0%,100% { transform: translateY(0);    }
+    50%     { transform: translateY(-5px); }
+  }
+  .puppy-sitting { animation: puppy-sit-idle 1.2s ease-in-out infinite; }
+
+  @keyframes puppy-run-out {
+    0%   { transform: translateX(0)      rotate(0deg);  }
+    14%  { transform: translateX(-120px) rotate(9deg);  }
+    28%  { transform: translateX(-270px) rotate(-9deg); }
+    42%  { transform: translateX(-415px) rotate(8deg);  }
+    56%  { transform: translateX(-558px) rotate(-7deg); }
+    70%  { transform: translateX(-672px) rotate(6deg);  }
+    84%  { transform: translateX(-762px) rotate(-4deg); }
+    100% { transform: translateX(-900px) rotate(2deg);  }
+  }
+  .puppy-running-out { animation: puppy-run-out 2.5s ease-in forwards; transform-origin: bottom center; }
+
 `;
 
 /* ── Scenes ─────────────────────────────────────────────────────────────────── */
@@ -1228,9 +1273,65 @@ function BabyPenguin() {
   );
 }
 
+function DogSVG({ showTongue = false }) {
+  return (
+    <svg className="dog-svg" viewBox="0 0 140 180"
+      style={{ width: 90, height: 'auto', display: 'block', overflow: 'visible' }}>
+      {/* Tail — left in SVG → right side after scaleX(-1) flip */}
+      <g id="puppy-tail">
+        <path d="M28,122 Q10,100 14,78 Q18,58 6,42"
+          fill="none" stroke="#8B5A0C" strokeWidth="12" strokeLinecap="round"/>
+        <path d="M28,122 Q10,100 14,78 Q18,58 6,42"
+          fill="none" stroke="#C4820C" strokeWidth="7" strokeLinecap="round"/>
+      </g>
+      {/* Body */}
+      <ellipse cx="72" cy="130" rx="50" ry="44" fill="#D4900E"/>
+      <ellipse cx="72" cy="138" rx="28" ry="26" fill="#F5D07A" opacity="0.85"/>
+      {/* Sitting haunches */}
+      <ellipse cx="30" cy="158" rx="20" ry="14" fill="#B8720A" transform="rotate(-25 30 158)"/>
+      <ellipse cx="114" cy="158" rx="20" ry="14" fill="#B8720A" transform="rotate(25 114 158)"/>
+      {/* Front paws */}
+      <ellipse cx="52" cy="168" rx="16" ry="10" fill="#C4820C"/>
+      <ellipse cx="92" cy="168" rx="16" ry="10" fill="#C4820C"/>
+      {/* Neck */}
+      <ellipse cx="72" cy="100" rx="24" ry="20" fill="#D4900E"/>
+      {/* Head */}
+      <circle cx="72" cy="60" r="42" fill="#D4900E"/>
+      {/* Droopy ears */}
+      <ellipse cx="36" cy="48" rx="18" ry="30" fill="#B8720A" transform="rotate(-18 36 48)"/>
+      <ellipse cx="108" cy="48" rx="18" ry="30" fill="#B8720A" transform="rotate(18 108 48)"/>
+      {/* Snout */}
+      <ellipse cx="72" cy="76" rx="26" ry="19" fill="#C4820C"/>
+      {/* Nose */}
+      <ellipse cx="72" cy="67" rx="11" ry="8" fill="#1A0E00"/>
+      <ellipse cx="75" cy="65" rx="4"  ry="3"  fill="white" opacity="0.35"/>
+      {/* Eyes */}
+      <circle cx="55" cy="54" r="11"  fill="white"/>
+      <circle cx="56" cy="55" r="7.5" fill="#1A0E00"/>
+      <circle cx="58" cy="53" r="2.5" fill="white"/>
+      <circle cx="89" cy="54" r="11"  fill="white"/>
+      <circle cx="90" cy="55" r="7.5" fill="#1A0E00"/>
+      <circle cx="92" cy="53" r="2.5" fill="white"/>
+      {/* Eyebrows */}
+      <path d="M45,41 Q55,36 65,40" fill="none" stroke="#8B5A0C" strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M79,40 Q89,36 99,41" fill="none" stroke="#8B5A0C" strokeWidth="2.5" strokeLinecap="round"/>
+      {/* Mouth */}
+      <path d="M62,84 Q72,91 82,84" fill="none" stroke="#7A4800" strokeWidth="2.5" strokeLinecap="round"/>
+      {/* Tongue */}
+      {showTongue && (
+        <g className="puppy-tongue">
+          <path d="M62,88 Q68,112 72,118 Q76,112 82,88" fill="#F87171"/>
+          <ellipse cx="72" cy="108" rx="11" ry="10" fill="#F87171"/>
+          <line x1="72" y1="88" x2="72" y2="118" stroke="#EF4444" strokeWidth="1.5" strokeLinecap="round" opacity="0.6"/>
+        </g>
+      )}
+    </svg>
+  );
+}
+
 /* ── Exported component ─────────────────────────────────────────────────────── */
 
-const SCENES = ['outdoor', 'beach', 'snowy', 'city', 'underwater', 'volcano', 'arctic'];
+const SCENES =['outdoor', 'beach', 'snowy', 'city', 'underwater', 'volcano', 'arctic'];
 
 const IDLE_ANIMS    = ['wave', 'bounce', 'shimmy', 'look', 'sleep', 'wink', 'rudolph', 'fallapart'];
 const CORRECT_ANIMS = ['flap', 'bounce', 'backflip'];
@@ -1239,7 +1340,7 @@ const WRONG_ANIM    = 'look';
 const ANIM_DURATIONS = {
   wave: 4000, bounce: 2200, shimmy: 2800, look: 3000,
   sleep: 7000, flap: 3000, backflip: 3500,
-  flyaway: 10000, layegg: 12000, holdhands: 14000,
+  flyaway: 10000, layegg: 12000, holdhands: 14000, puppy: 13000,
   wink: 4000, rudolph: 8000, fallapart: 10000,
 };
 
@@ -1252,10 +1353,12 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
   const [blinking,     setBlinking]     = useState(false);
   const [activeAnim,   setActiveAnim]   = useState(null);
   const [layEggPhase,  setLayEggPhase]  = useState(0);
+  const [puppyPhase,   setPuppyPhase]   = useState(0);
   const blinkRef       = useRef(null);
   const animTimerRef   = useRef(null);
   const idleTimerRef   = useRef(null);
   const layEggTimers   = useRef([]);
+  const puppyTimers    = useRef([]);
   const isPausedRef    = useRef(isPaused);
   isPausedRef.current  = isPaused;
 
@@ -1332,6 +1435,19 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     return () => { layEggTimers.current.forEach(clearTimeout); };
   }, [activeAnim]);
 
+  // Puppy phase sequencer
+  useEffect(() => {
+    puppyTimers.current.forEach(clearTimeout);
+    puppyTimers.current = [];
+    if (activeAnim !== 'puppy') { setPuppyPhase(0); return; }
+    setPuppyPhase(1);
+    puppyTimers.current.push(setTimeout(() => setPuppyPhase(2), 2500));
+    puppyTimers.current.push(setTimeout(() => setPuppyPhase(3), 4500));
+    puppyTimers.current.push(setTimeout(() => setPuppyPhase(4), 9500));
+    puppyTimers.current.push(setTimeout(() => setPuppyPhase(0), 12500));
+    return () => puppyTimers.current.forEach(clearTimeout);
+  }, [activeAnim]);
+
   const pennyClass = [
     activeAnim === 'bounce'                                          && 'bouncing',
     activeAnim === 'shimmy'                                          && 'shimmying',
@@ -1394,6 +1510,22 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
             style={{ position:'absolute', bottom:0, left:'calc(6% + 55px)' }}
           >
             <EggSVG showCracks={layEggPhase >= 4} />
+          </div>
+        )}
+
+        {/* Puppy — before Penny so Penny renders on top if they briefly overlap */}
+        {activeAnim === 'puppy' && puppyPhase > 0 && (
+          <div
+            className={
+              puppyPhase === 1 ? 'puppy-running-in' :
+              puppyPhase === 4 ? 'puppy-running-out' :
+              'puppy-sitting'
+            }
+            style={{ position: 'absolute', bottom: 0, left: 'calc(6% + 114px)' }}
+          >
+            <div style={{ transform: 'scaleX(-1)', transformOrigin: 'center bottom' }}>
+              <DogSVG showTongue={puppyPhase === 3} />
+            </div>
           </div>
         )}
 

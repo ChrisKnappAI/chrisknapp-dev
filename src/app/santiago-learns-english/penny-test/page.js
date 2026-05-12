@@ -10,7 +10,7 @@ const GROUPS = [
   { label: '😴 Idle Pool',  color: '#6B7280', anims: IDLE_ANIMS },
   { label: '✅ Correct',     color: '#16A34A', anims: CORRECT_ANIMS },
   { label: '❌ Wrong',       color: '#DC2626', anims: [WRONG_ANIM] },
-  { label: '🏆 Unlockable',  color: '#D97706', anims: ['flyaway', 'layegg', 'holdhands'] },
+  { label: '🏆 Unlockable',  color: '#D97706', anims: ['flyaway', 'layegg', 'holdhands', 'puppy'] },
 ];
 
 const SCENE_LABELS = {
