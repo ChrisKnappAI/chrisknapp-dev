@@ -59,6 +59,7 @@ Rules:
 - If correct: celebrate! Be enthusiastic.
 - If wrong: gently correct him, show the right answer, and invite him to try again
 - Keep it to 12 words or fewer
+- Do NOT invent or confirm facts about Santiago's family, life, or world — only react to whether his answer was right or wrong
 - Return only valid JSON, nothing else`;
 
   const message = await client.messages.create({
