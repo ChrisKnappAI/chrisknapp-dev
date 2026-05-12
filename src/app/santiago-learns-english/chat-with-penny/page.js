@@ -391,11 +391,13 @@ export default function ChatWithPenny() {
             >
               {unlockedScenes.map(id => (
                 <option key={id} value={id}>
-                  {id === 'outdoor'   ? '🌳 Outdoor'   :
-                   id === 'beach'     ? '🏖️ Beach'    :
-                   id === 'classroom' ? '🏫 Classroom' :
-                   id === 'snowy'     ? '❄️ Snowy'     :
-                   id === 'city'      ? '🏙️ City'     : id}
+                  {id === 'outdoor'    ? '🌳 Outdoor'    :
+                   id === 'beach'      ? '🏖️ Beach'     :
+                   id === 'snowy'      ? '❄️ Snowy'      :
+                   id === 'city'       ? '🏙️ City'      :
+                   id === 'underwater' ? '🐠 Underwater' :
+                   id === 'volcano'    ? '🌋 Volcano'    :
+                   id === 'arctic'     ? '🧊 Arctic'     : id}
                 </option>
               ))}
             </select>
