@@ -189,7 +189,7 @@ export default function ChrisGoalsLog() {
     <div style={{ color: c.text, height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
       {/* Header */}
-      <div style={{
+      <div className="care-header" style={{
         padding: '1.25rem 2rem',
         borderBottom: `1px solid ${c.border}`,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -211,7 +211,7 @@ export default function ChrisGoalsLog() {
       </div>
 
       {/* 3-column grid */}
-      <div style={{
+      <div className="care-content" style={{
         flex: 1,
         padding: '1rem 1.5rem',
         display: 'grid',

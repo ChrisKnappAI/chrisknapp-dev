@@ -40,6 +40,16 @@ body { margin: 0; }
   .natalie-gym-header-nav { justify-content: center !important; }
   .gym-grid { grid-template-columns: 1fr !important; }
   .gym-input { height: 32px !important; font-size: 0.9rem !important; }
+
+  /* Care log mobile */
+  .care-header { padding: 0.85rem 1rem !important; }
+  .care-content {
+    grid-template-columns: 1fr !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding: 0.75rem 0.75rem !important;
+    gap: 0.65rem !important;
+  }
 }
 
 /* Remove number input spinners */
