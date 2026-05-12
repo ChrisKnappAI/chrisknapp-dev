@@ -69,7 +69,9 @@ Rules:
 
   let json;
   try {
-    json = JSON.parse(message.content[0].text);
+    const text = message.content[0].text;
+    const match = text.match(/\{[\s\S]*\}/);
+    json = JSON.parse(match ? match[0] : text);
   } catch {
     return Response.json({ correct: false, english: "Hmm, I didn't understand that. Try again!", spanish: "¡Inténtalo de nuevo!" }, { status: 200 });
   }
