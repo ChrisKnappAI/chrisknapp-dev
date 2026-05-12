@@ -200,6 +200,7 @@ export default function ChatWithPenny() {
 
     // Speak encouragement + next question, skip placeholders
     const speakText = [...responseParts.filter(p => !p.startsWith('[')), 'Next question:', nextQ.text].join(' ');
+    setLoading(false);
     if (voiceEnabled) { await new Promise(r => setTimeout(r, 80)); await speakLive(speakText).catch(() => {}); }
   }
 
@@ -234,6 +235,7 @@ export default function ChatWithPenny() {
     setQuestion(nextQ);
     triggerAnim(wasCorrect ? CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)] : WRONG_ANIM);
 
+    setLoading(false);
     if (voiceEnabled) { await new Promise(r => setTimeout(r, 80)); await speakLive([responseEn, 'Next question:', nextQ.text].join(' ')).catch(() => {}); }
   }
 
@@ -269,6 +271,7 @@ export default function ChatWithPenny() {
           setPennyHintSpanish(displayHintEs ? `Pista: ${displayHintEs}` : null);
           triggerAnim(WRONG_ANIM);
 
+          setLoading(false);
           if (voiceEnabled) {
             await new Promise(r => setTimeout(r, 80));
             await speakLive(answer
