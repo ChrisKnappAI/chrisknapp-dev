@@ -536,224 +536,57 @@ const css = `
   .fallingapart #body        { animation: body-side-fall   10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
   .fallingapart #belly       { animation: body-side-fall   10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
 
-  /* ── BALLET ─────────────────────────────────────────────────────────────────── */
-  @keyframes ballet-spin {
-    0%   { transform: translateY(0) rotate(0deg); }
-    8%   { transform: translateY(-24px) rotate(0deg); }
-    40%  { transform: translateY(-20px) rotate(-360deg); }
-    72%  { transform: translateY(-16px) rotate(-720deg); }
-    88%  { transform: translateY(-6px) rotate(-720deg); }
-    100% { transform: translateY(0) rotate(-720deg); }
+  /* ── AURORA WIGGLE (arctic) ─────────────────────────────────────────────────── */
+  @keyframes aurora-wiggle {
+    0%,100% { transform: translateY(0px)  scaleY(1);    }
+    33%     { transform: translateY(-8px)  scaleY(1.05); }
+    66%     { transform: translateY(4px)   scaleY(0.96); }
   }
-  @keyframes ballet-wing-l { 0%,85%,100% { transform: rotate(0deg); } 20%,60% { transform: rotate(-68deg); } }
-  @keyframes ballet-wing-r { 0%,85%,100% { transform: rotate(0deg); } 20%,60% { transform: rotate(68deg);  } }
-  .balleting { animation: ballet-spin 6s ease-in-out forwards; transform-origin: bottom center; }
-  .balleting #wing-left  { animation: ballet-wing-l 6s ease-in-out forwards; }
-  .balleting #wing-right { animation: ballet-wing-r 6s ease-in-out forwards; }
-  @keyframes ballet-star {
-    0%   { transform: translateY(0) translateX(0); opacity: 0; }
-    12%  { opacity: 1; }
-    100% { transform: translateY(-65px) translateX(var(--bsx,20px)); opacity: 0; }
-  }
-  .ballet-star { position:absolute; font-size:15px; pointer-events:none; user-select:none; animation: ballet-star 1.1s ease-out infinite; }
+  .aurora-a { animation: aurora-wiggle 16s ease-in-out infinite; }
+  .aurora-b { animation: aurora-wiggle 22s ease-in-out infinite; animation-delay: -7s; }
+  .aurora-c { animation: aurora-wiggle 28s ease-in-out infinite; animation-delay: -14s; }
 
-  /* ── BOXING ─────────────────────────────────────────────────────────────────── */
-  @keyframes boxing-rock {
-    0%,92%,100% { transform: translateX(0) rotate(0deg); }
-    10% { transform: translateX(-10px) rotate(-7deg); }
-    22% { transform: translateX(10px)  rotate(7deg); }
-    34% { transform: translateX(-10px) rotate(-7deg); }
-    46% { transform: translateX(10px)  rotate(7deg); }
-    58% { transform: translateX(-10px) rotate(-7deg); }
-    70% { transform: translateX(10px)  rotate(7deg); }
-    82% { transform: translateX(-4px)  rotate(-3deg); }
+  /* ── LAVA STREAMS (volcano) ─────────────────────────────────────────────────── */
+  @keyframes lava-draw {
+    0%,1%  { stroke-dashoffset: 380; opacity: 0; }
+    3%     { opacity: 1; }
+    25%    { stroke-dashoffset: 0;   opacity: 1; }
+    78%    { stroke-dashoffset: 0;   opacity: 0.88; }
+    95%    { stroke-dashoffset: 0;   opacity: 0; }
+    100%   { stroke-dashoffset: 380; opacity: 0; }
   }
-  @keyframes jab-left-wing {
-    0%,100% { transform: rotate(0deg); }
-    9%      { transform: rotate(-115deg); }
-    18%     { transform: rotate(0deg); }
-    31%     { transform: rotate(-115deg); }
-    40%     { transform: rotate(0deg); }
-    53%     { transform: rotate(-115deg); }
-    62%     { transform: rotate(0deg); }
+  .lava-stream {
+    stroke-dasharray: 380; stroke-dashoffset: 380;
+    animation: lava-draw 30s linear infinite;
+    fill: none; stroke-linecap: round;
   }
-  @keyframes jab-right-wing {
-    0%,100% { transform: rotate(0deg); }
-    15%     { transform: rotate(115deg); }
-    24%     { transform: rotate(0deg); }
-    37%     { transform: rotate(115deg); }
-    46%     { transform: rotate(0deg); }
-    59%     { transform: rotate(115deg); }
-    68%     { transform: rotate(0deg); }
+  @keyframes smoke-rise {
+    0%   { transform: translateY(0) scale(1);    opacity: 0; }
+    12%  { opacity: 0.5; }
+    80%  { opacity: 0.35; }
+    100% { transform: translateY(-135px) scale(3); opacity: 0; }
   }
-  .boxing { animation: boxing-rock 7s ease-in-out forwards; transform-origin: bottom center; }
-  .boxing #wing-left  { animation: jab-left-wing  7s linear forwards; }
-  .boxing #wing-right { animation: jab-right-wing 7s linear forwards; }
+  .smoke-puff { animation: smoke-rise ease-out infinite; transform-origin: center bottom; }
 
-  /* ── MEDITATION ─────────────────────────────────────────────────────────────── */
-  @keyframes meditate-float {
-    0%   { transform: translateY(0); }
-    18%  { transform: translateY(-28px); }
-    82%  { transform: translateY(-28px); }
-    100% { transform: translateY(0); }
+  /* ── UNDERWATER (fish + bubbles) ────────────────────────────────────────────── */
+  @keyframes uw-fish-swim {
+    0%   { transform: translateX(980px); }
+    100% { transform: translateX(-110px); }
   }
-  @keyframes med-wing-l { 0%,100% { transform: rotate(0deg); } 18%,82% { transform: rotate(48deg);  } }
-  @keyframes med-wing-r { 0%,100% { transform: rotate(0deg); } 18%,82% { transform: rotate(-48deg); } }
-  .meditating { animation: meditate-float 10s ease-in-out forwards; transform-origin: bottom center; }
-  .meditating #wing-left  { animation: med-wing-l 10s ease-in-out forwards; }
-  .meditating #wing-right { animation: med-wing-r 10s ease-in-out forwards; }
-  @keyframes sparkle-orbit {
-    0%   { transform: rotate(0deg)   translateX(52px) rotate(0deg);    opacity: 0; }
-    12%  { opacity: 1; }
-    88%  { opacity: 1; }
-    100% { transform: rotate(360deg) translateX(52px) rotate(-360deg); opacity: 0; }
+  .uw-f1 { animation: uw-fish-swim 18s linear infinite; }
+  .uw-f2 { animation: uw-fish-swim 26s linear infinite; animation-delay: -10s; }
+  .uw-f3 { animation: uw-fish-swim 14s linear infinite; animation-delay: -6s; }
+  .uw-f4 { animation: uw-fish-swim 22s linear infinite; animation-delay: -14s; }
+  .uw-f5 { animation: uw-fish-swim 32s linear infinite; animation-delay: -20s; }
+  .uw-shark { animation: uw-fish-swim 42s linear infinite; animation-delay: -28s; }
+  @keyframes bubble-rise {
+    0%   { transform: translateY(0) translateX(0);                    opacity: 0; }
+    10%  { opacity: 0.7; }
+    88%  { opacity: 0.5; }
+    100% { transform: translateY(-400px) translateX(var(--bx, 6px));  opacity: 0; }
   }
-  .med-sparkle { position:absolute; pointer-events:none; user-select:none; font-size:18px; animation: sparkle-orbit 3s linear infinite; transform-origin: 0 0; }
+  .uw-bubble { animation: bubble-rise linear infinite; }
 
-  /* ── DISCO ──────────────────────────────────────────────────────────────────── */
-  @keyframes disco-groove {
-    0%,100% { transform: translateX(0) rotate(0deg); }
-    12% { transform: translateX(-12px) rotate(-9deg); }
-    25% { transform: translateX(12px)  rotate(9deg); }
-    37% { transform: translateX(-12px) rotate(-9deg); }
-    50% { transform: translateX(12px)  rotate(9deg); }
-    62% { transform: translateX(-12px) rotate(-9deg); }
-    75% { transform: translateX(12px)  rotate(9deg); }
-    87% { transform: translateX(-5px)  rotate(-4deg); }
-  }
-  @keyframes disco-point { 0%,100% { transform: rotate(0deg); } 20%,75% { transform: rotate(-105deg); } 12%,83% { transform: rotate(-52deg); } }
-  .discoing { animation: disco-groove 8s linear forwards; transform-origin: bottom center; }
-  .discoing #wing-right { animation: disco-point 8s ease-in-out forwards; }
-  @keyframes disco-ball-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  .disco-ball { position:absolute; font-size:38px; pointer-events:none; user-select:none; animation: disco-ball-spin 2s linear infinite; }
-  @keyframes disco-beam { 0%,100% { opacity:0; transform: scaleX(0.2) rotate(var(--dr,0deg)); } 30%,70% { opacity:0.5; transform: scaleX(1) rotate(var(--dr,0deg)); } }
-  .disco-beam { position:absolute; height:3px; width:110px; border-radius:2px; pointer-events:none; animation: disco-beam 1.4s ease-in-out infinite; transform-origin: left center; }
-
-  /* ── SUPERHERO ──────────────────────────────────────────────────────────────── */
-  @keyframes hero-launch {
-    0%   { transform: translate(0,0)         rotate(0deg);  }
-    12%  { transform: translate(0,-36px)     rotate(-12deg); }
-    26%  { transform: translate(0,-36px)     rotate(-12deg); }
-    38%  { transform: translate(560px,-42px) rotate(-18deg); opacity:1; }
-    39%  { opacity:0; transform: translate(560px,-42px) rotate(-18deg); }
-    40%  { opacity:0; transform: translate(-200px,-10px) rotate(18deg); }
-    42%  { opacity:1; transform: translate(-200px,-10px) rotate(18deg); }
-    60%  { transform: translate(0,-32px) rotate(-12deg); }
-    80%  { transform: translate(0,-36px) rotate(-12deg); }
-    100% { transform: translate(0,0) rotate(0deg); }
-  }
-  .superheroing { animation: hero-launch 10s ease-in-out forwards; transform-origin: bottom center; }
-  .superheroing #wing-left  { animation: flap-wings 0.22s ease-in-out 22 forwards; }
-  .superheroing #wing-right { animation: flap-wings 0.22s ease-in-out 22 reverse forwards; }
-  @keyframes cape-billow { 0%,100% { transform: skewY(0deg); } 30% { transform: skewY(14deg); } 65% { transform: skewY(-8deg); } }
-  .hero-cape { position:absolute; pointer-events:none; user-select:none; font-size:30px; animation: cape-billow 0.5s ease-in-out infinite; }
-
-  /* ── BIRTHDAY ───────────────────────────────────────────────────────────────── */
-  @keyframes bday-bounce {
-    0%,100% { transform: translateY(0); }
-    14%  { transform: translateY(-30px); }
-    26%  { transform: translateY(4px); }
-    38%  { transform: translateY(-20px); }
-    50%  { transform: translateY(0); }
-    60%  { transform: translateY(-12px); }
-    70%  { transform: translateY(0); }
-    80%  { transform: translateY(-6px); }
-    90%  { transform: translateY(0); }
-  }
-  .birthdaying { animation: bday-bounce 10s ease-in-out forwards; transform-origin: bottom center; }
-  .birthdaying #wing-left  { animation: flap-wings 0.3s ease-in-out 14 forwards; }
-  .birthdaying #wing-right { animation: flap-wings 0.3s ease-in-out 14 reverse forwards; }
-  @keyframes confetti-fall {
-    0%   { transform: translateY(-10px) rotate(0deg); opacity:0; }
-    8%   { opacity:1; }
-    100% { transform: translateY(210px) rotate(var(--cr,200deg)); opacity:0; }
-  }
-  .confetti { position:absolute; font-size:13px; pointer-events:none; user-select:none; animation: confetti-fall 1.7s ease-in infinite; }
-
-  /* ── ROCKSTAR ───────────────────────────────────────────────────────────────── */
-  @keyframes rockstar-sway {
-    0%,100% { transform: translateX(0) rotate(0deg); }
-    11% { transform: translateX(-9px) rotate(-6deg); }
-    24% { transform: translateX(9px)  rotate(6deg); }
-    37% { transform: translateX(-9px) rotate(-6deg); }
-    50% { transform: translateX(9px)  rotate(6deg); }
-    63% { transform: translateX(-9px) rotate(-6deg); }
-    76% { transform: translateX(9px)  rotate(6deg); }
-    88% { transform: translateX(-4px) rotate(-3deg); }
-  }
-  @keyframes strum {
-    0%,70%,100% { transform: rotate(0deg); }
-    8%  { transform: rotate(-85deg); }
-    14% { transform: rotate(18deg); }
-    22% { transform: rotate(-85deg); }
-    28% { transform: rotate(18deg); }
-    36% { transform: rotate(-85deg); }
-    42% { transform: rotate(18deg); }
-    50% { transform: rotate(-85deg); }
-    56% { transform: rotate(18deg); }
-    64% { transform: rotate(-85deg); }
-  }
-  .rockstarring { animation: rockstar-sway 8s ease-in-out forwards; transform-origin: bottom center; }
-  .rockstarring #wing-right { animation: strum 8s linear forwards; }
-  @keyframes spark-fly { 0% { transform: translate(0,0); opacity:0; } 12% { opacity:1; } 100% { transform: translate(var(--sx,30px),var(--sy,-40px)); opacity:0; } }
-  .spark { position:absolute; font-size:15px; pointer-events:none; user-select:none; animation: spark-fly 0.55s ease-out infinite; }
-
-  /* ── FISHING ────────────────────────────────────────────────────────────────── */
-  @keyframes fishing-bob {
-    0%,100% { transform: translateX(0); }
-    40%,60% { transform: translateX(4px); }
-  }
-  @keyframes fish-tug {
-    0%,60%  { transform: translate(0,0); }
-    65%     { transform: translate(-14px,-10px); }
-    70%     { transform: translate(8px,-5px); }
-    75%     { transform: translate(-12px,-12px); }
-    85%     { transform: translate(-20px,-60px); }
-    92%     { transform: translate(-28px,-100px); opacity:1; }
-    100%    { transform: translate(-32px,-130px); opacity:0; }
-  }
-  .fishing { animation: fishing-bob 12s ease-in-out forwards; transform-origin: bottom center; }
-  .fish-emoji { position:absolute; font-size:26px; pointer-events:none; user-select:none; animation: fish-tug 12s ease-in-out forwards; }
-
-  /* ── CHEF ───────────────────────────────────────────────────────────────────── */
-  @keyframes chef-bounce {
-    0%,100% { transform: translateY(0); }
-    18%  { transform: translateY(-16px); }
-    32%  { transform: translateY(3px); }
-    46%  { transform: translateY(-10px); }
-    58%  { transform: translateY(0); }
-    70%  { transform: translateY(-6px); }
-    80%  { transform: translateY(0); }
-    90%  { transform: translateY(-3px); }
-  }
-  @keyframes pan-toss { 0%,100% { transform: rotate(0deg); } 22%,62% { transform: rotate(-48deg); } 42%,82% { transform: rotate(12deg); } }
-  @keyframes pancake-arc {
-    0%   { transform: translate(0,0) rotate(0deg); opacity:0; }
-    10%  { opacity:1; }
-    40%  { transform: translate(18px,-58px) rotate(200deg); opacity:1; }
-    70%  { transform: translate(10px,-12px) rotate(380deg); opacity:1; }
-    82%  { opacity:0; }
-    100% { transform: translate(14px,0) rotate(400deg); opacity:0; }
-  }
-  .cheffing { animation: chef-bounce 8s ease-in-out forwards; transform-origin: bottom center; }
-  .cheffing #wing-left { animation: pan-toss 8s ease-in-out forwards; }
-  .pancake { position:absolute; font-size:20px; pointer-events:none; user-select:none; animation: pancake-arc 2s ease-in-out infinite; }
-
-  /* ── PAINTER ────────────────────────────────────────────────────────────────── */
-  @keyframes painter-sway {
-    0%,100% { transform: translateX(0) rotate(0deg); }
-    15% { transform: translateX(-5px) rotate(-3deg); }
-    30% { transform: translateX(5px)  rotate(3deg); }
-    45% { transform: translateX(-5px) rotate(-3deg); }
-    60% { transform: translateX(5px)  rotate(3deg); }
-    75% { transform: translateX(-3px) rotate(-2deg); }
-    90% { transform: translateX(2px)  rotate(1deg); }
-  }
-  @keyframes paint-wing { 0%,100% { transform: rotate(0deg); } 15%,85% { transform: rotate(-78deg); } 50% { transform: rotate(-82deg); } }
-  @keyframes paint-grow { 0% { width:0; opacity:0; } 10% { opacity:1; } 60%,100% { width:82px; opacity:0.7; } }
-  .painting { animation: painter-sway 10s ease-in-out forwards; transform-origin: bottom center; }
-  .painting #wing-left { animation: paint-wing 10s ease-in-out forwards; }
-  .paint-stroke { position:absolute; height:9px; border-radius:5px; pointer-events:none; animation: paint-grow 10s ease-in-out forwards; }
 `;
 
 /* ── Scenes ─────────────────────────────────────────────────────────────────── */
@@ -988,39 +821,27 @@ function CityScene() {
 
 /* ── Test-only Scenes ───────────────────────────────────────────────────────── */
 
-function SpaceScene() {
-  return (
-    <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-      <defs>
-        <linearGradient id="sp-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#000014"/><stop offset="100%" stopColor="#0D0635"/>
-        </linearGradient>
-        <radialGradient id="sp-earth" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#4DB8FF"/><stop offset="60%" stopColor="#1565C0"/><stop offset="100%" stopColor="#0D3A7A"/>
-        </radialGradient>
-      </defs>
-      <rect width="880" height="400" fill="url(#sp-sky)"/>
-      {[14,52,88,130,178,220,265,310,358,412,460,500,545,588,635,680,720,765,808,845,870,22,95,160,245,332,415,500,570,650,740,820].map((x,i) => (
-        <circle key={i} cx={x} cy={8+(i%7)*20} r={i%4===0?1.8:1.1} fill="white" opacity={0.35+(i%5)*0.13}/>
-      ))}
-      {/* Moon surface */}
-      <ellipse cx="440" cy="440" rx="480" ry="105" fill="#D0C8B0"/>
-      <ellipse cx="440" cy="440" rx="480" ry="105" fill="#C8C0A0"/>
-      <ellipse cx="150" cy="355" rx="38" ry="16" fill="#B8B0A0"/>
-      <ellipse cx="650" cy="362" rx="28" ry="12" fill="#B8B0A0"/>
-      <ellipse cx="380" cy="370" rx="20" ry="8"  fill="#B8B0A0"/>
-      {/* Saturn */}
-      <ellipse cx="720" cy="80" rx="38" ry="22" fill="#E8C870"/>
-      <ellipse cx="720" cy="80" rx="60" ry="10" fill="none" stroke="#C8A850" strokeWidth="6" opacity="0.7"/>
-      {/* Earth */}
-      <circle cx="140" cy="75" r="35" fill="url(#sp-earth)"/>
-      <path d="M126,60 Q133,55 140,60 Q147,65 154,60" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2"/>
-      <ellipse cx="132" cy="72" rx="9" ry="5" fill="#2D8B4A" opacity="0.8"/>
-    </svg>
-  );
-}
+
 
 function UnderwaterScene() {
+  const bubbles = [
+    {cx:80,  cy:320, r:4, dur:'6.2s', delay:'0s',    bx:'6px' },
+    {cx:155, cy:280, r:3, dur:'5.5s', delay:'-1.8s', bx:'-5px'},
+    {cx:225, cy:305, r:5, dur:'7.0s', delay:'-3.5s', bx:'8px' },
+    {cx:295, cy:265, r:3, dur:'5.8s', delay:'-0.9s', bx:'-4px'},
+    {cx:365, cy:315, r:4, dur:'6.5s', delay:'-2.7s', bx:'5px' },
+    {cx:435, cy:275, r:6, dur:'7.5s', delay:'-4.2s', bx:'-7px'},
+    {cx:505, cy:298, r:3, dur:'5.2s', delay:'-1.4s', bx:'4px' },
+    {cx:575, cy:268, r:5, dur:'6.8s', delay:'-3.1s', bx:'-6px'},
+    {cx:645, cy:308, r:4, dur:'6.0s', delay:'-0.6s', bx:'5px' },
+    {cx:715, cy:282, r:3, dur:'5.7s', delay:'-2.3s', bx:'-4px'},
+    {cx:785, cy:292, r:5, dur:'7.2s', delay:'-4.8s', bx:'7px' },
+    {cx:835, cy:262, r:3, dur:'5.4s', delay:'-1.1s', bx:'-5px'},
+    {cx:115, cy:245, r:4, dur:'6.3s', delay:'-3.8s', bx:'6px' },
+    {cx:485, cy:332, r:6, dur:'7.8s', delay:'-2.0s', bx:'-8px'},
+    {cx:340, cy:255, r:3, dur:'5.9s', delay:'-5.2s', bx:'4px' },
+    {cx:620, cy:245, r:4, dur:'6.6s', delay:'-0.4s', bx:'-5px'},
+  ];
   return (
     <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
       <defs>
@@ -1029,13 +850,12 @@ function UnderwaterScene() {
         </linearGradient>
       </defs>
       <rect width="880" height="400" fill="url(#uw-bg)"/>
-      {/* Light rays */}
       {[80,210,360,520,680,820].map((x,i) => (
         <polygon key={i} points={`${x},0 ${x+28},0 ${x+14+40},400 ${x-40},400`} fill="rgba(150,220,255,0.06)"/>
       ))}
       {/* Sandy floor */}
       <path d="M0,340 Q110,328 220,340 Q330,352 440,338 Q550,325 660,340 Q770,355 880,340 L880,400 L0,400Z" fill="#C4A265"/>
-      {/* Coral left */}
+      {/* Coral */}
       <path d="M55,340 C50,295 42,260 55,240 C68,220 78,235 72,255 C82,225 94,218 100,238 C96,252 88,270 80,295 C90,268 104,258 112,270 C118,280 108,300 95,320Z" fill="#FF6B6B"/>
       <path d="M105,340 C100,308 96,282 105,268 C114,254 122,264 118,278 C126,260 136,255 140,268 C136,280 128,296 120,315Z" fill="#FF4081"/>
       {/* Kelp */}
@@ -1043,79 +863,99 @@ function UnderwaterScene() {
         <path key={i} d={`M${x},400 C${x-15},370 ${x+15},340 ${x-10},310 C${x+18},280 ${x-12},250 ${x+8},220`}
           fill="none" stroke="#2E7D32" strokeWidth={6-i%2} strokeLinecap="round"/>
       ))}
-      {/* Bubbles */}
-      {[120,200,320,450,580,700,800].map((x,i) => (
-        <circle key={i} cx={x} cy={60+(i%4)*55} r={3+i%4} fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="1.5"/>
+      {/* Fish — all swim right-to-left at different speeds/depths */}
+      <g className="uw-f1" style={{ willChange:'transform' }}>
+        <ellipse cx="0" cy="168" rx="14" ry="8" fill="#FFB74D"/>
+        <polygon points="14,162 25,168 14,174" fill="#FF8A65"/>
+        <circle cx="-8" cy="166" r="3"   fill="white"/><circle cx="-8.5" cy="166" r="1.5" fill="#1a1a2e"/>
+      </g>
+      <g className="uw-f2" style={{ willChange:'transform' }}>
+        <ellipse cx="0" cy="248" rx="11" ry="6.5" fill="#4DD0E1"/>
+        <polygon points="11,243 20,248 11,253" fill="#26C6DA"/>
+        <circle cx="-6" cy="247" r="2.5" fill="white"/><circle cx="-6.5" cy="247" r="1.2" fill="#1a1a2e"/>
+      </g>
+      <g className="uw-f3" style={{ willChange:'transform' }}>
+        <ellipse cx="0" cy="198" rx="10" ry="5.5" fill="#FFF176"/>
+        <polygon points="10,194 18,198 10,202" fill="#F9A825"/>
+        <circle cx="-5" cy="197" r="2"   fill="white"/>
+      </g>
+      <g className="uw-f4" style={{ willChange:'transform' }}>
+        <ellipse cx="0" cy="302" rx="12" ry="7" fill="#F48FB1"/>
+        <polygon points="12,296 22,302 12,308" fill="#F06292"/>
+        <circle cx="-6" cy="300" r="2.5" fill="white"/><circle cx="-6.5" cy="300" r="1.2" fill="#1a1a2e"/>
+      </g>
+      <g className="uw-f5" style={{ willChange:'transform' }}>
+        <ellipse cx="0" cy="278" rx="9" ry="5" fill="#A5D6A7"/>
+        <polygon points="9,274 16,278 9,282" fill="#66BB6A"/>
+        <circle cx="-4" cy="277" r="1.8" fill="white"/>
+      </g>
+      {/* Shark — large, slow */}
+      <g className="uw-shark" style={{ willChange:'transform' }}>
+        <ellipse cx="0" cy="222" rx="64" ry="22" fill="#7B8BA0"/>
+        <polygon points="64,212 90,196 90,248" fill="#6A7A8E"/>
+        <path d="M-2,200 L22,160 L32,200 Z" fill="#6A7A8E"/>
+        <path d="M18,228 L42,255 L8,242 Z"  fill="#6A7A8E"/>
+        <circle cx="-44" cy="219" r="6" fill="#1a1a2e"/>
+        <circle cx="-43" cy="218" r="2" fill="white"/>
+        <path d="M-60,226 Q-52,234 -44,226" fill="none" stroke="#5A6A7E" strokeWidth="2"/>
+        <path d="M-26,214 Q-26,222 -26,230" fill="none" stroke="#5A6A7E" strokeWidth="1.5"/>
+        <path d="M-18,212 Q-18,222 -18,232" fill="none" stroke="#5A6A7E" strokeWidth="1.5"/>
+      </g>
+      {/* Rising bubbles — continuously float up from mid/bottom */}
+      {bubbles.map((b,i) => (
+        <circle key={i} className="uw-bubble" cx={b.cx} cy={b.cy} r={b.r}
+          fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5"
+          style={{ animationDuration:b.dur, animationDelay:b.delay, '--bx':b.bx }}/>
       ))}
     </svg>
   );
 }
 
-function JungleScene() {
-  return (
-    <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-      <defs>
-        <linearGradient id="jg-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1B5E20"/><stop offset="55%" stopColor="#2E7D32"/><stop offset="100%" stopColor="#388E3C"/>
-        </linearGradient>
-      </defs>
-      <rect width="880" height="400" fill="url(#jg-sky)"/>
-      {/* Back trees */}
-      <ellipse cx="100"  cy="160" rx="80" ry="110" fill="#1B5E20"/>
-      <ellipse cx="780"  cy="150" rx="85" ry="115" fill="#1B5E20"/>
-      <ellipse cx="440"  cy="120" rx="100" ry="130" fill="#2E7D32"/>
-      {/* Mid trees */}
-      <ellipse cx="220"  cy="220" rx="70"  ry="90"  fill="#33691E"/>
-      <ellipse cx="650"  cy="210" rx="75"  ry="95"  fill="#33691E"/>
-      {/* Floor */}
-      <path d="M0,320 Q220,300 440,315 Q660,330 880,315 L880,400 L0,400Z" fill="#1A5C00"/>
-      <rect y="355" width="880" height="45" fill="#155200"/>
-      {/* Waterfall */}
-      <rect x="418" y="118" width="18" height="100" rx="5" fill="rgba(150,220,255,0.5)"/>
-      <rect x="420" y="118" width="14" height="100" rx="4" fill="rgba(200,240,255,0.65)"/>
-      <ellipse cx="427" cy="222" rx="22" ry="8" fill="rgba(150,220,255,0.45)"/>
-      {/* River */}
-      <path d="M385,222 Q427,235 470,222 Q480,260 427,272 Q375,260 385,222Z" fill="rgba(56,189,248,0.55)"/>
-      {/* Ferns */}
-      {[60,160,650,770].map((x,i) => (
-        <path key={i} d={`M${x},360 C${x-20},330 ${x+22},310 ${x},290 M${x},360 C${x+22},330 ${x-18},312 ${x+8},292`}
-          fill="none" stroke="#558B2F" strokeWidth="4" strokeLinecap="round"/>
-      ))}
-    </svg>
-  );
-}
+
 
 function VolcanoScene() {
+  const lavaStreams = [
+    { d:"M442,110 C448,168 458,228 466,282 C472,318 468,352 456,378", stroke:"#FF6B00", w:9,  delay:'0s'  },
+    { d:"M445,110 C462,160 482,208 500,255 C514,294 510,330 494,362", stroke:"#FF4500", w:8,  delay:'-5s' },
+    { d:"M448,110 C474,152 506,192 534,232 C558,268 552,304 530,336", stroke:"#FF8C00", w:7,  delay:'-10s'},
+    { d:"M438,110 C428,168 416,228 408,282 C402,318 406,352 418,378", stroke:"#CC2200", w:8,  delay:'-15s'},
+    { d:"M434,110 C418,160 398,208 378,255 C362,294 368,330 386,362", stroke:"#FF5500", w:9,  delay:'-20s'},
+    { d:"M430,110 C406,150 376,190 348,228 C322,264 330,300 352,334", stroke:"#FF3300", w:7,  delay:'-25s'},
+  ];
+  const smokePuffs = [
+    { cx:432, cy:96,  rx:13, ry:9,  dur:'4.2s', delay:'0s'   },
+    { cx:448, cy:90,  rx:17, ry:11, dur:'5.0s', delay:'-1.5s'},
+    { cx:440, cy:98,  rx:11, ry:8,  dur:'3.8s', delay:'-3.0s'},
+    { cx:436, cy:88,  rx:15, ry:10, dur:'4.6s', delay:'-0.8s'},
+    { cx:444, cy:94,  rx:19, ry:12, dur:'5.4s', delay:'-2.4s'},
+    { cx:440, cy:92,  rx:10, ry:7,  dur:'4.0s', delay:'-4.0s'},
+  ];
   return (
     <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
       <defs>
         <linearGradient id="vl-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#1A0000"/><stop offset="60%" stopColor="#4A0E00"/><stop offset="100%" stopColor="#7A1800"/>
         </linearGradient>
-        <linearGradient id="vl-lava" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#FF6B00"/><stop offset="100%" stopColor="#CC2200"/>
-        </linearGradient>
       </defs>
       <rect width="880" height="400" fill="url(#vl-sky)"/>
-      {/* Stars/embers */}
       {[40,120,250,380,520,650,760,830,85,195,310,445,575,700,800].map((x,i) => (
         <circle key={i} cx={x} cy={10+(i%6)*18} r={i%3===0?2:1.2} fill={i%2===0?'#FF4500':'#FF8C00'} opacity={0.5+(i%4)*0.12}/>
       ))}
-      {/* Volcano mountain */}
       <polygon points="150,400 440,85 730,400" fill="#2C1810"/>
       <polygon points="200,400 440,120 680,400" fill="#3E2218"/>
-      {/* Crater glow */}
+      {/* Animated lava streams — draw from crater downward, each on 30s staggered cycle */}
+      {lavaStreams.map((s,i) => (
+        <path key={i} className="lava-stream" d={s.d} stroke={s.stroke} strokeWidth={s.w} style={{ animationDelay:s.delay }}/>
+      ))}
+      {/* Crater glow — rendered after lava so it sits on top */}
       <ellipse cx="440" cy="100" rx="42" ry="18" fill="#FF4500" opacity="0.85"/>
       <ellipse cx="440" cy="100" rx="28" ry="11" fill="#FF8C00"/>
-      {/* Lava streams */}
-      <path d="M426,108 C418,150 408,200 396,260 C390,290 386,320 388,360 L400,360 C402,322 406,292 412,262 C424,202 432,152 438,110Z" fill="url(#vl-lava)" opacity="0.8"/>
-      <path d="M454,108 C462,148 472,196 478,248 C482,278 480,310 476,360 L488,360 C492,308 494,276 490,244 C484,192 474,144 466,110Z" fill="url(#vl-lava)" opacity="0.75"/>
-      {/* Rocky ground */}
       <path d="M0,360 Q220,348 440,360 Q660,372 880,360 L880,400 L0,400Z" fill="#1A0A00"/>
       <path d="M0,375 Q110,368 220,375 Q330,382 440,375 Q550,368 660,375 Q770,382 880,375 L880,400 L0,400Z" fill="#0D0500"/>
-      {/* Smoke puffs */}
-      {[405,440,470].map((x,i) => (
-        <ellipse key={i} cx={x} cy={60-i*22} rx={16+i*6} ry={10+i*4} fill="#555" opacity={0.5-i*0.1}/>
+      {/* Continuous smoke rising from crater */}
+      {smokePuffs.map((p,i) => (
+        <ellipse key={i} className="smoke-puff" cx={p.cx} cy={p.cy} rx={p.rx} ry={p.ry} fill="#666"
+          style={{ animationDuration:p.dur, animationDelay:p.delay }}/>
       ))}
     </svg>
   );
@@ -1130,10 +970,16 @@ function ArcticScene() {
         </linearGradient>
       </defs>
       <rect width="880" height="400" fill="url(#ar-sky)"/>
-      {/* Aurora borealis */}
-      <path d="M0,80 Q220,30 440,65 Q660,100 880,55" fill="none" stroke="rgba(52,211,153,0.55)" strokeWidth="28" strokeLinecap="round"/>
-      <path d="M0,100 Q220,55 440,88 Q660,122 880,78" fill="none" stroke="rgba(56,189,248,0.35)" strokeWidth="18" strokeLinecap="round"/>
-      <path d="M0,68 Q180,20 360,50 Q540,80 720,38 Q800,22 880,45" fill="none" stroke="rgba(167,139,250,0.3)" strokeWidth="12" strokeLinecap="round"/>
+      {/* Aurora borealis — very slow wiggle */}
+      <g className="aurora-a">
+        <path d="M0,80 Q220,30 440,65 Q660,100 880,55" fill="none" stroke="rgba(52,211,153,0.55)" strokeWidth="28" strokeLinecap="round"/>
+      </g>
+      <g className="aurora-b">
+        <path d="M0,100 Q220,55 440,88 Q660,122 880,78" fill="none" stroke="rgba(56,189,248,0.35)" strokeWidth="18" strokeLinecap="round"/>
+      </g>
+      <g className="aurora-c">
+        <path d="M0,68 Q180,20 360,50 Q540,80 720,38 Q800,22 880,45" fill="none" stroke="rgba(167,139,250,0.3)" strokeWidth="12" strokeLinecap="round"/>
+      </g>
       {/* Ice/snow ground */}
       <path d="M0,285 Q110,265 220,280 Q330,295 440,272 Q550,250 660,268 Q770,285 880,262 L880,400 L0,400Z" fill="white"/>
       <rect y="350" width="880" height="50" fill="#E8F4F8"/>
@@ -1150,224 +996,6 @@ function ArcticScene() {
       {/* Ice chunks on ground */}
       <polygon points="200,285 228,265 256,285" fill="#C8E4EF"/>
       <polygon points="560,268 590,250 618,268" fill="#C8E4EF"/>
-    </svg>
-  );
-}
-
-function CastleScene() {
-  return (
-    <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-      <defs>
-        <linearGradient id="cs-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#8BA5C0"/><stop offset="100%" stopColor="#BDD0E8"/>
-        </linearGradient>
-      </defs>
-      <rect width="880" height="400" fill="url(#cs-sky)"/>
-      {/* Castle wall */}
-      <rect x="150" y="180" width="580" height="220" fill="#8A7A6A"/>
-      {/* Battlements */}
-      {[150,195,240,285,330,375,420,465,510,555,600,645,690].map((x,i) => (
-        <rect key={i} x={x} y="155" width="35" height="30" rx="2" fill="#7A6A5A"/>
-      ))}
-      {/* Left tower */}
-      <rect x="80"  y="100" width="110" height="300" fill="#7A6A5A"/>
-      {[80,115,150].map((x,i) => (<rect key={i} x={x} y="78" width="35" height="28" rx="2" fill="#6A5A4A"/>))}
-      <polygon points="135,78 80,45 190,45"  fill="#8B1A1A"/>
-      {/* Right tower */}
-      <rect x="690" y="100" width="110" height="300" fill="#7A6A5A"/>
-      {[690,725,760].map((x,i) => (<rect key={i} x={x} y="78" width="35" height="28" rx="2" fill="#6A5A4A"/>))}
-      <polygon points="745,78 690,45 800,45" fill="#8B1A1A"/>
-      {/* Flags */}
-      <rect x="130" y="18" width="3" height="32" fill="#5A4A3A"/>
-      <polygon points="133,18 133,36 152,27" fill="#CC2200"/>
-      <rect x="740" y="18" width="3" height="32" fill="#5A4A3A"/>
-      <polygon points="743,18 743,36 762,27" fill="#CC2200"/>
-      {/* Gate */}
-      <path d="M378,400 L378,260 Q440,230 502,260 L502,400Z" fill="#3A2A1A"/>
-      {/* Windows */}
-      {[[200,220],[320,220],[540,220],[660,220],[200,295],[660,295]].map(([x,y],i) => (
-        <path key={i} d={`M${x},${y} L${x},${y+40} Q${x+22},${y+52} ${x+44},${y+40} L${x+44},${y}Z`} fill="#2A1A0A" opacity="0.8"/>
-      ))}
-      {/* Ground */}
-      <rect y="380" width="880" height="20" fill="#5A7A4A"/>
-      <rect y="388" width="880" height="12" fill="#4A6A3A"/>
-    </svg>
-  );
-}
-
-function DiscoRoomScene() {
-  return (
-    <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-      <defs>
-        <linearGradient id="dr-wall" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#0D0020"/><stop offset="100%" stopColor="#1A0035"/>
-        </linearGradient>
-      </defs>
-      <rect width="880" height="400" fill="url(#dr-wall)"/>
-      {/* Checkerboard floor */}
-      {Array.from({length:11}, (_,col) => Array.from({length:4}, (_,row) => (
-        <rect key={`${col}-${row}`}
-          x={col*80} y={310+row*22} width="80" height="22"
-          fill={(col+row)%2===0 ? '#F0F0F0' : '#1A1A1A'}/>
-      )))}
-      {/* Disco ball */}
-      <circle cx="440" cy="50" r="32" fill="#C0C0C0" stroke="#888" strokeWidth="2"/>
-      {[0,30,60,90,120,150,180,210,240,270,300,330].map((a,i) => (
-        <rect key={i} x={440+26*Math.cos(a*Math.PI/180)-5} y={50+26*Math.sin(a*Math.PI/180)-4} width="10" height="8" rx="1"
-          fill={['#FF4444','#44FF44','#4444FF','#FFFF44','#FF44FF','#44FFFF'][i%6]} opacity="0.85"/>
-      ))}
-      <line x1="440" y1="0" x2="440" y2="18" stroke="#888" strokeWidth="2"/>
-      {/* Colored spotlights */}
-      <polygon points="100,0 60,310 140,310"  fill="rgba(255,68,68,0.12)"/>
-      <polygon points="300,0 250,310 350,310"  fill="rgba(68,255,68,0.1)"/>
-      <polygon points="580,0 530,310 630,310"  fill="rgba(68,68,255,0.1)"/>
-      <polygon points="780,0 740,310 820,310"  fill="rgba(255,200,68,0.1)"/>
-      {/* Speaker boxes */}
-      <rect x="20"  y="180" width="60" height="120" rx="5" fill="#111"/>
-      <circle cx="50" cy="215" r="18" fill="#333"/><circle cx="50" cy="215" r="12" fill="#222"/>
-      <rect x="800" y="180" width="60" height="120" rx="5" fill="#111"/>
-      <circle cx="830" cy="215" r="18" fill="#333"/><circle cx="830" cy="215" r="12" fill="#222"/>
-      {/* Neon sign */}
-      <text x="440" y="155" textAnchor="middle" fill="none" stroke="#FF44FF" strokeWidth="2" fontSize="22" fontWeight="900" fontFamily="Arial" opacity="0.9">DANCE!</text>
-    </svg>
-  );
-}
-
-function TreehouseScene() {
-  return (
-    <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-      <defs>
-        <linearGradient id="th-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1E6091"/><stop offset="55%" stopColor="#4A9BB5"/><stop offset="100%" stopColor="#8EC5D6"/>
-        </linearGradient>
-      </defs>
-      <rect width="880" height="400" fill="url(#th-sky)"/>
-      {/* Giant oak trunk */}
-      <rect x="390" y="180" width="100" height="220" rx="20" fill="#5D3A1A"/>
-      <path d="M390,260 C360,250 340,240 320,260" fill="none" stroke="#5D3A1A" strokeWidth="22" strokeLinecap="round"/>
-      <path d="M490,240 C520,228 542,220 560,238" fill="none" stroke="#5D3A1A" strokeWidth="18" strokeLinecap="round"/>
-      {/* Oak canopy */}
-      <ellipse cx="440" cy="130" rx="160" ry="125" fill="#2E7D32"/>
-      <ellipse cx="360" cy="155" rx="90"  ry="80"  fill="#388E3C"/>
-      <ellipse cx="520" cy="148" rx="95"  ry="78"  fill="#33691E"/>
-      <ellipse cx="440" cy="108" rx="110" ry="70"  fill="#43A047"/>
-      {/* Platform */}
-      <rect x="280" y="178" width="320" height="18" rx="4" fill="#8B5E3C"/>
-      {[284,318,352,386,420,454,488,522,556].map((x,i) => (
-        <rect key={i} x={x} y="196" width="28" height="8" rx="2" fill="#7A4F2C"/>
-      ))}
-      {/* Treehouse */}
-      <rect x="320" y="100" width="200" height="80" rx="6" fill="#A0522D"/>
-      <polygon points="310,100 440,52 570,100" fill="#8B4513"/>
-      <rect x="396" y="128" width="38" height="52" rx="4" fill="#5D2E0C"/>
-      <rect x="340" y="118" width="36" height="28" rx="3" fill="#87CEEB"/>
-      <rect x="462" y="118" width="36" height="28" rx="3" fill="#87CEEB"/>
-      {/* Rope ladder */}
-      <line x1="370" y1="196" x2="360" y2="310" stroke="#8B5E3C" strokeWidth="4"/>
-      <line x1="410" y1="196" x2="400" y2="310" stroke="#8B5E3C" strokeWidth="4"/>
-      {[210,228,246,264,280,296].map((y,i) => (
-        <line key={i} x1={366-i*0.8} y1={y} x2={406-i*0.8} y2={y} stroke="#8B5E3C" strokeWidth="3"/>
-      ))}
-      {/* Ground */}
-      <path d="M0,355 Q440,340 880,355 L880,400 L0,400Z" fill="#3A7A28"/>
-      <rect y="380" width="880" height="20" fill="#2E6020"/>
-    </svg>
-  );
-}
-
-function CarnivalScene() {
-  return (
-    <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-      <defs>
-        <linearGradient id="cn-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1565C0"/><stop offset="65%" stopColor="#42A5F5"/><stop offset="100%" stopColor="#BBDEFB"/>
-        </linearGradient>
-      </defs>
-      <rect width="880" height="400" fill="url(#cn-sky)"/>
-      {/* Ferris wheel */}
-      <circle cx="170" cy="188" r="88" fill="none" stroke="#FFD700" strokeWidth="8"/>
-      <circle cx="170" cy="188" r="12" fill="#FFD700"/>
-      {[0,45,90,135,180,225,270,315].map((a,i) => (
-        <g key={i}>
-          <line x1="170" y1="188" x2={170+88*Math.cos(a*Math.PI/180)} y2={188+88*Math.sin(a*Math.PI/180)} stroke="#FFD700" strokeWidth="3"/>
-          <rect x={170+78*Math.cos(a*Math.PI/180)-9} y={188+78*Math.sin(a*Math.PI/180)-10} width="18" height="16" rx="3"
-            fill={['#FF4444','#44AAFF','#FFFF44','#FF44FF','#44FF44','#FF8800','#44FFFF','#FF4444'][i]}/>
-        </g>
-      ))}
-      <rect x="162" y="276" width="16" height="90" fill="#888"/>
-      {/* Striped tent */}
-      <polygon points="580,130 760,130 830,290 510,290" fill="#FF4444"/>
-      {[0,1,2,3,4].map(i => (
-        <polygon key={i} points={`${580+i*44},130 ${624+i*44},130 ${694+i*44},290 ${650+i*44},290`} fill="white" opacity="0.6"/>
-      ))}
-      <polygon points="545,130 795,130 810,155 530,155" fill="#CC2222"/>
-      <path d="M545,130 L670,72 L795,130Z" fill="#FF4444"/>
-      <path d="M560,130 L670,78 L780,130Z" fill="white" opacity="0.5"/>
-      <rect x="656" y="72" width="8" height="65" fill="#888"/>
-      {/* Balloons */}
-      {[[80,60,'#FF4444'],[108,40,'#FFFF44'],[56,48,'#FF44FF'],[760,55,'#44AAFF'],[788,38,'#44FF44']].map(([x,y,c],i) => (
-        <g key={i}><ellipse cx={x} cy={y} rx="14" ry="17" fill={c}/><line x1={x} y1={y+17} x2={x-4+i*2} y2={y+55} stroke="#888" strokeWidth="1.5"/></g>
-      ))}
-      {/* Ground */}
-      <rect y="360" width="880" height="40" fill="#9CCC65"/>
-      <rect y="378" width="880" height="22" fill="#7CB342"/>
-    </svg>
-  );
-}
-
-function LibraryScene() {
-  return (
-    <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-      <defs>
-        <linearGradient id="lb-wall" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#F5ECD8"/><stop offset="100%" stopColor="#E8D8BE"/>
-        </linearGradient>
-        <linearGradient id="lb-fire" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#FF8C00"/><stop offset="100%" stopColor="#FF4500"/>
-        </linearGradient>
-      </defs>
-      <rect width="880" height="400" fill="url(#lb-wall)"/>
-      {/* Left bookshelf */}
-      <rect x="0"   y="40"  width="180" height="330" fill="#7B5C38"/>
-      <rect x="8"   y="48"  width="164" height="314" fill="#6A4E2A"/>
-      {[60,110,160,210,265,315].map((y,row) => (
-        [14,36,56,76,96,116,136,152].map((x,col) => (
-          <rect key={`l${row}-${col}`} x={x} y={y} width={18+col%3*2} height={42+row%2*4} rx="2"
-            fill={['#CC2200','#1565C0','#2E7D32','#7B1FA2','#E65100','#00838F','#558B2F','#AD1457'][col]}/>
-        ))
-      ))}
-      {/* Right bookshelf */}
-      <rect x="700" y="40"  width="180" height="330" fill="#7B5C38"/>
-      <rect x="708" y="48"  width="164" height="314" fill="#6A4E2A"/>
-      {[60,110,160,210,265,315].map((y,row) => (
-        [706,726,748,766,786,808,828,848].map((x,col) => (
-          <rect key={`r${row}-${col}`} x={x} y={y} width={16+col%3*2} height={42+row%2*4} rx="2"
-            fill={['#1565C0','#CC2200','#7B1FA2','#2E7D32','#AD1457','#E65100','#00838F','#558B2F'][col]}/>
-        ))
-      ))}
-      {/* Fireplace */}
-      <rect x="362" y="220" width="156" height="120" rx="8" fill="#5D3A1A"/>
-      <path d="M362,220 Q440,196 518,220" fill="#7B5C38"/>
-      <rect x="374" y="232" width="132" height="98" rx="6" fill="#2A1A0A"/>
-      <path d="M406,330 C402,295 410,270 430,252 C442,265 445,290 440,315 C452,290 458,268 450,248 C462,262 468,285 464,312 C476,288 478,265 470,246 C480,258 484,280 482,308Z" fill="url(#lb-fire)"/>
-      <ellipse cx="440" cy="332" rx="55" ry="10" fill="#1A0A00" opacity="0.5"/>
-      {/* Reading chair area */}
-      <path d="M560,370 C560,338 572,320 590,320 L650,320 C668,320 680,338 680,370Z" fill="#8B4513"/>
-      <rect x="556" y="316" width="128" height="14" rx="6" fill="#7B3A10"/>
-      <rect x="554" y="316" width="10"  height="55" rx="5" fill="#7B3A10"/>
-      <rect x="680" y="316" width="10"  height="55" rx="5" fill="#7B3A10"/>
-      {/* Floor */}
-      <rect y="370" width="880" height="30" fill="#8B6914"/>
-      {[0,80,160,240,320,400,480,560,640,720,800].map((x,i) => (
-        <line key={i} x1={x} y1="370" x2={x} y2="400" stroke="rgba(0,0,0,0.12)" strokeWidth="1"/>
-      ))}
-      {/* Warm window glow */}
-      <rect x="310" y="70"  width="90" height="120" rx="6" fill="#FFF9C4" opacity="0.7" stroke="#A0722A" strokeWidth="4"/>
-      <line x1="355" y1="70"  x2="355" y2="190" stroke="#A0722A" strokeWidth="3"/>
-      <line x1="310" y1="130" x2="400" y2="130" stroke="#A0722A" strokeWidth="3"/>
-      <rect x="480" y="70"  width="90" height="120" rx="6" fill="#FFF9C4" opacity="0.7" stroke="#A0722A" strokeWidth="4"/>
-      <line x1="525" y1="70"  x2="525" y2="190" stroke="#A0722A" strokeWidth="3"/>
-      <line x1="480" y1="130" x2="570" y2="130" stroke="#A0722A" strokeWidth="3"/>
     </svg>
   );
 }
@@ -1645,13 +1273,9 @@ const ANIM_DURATIONS = {
   sleep: 7000, flap: 3000, backflip: 3500,
   flyaway: 10000, layegg: 12000, holdhands: 14000,
   wink: 4000, rudolph: 8000, fallapart: 10000,
-  // candidates (test UI only)
-  ballet: 6000, boxing: 7000, meditation: 10000, disco: 8000,
-  superhero: 10000, birthday: 10000, rockstar: 8000,
-  fishing: 12000, chef: 8000, painter: 10000,
 };
 
-const TEST_SCENES = ['space','underwater','jungle','volcano','arctic','castle','discoroom','treehouse','carnival','library'];
+const TEST_SCENES = ['underwater', 'volcano', 'arctic'];
 
 export { CORRECT_ANIMS, WRONG_ANIM, SCENES, IDLE_ANIMS, ANIM_DURATIONS, TEST_SCENES };
 
@@ -1751,16 +1375,6 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     activeAnim === 'layegg' && layEggPhase === 5                     && 'penny-egg-return',
     activeAnim === 'holdhands'                                       && 'holding',
     activeAnim === 'fallapart'                                       && 'fallingapart',
-    activeAnim === 'ballet'                                          && 'balleting',
-    activeAnim === 'boxing'                                          && 'boxing',
-    activeAnim === 'meditation'                                      && 'meditating',
-    activeAnim === 'disco'                                           && 'discoing',
-    activeAnim === 'superhero'                                       && 'superheroing',
-    activeAnim === 'birthday'                                        && 'birthdaying',
-    activeAnim === 'rockstar'                                        && 'rockstarring',
-    activeAnim === 'fishing'                                         && 'fishing',
-    activeAnim === 'chef'                                            && 'cheffing',
-    activeAnim === 'painter'                                         && 'painting',
   ].filter(Boolean).join(' ');
 
   return (
@@ -1774,16 +1388,9 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
         {scene === 'classroom'  && <ClassroomScene />}
         {scene === 'snowy'      && <SnowyScene />}
         {scene === 'city'       && <CityScene />}
-        {scene === 'space'      && <SpaceScene />}
         {scene === 'underwater' && <UnderwaterScene />}
-        {scene === 'jungle'     && <JungleScene />}
         {scene === 'volcano'    && <VolcanoScene />}
         {scene === 'arctic'     && <ArcticScene />}
-        {scene === 'castle'     && <CastleScene />}
-        {scene === 'discoroom'  && <DiscoRoomScene />}
-        {scene === 'treehouse'  && <TreehouseScene />}
-        {scene === 'carnival'   && <CarnivalScene />}
-        {scene === 'library'    && <LibraryScene />}
       </div>
 
       {/* Characters — clipped so animations don't overflow */}
@@ -1890,74 +1497,6 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
           <span className="rudolph-snow" style={{ top:'52%', left:'4%',  fontSize:11, animationDelay:'0.6s',  animationDuration:'2.3s', animationFillMode:'backwards' }}>❄</span>
         </>}
 
-        {/* Ballet stars */}
-        {activeAnim === 'ballet' && <>
-          <span className="ballet-star" style={{ bottom:'55%', left:'18%', '--bsx':'-12px', animationDelay:'0s',   animationDuration:'1.0s' }}>✨</span>
-          <span className="ballet-star" style={{ bottom:'60%', left:'24%', '--bsx':'16px',  animationDelay:'0.3s', animationDuration:'1.2s' }}>⭐</span>
-          <span className="ballet-star" style={{ bottom:'52%', left:'12%', '--bsx':'8px',   animationDelay:'0.6s', animationDuration:'0.9s' }}>✨</span>
-          <span className="ballet-star" style={{ bottom:'58%', left:'28%', '--bsx':'-18px', animationDelay:'0.9s', animationDuration:'1.1s' }}>⭐</span>
-        </>}
-
-        {/* Meditation sparkles — orbit Penny's body center */}
-        {activeAnim === 'meditation' && <>
-          <span className="med-sparkle" style={{ bottom:'48%', left:'14%', animationDelay:'0s',   animationDuration:'2.8s' }}>✨</span>
-          <span className="med-sparkle" style={{ bottom:'48%', left:'14%', animationDelay:'0.93s',animationDuration:'2.8s' }}>🌟</span>
-          <span className="med-sparkle" style={{ bottom:'48%', left:'14%', animationDelay:'1.87s',animationDuration:'2.8s' }}>✨</span>
-        </>}
-
-        {/* Disco ball + beams */}
-        {activeAnim === 'disco' && <>
-          <span className="disco-ball" style={{ top:'4%', left:'38%' }}>🪩</span>
-          <div className="disco-beam" style={{ top:'15%', left:'42%', background:'#FF4444', '--dr':'25deg',  animationDelay:'0s' }}/>
-          <div className="disco-beam" style={{ top:'20%', left:'42%', background:'#44AAFF','--dr':'5deg',   animationDelay:'0.35s' }}/>
-          <div className="disco-beam" style={{ top:'12%', left:'42%', background:'#44FF88','--dr':'45deg',  animationDelay:'0.7s' }}/>
-          <div className="disco-beam" style={{ top:'18%', left:'42%', background:'#FFEE44','--dr':'-15deg', animationDelay:'1.05s' }}/>
-        </>}
-
-        {/* Superhero cape */}
-        {activeAnim === 'superhero' && (
-          <span className="hero-cape" style={{ bottom:'28%', left:'3%' }}>🦸</span>
-        )}
-
-        {/* Birthday cake + confetti */}
-        {activeAnim === 'birthday' && <>
-          <span style={{ position:'absolute', bottom:'8%', left:'26%', fontSize:32, pointerEvents:'none', userSelect:'none' }}>🎂</span>
-          <span className="confetti" style={{ top:'5%', left:'8%',  '--cr':'160deg', animationDelay:'0s',   animationDuration:'1.6s' }}>🎊</span>
-          <span className="confetti" style={{ top:'5%', left:'18%', '--cr':'220deg', animationDelay:'0.3s', animationDuration:'1.9s' }}>🎉</span>
-          <span className="confetti" style={{ top:'5%', left:'28%', '--cr':'140deg', animationDelay:'0.6s', animationDuration:'1.7s' }}>🎊</span>
-          <span className="confetti" style={{ top:'5%', left:'38%', '--cr':'200deg', animationDelay:'0.9s', animationDuration:'1.5s' }}>🎉</span>
-          <span className="confetti" style={{ top:'5%', left:'5%',  '--cr':'180deg', animationDelay:'1.2s', animationDuration:'1.8s' }}>🎊</span>
-          <span className="confetti" style={{ top:'5%', left:'14%', '--cr':'240deg', animationDelay:'1.5s', animationDuration:'1.6s' }}>🎉</span>
-        </>}
-
-        {/* Rockstar guitar + sparks */}
-        {activeAnim === 'rockstar' && <>
-          <span style={{ position:'absolute', bottom:'22%', left:'18%', fontSize:30, pointerEvents:'none', userSelect:'none' }}>🎸</span>
-          <span className="spark" style={{ bottom:'40%', left:'22%', '--sx':'28px',  '--sy':'-38px', animationDelay:'0s',   animationDuration:'0.5s' }}>⚡</span>
-          <span className="spark" style={{ bottom:'38%', left:'26%', '--sx':'-20px', '--sy':'-45px', animationDelay:'0.2s', animationDuration:'0.6s' }}>⚡</span>
-          <span className="spark" style={{ bottom:'42%', left:'20%', '--sx':'35px',  '--sy':'-30px', animationDelay:'0.4s', animationDuration:'0.55s' }}>⚡</span>
-          <span className="spark" style={{ bottom:'36%', left:'28%', '--sx':'-14px', '--sy':'-50px', animationDelay:'0.6s', animationDuration:'0.5s' }}>✨</span>
-        </>}
-
-        {/* Fishing rod + fish */}
-        {activeAnim === 'fishing' && <>
-          <span style={{ position:'absolute', bottom:'58%', left:'18%', fontSize:28, pointerEvents:'none', userSelect:'none', transform:'scaleX(-1)' }}>🎣</span>
-          <span className="fish-emoji" style={{ bottom:'16%', left:'28%' }}>🐟</span>
-        </>}
-
-        {/* Chef hat + pancake */}
-        {activeAnim === 'chef' && <>
-          <span style={{ position:'absolute', bottom:'74%', left:'7%', fontSize:26, pointerEvents:'none', userSelect:'none' }}>👨‍🍳</span>
-          <span style={{ position:'absolute', bottom:'38%', left:'4%', fontSize:26, pointerEvents:'none', userSelect:'none' }}>🍳</span>
-          <span className="pancake" style={{ bottom:'42%', left:'8%' }}>🥞</span>
-        </>}
-
-        {/* Painter easel + paint stroke */}
-        {activeAnim === 'painter' && <>
-          <span style={{ position:'absolute', bottom:'4%', left:'26%', fontSize:28, pointerEvents:'none', userSelect:'none' }}>🎨</span>
-          <div className="paint-stroke" style={{ bottom:'52%', left:'22%', background:'linear-gradient(90deg,#FF4444,#FF8800,#FFFF44)' }}/>
-          <div className="paint-stroke" style={{ bottom:'46%', left:'22%', background:'linear-gradient(90deg,#44AAFF,#44FF88)', animationDelay:'3s' }}/>
-        </>}
 
       </div>
     </>

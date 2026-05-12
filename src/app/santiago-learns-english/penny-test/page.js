@@ -6,14 +6,11 @@ import PennyScene, {
   ANIM_DURATIONS, SCENES, TEST_SCENES,
 } from '../chat-with-penny/_components/PennyScene.js';
 
-const CANDIDATE_ANIMS = ['ballet','boxing','meditation','disco','superhero','birthday','rockstar','fishing','chef','painter'];
-
 const GROUPS = [
-  { label: '😴 Idle Pool',           color: '#6B7280', anims: IDLE_ANIMS },
-  { label: '✅ Correct',              color: '#16A34A', anims: CORRECT_ANIMS },
-  { label: '❌ Wrong',                color: '#DC2626', anims: [WRONG_ANIM] },
-  { label: '🏆 Unlockable',           color: '#D97706', anims: ['flyaway', 'layegg', 'holdhands'] },
-  { label: '🔓 Unlock Candidates',    color: '#7C3AED', anims: CANDIDATE_ANIMS },
+  { label: '😴 Idle Pool',  color: '#6B7280', anims: IDLE_ANIMS },
+  { label: '✅ Correct',     color: '#16A34A', anims: CORRECT_ANIMS },
+  { label: '❌ Wrong',       color: '#DC2626', anims: [WRONG_ANIM] },
+  { label: '🏆 Unlockable',  color: '#D97706', anims: ['flyaway', 'layegg', 'holdhands'] },
 ];
 
 const SCENE_LABELS = {
@@ -22,16 +19,9 @@ const SCENE_LABELS = {
   classroom:  '🏫 Classroom',
   snowy:      '❄️ Snowy',
   city:       '🏙️ City',
-  space:      '🚀 Space',
   underwater: '🐠 Underwater',
-  jungle:     '🌿 Jungle',
   volcano:    '🌋 Volcano',
   arctic:     '🧊 Arctic',
-  castle:     '🏰 Castle',
-  discoroom:  '🪩 Disco Room',
-  treehouse:  '🌲 Treehouse',
-  carnival:   '🎡 Carnival',
-  library:    '📚 Library',
 };
 
 export default function PennyTest() {
@@ -151,19 +141,14 @@ export default function PennyTest() {
           );
         })}
 
-        {/* Usage note */}
+        {/* Scene promotion note */}
         <div style={{
           marginTop: 8, padding: '12px 18px', borderRadius: 12,
           background: 'white', border: '2px dashed #D1D5DB',
           fontSize: 12, color: '#6B7280', lineHeight: 1.6,
         }}>
-          <strong style={{ color: '#374151' }}>Promoting a candidate animation:</strong><br />
-          1. Pick one you like from 🔓 Unlock Candidates above<br />
-          2. Move its name from <code>CANDIDATE_ANIMS</code> → <code>IDLE_ANIMS</code> or unlockable list in PennyScene.js<br />
-          3. Remove it from <code>CANDIDATE_ANIMS</code> in this file<br /><br />
           <strong style={{ color: '#374151' }}>Promoting a candidate scene:</strong><br />
-          1. Move its name from <code>TEST_SCENES</code> → <code>SCENES</code> in PennyScene.js<br />
-          2. Remove it from <code>TEST_SCENES</code>
+          Move its name from <code>TEST_SCENES</code> → <code>SCENES</code> in PennyScene.js and remove from <code>TEST_SCENES</code>.
         </div>
       </div>
 
