@@ -455,65 +455,67 @@ const css = `
   .rudolphing #pc-wingR    stop:last-child  { animation: rudolph-wing-morph-end 8s ease-in-out forwards; }
 
   /* ── FALL APART ─────────────────────────────────────────────────────────────── */
+  /* Translate values are SVG user units (1 unit ≈ 0.31 CSS px at rendered size).  */
+  /* Scale: head needs ~430u, wings ~290u, feet ~80u to reach ground level.        */
   @keyframes head-detach {
-    0%,3%  { transform: translate(0,0)        rotate(0deg);  }
-    14%    { transform: translate(14px,130px)  rotate(42deg); } /* slam down fast */
-    20%    { transform: translate(12px,78px)   rotate(28deg); } /* bounce 1 up */
-    26%    { transform: translate(14px,126px)  rotate(40deg); } /* bounce 1 down */
-    31%    { transform: translate(13px,96px)   rotate(33deg); } /* bounce 2 up */
-    36%    { transform: translate(14px,128px)  rotate(41deg); } /* settle */
-    55%    { transform: translate(14px,128px)  rotate(41deg); } /* rest */
-    75%    { transform: translate(-10px,-28px) rotate(-9deg); } /* reassemble */
-    88%    { transform: translate(2px,4px)     rotate(1deg);  }
-    100%   { transform: translate(0,0)         rotate(0deg);  }
+    0%,3%  { transform: translate(0px,0px)       rotate(0deg);  }
+    14%    { transform: translate(40px,430px)     rotate(42deg); }
+    20%    { transform: translate(36px,268px)     rotate(28deg); }
+    26%    { transform: translate(40px,415px)     rotate(40deg); }
+    31%    { transform: translate(38px,325px)     rotate(33deg); }
+    36%    { transform: translate(40px,425px)     rotate(41deg); }
+    55%    { transform: translate(40px,425px)     rotate(41deg); }
+    75%    { transform: translate(-12px,-30px)    rotate(-9deg); }
+    88%    { transform: translate(3px,5px)        rotate(1deg);  }
+    100%   { transform: translate(0px,0px)        rotate(0deg);  }
   }
   @keyframes wing-left-detach {
-    0%,3%  { transform: translate(0,0)       rotate(0deg);  }
-    14%    { transform: translate(-88px,68px) rotate(-54deg);}  /* fast */
-    20%    { transform: translate(-86px,36px) rotate(-36deg);}  /* bounce 1 up */
-    26%    { transform: translate(-88px,66px) rotate(-52deg);}  /* bounce 1 down */
-    31%    { transform: translate(-87px,48px) rotate(-42deg);}  /* bounce 2 up */
-    36%    { transform: translate(-88px,68px) rotate(-54deg);}  /* settle */
-    55%    { transform: translate(-88px,68px) rotate(-54deg);}  /* rest */
-    80%    { transform: translate(-26px,18px) rotate(-15deg);}
-    92%    { transform: translate(-3px,3px)   rotate(-2deg); }
-    100%   { transform: translate(0,0)        rotate(0deg);  }
+    0%,3%  { transform: translate(0px,0px)        rotate(0deg);  }
+    14%    { transform: translate(-285px,290px)    rotate(-54deg);}
+    20%    { transform: translate(-278px,175px)    rotate(-36deg);}
+    26%    { transform: translate(-285px,282px)    rotate(-52deg);}
+    31%    { transform: translate(-281px,214px)    rotate(-42deg);}
+    36%    { transform: translate(-285px,285px)    rotate(-54deg);}
+    55%    { transform: translate(-285px,285px)    rotate(-54deg);}
+    80%    { transform: translate(-84px,62px)      rotate(-15deg);}
+    92%    { transform: translate(-10px,8px)       rotate(-2deg); }
+    100%   { transform: translate(0px,0px)         rotate(0deg);  }
   }
   @keyframes wing-right-detach {
-    0%,3%  { transform: translate(0,0)      rotate(0deg);  }
-    14%    { transform: translate(88px,68px) rotate(54deg); }
-    20%    { transform: translate(86px,36px) rotate(36deg); }
-    26%    { transform: translate(88px,66px) rotate(52deg); }
-    31%    { transform: translate(87px,48px) rotate(42deg); }
-    36%    { transform: translate(88px,68px) rotate(54deg); }
-    55%    { transform: translate(88px,68px) rotate(54deg); }
-    80%    { transform: translate(26px,18px) rotate(15deg); }
-    92%    { transform: translate(3px,3px)   rotate(2deg);  }
-    100%   { transform: translate(0,0)       rotate(0deg);  }
+    0%,3%  { transform: translate(0px,0px)       rotate(0deg);  }
+    14%    { transform: translate(285px,290px)    rotate(54deg); }
+    20%    { transform: translate(278px,175px)    rotate(36deg); }
+    26%    { transform: translate(285px,282px)    rotate(52deg); }
+    31%    { transform: translate(281px,214px)    rotate(42deg); }
+    36%    { transform: translate(285px,285px)    rotate(54deg); }
+    55%    { transform: translate(285px,285px)    rotate(54deg); }
+    80%    { transform: translate(84px,62px)      rotate(15deg); }
+    92%    { transform: translate(10px,8px)       rotate(2deg);  }
+    100%   { transform: translate(0px,0px)        rotate(0deg);  }
   }
   @keyframes foot-left-detach {
-    0%,3%  { transform: translate(0,0)       rotate(0deg);  }
-    14%    { transform: translate(-32px,30px) rotate(-30deg);}
-    20%    { transform: translate(-31px,16px) rotate(-20deg);}
-    26%    { transform: translate(-32px,30px) rotate(-30deg);}
-    31%    { transform: translate(-31px,20px) rotate(-24deg);}
-    36%    { transform: translate(-32px,30px) rotate(-30deg);}
-    55%    { transform: translate(-32px,30px) rotate(-30deg);}
-    80%    { transform: translate(-11px,10px) rotate(-10deg);}
-    92%    { transform: translate(-2px,2px)   rotate(-1deg); }
-    100%   { transform: translate(0,0)        rotate(0deg);  }
+    0%,3%  { transform: translate(0px,0px)       rotate(0deg);  }
+    14%    { transform: translate(-120px,80px)    rotate(-30deg);}
+    20%    { transform: translate(-116px,48px)    rotate(-20deg);}
+    26%    { transform: translate(-120px,78px)    rotate(-30deg);}
+    31%    { transform: translate(-118px,58px)    rotate(-24deg);}
+    36%    { transform: translate(-120px,80px)    rotate(-30deg);}
+    55%    { transform: translate(-120px,80px)    rotate(-30deg);}
+    80%    { transform: translate(-36px,22px)     rotate(-10deg);}
+    92%    { transform: translate(-5px,3px)       rotate(-1deg); }
+    100%   { transform: translate(0px,0px)        rotate(0deg);  }
   }
   @keyframes foot-right-detach {
-    0%,3%  { transform: translate(0,0)      rotate(0deg);  }
-    14%    { transform: translate(32px,30px) rotate(30deg); }
-    20%    { transform: translate(31px,16px) rotate(20deg); }
-    26%    { transform: translate(32px,30px) rotate(30deg); }
-    31%    { transform: translate(31px,20px) rotate(24deg); }
-    36%    { transform: translate(32px,30px) rotate(30deg); }
-    55%    { transform: translate(32px,30px) rotate(30deg); }
-    80%    { transform: translate(11px,10px) rotate(10deg); }
-    92%    { transform: translate(2px,2px)   rotate(1deg);  }
-    100%   { transform: translate(0,0)       rotate(0deg);  }
+    0%,3%  { transform: translate(0px,0px)      rotate(0deg);  }
+    14%    { transform: translate(120px,80px)    rotate(30deg); }
+    20%    { transform: translate(116px,48px)    rotate(20deg); }
+    26%    { transform: translate(120px,78px)    rotate(30deg); }
+    31%    { transform: translate(118px,58px)    rotate(24deg); }
+    36%    { transform: translate(120px,80px)    rotate(30deg); }
+    55%    { transform: translate(120px,80px)    rotate(30deg); }
+    80%    { transform: translate(36px,22px)     rotate(10deg); }
+    92%    { transform: translate(5px,3px)       rotate(1deg);  }
+    100%   { transform: translate(0px,0px)       rotate(0deg);  }
   }
   .fallingapart #head-group  { animation: head-detach       10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
   .fallingapart #wing-left   { animation: wing-left-detach  10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
@@ -642,11 +644,11 @@ function ClassroomScene() {
       {[110,220,330,440,550,660,770].map((x,i) => (
         <line key={i} x1={x} y1="308" x2={x} y2="400" stroke="rgba(0,0,0,0.1)" strokeWidth="1"/>
       ))}
-      <rect x="75" y="280" width="190" height="30" rx="4" fill="#795548" stroke="#4E342E" strokeWidth="2"/>
-      <rect x="100" y="308" width="10" height="28" rx="3" fill="#5D4037"/>
-      <rect x="245" y="308" width="10" height="28" rx="3" fill="#5D4037"/>
-      <circle cx="250" cy="275" r="10" fill="#E53935"/>
-      <path d="M250,266 Q253,261 257,263" fill="none" stroke="#33691E" strokeWidth="2.5" strokeLinecap="round"/>
+      <rect x="55" y="189" width="220" height="20" rx="4" fill="#795548" stroke="#4E342E" strokeWidth="2"/>
+      <rect x="80" y="209" width="10" height="99" rx="3" fill="#5D4037"/>
+      <rect x="248" y="209" width="10" height="99" rx="3" fill="#5D4037"/>
+      <circle cx="248" cy="178" r="10" fill="#E53935"/>
+      <path d="M248,169 Q251,164 255,166" fill="none" stroke="#33691E" strokeWidth="2.5" strokeLinecap="round"/>
     </svg>
   );
 }
