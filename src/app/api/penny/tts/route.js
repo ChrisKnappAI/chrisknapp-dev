@@ -20,8 +20,8 @@ export async function POST(req) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         input:       { text },
-        voice:       { languageCode: 'en-US', name: 'en-US-Neural2-F' },
-        audioConfig: { audioEncoding: 'MP3', speakingRate: 0.9, pitch: 2.0 },
+        voice:       { languageCode: 'en-US', name: 'en-US-Neural2-C' },
+        audioConfig: { audioEncoding: 'MP3', speakingRate: 1.05, pitch: 5.0 },
       }),
     }
   );
