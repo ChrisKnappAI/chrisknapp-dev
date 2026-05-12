@@ -471,13 +471,21 @@ export default function ChatWithPenny() {
             <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
               <button
                 onClick={() => setActiveTopics(LESSONS.map(l => l.id))}
-                style={{ ...btnBase, background: '#1D4ED8', color: 'white', fontSize: 12, padding: '5px 14px' }}
+                style={{ ...btnBase,
+                  background: activeTopics.length === LESSONS.length ? '#1D4ED8' : 'white',
+                  color:      activeTopics.length === LESSONS.length ? 'white'   : '#6B7280',
+                  borderColor:activeTopics.length === LESSONS.length ? '#1D4ED8' : '#D1D5DB',
+                  fontSize: 12, padding: '5px 14px' }}
               >
                 Select All
               </button>
               <button
                 onClick={() => setActiveTopics([])}
-                style={{ ...btnBase, background: 'white', color: '#6B7280', borderColor: '#D1D5DB', fontSize: 12, padding: '5px 14px' }}
+                style={{ ...btnBase,
+                  background: activeTopics.length === 0 ? '#1D4ED8' : 'white',
+                  color:      activeTopics.length === 0 ? 'white'   : '#6B7280',
+                  borderColor:activeTopics.length === 0 ? '#1D4ED8' : '#D1D5DB',
+                  fontSize: 12, padding: '5px 14px' }}
               >
                 Clear All
               </button>
