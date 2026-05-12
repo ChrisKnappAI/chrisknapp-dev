@@ -426,55 +426,92 @@ const css = `
     animation: snow-fall-rudolph 2s ease-in infinite;
   }
 
+  /* Rudolph body/wing color morph: pink → reindeer-brown → pink */
+  @keyframes rudolph-body-morph {
+    0%,7%   { stop-color: #F472B6; }
+    22%,76% { stop-color: #8B5E3C; }
+    91%,100%{ stop-color: #F472B6; }
+  }
+  @keyframes rudolph-body-morph-end {
+    0%,7%   { stop-color: #BE185D; }
+    22%,76% { stop-color: #5C3317; }
+    91%,100%{ stop-color: #BE185D; }
+  }
+  @keyframes rudolph-wing-morph {
+    0%,7%   { stop-color: #EC4899; }
+    22%,76% { stop-color: #7A4F2C; }
+    91%,100%{ stop-color: #EC4899; }
+  }
+  @keyframes rudolph-wing-morph-end {
+    0%,7%   { stop-color: #9D174D; }
+    22%,76% { stop-color: #3E1F0A; }
+    91%,100%{ stop-color: #9D174D; }
+  }
+  .rudolphing #pc-bodyGrad stop:first-child { animation: rudolph-body-morph     8s ease-in-out forwards; }
+  .rudolphing #pc-bodyGrad stop:last-child  { animation: rudolph-body-morph-end 8s ease-in-out forwards; }
+  .rudolphing #pc-wingL    stop:first-child { animation: rudolph-wing-morph     8s ease-in-out forwards; }
+  .rudolphing #pc-wingL    stop:last-child  { animation: rudolph-wing-morph-end 8s ease-in-out forwards; }
+  .rudolphing #pc-wingR    stop:first-child { animation: rudolph-wing-morph     8s ease-in-out forwards; }
+  .rudolphing #pc-wingR    stop:last-child  { animation: rudolph-wing-morph-end 8s ease-in-out forwards; }
+
   /* ── FALL APART ─────────────────────────────────────────────────────────────── */
   @keyframes head-detach {
-    0%,5%  { transform: translate(0,0)        rotate(0deg);  }
-    22%    { transform: translate(-30px,-72px) rotate(-28deg);}
-    36%    { transform: translate(14px,130px)  rotate(38deg); }
-    43%    { transform: translate(12px,114px)  rotate(35deg); }
-    50%    { transform: translate(14px,128px)  rotate(38deg); }
-    58%    { transform: translate(13px,120px)  rotate(36deg); }
-    78%    { transform: translate(-10px,-32px) rotate(-10deg);}
-    90%    { transform: translate(2px,4px)     rotate(1deg);  }
+    0%,3%  { transform: translate(0,0)        rotate(0deg);  }
+    14%    { transform: translate(14px,130px)  rotate(42deg); } /* slam down fast */
+    20%    { transform: translate(12px,78px)   rotate(28deg); } /* bounce 1 up */
+    26%    { transform: translate(14px,126px)  rotate(40deg); } /* bounce 1 down */
+    31%    { transform: translate(13px,96px)   rotate(33deg); } /* bounce 2 up */
+    36%    { transform: translate(14px,128px)  rotate(41deg); } /* settle */
+    55%    { transform: translate(14px,128px)  rotate(41deg); } /* rest */
+    75%    { transform: translate(-10px,-28px) rotate(-9deg); } /* reassemble */
+    88%    { transform: translate(2px,4px)     rotate(1deg);  }
     100%   { transform: translate(0,0)         rotate(0deg);  }
   }
   @keyframes wing-left-detach {
-    0%,5%  { transform: translate(0,0)       rotate(0deg);  }
-    26%    { transform: translate(-88px,52px) rotate(-55deg);}
-    42%    { transform: translate(-84px,68px) rotate(-52deg);}
-    50%    { transform: translate(-88px,62px) rotate(-55deg);}
-    58%    { transform: translate(-86px,66px) rotate(-53deg);}
-    80%    { transform: translate(-28px,18px) rotate(-18deg);}
+    0%,3%  { transform: translate(0,0)       rotate(0deg);  }
+    14%    { transform: translate(-88px,68px) rotate(-54deg);}  /* fast */
+    20%    { transform: translate(-86px,36px) rotate(-36deg);}  /* bounce 1 up */
+    26%    { transform: translate(-88px,66px) rotate(-52deg);}  /* bounce 1 down */
+    31%    { transform: translate(-87px,48px) rotate(-42deg);}  /* bounce 2 up */
+    36%    { transform: translate(-88px,68px) rotate(-54deg);}  /* settle */
+    55%    { transform: translate(-88px,68px) rotate(-54deg);}  /* rest */
+    80%    { transform: translate(-26px,18px) rotate(-15deg);}
     92%    { transform: translate(-3px,3px)   rotate(-2deg); }
     100%   { transform: translate(0,0)        rotate(0deg);  }
   }
   @keyframes wing-right-detach {
-    0%,5%  { transform: translate(0,0)      rotate(0deg);  }
-    26%    { transform: translate(88px,52px) rotate(55deg); }
-    42%    { transform: translate(84px,68px) rotate(52deg); }
-    50%    { transform: translate(88px,62px) rotate(55deg); }
-    58%    { transform: translate(86px,66px) rotate(53deg); }
-    80%    { transform: translate(28px,18px) rotate(18deg); }
+    0%,3%  { transform: translate(0,0)      rotate(0deg);  }
+    14%    { transform: translate(88px,68px) rotate(54deg); }
+    20%    { transform: translate(86px,36px) rotate(36deg); }
+    26%    { transform: translate(88px,66px) rotate(52deg); }
+    31%    { transform: translate(87px,48px) rotate(42deg); }
+    36%    { transform: translate(88px,68px) rotate(54deg); }
+    55%    { transform: translate(88px,68px) rotate(54deg); }
+    80%    { transform: translate(26px,18px) rotate(15deg); }
     92%    { transform: translate(3px,3px)   rotate(2deg);  }
     100%   { transform: translate(0,0)       rotate(0deg);  }
   }
   @keyframes foot-left-detach {
-    0%,5%  { transform: translate(0,0)       rotate(0deg);  }
-    28%    { transform: translate(-38px,28px) rotate(-32deg);}
-    44%    { transform: translate(-36px,24px) rotate(-30deg);}
-    52%    { transform: translate(-38px,28px) rotate(-32deg);}
-    60%    { transform: translate(-37px,26px) rotate(-31deg);}
-    80%    { transform: translate(-12px,9px)  rotate(-10deg);}
+    0%,3%  { transform: translate(0,0)       rotate(0deg);  }
+    14%    { transform: translate(-32px,30px) rotate(-30deg);}
+    20%    { transform: translate(-31px,16px) rotate(-20deg);}
+    26%    { transform: translate(-32px,30px) rotate(-30deg);}
+    31%    { transform: translate(-31px,20px) rotate(-24deg);}
+    36%    { transform: translate(-32px,30px) rotate(-30deg);}
+    55%    { transform: translate(-32px,30px) rotate(-30deg);}
+    80%    { transform: translate(-11px,10px) rotate(-10deg);}
     92%    { transform: translate(-2px,2px)   rotate(-1deg); }
     100%   { transform: translate(0,0)        rotate(0deg);  }
   }
   @keyframes foot-right-detach {
-    0%,5%  { transform: translate(0,0)      rotate(0deg);  }
-    28%    { transform: translate(38px,28px) rotate(32deg); }
-    44%    { transform: translate(36px,24px) rotate(30deg); }
-    52%    { transform: translate(38px,28px) rotate(32deg); }
-    60%    { transform: translate(37px,26px) rotate(31deg); }
-    80%    { transform: translate(12px,9px)  rotate(10deg); }
+    0%,3%  { transform: translate(0,0)      rotate(0deg);  }
+    14%    { transform: translate(32px,30px) rotate(30deg); }
+    20%    { transform: translate(31px,16px) rotate(20deg); }
+    26%    { transform: translate(32px,30px) rotate(30deg); }
+    31%    { transform: translate(31px,20px) rotate(24deg); }
+    36%    { transform: translate(32px,30px) rotate(30deg); }
+    55%    { transform: translate(32px,30px) rotate(30deg); }
+    80%    { transform: translate(11px,10px) rotate(10deg); }
     92%    { transform: translate(2px,2px)   rotate(1deg);  }
     100%   { transform: translate(0,0)       rotate(0deg);  }
   }
@@ -596,20 +633,20 @@ function ClassroomScene() {
         </linearGradient>
       </defs>
       <rect width="880" height="400" fill="url(#cls-wall)"/>
-      <rect x="55" y="88" width="220" height="108" rx="6" fill="url(#cls-board)" stroke="#4E342E" strokeWidth="6"/>
-      <rect x="55" y="190" width="220" height="9" rx="3" fill="#4E342E"/>
-      <text x="165" y="127" textAnchor="middle" fill="white" fontSize="17" fontWeight="900" fontFamily="Arial" opacity="0.94">Hello, Santiago!</text>
-      <line x1="70" y1="141" x2="260" y2="141" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
-      <text x="165" y="161" textAnchor="middle" fill="rgba(255,255,255,0.90)" fontSize="14" fontFamily="Arial">Natalie loves you! ♥</text>
+      <rect x="55" y="78" width="220" height="108" rx="6" fill="url(#cls-board)" stroke="#4E342E" strokeWidth="6"/>
+      <rect x="55" y="180" width="220" height="9" rx="3" fill="#4E342E"/>
+      <text x="165" y="117" textAnchor="middle" fill="white" fontSize="17" fontWeight="900" fontFamily="Arial" opacity="0.94">Hello, Santiago!</text>
+      <line x1="70" y1="131" x2="260" y2="131" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
+      <text x="165" y="151" textAnchor="middle" fill="rgba(255,255,255,0.90)" fontSize="14" fontFamily="Arial">Natalie loves you! ♥</text>
       <rect y="308" width="880" height="92" fill="url(#cls-floor)"/>
       {[110,220,330,440,550,660,770].map((x,i) => (
         <line key={i} x1={x} y1="308" x2={x} y2="400" stroke="rgba(0,0,0,0.1)" strokeWidth="1"/>
       ))}
-      <rect x="308" y="280" width="264" height="30" rx="4" fill="#795548" stroke="#4E342E" strokeWidth="2"/>
-      <rect x="338" y="308" width="10" height="28" rx="3" fill="#5D4037"/>
-      <rect x="542" y="308" width="10" height="28" rx="3" fill="#5D4037"/>
-      <circle cx="540" cy="277" r="10" fill="#E53935"/>
-      <path d="M540,268 Q543,263 547,265" fill="none" stroke="#33691E" strokeWidth="2.5" strokeLinecap="round"/>
+      <rect x="75" y="280" width="190" height="30" rx="4" fill="#795548" stroke="#4E342E" strokeWidth="2"/>
+      <rect x="100" y="308" width="10" height="28" rx="3" fill="#5D4037"/>
+      <rect x="245" y="308" width="10" height="28" rx="3" fill="#5D4037"/>
+      <circle cx="250" cy="275" r="10" fill="#E53935"/>
+      <path d="M250,266 Q253,261 257,263" fill="none" stroke="#33691E" strokeWidth="2.5" strokeLinecap="round"/>
     </svg>
   );
 }
