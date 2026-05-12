@@ -1404,10 +1404,18 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
   }, []);
 
   // Run command animations (response + unlock buttons)
-  // commandAnim = { name, ts } — ts changes even if same name, forcing re-trigger
+  // Always force a null reset first so CSS animations restart even if same name is re-triggered
   useEffect(() => {
     if (!commandAnim?.name) return;
-    runAnim(commandAnim.name);
+    clearTimeout(animTimerRef.current);
+    clearTimeout(idleTimerRef.current);
+    layEggTimers.current.forEach(clearTimeout);
+    puppyTimers.current.forEach(clearTimeout);
+    setActiveAnim(null);
+    setLayEggPhase(0);
+    setPuppyPhase(0);
+    const tid = setTimeout(() => runAnim(commandAnim.name), 50);
+    return () => clearTimeout(tid);
   }, [commandAnim?.ts]);
 
   // Resume idle when unpaused (grading/speaking ended)
