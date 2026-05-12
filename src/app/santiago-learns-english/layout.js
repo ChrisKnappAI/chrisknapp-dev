@@ -4,10 +4,11 @@ import { useState, useRef, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 const lessons = [
-  { slug: 'class-videos', icon: '🎬', label: 'Class Videos', active: true },
-  { slug: 'chess',        icon: '♟',  label: 'Chess',        active: true },
-  { slug: 'body-parts',   icon: '🧍', label: 'Body Parts',   active: true },
-  { slug: 'junk-food',    icon: '🍕', label: 'Junk Food',    active: true },
+  { slug: 'chat-with-penny', icon: '🐧', label: 'Penny Chat',   active: true },
+  { slug: 'class-videos',    icon: '🎬', label: 'Class Videos', active: true },
+  { slug: 'chess',           icon: '♟',  label: 'Chess',        active: true },
+  { slug: 'body-parts',      icon: '🧍', label: 'Body Parts',   active: true },
+  { slug: 'junk-food',       icon: '🍕', label: 'Junk Food',    active: true },
 ];
 
 export default function SantiagoLayout({ children }) {
