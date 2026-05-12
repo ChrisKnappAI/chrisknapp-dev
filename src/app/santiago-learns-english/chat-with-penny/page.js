@@ -73,7 +73,8 @@ export default function ChatWithPenny() {
   const [unlockedScenes, setUnlockedScenes] = useState([]);
   const [selectedScene, setSelectedScene]   = useState('');
 
-  const lastQuestionId = useRef(null);
+  const lastQuestionId    = useRef(null);
+  const questionLoggedRef = useRef(false);
 
   function triggerAnim(name) {
     setCommandAnim({ name, ts: Date.now() });
@@ -115,6 +116,7 @@ export default function ChatWithPenny() {
 
   // ── Question flow ──────────────────────────────────────────────────────────
   function askNextQuestion() {
+    questionLoggedRef.current = false;
     const q = pickQuestion(activeTopics, lastQuestionId.current);
     if (!q) return;
     lastQuestionId.current = q.id;
@@ -131,6 +133,8 @@ export default function ChatWithPenny() {
 
   // ── Correct answer handler (Types 1 & 2) ──────────────────────────────────
   async function handleCorrect(answer = '') {
+    const wasLogged = questionLoggedRef.current;
+    questionLoggedRef.current = false;
     const phrase   = ENCOURAGEMENT[Math.floor(Math.random() * ENCOURAGEMENT.length)];
     const newCount = correctCount + 1;
     setCorrectCount(newCount);
@@ -194,9 +198,9 @@ export default function ChatWithPenny() {
     setQuestion(nextQ);
     triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
 
-    // Log the completed interaction
+    // Log only the first attempt — skip if already logged from a wrong answer
     const responseType = (qType === 2 && wordCount >= 5) ? 'ai' : 'static';
-    fetch('/api/penny/log', {
+    if (!wasLogged) fetch('/api/penny/log', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -221,6 +225,7 @@ export default function ChatWithPenny() {
 
   // ── Type 3 handler: always moves on, Claude grades + responds ─────────────
   async function handleType3Response(answer) {
+    questionLoggedRef.current = false;
     const nextQ = pickQuestion(activeTopics, lastQuestionId.current);
     if (!nextQ) return;
     lastQuestionId.current = nextQ.id;
@@ -303,6 +308,28 @@ export default function ChatWithPenny() {
           setPennyHint(displayHint ? `Hint: ${displayHint}` : null);
           setPennyHintSpanish(displayHintEs ? `Pista: ${displayHintEs}` : null);
           triggerAnim(WRONG_ANIM);
+
+          if (!questionLoggedRef.current) {
+            questionLoggedRef.current = true;
+            fetch('/api/penny/log', {
+              method:  'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                questionId:    currentQuestion.id,
+                questionText:  currentQuestion.text,
+                topic:         currentQuestion.topic,
+                topicGroup:    currentQuestion.group,
+                questionType:  qType,
+                answerGiven:   answer,
+                correct:       false,
+                gradingMethod: 'static',
+                responseGiven: displayHint
+                  ? `Not quite. Try again, Santiago! Hint: ${displayHint}`
+                  : 'Not quite. Try again, Santiago!',
+                responseType:  'static',
+              }),
+            }).catch(() => {});
+          }
 
           setLoading(false);
           if (voiceEnabled) {
@@ -468,6 +495,25 @@ export default function ChatWithPenny() {
                   setPennySpanish(`¡No exactamente! ¡Encuentra ${sp}!`);
                   setPennyHint(null);
                   setPennyHintSpanish(null);
+                  if (!questionLoggedRef.current) {
+                    questionLoggedRef.current = true;
+                    fetch('/api/penny/log', {
+                      method:  'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        questionId:    currentQuestion.id,
+                        questionText:  currentQuestion.text,
+                        topic:         currentQuestion.topic,
+                        topicGroup:    currentQuestion.group,
+                        questionType:  1,
+                        answerGiven:   '',
+                        correct:       false,
+                        gradingMethod: 'static',
+                        responseGiven: `Not quite! Find the ${currentQuestion.answer}!`,
+                        responseType:  'static',
+                      }),
+                    }).catch(() => {});
+                  }
                   // Show red border briefly, then clear selection — same photos stay in same spots
                   setTimeout(() => setAttemptKey(k => k + 1), 800);
                 }}
