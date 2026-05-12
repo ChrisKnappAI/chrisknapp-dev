@@ -112,8 +112,7 @@ export default function ChatWithPenny() {
   }, [activeTopics]);
 
   useEffect(() => {
-    if (!activeTopics.length) return;
-    if (!currentQuestion || !activeTopics.includes(currentQuestion.topic)) askNextQuestion();
+    if (activeTopics.length && !currentQuestion) askNextQuestion();
   }, [activeTopics]);
 
   // ── Question flow ──────────────────────────────────────────────────────────
@@ -262,6 +261,11 @@ export default function ChatWithPenny() {
 
   function toggleTopic(id) {
     setActiveTopics(prev => prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]);
+  }
+
+  function closeTopicModal() {
+    setShowTopicModal(false);
+    if (!currentQuestion || !activeTopics.includes(currentQuestion.topic)) askNextQuestion();
   }
 
   const currentLesson     = currentQuestion ? LESSONS.find(l => l.id === currentQuestion.topic) : null;
@@ -442,7 +446,7 @@ export default function ChatWithPenny() {
       {/* ── Topics Modal ── */}
       {showTopicModal && (
         <div
-          onClick={e => { if (e.target === e.currentTarget) setShowTopicModal(false); }}
+          onClick={e => { if (e.target === e.currentTarget) closeTopicModal(); }}
           style={{
             position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)',
             zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -457,7 +461,7 @@ export default function ChatWithPenny() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <div style={{ fontSize: 18, fontWeight: 800, color: '#1D4ED8' }}>📚 Topics</div>
               <button
-                onClick={() => setShowTopicModal(false)}
+                onClick={() => closeTopicModal()}
                 style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#6B7280', lineHeight: 1 }}
               >
                 ✕
@@ -518,7 +522,7 @@ export default function ChatWithPenny() {
 
             <div style={{ marginTop: 8, display: 'flex', justifyContent: 'flex-end' }}>
               <button
-                onClick={() => setShowTopicModal(false)}
+                onClick={() => closeTopicModal()}
                 style={{ ...btnBase, background: '#1D4ED8', color: 'white', fontSize: 14, padding: '8px 24px' }}
               >
                 Done

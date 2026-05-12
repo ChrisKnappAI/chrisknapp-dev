@@ -352,7 +352,7 @@ export const LESSONS = [
 
   {
     group: 'Food',
-    id: 'breakfast',
+    id: 'breakfast-foods',
     label: 'Breakfast Foods',
     type: 'standard',
     vocab: [
