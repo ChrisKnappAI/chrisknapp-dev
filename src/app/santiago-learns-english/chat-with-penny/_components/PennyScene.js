@@ -288,12 +288,12 @@ const css = `
     27%  { transform: translate(10px,0)  rotate(2deg);   }
     28%  { transform: translate(0,0)     rotate(0deg);   }
     72%  { transform: translate(0,0)     rotate(0deg);   }
-    76%  { transform: translate(55px,0)  rotate(10deg);  }
-    81%  { transform: translate(134px,0) rotate(-10deg); }
-    86%  { transform: translate(222px,0) rotate(10deg);  }
-    91%  { transform: translate(318px,0) rotate(-9deg);  }
-    96%  { transform: translate(408px,0) rotate(8deg);   }
-    100% { transform: translate(480px,0) rotate(-7deg);  }
+    76%  { transform: translate(78px,0)  rotate(10deg);  }
+    81%  { transform: translate(190px,0) rotate(-10deg); }
+    86%  { transform: translate(315px,0) rotate(10deg);  }
+    91%  { transform: translate(452px,0) rotate(-9deg);  }
+    96%  { transform: translate(579px,0) rotate(8deg);   }
+    100% { transform: translate(680px,0) rotate(-7deg);  }
   }
   .holdingpenny { animation: pinkpenny-walk 14s linear forwards; }
   @keyframes penny-hold-wing {
@@ -596,11 +596,11 @@ function ClassroomScene() {
         </linearGradient>
       </defs>
       <rect width="880" height="400" fill="url(#cls-wall)"/>
-      <rect x="225" y="78" width="430" height="205" rx="8" fill="url(#cls-board)" stroke="#4E342E" strokeWidth="8"/>
-      <rect x="225" y="275" width="430" height="14" rx="4" fill="#4E342E"/>
-      <text x="440" y="148" textAnchor="middle" fill="white" fontSize="34" fontWeight="900" fontFamily="Arial" opacity="0.92">Hello! / ¡Hola!</text>
-      <line x1="270" y1="170" x2="610" y2="170" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5"/>
-      <text x="440" y="205" textAnchor="middle" fill="rgba(255,255,255,0.72)" fontSize="22" fontFamily="Arial">A B C  ·  1 2 3</text>
+      <rect x="55" y="88" width="220" height="108" rx="6" fill="url(#cls-board)" stroke="#4E342E" strokeWidth="6"/>
+      <rect x="55" y="190" width="220" height="9" rx="3" fill="#4E342E"/>
+      <text x="165" y="127" textAnchor="middle" fill="white" fontSize="17" fontWeight="900" fontFamily="Arial" opacity="0.94">Hello, Santiago!</text>
+      <line x1="70" y1="141" x2="260" y2="141" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
+      <text x="165" y="161" textAnchor="middle" fill="rgba(255,255,255,0.90)" fontSize="14" fontFamily="Arial">Natalie loves you! ♥</text>
       <rect y="308" width="880" height="92" fill="url(#cls-floor)"/>
       {[110,220,330,440,550,660,770].map((x,i) => (
         <line key={i} x1={x} y1="308" x2={x} y2="400" stroke="rgba(0,0,0,0.1)" strokeWidth="1"/>
@@ -643,16 +643,18 @@ function SnowyScene() {
       <polygon points="792,278 820,210 848,278" fill="#2E7D32"/>
       <polygon points="802,248 820,192 838,248" fill="#388E3C"/>
       <rect x="815" y="317" width="10" height="22" rx="2" fill="#4E342E"/>
-      <circle cx="440" cy="280" r="30" fill="white" stroke="#90A4AE" strokeWidth="2"/>
-      <circle cx="440" cy="238" r="23" fill="white" stroke="#90A4AE" strokeWidth="2"/>
-      <circle cx="440" cy="203" r="17" fill="white" stroke="#90A4AE" strokeWidth="2"/>
-      <circle cx="434" cy="199" r="3" fill="#37474F"/>
-      <circle id="sm-eye-r" cx="446" cy="199" r="3" fill="#37474F"/>
-      <path d="M434,208 Q440,214 446,208" fill="none" stroke="#37474F" strokeWidth="2" strokeLinecap="round"/>
-      <polygon points="440,203 449,205 440,207" fill="#FF7043"/>
-      <path d="M422,218 Q440,224 458,218 Q458,228 440,230 Q422,228 422,218Z" fill="#E53935"/>
-      <path d="M417,232 Q402,218 386,210" fill="none" stroke="#4E342E" strokeWidth="4" strokeLinecap="round"/>
-      <path d="M463,232 Q478,218 494,210" fill="none" stroke="#4E342E" strokeWidth="4" strokeLinecap="round"/>
+      <g transform="translate(330, 125) scale(0.75)">
+        <circle cx="440" cy="280" r="30" fill="white" stroke="#90A4AE" strokeWidth="2"/>
+        <circle cx="440" cy="238" r="23" fill="white" stroke="#90A4AE" strokeWidth="2"/>
+        <circle cx="440" cy="203" r="17" fill="white" stroke="#90A4AE" strokeWidth="2"/>
+        <circle cx="434" cy="199" r="3" fill="#37474F"/>
+        <circle id="sm-eye-r" cx="446" cy="199" r="3" fill="#37474F"/>
+        <path d="M434,208 Q440,214 446,208" fill="none" stroke="#37474F" strokeWidth="2" strokeLinecap="round"/>
+        <polygon points="440,203 449,205 440,207" fill="#FF7043"/>
+        <path d="M422,218 Q440,224 458,218 Q458,228 440,230 Q422,228 422,218Z" fill="#E53935"/>
+        <path d="M417,232 Q402,218 386,210" fill="none" stroke="#4E342E" strokeWidth="4" strokeLinecap="round"/>
+        <path d="M463,232 Q478,218 494,210" fill="none" stroke="#4E342E" strokeWidth="4" strokeLinecap="round"/>
+      </g>
       {flakes.map((f,i) => (
         <circle key={i} className="flake" cx={f.cx} cy={f.cy} r={f.r}
           fill="white" opacity="0.88"
@@ -978,13 +980,13 @@ function BabyPenguin() {
 
 const SCENES = ['outdoor', 'beach', 'classroom', 'snowy', 'city'];
 
-const IDLE_ANIMS    = ['wave', 'bounce', 'shimmy', 'look', 'sleep', 'magic', 'wink', 'rudolph', 'fallapart'];
+const IDLE_ANIMS    = ['wave', 'bounce', 'shimmy', 'look', 'sleep', 'wink', 'rudolph', 'fallapart'];
 const CORRECT_ANIMS = ['flap', 'bounce', 'backflip'];
 const WRONG_ANIM    = 'look';
 
 const ANIM_DURATIONS = {
   wave: 4000, bounce: 2200, shimmy: 2800, look: 3000,
-  sleep: 7000, magic: 8000, flap: 3000, backflip: 3500,
+  sleep: 7000, flap: 3000, backflip: 3500,
   flyaway: 10000, layegg: 12000, holdhands: 14000,
   wink: 4000, rudolph: 8000, fallapart: 10000,
 };
@@ -1082,7 +1084,6 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     activeAnim === 'flyaway'                                         && 'flyingaway',
     activeAnim === 'sleep'                                           && 'sleeping',
     activeAnim === 'backflip'                                        && 'backflipping',
-    activeAnim === 'magic'                                           && 'magicking',
     activeAnim === 'layegg' && layEggPhase === 1                     && 'squatting',
     activeAnim === 'layegg' && layEggPhase >= 2 && layEggPhase <= 4  && 'penny-egg-right',
     activeAnim === 'layegg' && layEggPhase === 5                     && 'penny-egg-return',
@@ -1159,13 +1160,6 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
         <div style={{ position:'absolute', bottom:'0%', right:'6%' }}>
           <Boy />
         </div>
-
-        {/* Magic sparkles */}
-        {activeAnim === 'magic' && <>
-          <span className="z-letter" style={{ bottom:'62%', left:'9%',  animationDelay:'0.2s', color:'#7C3AED' }}>✨</span>
-          <span className="z-letter" style={{ bottom:'70%', left:'14%', animationDelay:'1.1s', color:'#F59E0B' }}>⭐</span>
-          <span className="z-letter" style={{ bottom:'65%', left:'18%', animationDelay:'2.0s', color:'#7C3AED' }}>✨</span>
-        </>}
 
         {/* Zzz */}
         {activeAnim === 'sleep' && <>
