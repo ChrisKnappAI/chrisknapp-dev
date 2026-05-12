@@ -877,7 +877,7 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
   function scheduleIdle() {
     clearTimeout(idleTimerRef.current);
     if (isPausedRef.current) return;
-    const delay = 3000 + Math.random() * 5000; // 3–8 seconds
+    const delay = 1000 + Math.random() * 2000; // 1–3 seconds
     idleTimerRef.current = setTimeout(() => {
       if (isPausedRef.current) return;
       runAnim(IDLE_ANIMS[Math.floor(Math.random() * IDLE_ANIMS.length)]);
