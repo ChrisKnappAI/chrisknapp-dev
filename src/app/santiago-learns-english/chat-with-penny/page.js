@@ -81,7 +81,7 @@ export default function ChatWithPenny() {
 
   // ── Init ───────────────────────────────────────────────────────────────────
   useEffect(() => {
-    setActiveTopics(loadActiveTopics());
+    setActiveTopics(LESSONS.map(l => l.id));
     try { setCorrectCount(parseInt(localStorage.getItem(COUNT_KEY) || '0')); } catch {}
     fetchUnlocks();
     fetchScenes();
@@ -103,15 +103,11 @@ export default function ChatWithPenny() {
       const data = await res.json();
       const ids  = data.filter(r => r.unlocked).map(r => r.scene_id);
       setUnlockedScenes(ids);
-      setSelectedScene(prev => (ids.includes(prev) ? prev : ids[0] ?? 'outdoor'));
+      setSelectedScene(ids.includes('outdoor') ? 'outdoor' : ids[0] ?? 'outdoor');
     } catch {
       setSelectedScene('outdoor');
     }
   }
-
-  useEffect(() => {
-    if (activeTopics.length) localStorage.setItem(STORAGE_KEY, JSON.stringify(activeTopics));
-  }, [activeTopics]);
 
   useEffect(() => {
     if (activeTopics.length && !currentQuestion) askNextQuestion();
