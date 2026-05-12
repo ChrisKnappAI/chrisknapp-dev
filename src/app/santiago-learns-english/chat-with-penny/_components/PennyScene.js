@@ -366,6 +366,123 @@ const css = `
   .fish-2 { animation: fish-swim 21s linear infinite; animation-delay: -8s;  }
   .fish-3 { animation: fish-swim 11s linear infinite; animation-delay: -3s;  }
   .fish-4 { animation: fish-swim 17s linear infinite; animation-delay: -13s; }
+
+  /* ── WINK ──────────────────────────────────────────────────────────────────── */
+  @keyframes sg-off-on {
+    0%   { transform: translate(0,0) rotate(0deg); }
+    18%  { transform: translate(22px,88px) rotate(16deg); }
+    24%  { transform: translate(24px,94px) rotate(18deg); }
+    74%  { transform: translate(24px,94px) rotate(18deg); }
+    88%  { transform: translate(6px,20px) rotate(4deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+  }
+  .winking #sunglasses-group {
+    transform-box: fill-box; transform-origin: center;
+    animation: sg-off-on 4s ease-in-out forwards;
+  }
+  @keyframes big-wink {
+    0%,23% { transform: scaleY(1); }
+    30%    { transform: scaleY(0.03); }
+    57%    { transform: scaleY(0.03); }
+    63%    { transform: scaleY(1.4); }
+    68%    { transform: scaleY(1); }
+    73%    { transform: scaleY(0.03); }
+    82%    { transform: scaleY(0.03); }
+    88%    { transform: scaleY(1); }
+    100%   { transform: scaleY(1); }
+  }
+  .winking #eye-right { animation: big-wink 4s ease-in-out forwards; }
+
+  /* ── RUDOLPH ────────────────────────────────────────────────────────────────── */
+  #antler-left, #antler-right { transform-box: fill-box; transform-origin: 50% 100%; }
+  #rudolph-nose               { transform-box: fill-box; transform-origin: center; }
+
+  @keyframes rudolph-antler-anim {
+    0%,7%   { transform: scale(0); }
+    20%     { transform: scale(1.12); }
+    26%,76% { transform: scale(1); }
+    91%     { transform: scale(0.05); }
+    100%    { transform: scale(0); }
+  }
+  @keyframes rudolph-nose-anim {
+    0%,10%  { transform: scale(0); opacity: 0; }
+    22%     { transform: scale(1.18); opacity: 1; }
+    28%,75% { transform: scale(1); opacity: 1; }
+    90%     { transform: scale(0.05); opacity: 0.4; }
+    100%    { transform: scale(0); opacity: 0; }
+  }
+  .rudolphing #antler-left,
+  .rudolphing #antler-right { animation: rudolph-antler-anim 8s ease-in-out forwards; }
+  .rudolphing #rudolph-nose { animation: rudolph-nose-anim   8s ease-in-out forwards; }
+
+  @keyframes snow-fall-rudolph {
+    0%   { transform: translateY(0) rotate(0deg);      opacity: 0; }
+    10%  { opacity: 0.9; }
+    88%  { opacity: 0.8; }
+    100% { transform: translateY(160px) rotate(220deg); opacity: 0; }
+  }
+  .rudolph-snow {
+    position: absolute; pointer-events: none; user-select: none; color: #D6EEFF;
+    animation: snow-fall-rudolph 2s ease-in infinite;
+  }
+
+  /* ── FALL APART ─────────────────────────────────────────────────────────────── */
+  @keyframes head-detach {
+    0%,5%  { transform: translate(0,0)        rotate(0deg);  }
+    22%    { transform: translate(-30px,-72px) rotate(-28deg);}
+    36%    { transform: translate(14px,130px)  rotate(38deg); }
+    43%    { transform: translate(12px,114px)  rotate(35deg); }
+    50%    { transform: translate(14px,128px)  rotate(38deg); }
+    58%    { transform: translate(13px,120px)  rotate(36deg); }
+    78%    { transform: translate(-10px,-32px) rotate(-10deg);}
+    90%    { transform: translate(2px,4px)     rotate(1deg);  }
+    100%   { transform: translate(0,0)         rotate(0deg);  }
+  }
+  @keyframes wing-left-detach {
+    0%,5%  { transform: translate(0,0)       rotate(0deg);  }
+    26%    { transform: translate(-88px,52px) rotate(-55deg);}
+    42%    { transform: translate(-84px,68px) rotate(-52deg);}
+    50%    { transform: translate(-88px,62px) rotate(-55deg);}
+    58%    { transform: translate(-86px,66px) rotate(-53deg);}
+    80%    { transform: translate(-28px,18px) rotate(-18deg);}
+    92%    { transform: translate(-3px,3px)   rotate(-2deg); }
+    100%   { transform: translate(0,0)        rotate(0deg);  }
+  }
+  @keyframes wing-right-detach {
+    0%,5%  { transform: translate(0,0)      rotate(0deg);  }
+    26%    { transform: translate(88px,52px) rotate(55deg); }
+    42%    { transform: translate(84px,68px) rotate(52deg); }
+    50%    { transform: translate(88px,62px) rotate(55deg); }
+    58%    { transform: translate(86px,66px) rotate(53deg); }
+    80%    { transform: translate(28px,18px) rotate(18deg); }
+    92%    { transform: translate(3px,3px)   rotate(2deg);  }
+    100%   { transform: translate(0,0)       rotate(0deg);  }
+  }
+  @keyframes foot-left-detach {
+    0%,5%  { transform: translate(0,0)       rotate(0deg);  }
+    28%    { transform: translate(-38px,28px) rotate(-32deg);}
+    44%    { transform: translate(-36px,24px) rotate(-30deg);}
+    52%    { transform: translate(-38px,28px) rotate(-32deg);}
+    60%    { transform: translate(-37px,26px) rotate(-31deg);}
+    80%    { transform: translate(-12px,9px)  rotate(-10deg);}
+    92%    { transform: translate(-2px,2px)   rotate(-1deg); }
+    100%   { transform: translate(0,0)        rotate(0deg);  }
+  }
+  @keyframes foot-right-detach {
+    0%,5%  { transform: translate(0,0)      rotate(0deg);  }
+    28%    { transform: translate(38px,28px) rotate(32deg); }
+    44%    { transform: translate(36px,24px) rotate(30deg); }
+    52%    { transform: translate(38px,28px) rotate(32deg); }
+    60%    { transform: translate(37px,26px) rotate(31deg); }
+    80%    { transform: translate(12px,9px)  rotate(10deg); }
+    92%    { transform: translate(2px,2px)   rotate(1deg);  }
+    100%   { transform: translate(0,0)       rotate(0deg);  }
+  }
+  .fallingapart #head-group  { animation: head-detach       10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
+  .fallingapart #wing-left   { animation: wing-left-detach  10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
+  .fallingapart #wing-right  { animation: wing-right-detach 10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
+  .fallingapart #foot-left   { animation: foot-left-detach  10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
+  .fallingapart #foot-right  { animation: foot-right-detach 10s ease-in-out forwards; transform-box: fill-box; transform-origin: center; }
 `;
 
 /* ── Scenes ─────────────────────────────────────────────────────────────────── */
@@ -599,8 +716,8 @@ function CityScene() {
 
 /* ── Characters ─────────────────────────────────────────────────────────────── */
 
-function PenguinSVG({ talking, blinking, looking, waving, flapping }) {
-  const cls = ['penguin-svg', talking&&'talking', blinking&&'blinking', looking&&'looking', waving&&'waving', flapping&&'flapping'].filter(Boolean).join(' ');
+function PenguinSVG({ talking, blinking, looking, waving, flapping, winking, rudolphing }) {
+  const cls = ['penguin-svg', talking&&'talking', blinking&&!winking&&'blinking', looking&&'looking', waving&&'waving', flapping&&'flapping', winking&&'winking', rudolphing&&'rudolphing'].filter(Boolean).join(' ');
   return (
     <svg viewBox="0 10 680 720" className={cls}
       style={{ width:210, height:'auto', overflow:'visible', display:'block' }}
@@ -689,6 +806,28 @@ function PenguinSVG({ talking, blinking, looking, waving, flapping }) {
         <path id="mouth" d="M310,316 Q326,332 340,336 Q354,332 370,316" fill="none" stroke="#C84B00" strokeWidth="3.5" strokeLinecap="round"/>
         <ellipse id="blush-left"  cx="264" cy="290" rx="20" ry="13" fill="#FF9090" opacity="0.28"/>
         <ellipse id="blush-right" cx="416" cy="290" rx="20" ry="13" fill="#FF9090" opacity="0.28"/>
+
+        {/* Rudolph antlers — rendered on top of head, scale from base */}
+        {rudolphing && <>
+          <g id="antler-left">
+            <path d="M272,124 C262,92 248,66 216,40"   stroke="#7B3F00" strokeWidth="13" fill="none" strokeLinecap="round"/>
+            <path d="M248,78  C238,60 220,54 206,44"    stroke="#7B3F00" strokeWidth="9"  fill="none" strokeLinecap="round"/>
+            <path d="M216,40  C206,24 208,8  212,2"     stroke="#7B3F00" strokeWidth="7"  fill="none" strokeLinecap="round"/>
+            <path d="M234,58  C226,40 224,24 228,14"    stroke="#7B3F00" strokeWidth="6"  fill="none" strokeLinecap="round"/>
+          </g>
+          <g id="antler-right">
+            <path d="M408,124 C418,92 432,66 464,40"   stroke="#7B3F00" strokeWidth="13" fill="none" strokeLinecap="round"/>
+            <path d="M432,78  C442,60 460,54 474,44"    stroke="#7B3F00" strokeWidth="9"  fill="none" strokeLinecap="round"/>
+            <path d="M464,40  C474,24 472,8  468,2"     stroke="#7B3F00" strokeWidth="7"  fill="none" strokeLinecap="round"/>
+            <path d="M446,58  C454,40 456,24 452,14"    stroke="#7B3F00" strokeWidth="6"  fill="none" strokeLinecap="round"/>
+          </g>
+          {/* Big glowing red nose over the beak */}
+          <g id="rudolph-nose">
+            <circle cx="340" cy="295" r="52" fill="rgba(220,30,0,0.20)"/>
+            <circle cx="340" cy="295" r="36" fill="#E82000"/>
+            <ellipse cx="326" cy="285" rx="10" ry="8" fill="rgba(255,255,255,0.36)" transform="rotate(-15 326 285)"/>
+          </g>
+        </>}
       </g>
     </svg>
   );
@@ -839,7 +978,7 @@ function BabyPenguin() {
 
 const SCENES = ['outdoor', 'beach', 'classroom', 'snowy', 'city'];
 
-const IDLE_ANIMS    = ['wave', 'bounce', 'shimmy', 'look', 'sleep', 'magic'];
+const IDLE_ANIMS    = ['wave', 'bounce', 'shimmy', 'look', 'sleep', 'magic', 'wink', 'rudolph', 'fallapart'];
 const CORRECT_ANIMS = ['flap', 'bounce', 'backflip'];
 const WRONG_ANIM    = 'look';
 
@@ -847,6 +986,7 @@ const ANIM_DURATIONS = {
   wave: 4000, bounce: 2200, shimmy: 2800, look: 3000,
   sleep: 7000, magic: 8000, flap: 3000, backflip: 3500,
   flyaway: 10000, layegg: 12000, holdhands: 14000,
+  wink: 4000, rudolph: 8000, fallapart: 10000,
 };
 
 export { CORRECT_ANIMS, WRONG_ANIM, SCENES, IDLE_ANIMS, ANIM_DURATIONS };
@@ -947,6 +1087,7 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     activeAnim === 'layegg' && layEggPhase >= 2 && layEggPhase <= 4  && 'penny-egg-right',
     activeAnim === 'layegg' && layEggPhase === 5                     && 'penny-egg-return',
     activeAnim === 'holdhands'                                       && 'holding',
+    activeAnim === 'fallapart'                                       && 'fallingapart',
   ].filter(Boolean).join(' ');
 
   return (
@@ -1001,6 +1142,8 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
               looking={activeAnim === 'look'}
               waving={activeAnim === 'wave'}
               flapping={activeAnim === 'flap'}
+              winking={activeAnim === 'wink'}
+              rudolphing={activeAnim === 'rudolph'}
             />
           </div>
         </div>
@@ -1029,6 +1172,18 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
           <span className="z-letter" style={{ bottom:'42%', left:'9%',  animationDelay:'0s'   }}>Z</span>
           <span className="z-letter" style={{ bottom:'50%', left:'13%', animationDelay:'0.8s' }}>z</span>
           <span className="z-letter" style={{ bottom:'46%', left:'16%', animationDelay:'1.6s' }}>Z</span>
+        </>}
+
+        {/* Rudolph snowflakes */}
+        {activeAnim === 'rudolph' && <>
+          <span className="rudolph-snow" style={{ top:'4%',  left:'2%',  fontSize:14, animationDelay:'0s',    animationDuration:'2.2s' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'8%',  left:'8%',  fontSize:11, animationDelay:'0.6s',  animationDuration:'1.9s' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'2%',  left:'14%', fontSize:16, animationDelay:'1.1s',  animationDuration:'2.5s' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'6%',  left:'18%', fontSize:10, animationDelay:'0.3s',  animationDuration:'2.0s' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'3%',  left:'22%', fontSize:13, animationDelay:'0.9s',  animationDuration:'1.8s' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'10%', left:'5%',  fontSize:12, animationDelay:'1.5s',  animationDuration:'2.3s' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'1%',  left:'11%', fontSize:9,  animationDelay:'0.4s',  animationDuration:'2.6s' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'7%',  left:'25%', fontSize:15, animationDelay:'1.2s',  animationDuration:'2.1s' }}>❄</span>
         </>}
 
       </div>
