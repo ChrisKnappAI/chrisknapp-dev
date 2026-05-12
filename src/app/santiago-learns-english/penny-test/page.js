@@ -3,29 +3,35 @@
 import { useState } from 'react';
 import PennyScene, {
   IDLE_ANIMS, CORRECT_ANIMS, WRONG_ANIM,
-  ANIM_DURATIONS, SCENES,
+  ANIM_DURATIONS, SCENES, TEST_SCENES,
 } from '../chat-with-penny/_components/PennyScene.js';
 
-// ── Add new animations here while developing them ────────────────────────────
-// Once happy, move them into IDLE_ANIMS / CORRECT_ANIMS in PennyScene.js
-const UNDER_TEST = [
-  // e.g. 'spin', 'headbob'
-];
+const CANDIDATE_ANIMS = ['ballet','boxing','meditation','disco','superhero','birthday','rockstar','fishing','chef','painter'];
 
 const GROUPS = [
-  { label: '😴 Idle Pool',       color: '#6B7280', anims: IDLE_ANIMS },
-  { label: '✅ Correct',          color: '#16A34A', anims: CORRECT_ANIMS },
-  { label: '❌ Wrong',            color: '#DC2626', anims: [WRONG_ANIM] },
-  { label: '🏆 Unlockable',       color: '#D97706', anims: ['flyaway', 'layegg', 'holdhands'] },
-  { label: '🧪 Under Test',       color: '#7C3AED', anims: UNDER_TEST },
+  { label: '😴 Idle Pool',           color: '#6B7280', anims: IDLE_ANIMS },
+  { label: '✅ Correct',              color: '#16A34A', anims: CORRECT_ANIMS },
+  { label: '❌ Wrong',                color: '#DC2626', anims: [WRONG_ANIM] },
+  { label: '🏆 Unlockable',           color: '#D97706', anims: ['flyaway', 'layegg', 'holdhands'] },
+  { label: '🔓 Unlock Candidates',    color: '#7C3AED', anims: CANDIDATE_ANIMS },
 ];
 
 const SCENE_LABELS = {
-  outdoor:   '🌳 Outdoor',
-  beach:     '🏖️ Beach',
-  classroom: '🏫 Classroom',
-  snowy:     '❄️ Snowy',
-  city:      '🏙️ City',
+  outdoor:    '🌳 Outdoor',
+  beach:      '🏖️ Beach',
+  classroom:  '🏫 Classroom',
+  snowy:      '❄️ Snowy',
+  city:       '🏙️ City',
+  space:      '🚀 Space',
+  underwater: '🐠 Underwater',
+  jungle:     '🌿 Jungle',
+  volcano:    '🌋 Volcano',
+  arctic:     '🧊 Arctic',
+  castle:     '🏰 Castle',
+  discoroom:  '🪩 Disco Room',
+  treehouse:  '🌲 Treehouse',
+  carnival:   '🎡 Carnival',
+  library:    '📚 Library',
 };
 
 export default function PennyTest() {
@@ -62,9 +68,16 @@ export default function PennyTest() {
             fontFamily: 'inherit', cursor: 'pointer',
           }}
         >
-          {SCENES.map(s => (
-            <option key={s} value={s}>{SCENE_LABELS[s] ?? s}</option>
-          ))}
+          <optgroup label="— Main Scenes —">
+            {SCENES.map(s => (
+              <option key={s} value={s}>{SCENE_LABELS[s] ?? s}</option>
+            ))}
+          </optgroup>
+          <optgroup label="— Candidates —">
+            {TEST_SCENES.map(s => (
+              <option key={s} value={s}>{SCENE_LABELS[s] ?? s}</option>
+            ))}
+          </optgroup>
         </select>
 
         {/* Active indicator */}
@@ -144,12 +157,13 @@ export default function PennyTest() {
           background: 'white', border: '2px dashed #D1D5DB',
           fontSize: 12, color: '#6B7280', lineHeight: 1.6,
         }}>
-          <strong style={{ color: '#374151' }}>Adding a new animation:</strong><br />
-          1. Add the CSS keyframes + class to <code>PennyScene.js</code><br />
-          2. Add the name + duration to <code>ANIM_DURATIONS</code> in PennyScene.js<br />
-          3. Add the class logic to <code>pennyClass</code> in PennyScene.js<br />
-          4. Add the name to <code>UNDER_TEST</code> at the top of this file to test it here<br />
-          5. Once it looks good, move it into the right group in PennyScene.js and remove from UNDER_TEST
+          <strong style={{ color: '#374151' }}>Promoting a candidate animation:</strong><br />
+          1. Pick one you like from 🔓 Unlock Candidates above<br />
+          2. Move its name from <code>CANDIDATE_ANIMS</code> → <code>IDLE_ANIMS</code> or unlockable list in PennyScene.js<br />
+          3. Remove it from <code>CANDIDATE_ANIMS</code> in this file<br /><br />
+          <strong style={{ color: '#374151' }}>Promoting a candidate scene:</strong><br />
+          1. Move its name from <code>TEST_SCENES</code> → <code>SCENES</code> in PennyScene.js<br />
+          2. Remove it from <code>TEST_SCENES</code>
         </div>
       </div>
 
