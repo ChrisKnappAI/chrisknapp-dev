@@ -130,7 +130,7 @@ export default function ChatWithPenny() {
     setPennyHint(null);
     setPennyHintSpanish(null);
     triggerAnim('wave');
-    if (voiceEnabled) speakLive(q.text).catch(() => {});
+    if (voiceEnabled) setTimeout(() => speakLive(q.text).catch(() => {}), 80);
   }
 
   // ── Correct answer handler (Types 1 & 2) ──────────────────────────────────
@@ -200,7 +200,7 @@ export default function ChatWithPenny() {
 
     // Speak encouragement + next question, skip placeholders
     const speakText = [...responseParts.filter(p => !p.startsWith('[')), 'Next question:', nextQ.text].join(' ');
-    if (voiceEnabled) await speakLive(speakText).catch(() => {});
+    if (voiceEnabled) { await new Promise(r => setTimeout(r, 80)); await speakLive(speakText).catch(() => {}); }
   }
 
   // ── Type 3 handler: always moves on, Claude grades + responds ─────────────
@@ -234,7 +234,7 @@ export default function ChatWithPenny() {
     setQuestion(nextQ);
     triggerAnim(wasCorrect ? CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)] : WRONG_ANIM);
 
-    if (voiceEnabled) await speakLive([responseEn, 'Next question:', nextQ.text].join(' ')).catch(() => {});
+    if (voiceEnabled) { await new Promise(r => setTimeout(r, 80)); await speakLive([responseEn, 'Next question:', nextQ.text].join(' ')).catch(() => {}); }
   }
 
   // ── Main answer handler ────────────────────────────────────────────────────
@@ -269,10 +269,13 @@ export default function ChatWithPenny() {
           setPennyHintSpanish(displayHintEs ? `Pista: ${displayHintEs}` : null);
           triggerAnim(WRONG_ANIM);
 
-          if (voiceEnabled) await speakLive(answer
-            ? `Not quite. Try again, Santiago! Hint: ${answer}`
-            : 'Not quite. Try again, Santiago!'
-          ).catch(() => {});
+          if (voiceEnabled) {
+            await new Promise(r => setTimeout(r, 80));
+            await speakLive(answer
+              ? `Not quite. Try again, Santiago! Hint: ${answer}`
+              : 'Not quite. Try again, Santiago!'
+            ).catch(() => {});
+          }
         }
       }
     } catch (err) {
