@@ -190,7 +190,7 @@ export default function Home() {
         .ck-hero-grid { flex:1; display:grid; grid-template-columns:50% 15% 1fr; max-width:1200px; margin:0 auto; width:100%; padding:0 4rem; position:relative; overflow:visible; }
         .ck-hero-content { grid-column:1 / 3; grid-row:1; padding:5rem 0 4rem; position:relative; z-index:2; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
         .ck-hero-photo { position:absolute; left:50%; right:4rem; top:3rem; bottom:-80px; z-index:1; }
-        .ck-hero-photo img { width:100%; height:100%; object-fit:cover; object-position:top center; filter:grayscale(100%) contrast(1.15) brightness(0.85); display:block; }
+        .ck-hero-photo img { width:100%; height:100%; object-fit:contain; object-position:bottom center; filter:contrast(1.1) brightness(0.95); display:block; }
 
         .ck-badge { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.22); color:#38BDF8; font-size:0.7rem; font-weight:700; padding:0.3rem 0.85rem; border-radius:100px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1.6rem; }
         .ck-badge-dot { width:5px; height:5px; background:#38BDF8; border-radius:50%; animation:ck-pulse 2s ease-in-out infinite; }
@@ -293,7 +293,7 @@ export default function Home() {
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <div className="ck-hero-photo">
-            <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Chris Knapp" />
+            <img src="/chris-knapp.png" alt="Chris Knapp" />
           </div>
         </div>
 
