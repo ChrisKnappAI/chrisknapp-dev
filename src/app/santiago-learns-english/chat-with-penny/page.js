@@ -198,6 +198,25 @@ export default function ChatWithPenny() {
     setQuestion(nextQ);
     triggerAnim(CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)]);
 
+    // Log the completed interaction
+    const responseType = (qType === 2 && wordCount >= 5) ? 'ai' : 'static';
+    fetch('/api/penny/log', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        questionId:    currentQuestion.id,
+        questionText:  currentQuestion.text,
+        topic:         currentQuestion.topic,
+        topicGroup:    currentQuestion.group,
+        questionType:  qType,
+        answerGiven:   answer,
+        correct:       true,
+        gradingMethod: 'static',
+        responseGiven: responseParts.join(' '),
+        responseType,
+      }),
+    }).catch(() => {});
+
     // Speak encouragement + next question, skip placeholders
     const speakText = [...responseParts.filter(p => !p.startsWith('[')), 'Next question:', nextQ.text].join(' ');
     setLoading(false);
@@ -234,6 +253,24 @@ export default function ChatWithPenny() {
     setPennyHintSpanish(null);
     setQuestion(nextQ);
     triggerAnim(wasCorrect ? CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)] : WRONG_ANIM);
+
+    // Log the completed interaction
+    fetch('/api/penny/log', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        questionId:    currentQuestion.id,
+        questionText:  currentQuestion.text,
+        topic:         currentQuestion.topic,
+        topicGroup:    currentQuestion.group,
+        questionType:  3,
+        answerGiven:   answer,
+        correct:       wasCorrect,
+        gradingMethod: 'ai',
+        responseGiven: responseEn,
+        responseType:  'ai',
+      }),
+    }).catch(() => {});
 
     setLoading(false);
     if (voiceEnabled) { await new Promise(r => setTimeout(r, 80)); await speakLive([responseEn, 'Next question:', nextQ.text].join(' ')).catch(() => {}); }
