@@ -251,9 +251,9 @@ const css = `
   }
   .sleeping .penguin-svg #head-group { animation: head-nod 7s ease-in-out forwards; }
   @keyframes z-float {
-    0%   { transform: translateY(0)     translateX(0);    opacity: 0; }
+    0%   { transform: translateY(0)      translateX(0);    opacity: 0; }
     8%   { opacity: 0.9; }
-    100% { transform: translateY(-85px) translateX(16px); opacity: 0; }
+    100% { transform: translateY(-180px) translateX(16px); opacity: 0; }
   }
   .z-letter {
     position: absolute; font-size: 22px; font-weight: 900; color: #7C3AED;
@@ -648,18 +648,19 @@ function ClassroomScene() {
         </linearGradient>
       </defs>
       <rect width="880" height="400" fill="url(#cls-wall)"/>
-      <rect x="55" y="190" width="220" height="108" rx="6" fill="url(#cls-board)" stroke="#4E342E" strokeWidth="6"/>
-      <rect x="55" y="292" width="220" height="9" rx="3" fill="#4E342E"/>
-      <text x="165" y="229" textAnchor="middle" fill="white" fontSize="17" fontWeight="900" fontFamily="Arial" opacity="0.94">Hello, Santiago!</text>
-      <line x1="70" y1="243" x2="260" y2="243" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
-      <text x="165" y="263" textAnchor="middle" fill="rgba(255,255,255,0.90)" fontSize="14" fontFamily="Arial">Natalie loves you! ♥</text>
+      <rect x="200" y="190" width="220" height="108" rx="6" fill="url(#cls-board)" stroke="#4E342E" strokeWidth="6"/>
+      <rect x="200" y="292" width="220" height="8" rx="3" fill="#4E342E"/>
+      <text x="310" y="229" textAnchor="middle" fill="white" fontSize="17" fontWeight="900" fontFamily="Arial" opacity="0.94">Hello, Santiago!</text>
+      <line x1="215" y1="243" x2="405" y2="243" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
+      <text x="310" y="263" textAnchor="middle" fill="rgba(255,255,255,0.90)" fontSize="14" fontFamily="Arial">Natalie loves you! ♥</text>
       <rect y="308" width="880" height="92" fill="url(#cls-floor)"/>
       {[110,220,330,440,550,660,770].map((x,i) => (
         <line key={i} x1={x} y1="308" x2={x} y2="400" stroke="rgba(0,0,0,0.1)" strokeWidth="1"/>
       ))}
-      <rect x="55" y="301" width="220" height="7" rx="4" fill="#795548" stroke="#4E342E" strokeWidth="2"/>
-      <circle cx="248" cy="282" r="10" fill="#E53935"/>
-      <path d="M248,272 Q251,267 255,269" fill="none" stroke="#33691E" strokeWidth="2.5" strokeLinecap="round"/>
+      <rect x="220" y="300" width="10" height="8" rx="2" fill="#5D4037"/>
+      <rect x="390" y="300" width="10" height="8" rx="2" fill="#5D4037"/>
+      <circle cx="390" cy="282" r="10" fill="#E53935"/>
+      <path d="M390,272 Q393,267 397,269" fill="none" stroke="#33691E" strokeWidth="2.5" strokeLinecap="round"/>
     </svg>
   );
 }
@@ -1219,43 +1220,43 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
 
         {/* Zzz */}
         {activeAnim === 'sleep' && <>
-          <span className="z-letter" style={{ bottom:'28%', left:'9%',  animationDelay:'0s'   }}>Z</span>
-          <span className="z-letter" style={{ bottom:'32%', left:'14%', animationDelay:'0.8s' }}>z</span>
-          <span className="z-letter" style={{ bottom:'30%', left:'18%', animationDelay:'1.6s' }}>Z</span>
-          <span className="z-letter" style={{ bottom:'26%', left:'11%', animationDelay:'2.4s' }}>z</span>
-          <span className="z-letter" style={{ bottom:'34%', left:'7%',  animationDelay:'3.2s' }}>Z</span>
-          <span className="z-letter" style={{ bottom:'29%', left:'21%', animationDelay:'0.4s' }}>z</span>
-          <span className="z-letter" style={{ bottom:'36%', left:'16%', animationDelay:'1.2s' }}>Z</span>
-          <span className="z-letter" style={{ bottom:'27%', left:'24%', animationDelay:'2.0s' }}>z</span>
-          <span className="z-letter" style={{ bottom:'33%', left:'5%',  animationDelay:'2.8s' }}>Z</span>
+          <span className="z-letter" style={{ bottom:'28%', left:'9%',  animationDelay:'0s',   animationFillMode:'backwards' }}>Z</span>
+          <span className="z-letter" style={{ bottom:'32%', left:'14%', animationDelay:'0.8s', animationFillMode:'backwards' }}>z</span>
+          <span className="z-letter" style={{ bottom:'30%', left:'18%', animationDelay:'1.6s', animationFillMode:'backwards' }}>Z</span>
+          <span className="z-letter" style={{ bottom:'26%', left:'11%', animationDelay:'2.4s', animationFillMode:'backwards' }}>z</span>
+          <span className="z-letter" style={{ bottom:'34%', left:'7%',  animationDelay:'3.2s', animationFillMode:'backwards' }}>Z</span>
+          <span className="z-letter" style={{ bottom:'29%', left:'21%', animationDelay:'0.4s', animationFillMode:'backwards' }}>z</span>
+          <span className="z-letter" style={{ bottom:'36%', left:'16%', animationDelay:'1.2s', animationFillMode:'backwards' }}>Z</span>
+          <span className="z-letter" style={{ bottom:'27%', left:'24%', animationDelay:'2.0s', animationFillMode:'backwards' }}>z</span>
+          <span className="z-letter" style={{ bottom:'33%', left:'5%',  animationDelay:'2.8s', animationFillMode:'backwards' }}>Z</span>
         </>}
 
         {/* Rudolph snowflakes */}
         {activeAnim === 'rudolph' && <>
-          <span className="rudolph-snow" style={{ top:'32%', left:'2%',  fontSize:14, animationDelay:'0s',    animationDuration:'2.2s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'36%', left:'8%',  fontSize:11, animationDelay:'0.6s',  animationDuration:'1.9s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'30%', left:'14%', fontSize:16, animationDelay:'1.1s',  animationDuration:'2.5s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'34%', left:'20%', fontSize:10, animationDelay:'0.3s',  animationDuration:'2.0s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'38%', left:'26%', fontSize:13, animationDelay:'0.9s',  animationDuration:'1.8s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'42%', left:'5%',  fontSize:12, animationDelay:'1.5s',  animationDuration:'2.3s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'29%', left:'11%', fontSize:9,  animationDelay:'0.4s',  animationDuration:'2.6s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'40%', left:'17%', fontSize:15, animationDelay:'1.2s',  animationDuration:'2.1s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'33%', left:'23%', fontSize:11, animationDelay:'0.7s',  animationDuration:'2.4s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'44%', left:'10%', fontSize:13, animationDelay:'1.8s',  animationDuration:'2.0s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'37%', left:'3%',  fontSize:10, animationDelay:'0.2s',  animationDuration:'1.7s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'46%', left:'28%', fontSize:14, animationDelay:'1.0s',  animationDuration:'2.3s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'31%', left:'6%',  fontSize:12, animationDelay:'1.4s',  animationDuration:'1.9s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'41%', left:'22%', fontSize:9,  animationDelay:'0.5s',  animationDuration:'2.7s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'35%', left:'30%', fontSize:16, animationDelay:'1.6s',  animationDuration:'2.2s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'48%', left:'15%', fontSize:11, animationDelay:'0.8s',  animationDuration:'2.0s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'43%', left:'1%',  fontSize:13, animationDelay:'1.3s',  animationDuration:'1.8s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'39%', left:'32%', fontSize:10, animationDelay:'2.0s',  animationDuration:'2.5s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'45%', left:'19%', fontSize:15, animationDelay:'0.1s',  animationDuration:'2.1s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'50%', left:'7%',  fontSize:12, animationDelay:'1.7s',  animationDuration:'1.6s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'28%', left:'25%', fontSize:14, animationDelay:'0.9s',  animationDuration:'2.4s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'47%', left:'13%', fontSize:10, animationDelay:'2.2s',  animationDuration:'2.0s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'36%', left:'35%', fontSize:13, animationDelay:'1.1s',  animationDuration:'1.9s' }}>❄</span>
-          <span className="rudolph-snow" style={{ top:'52%', left:'4%',  fontSize:11, animationDelay:'0.6s',  animationDuration:'2.3s' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'32%', left:'2%',  fontSize:14, animationDelay:'0s',    animationDuration:'2.2s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'36%', left:'8%',  fontSize:11, animationDelay:'0.6s',  animationDuration:'1.9s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'30%', left:'14%', fontSize:16, animationDelay:'1.1s',  animationDuration:'2.5s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'34%', left:'20%', fontSize:10, animationDelay:'0.3s',  animationDuration:'2.0s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'38%', left:'26%', fontSize:13, animationDelay:'0.9s',  animationDuration:'1.8s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'42%', left:'5%',  fontSize:12, animationDelay:'1.5s',  animationDuration:'2.3s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'29%', left:'11%', fontSize:9,  animationDelay:'0.4s',  animationDuration:'2.6s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'40%', left:'17%', fontSize:15, animationDelay:'1.2s',  animationDuration:'2.1s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'33%', left:'23%', fontSize:11, animationDelay:'0.7s',  animationDuration:'2.4s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'44%', left:'10%', fontSize:13, animationDelay:'1.8s',  animationDuration:'2.0s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'37%', left:'3%',  fontSize:10, animationDelay:'0.2s',  animationDuration:'1.7s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'46%', left:'28%', fontSize:14, animationDelay:'1.0s',  animationDuration:'2.3s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'31%', left:'6%',  fontSize:12, animationDelay:'1.4s',  animationDuration:'1.9s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'41%', left:'22%', fontSize:9,  animationDelay:'0.5s',  animationDuration:'2.7s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'35%', left:'30%', fontSize:16, animationDelay:'1.6s',  animationDuration:'2.2s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'48%', left:'15%', fontSize:11, animationDelay:'0.8s',  animationDuration:'2.0s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'43%', left:'1%',  fontSize:13, animationDelay:'1.3s',  animationDuration:'1.8s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'39%', left:'32%', fontSize:10, animationDelay:'2.0s',  animationDuration:'2.5s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'45%', left:'19%', fontSize:15, animationDelay:'0.1s',  animationDuration:'2.1s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'50%', left:'7%',  fontSize:12, animationDelay:'1.7s',  animationDuration:'1.6s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'28%', left:'25%', fontSize:14, animationDelay:'0.9s',  animationDuration:'2.4s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'47%', left:'13%', fontSize:10, animationDelay:'2.2s',  animationDuration:'2.0s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'36%', left:'35%', fontSize:13, animationDelay:'1.1s',  animationDuration:'1.9s', animationFillMode:'backwards' }}>❄</span>
+          <span className="rudolph-snow" style={{ top:'52%', left:'4%',  fontSize:11, animationDelay:'0.6s',  animationDuration:'2.3s', animationFillMode:'backwards' }}>❄</span>
         </>}
 
       </div>
