@@ -67,6 +67,7 @@ export default function ChatWithPenny() {
   const [attemptKey, setAttemptKey]         = useState(0);
   const [unlocked, setUnlocked]             = useState([]);
   const [newUnlock, setNewUnlock]           = useState(null);
+  const [voiceEnabled, setVoiceEnabled]     = useState(false);
   const [showTopicModal, setShowTopicModal] = useState(false);
   const [selectedAnim, setSelectedAnim]     = useState('');
   const [unlockedScenes, setUnlockedScenes] = useState([]);
@@ -129,7 +130,7 @@ export default function ChatWithPenny() {
     setPennyHint(null);
     setPennyHintSpanish(null);
     triggerAnim('wave');
-    speakLive(q.text).catch(() => {});
+    if (voiceEnabled) speakLive(q.text).catch(() => {});
   }
 
   // ── Correct answer handler (Types 1 & 2) ──────────────────────────────────
@@ -199,7 +200,7 @@ export default function ChatWithPenny() {
 
     // Speak encouragement + next question, skip placeholders
     const speakText = [...responseParts.filter(p => !p.startsWith('[')), 'Next question:', nextQ.text].join(' ');
-    await speakLive(speakText).catch(() => {});
+    if (voiceEnabled) await speakLive(speakText).catch(() => {});
   }
 
   // ── Type 3 handler: always moves on, Claude grades + responds ─────────────
@@ -233,7 +234,7 @@ export default function ChatWithPenny() {
     setQuestion(nextQ);
     triggerAnim(wasCorrect ? CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)] : WRONG_ANIM);
 
-    await speakLive([responseEn, 'Next question:', nextQ.text].join(' ')).catch(() => {});
+    if (voiceEnabled) await speakLive([responseEn, 'Next question:', nextQ.text].join(' ')).catch(() => {});
   }
 
   // ── Main answer handler ────────────────────────────────────────────────────
@@ -268,7 +269,7 @@ export default function ChatWithPenny() {
           setPennyHintSpanish(displayHintEs ? `Pista: ${displayHintEs}` : null);
           triggerAnim(WRONG_ANIM);
 
-          await speakLive(answer
+          if (voiceEnabled) await speakLive(answer
             ? `Not quite. Try again, Santiago! Hint: ${answer}`
             : 'Not quite. Try again, Santiago!'
           ).catch(() => {});
@@ -458,9 +459,21 @@ export default function ChatWithPenny() {
           </div>
         )}
 
-        {/* ── Character labels ── */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 6%' }}>
+        {/* ── Character labels + voice toggle ── */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 6%' }}>
           <span style={{ fontSize: 13, fontWeight: 800, color: '#3B82F6' }}>🐧 PENNY</span>
+          <button
+            onClick={() => setVoiceEnabled(v => !v)}
+            style={{
+              fontSize: 11, fontWeight: 700, padding: '3px 10px',
+              borderRadius: 20, border: '2px solid #D1D5DB',
+              background: voiceEnabled ? '#DBEAFE' : '#F3F4F6',
+              color: voiceEnabled ? '#1D4ED8' : '#9CA3AF',
+              cursor: 'pointer',
+            }}
+          >
+            {voiceEnabled ? '🔊 Voice On' : '🔇 Voice Off'}
+          </button>
           <span style={{ fontSize: 13, fontWeight: 800, color: '#3B82F6' }}>SANTIAGO ✏️</span>
         </div>
       </div>
