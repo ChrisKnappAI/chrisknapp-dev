@@ -51,7 +51,7 @@ export default function PhotoQuestion({ question, topicVocab, lesson, onCorrect,
     if (word === correctWord) {
       onCorrect();
     } else {
-      onWrong();
+      onWrong(word);
     }
   }
 

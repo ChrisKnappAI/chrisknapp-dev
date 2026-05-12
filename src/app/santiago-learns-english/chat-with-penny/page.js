@@ -486,7 +486,7 @@ export default function ChatWithPenny() {
                 topicVocab={currentTopicVocab}
                 lesson={currentLesson}
                 onCorrect={async () => { await handleCorrect(''); }}
-                onWrong={() => {
+                onWrong={(clickedWord) => {
                   triggerAnim(WRONG_ANIM);
                   const sp = currentLesson?.spanishVocab?.[currentQuestion.answer] ?? currentQuestion.answer;
                   setPennyResponse(null);
@@ -506,7 +506,7 @@ export default function ChatWithPenny() {
                         topic:         currentQuestion.topic,
                         topicGroup:    currentQuestion.group,
                         questionType:  1,
-                        answerGiven:   '',
+                        answerGiven:   clickedWord ?? '',
                         correct:       false,
                         gradingMethod: 'static',
                         responseGiven: `Not quite! Find the ${currentQuestion.answer}!`,
