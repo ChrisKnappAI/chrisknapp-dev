@@ -9,11 +9,13 @@ const ANIMATIONS = [
 ];
 
 const SCENES = [
-  { id: 'outdoor',   label: 'Outdoor Park', icon: '🌳', desc: 'Green hills and trees under a blue sky' },
-  { id: 'beach',     label: 'Beach',         icon: '🏖️', desc: 'Sandy beach with waves and a sunset' },
-  { id: 'classroom', label: 'Classroom',     icon: '🏫', desc: 'School classroom with a chalkboard' },
-  { id: 'snowy',     label: 'Snowy',         icon: '❄️', desc: 'Winter scene with snow and snowflakes' },
-  { id: 'city',      label: 'City',          icon: '🏙️', desc: 'City skyline at dusk' },
+  { id: 'outdoor',    label: 'Outdoor Park', icon: '🌳', desc: 'Green hills and trees under a blue sky' },
+  { id: 'beach',      label: 'Beach',        icon: '🏖️', desc: 'Sandy beach with waves and fish' },
+  { id: 'snowy',      label: 'Snowy',        icon: '❄️', desc: 'Winter scene with snow and snowflakes' },
+  { id: 'city',       label: 'City',         icon: '🏙️', desc: 'City skyline at dusk' },
+  { id: 'underwater', label: 'Underwater',   icon: '🐠', desc: 'Ocean with fish, a shark, and rising bubbles' },
+  { id: 'volcano',    label: 'Volcano',      icon: '🌋', desc: 'Active volcano with flowing lava and smoke' },
+  { id: 'arctic',     label: 'Arctic',       icon: '🧊', desc: 'Ice and glaciers under the northern lights' },
 ];
 
 function ToggleRow({ icon, label, desc, isUnlocked, isSaving, isLastOn, onToggle }) {
