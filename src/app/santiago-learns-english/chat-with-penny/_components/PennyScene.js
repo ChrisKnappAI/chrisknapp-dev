@@ -657,8 +657,8 @@ function ClassroomScene() {
       {[110,220,330,440,550,660,770].map((x,i) => (
         <line key={i} x1={x} y1="308" x2={x} y2="400" stroke="rgba(0,0,0,0.1)" strokeWidth="1"/>
       ))}
-      <rect x="220" y="300" width="10" height="8" rx="2" fill="#5D4037"/>
-      <rect x="390" y="300" width="10" height="8" rx="2" fill="#5D4037"/>
+      <rect x="220" y="300" width="10" height="54" rx="2" fill="#5D4037"/>
+      <rect x="390" y="300" width="10" height="54" rx="2" fill="#5D4037"/>
       <circle cx="390" cy="282" r="10" fill="#E53935"/>
       <path d="M390,272 Q393,267 397,269" fill="none" stroke="#33691E" strokeWidth="2.5" strokeLinecap="round"/>
     </svg>
