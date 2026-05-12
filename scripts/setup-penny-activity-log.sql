@@ -1,6 +1,6 @@
 -- Run this in the Supabase SQL editor (supabase.com → project → SQL Editor)
 
-create table if not exists santiago_activity_log (
+create table if not exists penny_activity_log (
   id             bigint primary key generated always as identity,
   logged_at      timestamptz not null default now(),
   date           date        not null,

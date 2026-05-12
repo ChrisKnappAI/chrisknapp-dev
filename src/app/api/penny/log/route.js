@@ -26,7 +26,7 @@ export async function POST(req) {
   const now = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
   const date = new Date(now).toISOString().slice(0, 10);
 
-  const { error } = await supabase.from('santiago_activity_log').insert({
+  const { error } = await supabase.from('penny_activity_log').insert({
     logged_at:      new Date().toISOString(),
     date,
     country,
