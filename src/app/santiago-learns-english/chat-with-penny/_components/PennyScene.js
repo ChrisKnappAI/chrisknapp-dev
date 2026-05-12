@@ -684,38 +684,6 @@ function BeachScene() {
   );
 }
 
-function ClassroomScene() {
-  return (
-    <svg viewBox="0 0 880 400" preserveAspectRatio="xMidYMid slice"
-      style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-      <defs>
-        <linearGradient id="cls-wall"  x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stopColor="#FFF9E6"/><stop offset="100%" stopColor="#FFF176"/>
-        </linearGradient>
-        <linearGradient id="cls-board" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stopColor="#2E7D32"/><stop offset="100%" stopColor="#1B5E20"/>
-        </linearGradient>
-        <linearGradient id="cls-floor" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stopColor="#BCAAA4"/><stop offset="100%" stopColor="#8D6E63"/>
-        </linearGradient>
-      </defs>
-      <rect width="880" height="400" fill="url(#cls-wall)"/>
-      <rect x="200" y="190" width="220" height="108" rx="6" fill="url(#cls-board)" stroke="#4E342E" strokeWidth="6"/>
-      <rect x="200" y="292" width="220" height="8" rx="3" fill="#4E342E"/>
-      <text x="310" y="229" textAnchor="middle" fill="white" fontSize="17" fontWeight="900" fontFamily="Arial" opacity="0.94">Hello, Santiago!</text>
-      <line x1="215" y1="243" x2="405" y2="243" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
-      <text x="310" y="263" textAnchor="middle" fill="rgba(255,255,255,0.90)" fontSize="14" fontFamily="Arial">Natalie loves you! ♥</text>
-      <rect y="308" width="880" height="92" fill="url(#cls-floor)"/>
-      {[110,220,330,440,550,660,770].map((x,i) => (
-        <line key={i} x1={x} y1="308" x2={x} y2="400" stroke="rgba(0,0,0,0.1)" strokeWidth="1"/>
-      ))}
-      <rect x="220" y="300" width="10" height="54" rx="2" fill="#5D4037"/>
-      <rect x="390" y="300" width="10" height="54" rx="2" fill="#5D4037"/>
-      <circle cx="390" cy="282" r="10" fill="#E53935"/>
-      <path d="M390,272 Q393,267 397,269" fill="none" stroke="#33691E" strokeWidth="2.5" strokeLinecap="round"/>
-    </svg>
-  );
-}
 
 function SnowyScene() {
   const flakes = [
@@ -1262,7 +1230,7 @@ function BabyPenguin() {
 
 /* ── Exported component ─────────────────────────────────────────────────────── */
 
-const SCENES = ['outdoor', 'beach', 'classroom', 'snowy', 'city', 'underwater', 'volcano', 'arctic'];
+const SCENES = ['outdoor', 'beach', 'snowy', 'city', 'underwater', 'volcano', 'arctic'];
 
 const IDLE_ANIMS    = ['wave', 'bounce', 'shimmy', 'look', 'sleep', 'wink', 'rudolph', 'fallapart'];
 const CORRECT_ANIMS = ['flap', 'bounce', 'backflip'];
@@ -1385,7 +1353,7 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
       <div style={{ position:'absolute', inset:0, borderRadius:16, overflow:'hidden', opacity: scene ? 1 : 0, transition: 'opacity 0.4s ease' }}>
         {scene === 'outdoor'    && <OutdoorScene />}
         {scene === 'beach'      && <BeachScene />}
-        {scene === 'classroom'  && <ClassroomScene />}
+
         {scene === 'snowy'      && <SnowyScene />}
         {scene === 'city'       && <CityScene />}
         {scene === 'underwater' && <UnderwaterScene />}

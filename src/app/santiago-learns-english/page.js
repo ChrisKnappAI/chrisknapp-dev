@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function SantiagoHome() {
-  redirect('/santiago-learns-english/chess');
+  redirect('/santiago-learns-english/chat-with-penny');
 }
