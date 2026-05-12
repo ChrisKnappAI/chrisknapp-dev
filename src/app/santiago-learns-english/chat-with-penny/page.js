@@ -7,6 +7,7 @@ import PhotoQuestion  from './_components/PhotoQuestion.js';
 import PennyScene, { CORRECT_ANIMS, WRONG_ANIM } from './_components/PennyScene.js';
 import { LESSONS }       from './_data/lessons.js';
 import { ENCOURAGEMENT } from './_data/encouragement.js';
+import VOCAB_PHRASES      from './_data/vocab-phrases.js';
 import { pickQuestion }  from './_lib/questionPicker.js';
 import { gradeLocal }    from './_lib/localGrader.js';
 import { speakLive }     from './_lib/tts.js';
@@ -161,11 +162,14 @@ export default function ChatWithPenny() {
     let vocabLineEs = '';
 
     if (qType === 1 || (qType === 2 && wordCount < 5)) {
-      // Pre-recorded vocab phrase (placeholder until phrases are built)
       const word = currentQuestion.answer;
       if (word) {
-        vocabLine   = `[Vocab phrase: ${word}]`;
-        vocabLineEs = `[Frase de vocabulario: ${word}]`;
+        const phrases = VOCAB_PHRASES[word.toLowerCase()];
+        if (phrases && phrases.length) {
+          const pick = phrases[Math.floor(Math.random() * phrases.length)];
+          vocabLine   = pick.en;
+          vocabLineEs = pick.es;
+        }
       }
     } else if (qType === 2 && wordCount >= 5) {
       // Santiago gave a longer answer — Claude gives a personalized response
@@ -197,21 +201,32 @@ export default function ChatWithPenny() {
     if (!nextQ) return;
     lastQuestionId.current = nextQ.id;
 
-    // Placeholder — Claude API call goes here (grades correct/wrong, responds, moves on regardless)
-    const apiLine   = `[Claude API: grade + respond to "${answer}"]`;
-    const apiLineEs = `[Claude API: calificar + responder a "${answer}"]`;
+    let responseEn = 'Good try, Santiago!';
+    let responseEs = '¡Buen intento, Santiago!';
+    let wasCorrect = false;
 
-    setPennyResponse(apiLine);
-    setPennyResponseSpanish(apiLineEs);
+    try {
+      const res  = await fetch('/api/penny/grade', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ question: currentQuestion, answer, activeTopics }),
+      });
+      const data = await res.json();
+      responseEn = data.english ?? responseEn;
+      responseEs = data.spanish ?? responseEs;
+      wasCorrect = data.correct ?? false;
+    } catch {}
+
+    setPennyResponse(responseEn);
+    setPennyResponseSpanish(responseEs);
     setPennyText('Next question: ' + nextQ.text);
     setPennySpanish('Siguiente pregunta: ' + (nextQ.spanish ?? nextQ.text));
     setPennyHint(null);
     setPennyHintSpanish(null);
     setQuestion(nextQ);
-    triggerAnim('wave');
+    triggerAnim(wasCorrect ? CORRECT_ANIMS[Math.floor(Math.random() * CORRECT_ANIMS.length)] : WRONG_ANIM);
 
-    // Speak next question while we wait for real API to be wired
-    await speakLive(nextQ.text).catch(() => {});
+    await speakLive([responseEn, 'Next question:', nextQ.text].join(' ')).catch(() => {});
   }
 
   // ── Main answer handler ────────────────────────────────────────────────────

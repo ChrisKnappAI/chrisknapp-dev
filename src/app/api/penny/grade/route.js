@@ -18,13 +18,14 @@ export async function POST(req) {
   const { question, answer, activeTopics } = await req.json();
 
   const topicList = activeTopics.join(', ');
+  const expectedLine = question.answer ? `The correct answer is: "${question.answer}"\n` : '';
 
   const prompt = `You are Penny, a friendly pink penguin teaching English to Santiago (age 8, beginner).
 
 Santiago has been studying these topics: ${topicList}.
 
 Penny just asked: "${question.text}"
-Santiago answered: "${answer}"
+${expectedLine}Santiago answered: "${answer}"
 
 Grade his answer and reply in this exact JSON format — no extra text, just JSON:
 {
