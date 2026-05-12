@@ -1262,7 +1262,7 @@ function BabyPenguin() {
 
 /* ── Exported component ─────────────────────────────────────────────────────── */
 
-const SCENES = ['outdoor', 'beach', 'classroom', 'snowy', 'city'];
+const SCENES = ['outdoor', 'beach', 'classroom', 'snowy', 'city', 'underwater', 'volcano', 'arctic'];
 
 const IDLE_ANIMS    = ['wave', 'bounce', 'shimmy', 'look', 'sleep', 'wink', 'rudolph', 'fallapart'];
 const CORRECT_ANIMS = ['flap', 'bounce', 'backflip'];
@@ -1275,7 +1275,7 @@ const ANIM_DURATIONS = {
   wink: 4000, rudolph: 8000, fallapart: 10000,
 };
 
-const TEST_SCENES = ['underwater', 'volcano', 'arctic'];
+const TEST_SCENES = [];
 
 export { CORRECT_ANIMS, WRONG_ANIM, SCENES, IDLE_ANIMS, ANIM_DURATIONS, TEST_SCENES };
 
