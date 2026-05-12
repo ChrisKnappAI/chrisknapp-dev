@@ -1513,22 +1513,6 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
           </div>
         )}
 
-        {/* Puppy — before Penny so Penny renders on top if they briefly overlap */}
-        {activeAnim === 'puppy' && puppyPhase > 0 && (
-          <div
-            className={
-              puppyPhase === 1 ? 'puppy-running-in' :
-              puppyPhase === 4 ? 'puppy-running-out' :
-              'puppy-sitting'
-            }
-            style={{ position: 'absolute', bottom: 0, left: 'calc(6% + 114px)' }}
-          >
-            <div style={{ transform: 'scaleX(-1)', transformOrigin: 'center bottom' }}>
-              <DogSVG showTongue={puppyPhase === 3} />
-            </div>
-          </div>
-        )}
-
         {/* Penny */}
         <div className={pennyClass} style={{ position:'absolute', bottom:'0%', left:'6%' }}>
           <div className="penguin-wrap">
@@ -1543,6 +1527,22 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
             />
           </div>
         </div>
+
+        {/* Puppy — after Penny so it renders in front */}
+        {activeAnim === 'puppy' && puppyPhase > 0 && (
+          <div
+            className={
+              puppyPhase === 1 ? 'puppy-running-in' :
+              puppyPhase === 4 ? 'puppy-running-out' :
+              'puppy-sitting'
+            }
+            style={{ position: 'absolute', bottom: 0, left: 'calc(6% + 114px)' }}
+          >
+            <div style={{ transform: 'scaleX(-1)', transformOrigin: 'center bottom' }}>
+              <DogSVG showTongue={puppyPhase === 3} />
+            </div>
+          </div>
+        )}
 
         {/* Baby — after Penny in DOM so it renders on top */}
         {activeAnim === 'layegg' && layEggPhase === 5 && (
