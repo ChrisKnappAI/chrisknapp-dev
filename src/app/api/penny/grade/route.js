@@ -53,11 +53,10 @@ Grade his answer and reply in this exact JSON format — no extra text, just JSO
 }
 
 Rules:
-- Use ONLY words from Santiago's vocabulary list above — he won't understand others
-- Prefer words that are similar in English and Spanish (pizza, chocolate, animal, banana, etc.)
+- Use only words from Santiago's vocabulary list above, or English/Spanish cognates he'd recognize (family, music, planet, idea, problem, famous, different, etc.)
 - Mention Penny the penguin in about 1 out of 3 responses ("Penny loves pizza!", "Even Penny gets scared!")
-- If correct: celebrate! Be enthusiastic.
-- If wrong: gently correct him, show the right answer, and invite him to try again
+- If correct: celebrate enthusiastically
+- If wrong: gently correct him and show the right answer
 - Keep it to 25 words or fewer
 - Return only valid JSON, nothing else`;
 
