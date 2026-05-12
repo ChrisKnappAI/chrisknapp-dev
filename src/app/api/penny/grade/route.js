@@ -58,8 +58,7 @@ Rules:
 - Mention Penny the penguin in about 1 out of 3 responses ("Penny loves pizza!", "Even Penny gets scared!")
 - If correct: celebrate! Be enthusiastic.
 - If wrong: gently correct him, show the right answer, and invite him to try again
-- Keep it to 12 words or fewer
-- Do NOT invent or confirm facts about Santiago's family, life, or world — only react to whether his answer was right or wrong
+- Keep it to 25 words or fewer
 - Return only valid JSON, nothing else`;
 
   const message = await client.messages.create({
