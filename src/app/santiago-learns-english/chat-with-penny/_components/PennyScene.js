@@ -849,7 +849,7 @@ const ANIM_DURATIONS = {
   flyaway: 10000, layegg: 12000, holdhands: 14000,
 };
 
-export { CORRECT_ANIMS, WRONG_ANIM, SCENES };
+export { CORRECT_ANIMS, WRONG_ANIM, SCENES, IDLE_ANIMS, ANIM_DURATIONS };
 
 export default function PennyScene({ commandAnim, isPaused, talking, scene: sceneProp }) {
   const scene = sceneProp;
