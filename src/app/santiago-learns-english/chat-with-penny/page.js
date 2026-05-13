@@ -295,10 +295,10 @@ export default function ChatWithPenny() {
         if (result.correct) {
           await handleCorrect(answer);
         } else {
-          const answer  = currentQuestion.answer;
+          const correctAnswer = currentQuestion.answer;
           const lesson  = LESSONS.find(l => l.id === currentQuestion.topic);
-          const displayHint   = answer ?? null;
-          const displayHintEs = answer ? (lesson?.spanishVocab?.[answer] ?? answer) : null;
+          const displayHint   = correctAnswer ?? null;
+          const displayHintEs = correctAnswer ? (lesson?.spanishVocab?.[correctAnswer] ?? correctAnswer) : null;
 
           setPennyResponse(null);
           setPennyResponseSpanish(null);
@@ -335,8 +335,8 @@ export default function ChatWithPenny() {
           setLoading(false);
           if (voiceEnabled) {
             await new Promise(r => setTimeout(r, 80));
-            await speakLive(answer
-              ? `Not quite. Try again, Santiago! Hint: ${answer}`
+            await speakLive(displayHint
+              ? `Not quite. Try again, Santiago! Hint: ${displayHint}`
               : 'Not quite. Try again, Santiago!'
             ).catch(() => {});
           }
