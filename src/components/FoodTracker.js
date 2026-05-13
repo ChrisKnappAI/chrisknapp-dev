@@ -657,7 +657,7 @@ function GoalChip({ label, actual, unit, goal, defaultColor }) {
   return (
     <div style={{ textAlign: 'center' }}>
       <div style={{ fontSize: '0.6rem', color: '#64748B', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>{label}</div>
-      <div style={{ fontSize: '1rem', fontWeight: 700, color: valueColor, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
+      <div className="food-goal-value" style={{ fontSize: '1rem', fontWeight: 700, color: valueColor, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
         {Math.round(actual)}{unit}
         {goal && (
           <span style={{ fontSize: '0.72rem', fontWeight: 500, color: '#475569' }}>

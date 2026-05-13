@@ -66,6 +66,7 @@ body { margin: 0; }
   .food-ing-row { flex-direction: column !important; align-items: flex-start !important; gap: 0.1rem !important; padding: 0.25rem 0.25rem !important; }
   .food-ing-detail-desktop { display: none !important; }
   .food-ing-detail-mobile { display: block !important; }
+  .food-goal-value { font-size: 0.78rem !important; white-space: normal !important; }
 }
 
 /* Remove number input spinners */
