@@ -107,6 +107,15 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
   const [manualFat,    setManualFat]    = useState('')
   const [manualCheat,  setManualCheat]  = useState(false)
 
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    setIsMobile(mq.matches)
+    const handler = e => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
   function selectMeal(meal) {
     if (meal === '__MANUAL__') {
       setSelectedMeal('__MANUAL__')
@@ -403,73 +412,127 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
           {/* ── Ingredient table ── */}
           {!isManual && ingredients.length > 0 && (
             <>
-              <div style={{ overflowX: 'auto', marginBottom: '0.75rem' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
-                  <thead>
-                    <tr style={{ borderBottom: `1px solid ${c.border}` }}>
-                      <th style={{ ...thStyle, textAlign: 'left'   }}>Ingredient</th>
-                      <th style={{ ...thStyle, textAlign: 'center' }}>Amount</th>
-                      <th style={{ ...thStyle, textAlign: 'center' }}>Unit</th>
-                      <th style={{ ...thStyle, textAlign: 'center' }}>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-                          % Eaten
-                          {ingredients.length > 1 && (
-                            <button
-                              onClick={applyTopPercent}
-                              title="Set all rows to top row's %"
-                              style={{ background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.3)', borderRadius: 4, color: c.accentBtn, fontSize: '0.6rem', fontWeight: 700, padding: '0.1rem 0.35rem', cursor: 'pointer', lineHeight: 1.3 }}
-                            >
-                              ↓ all
-                            </button>
-                          )}
-                        </div>
-                      </th>
-                      <th style={{ ...thStyle, textAlign: 'center', color: c.calColor }}>Cal</th>
-                      <th style={{ ...thStyle, textAlign: 'center', color: '#22C55E'  }}>Protein</th>
-                      <th style={{ ...thStyle, textAlign: 'center', color: '#F97316'  }}>Carbs</th>
-                      <th style={{ ...thStyle, textAlign: 'center', color: c.muted   }}>Fat</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {ingredients.map((ing, idx) => {
-                      const m = calcMacros(ing)
-                      return (
-                        <tr key={idx} style={{ borderBottom: `1px solid ${c.border}` }}>
-                          <td style={{ padding: '0.45rem 0.6rem', fontWeight: 500 }}>{ing.ingredient}</td>
-                          <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center' }}>
+              {isMobile ? (
+                /* Mobile: stacked ingredient cards */
+                <div style={{ marginBottom: '0.75rem' }}>
+                  {ingredients.length > 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.4rem' }}>
+                      <button
+                        onClick={applyTopPercent}
+                        style={{ background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.3)', borderRadius: 4, color: c.accentBtn, fontSize: '0.72rem', fontWeight: 700, padding: '0.2rem 0.6rem', cursor: 'pointer' }}
+                      >
+                        ↓ Apply % to all
+                      </button>
+                    </div>
+                  )}
+                  {ingredients.map((ing, idx) => {
+                    const m      = calcMacros(ing)
+                    const pctVal = parseFloat(ing.user_percent) || 0
+                    return (
+                      <div key={idx} style={{ borderBottom: `1px solid ${c.border}`, padding: '0.55rem 0' }}>
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                          <span style={{ flex: 1, fontSize: '0.82rem', fontWeight: 500, color: c.text, lineHeight: 1.35 }}>{ing.ingredient}</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}>
                             <input
                               type="number"
                               value={ing.actual_amount}
                               min={0}
                               onChange={e => updateIng(idx, 'actual_amount', e.target.value)}
-                              style={{ ...input, width: 70, textAlign: 'right' }}
+                              style={{ ...input, width: 62, textAlign: 'right', padding: '0.25rem 0.4rem', fontSize: '0.82rem' }}
                             />
-                          </td>
-                          <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: c.muted }}>{ing.serving_metric}</td>
-                          <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center' }}>
+                            <span style={{ fontSize: '0.72rem', color: c.muted }}>{ing.serving_metric}</span>
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+                          <input
+                            type="range" min={0} max={1} step={0.05}
+                            value={pctVal}
+                            onChange={e => updateIng(idx, 'user_percent', parseFloat(e.target.value))}
+                            style={{ flex: 1, accentColor: c.accentBtn }}
+                          />
+                          <span style={{ fontSize: '0.78rem', color: c.muted, minWidth: 40, textAlign: 'right' }}>
+                            {Math.round(pctVal * 100)}%
+                          </span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '0.85rem', fontSize: '0.78rem' }}>
+                          <span style={{ color: c.calColor, fontWeight: 600 }}>{m.cal} cal</span>
+                          <span style={{ color: '#22C55E', fontWeight: 600 }}>{m.protein}g P</span>
+                          <span style={{ color: '#F97316', fontWeight: 600 }}>{m.carbs}g C</span>
+                          <span style={{ color: c.muted,   fontWeight: 600 }}>{m.fat}g F</span>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                /* Desktop: standard table */
+                <div style={{ overflowX: 'auto', marginBottom: '0.75rem' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
+                    <thead>
+                      <tr style={{ borderBottom: `1px solid ${c.border}` }}>
+                        <th style={{ ...thStyle, textAlign: 'left'   }}>Ingredient</th>
+                        <th style={{ ...thStyle, textAlign: 'center' }}>Amount</th>
+                        <th style={{ ...thStyle, textAlign: 'center' }}>Unit</th>
+                        <th style={{ ...thStyle, textAlign: 'center' }}>
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                            % Eaten
+                            {ingredients.length > 1 && (
+                              <button
+                                onClick={applyTopPercent}
+                                title="Set all rows to top row's %"
+                                style={{ background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.3)', borderRadius: 4, color: c.accentBtn, fontSize: '0.6rem', fontWeight: 700, padding: '0.1rem 0.35rem', cursor: 'pointer', lineHeight: 1.3 }}
+                              >
+                                ↓ all
+                              </button>
+                            )}
+                          </div>
+                        </th>
+                        <th style={{ ...thStyle, textAlign: 'center', color: c.calColor }}>Cal</th>
+                        <th style={{ ...thStyle, textAlign: 'center', color: '#22C55E'  }}>Protein</th>
+                        <th style={{ ...thStyle, textAlign: 'center', color: '#F97316'  }}>Carbs</th>
+                        <th style={{ ...thStyle, textAlign: 'center', color: c.muted   }}>Fat</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {ingredients.map((ing, idx) => {
+                        const m = calcMacros(ing)
+                        return (
+                          <tr key={idx} style={{ borderBottom: `1px solid ${c.border}` }}>
+                            <td style={{ padding: '0.45rem 0.6rem', fontWeight: 500 }}>{ing.ingredient}</td>
+                            <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center' }}>
                               <input
-                                type="range" min={0} max={1} step={0.05}
-                                value={parseFloat(ing.user_percent) || 0}
-                                onChange={e => updateIng(idx, 'user_percent', parseFloat(e.target.value))}
-                                style={{ width: 70, accentColor: c.accentBtn }}
+                                type="number"
+                                value={ing.actual_amount}
+                                min={0}
+                                onChange={e => updateIng(idx, 'actual_amount', e.target.value)}
+                                style={{ ...input, width: 70, textAlign: 'right' }}
                               />
-                              <span style={{ fontSize: '0.75rem', color: c.muted, minWidth: 32, textAlign: 'right' }}>
-                                {Math.round((parseFloat(ing.user_percent) || 0) * 100)}%
-                              </span>
-                            </div>
-                          </td>
-                          <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: c.calColor, fontWeight: 600 }}>{m.cal}</td>
-                          <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: '#22C55E',  fontWeight: 600 }}>{m.protein}g</td>
-                          <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: '#F97316',  fontWeight: 600 }}>{m.carbs}g</td>
-                          <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: c.muted                    }}>{m.fat}g</td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </div>
-
+                            </td>
+                            <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: c.muted }}>{ing.serving_metric}</td>
+                            <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center' }}>
+                                <input
+                                  type="range" min={0} max={1} step={0.05}
+                                  value={parseFloat(ing.user_percent) || 0}
+                                  onChange={e => updateIng(idx, 'user_percent', parseFloat(e.target.value))}
+                                  style={{ width: 70, accentColor: c.accentBtn }}
+                                />
+                                <span style={{ fontSize: '0.75rem', color: c.muted, minWidth: 32, textAlign: 'right' }}>
+                                  {Math.round((parseFloat(ing.user_percent) || 0) * 100)}%
+                                </span>
+                              </div>
+                            </td>
+                            <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: c.calColor, fontWeight: 600 }}>{m.cal}</td>
+                            <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: '#22C55E',  fontWeight: 600 }}>{m.protein}g</td>
+                            <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: '#F97316',  fontWeight: 600 }}>{m.carbs}g</td>
+                            <td style={{ padding: '0.45rem 0.6rem', textAlign: 'center', color: c.muted                    }}>{m.fat}g</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </>
           )}
 
@@ -560,9 +623,10 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                   const unit     = e.serving_metric === 'grams' ? 'g' : ` ${e.serving_metric}`
                   const consumed = Math.round(e.actual_amount * e.user_percent)
                   return (
-                    <div key={e.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: c.muted, padding: '0.15rem 0.75rem' }}>
+                    <div key={e.id} className="food-ing-row" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: c.muted, padding: '0.15rem 0.75rem' }}>
                       <span>{e.ingredient}</span>
-                      <span>{pct}% eaten of {e.actual_amount}{unit} prepared → {consumed}{unit} → {fmt(e.calories)} cal / {fmt(e.protein)}g P</span>
+                      <span className="food-ing-detail-desktop">{pct}% eaten of {e.actual_amount}{unit} prepared → {consumed}{unit} → {fmt(e.calories)} cal / {fmt(e.protein)}g P</span>
+                      <span className="food-ing-detail-mobile" style={{ display: 'none' }}>{pct}% of {Math.round(e.actual_amount)}{unit} → {consumed}{unit} → {Math.round(e.calories)}cal / {Math.round(e.protein)}p</span>
                     </div>
                   )
                 })}

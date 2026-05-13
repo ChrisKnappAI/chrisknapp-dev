@@ -63,6 +63,9 @@ body { margin: 0; }
   .food-log-btn { width: 100% !important; text-align: center !important; }
   .food-day-header { flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
   .food-day-totals { gap: 1rem !important; justify-content: space-around !important; width: 100% !important; }
+  .food-ing-row { flex-direction: column !important; align-items: flex-start !important; gap: 0.1rem !important; padding: 0.25rem 0.25rem !important; }
+  .food-ing-detail-desktop { display: none !important; }
+  .food-ing-detail-mobile { display: block !important; }
 }
 
 /* Remove number input spinners */
