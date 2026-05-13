@@ -11,8 +11,8 @@ import { DashCard } from './ChrisDashboard'
 // ── Colors ─────────────────────────────────────────────────────
 
 const BODY_COLORS = {
-  weight:   '#3b82f6',
-  bodyFat:  '#f97316',
+  weight:   '#f97316',
+  bodyFat:  '#3b82f6',
   leanMass: '#60a5fa',
   bmi:      '#fb923c',
 }
@@ -291,8 +291,8 @@ function BodyChart({ data, showLeanMass, showBMI, granularity, chartHeight }) {
           <YAxis yAxisId="right" orientation="right" domain={rightDomain} tick={ATICK} axisLine={false} tickLine={false} width={36} />
           <Tooltip content={tooltip} />
           {monthBoundaryLabels(data).map(lbl => <ReferenceLine key={lbl} x={lbl} yAxisId="left" stroke="#334155" strokeWidth={1} />)}
-          <Line yAxisId="left"  type="monotone" dataKey="weight"   stroke={BODY_COLORS.weight}   strokeWidth={2}   dot={false} connectNulls />
           <Line yAxisId="right" type="monotone" dataKey="bodyFat"  stroke={BODY_COLORS.bodyFat}  strokeWidth={2}   dot={false} connectNulls />
+          <Line yAxisId="left"  type="monotone" dataKey="weight"   stroke={BODY_COLORS.weight}   strokeWidth={2}   dot={false} connectNulls />
           {showLeanMass && <Line yAxisId="left"  type="monotone" dataKey="leanMass" stroke={BODY_COLORS.leanMass} strokeWidth={1.5} strokeDasharray="4 2" dot={false} connectNulls />}
           {showBMI      && <Line yAxisId="right" type="monotone" dataKey="bmi"      stroke={BODY_COLORS.bmi}      strokeWidth={1.5} strokeDasharray="4 2" dot={false} connectNulls />}
         </ComposedChart>

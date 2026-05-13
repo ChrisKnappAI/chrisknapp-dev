@@ -18,6 +18,15 @@
   --c-sky-dim: rgba(56,189,248,0.12);
   --c-green: #34D399;
   --c-green-dim: rgba(52,211,153,0.12);
+
+  /* Kelly theme — warm amber/dark, memoir feel */
+  --c-kelly: #111008;
+  --c-kelly-sidebar: #0D0C07;
+  --c-kelly-card: #1E1B10;
+  --c-kelly-border: rgba(255,200,80,0.07);
+  --c-amber: #F59E0B;
+  --c-amber-dark: #D97706;
+  --c-amber-dim: rgba(245,158,11,0.1);
 }
 
 @theme inline {
@@ -50,6 +59,12 @@ body { margin: 0; }
     padding: 0.75rem 0.75rem !important;
     gap: 0.65rem !important;
   }
+}
+
+/* Kelly area — hide sidebar on tablet and below (1100px) */
+@media (max-width: 1100px) {
+  .kelly-sidebar { display: none !important; }
+  .kelly-content { margin-left: 0 !important; }
 }
 
 /* Remove number input spinners */

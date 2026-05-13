@@ -2,30 +2,67 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 
-function SantiagoPreview() {
-  const foods = ['🍕','🍔','🍟','🍗','🥤','🍬','🧁','🍦','🌭','🍫','🍩','🍿','🎂','🍪','🍭'];
-  const seen  = new Set([0, 2, 5, 9, 13]);
+function PennyPreview() {
+  const unlocks = [
+    { icon: '🐦', label: 'Fly Away',  done: true  },
+    { icon: '🥚', label: 'Lay Egg',   done: true  },
+    { icon: '💕', label: 'Hold Hands',done: true  },
+    { icon: '🐶', label: 'Puppy',     done: false },
+  ];
   return (
-    <div style={{ background: '#1D4ED8', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 10, height: '100%', userSelect: 'none', minHeight: 180 }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-        <div>
-          <div style={{ lineHeight: 1 }}>
-            <span style={{ color: '#FDE047', fontWeight: 900, fontSize: 14 }}>San</span>
-            <span style={{ color: '#fff', fontWeight: 900, fontSize: 14 }}>tiago</span>
-          </div>
-          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', fontWeight: 500, marginTop: 2, letterSpacing: '0.04em' }}>Learns English</div>
+    <div style={{
+      background: '#0B1120', borderRadius: 14, overflow: 'hidden',
+      height: '100%', minHeight: 230, display: 'flex', flexDirection: 'column',
+      userSelect: 'none', fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      border: '2px solid rgba(29,78,216,0.4)',
+    }}>
+
+      {/* Toolbar */}
+      <div style={{ background: 'rgba(29,78,216,0.92)', padding: '7px 10px', display: 'flex', alignItems: 'center', gap: 5 }}>
+        <div style={{ background: 'white', borderRadius: 20, padding: '3px 9px', fontSize: 9.5, fontWeight: 700, color: '#1D4ED8' }}>📚 Topics</div>
+        <div style={{ background: 'white', borderRadius: 20, padding: '3px 9px', fontSize: 9.5, fontWeight: 700, color: '#1D4ED8' }}>🌋 Volcano ▾</div>
+        <div style={{ flex: 1 }} />
+        <div style={{ background: 'rgba(255,255,255,0.15)', borderRadius: 20, padding: '3px 8px', fontSize: 9, fontWeight: 700, color: 'white', display: 'flex', alignItems: 'center', gap: 3 }}>
+          🐶 Penny&apos;s Puppy
         </div>
-        <div style={{ background: '#FDE047', borderRadius: 6, padding: '3px 9px', fontSize: 9, fontWeight: 800, color: '#1D3A8A', letterSpacing: '0.04em' }}>🍕 Junk Food</div>
+        <div style={{ background: '#1D4ED8', border: '2px solid white', borderRadius: 20, padding: '2px 10px', fontSize: 9.5, fontWeight: 800, color: 'white' }}>Go</div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 4, flex: 1 }}>
-        {foods.map((e, i) => (
-          <div key={i} style={{ background: seen.has(i) ? '#1D4ED8' : '#BFDBFE', border: seen.has(i) ? '1px solid rgba(255,255,255,0.12)' : 'none', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, aspectRatio: '1', opacity: seen.has(i) ? 0.45 : 1 }}>{e}</div>
+
+      {/* Scene */}
+      <div style={{ flex: 1, background: 'linear-gradient(170deg,#1a0800 0%,#3d1200 60%,#1a0000 100%)', position: 'relative', padding: '10px 10px 6px', display: 'flex', gap: 8, alignItems: 'flex-start', justifyContent: 'space-between' }}>
+        {/* Penny bubble */}
+        <div style={{ background: 'white', borderRadius: '12px 12px 12px 3px', padding: '8px 10px', maxWidth: '58%', boxShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+          <div style={{ fontSize: 9.5, fontWeight: 700, color: '#EC4899', marginBottom: 3 }}>Nice work! Snakes have no legs! 🐍</div>
+          <div style={{ width: 28, height: 1, background: '#E5E7EB', margin: '4px 0' }} />
+          <div style={{ fontSize: 9.5, fontWeight: 800, color: '#1E2A38', lineHeight: 1.45 }}>Next: Which picture is the <span style={{ color: '#1D4ED8' }}>bread</span>?</div>
+          <div style={{ fontSize: 8, color: '#A89A85', marginTop: 3 }}>tap for Spanish</div>
+        </div>
+        {/* Input */}
+        <div style={{ background: 'rgba(240,244,255,0.92)', border: '1.5px solid #1D4ED8', borderRadius: '12px 12px 3px 12px', padding: '6px 9px', fontSize: 9, color: '#94A3B8', alignSelf: 'flex-start', whiteSpace: 'nowrap' }}>
+          Type your answer…
+        </div>
+        {/* Lava streaks (decoration) */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 18, background: 'linear-gradient(to top, rgba(255,80,0,0.12), transparent)', pointerEvents: 'none' }} />
+      </div>
+
+      {/* Character bar */}
+      <div style={{ background: 'rgba(0,0,0,0.45)', padding: '5px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 8.5, fontWeight: 800, color: '#F472B6', letterSpacing: '0.06em' }}>🐧 PENNY</div>
+        <div style={{ display: 'flex', gap: 2.5 }}>
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div key={i} style={{ width: 4.5, height: 4.5, borderRadius: '50%', background: i < 15 ? '#34D399' : 'rgba(255,255,255,0.12)' }} />
+          ))}
+        </div>
+        <div style={{ fontSize: 8.5, fontWeight: 800, color: '#C88B50', letterSpacing: '0.06em' }}>SANTIAGO 🧑</div>
+      </div>
+
+      {/* Unlock strip */}
+      <div style={{ background: 'rgba(29,78,216,0.18)', borderTop: '1px solid rgba(29,78,216,0.28)', padding: '5px 12px', display: 'flex', alignItems: 'center', gap: 5 }}>
+        <div style={{ fontSize: 8, color: '#60A5FA', fontWeight: 700, whiteSpace: 'nowrap' }}>Unlocked:</div>
+        {unlocks.map((u, i) => (
+          <div key={i} title={u.label} style={{ fontSize: 12, opacity: u.done ? 1 : 0.28, filter: u.done ? 'none' : 'grayscale(1)' }}>{u.icon}</div>
         ))}
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 5, borderTop: '1px solid rgba(255,255,255,0.12)', paddingTop: 8 }}>
-        <span style={{ fontSize: 10 }}>🔊</span>
-        <span style={{ fontSize: 11, fontWeight: 800, color: '#fff', letterSpacing: '-0.3px' }}>Hamburger</span>
-        <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>(Hamburguesa)</span>
+        <div style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.25)', marginLeft: 2, whiteSpace: 'nowrap' }}>5 more → 🐶</div>
       </div>
     </div>
   );
@@ -269,21 +306,22 @@ export default function PortfolioPage() {
               <div className="pf-card-top">
                 <span className="pf-badge pf-badge-personal"><span className="pf-badge-dot" />Personal Project</span>
                 <div className="pf-tags">
-                  <span className="pf-tag">Next.js</span>
+                  <span className="pf-tag">Claude API</span>
+                  <span className="pf-tag">Supabase</span>
                   <span className="pf-tag">Web Speech API</span>
-                  <span className="pf-tag">Wikipedia API</span>
+                  <span className="pf-tag">Next.js</span>
                   <span className="pf-tag">Vercel</span>
                 </div>
               </div>
               <div className="pf-card-title">Santiago Learns English</div>
               <p className="pf-card-desc">
-                An interactive bilingual learning app built from scratch for an 8-year-old learning English as a second language — designed as a companion to his weekly English class. Features real-time speech synthesis, touch-optimized vocabulary cards with real food photography sourced via a custom Wikipedia image pipeline, an interactive body-parts diagram with 32 tappable hotspots, and a video lesson center with bilingual lyrics synced to 16 songs — all designed mobile-first for small hands and short attention spans.
+                A bilingual English-learning app for an 8-year-old, built around Penny — an AI-powered penguin chatbot running on Claude. Penny asks questions, grades spoken and typed answers using the LLM, and reads everything aloud via the Web Speech API. As Santiago earns correct answers, he unlocks special animations (a flying escape, egg-hatching, hand-holding, and a visiting puppy) — a progression system controlled by a parent admin dashboard. Seven animated scene backgrounds, three question types, and 18+ lesson topics, all stored in Supabase with real-time sync.
               </p>
             </div>
             <div className="pf-card-cta">Open App <span className="pf-card-cta-arrow">→</span></div>
           </div>
           <div className="pf-card-preview">
-            <SantiagoPreview />
+            <PennyPreview />
           </div>
         </Link>
 
