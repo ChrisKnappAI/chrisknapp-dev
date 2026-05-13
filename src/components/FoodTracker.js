@@ -301,10 +301,10 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
     <div style={{ color: c.text }}>
 
       {/* ── Header + date nav ── */}
-      <div style={{ padding: '1.25rem 2rem', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: c.bg, position: 'sticky', top: 0, zIndex: 10 }}>
+      <div className="food-header" style={{ padding: '1.25rem 2rem', borderBottom: `1px solid ${c.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: c.bg, position: 'sticky', top: 0, zIndex: 10 }}>
         <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>{label}</div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div className="food-header-nav" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button onClick={() => shiftDate(-1)} style={btnNav(c)}>←</button>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: '0.28rem 0.7rem' }}>
@@ -324,7 +324,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
         </div>
       </div>
 
-      <div style={{ padding: '1rem 2rem' }}>
+      <div className="food-content" style={{ padding: '1rem 2rem' }}>
 
         {toast && (
           <div style={{ background: '#22C55E', color: 'white', padding: '0.6rem 1rem', borderRadius: 8, marginBottom: '1rem', fontSize: '0.84rem', fontWeight: 600 }}>
@@ -336,7 +336,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
         <div style={card}>
           <div style={{ fontSize: '0.88rem', fontWeight: 700, marginBottom: '1.25rem' }}>Log a Meal</div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.25rem' }}>
+          <div className="food-meal-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.25rem' }}>
             <div>
               <label style={lbl}>Meal</label>
               <select value={selectedMeal} onChange={e => selectMeal(e.target.value)} style={input}>
@@ -372,7 +372,7 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                   style={input}
                 />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '0.75rem' }}>
+              <div className="food-macro-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '0.75rem' }}>
                 <div>
                   <label style={lbl}>Calories</label>
                   <input type="number" min={0} placeholder="0" value={manualCal} onChange={e => setManualCal(e.target.value)} style={{ ...input, textAlign: 'right' }} />
@@ -473,9 +473,9 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
             </>
           )}
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.6rem', borderTop: `1px solid ${c.border}`, marginTop: '0.25rem', gap: '1rem' }}>
+          <div className="food-log-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.6rem', borderTop: `1px solid ${c.border}`, marginTop: '0.25rem', gap: '1rem' }}>
             {!isManual && ingredients.length > 0 ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+              <div className="food-meal-total" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
                 <span style={{ fontSize: '0.68rem', fontWeight: 600, color: c.muted, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Meal Total</span>
                 <Chip label="Cal"     value={fmt(mealTotals.cal)}           color={c.calColor} />
                 <Chip label="Protein" value={`${fmt(mealTotals.protein)}g`} color="#22C55E"   />
@@ -484,11 +484,12 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
               </div>
             ) : <div />}
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+            <div className="food-log-actions" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
               <button
                 onClick={handleLog}
                 disabled={logBtnDisabled}
-                style={{ background: c.accentBtn, color: 'white', border: 'none', borderRadius: 8, padding: '0.65rem 1.75rem', fontSize: '0.875rem', fontWeight: 600, cursor: logBtnDisabled ? 'not-allowed' : 'pointer', opacity: logBtnDisabled ? 0.4 : 1 }}
+                className="food-log-btn"
+              style={{ background: c.accentBtn, color: 'white', border: 'none', borderRadius: 8, padding: '0.65rem 1.75rem', fontSize: '0.875rem', fontWeight: 600, cursor: logBtnDisabled ? 'not-allowed' : 'pointer', opacity: logBtnDisabled ? 0.4 : 1 }}
               >
                 {submitting ? 'Logging…' : 'Log Meal'}
               </button>
@@ -508,11 +509,11 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
 
         {/* ── Day log ── */}
         <div style={card}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <div className="food-day-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div style={{ fontSize: '0.88rem', fontWeight: 700 }}>
               {friendlyDate(date) === 'Today' ? "Today's Log" : friendlyDate(date) === 'Yesterday' ? "Yesterday's Log" : `Log — ${date}`}
             </div>
-            <div style={{ display: 'flex', gap: '1.75rem' }}>
+            <div className="food-day-totals" style={{ display: 'flex', gap: '1.75rem' }}>
               <GoalChip label="Calories" actual={dayTotals.cal}     unit=""  goal={goals.cal}     defaultColor={c.calColor} />
               <GoalChip label="Protein"  actual={dayTotals.protein} unit="g" goal={goals.protein} defaultColor="#22C55E"   />
               <GoalChip label="Carbs"    actual={dayTotals.carbs}   unit="g" goal={goals.carbs}   defaultColor={goals.carbs ? "#F97316" : c.text} />
