@@ -24,7 +24,11 @@ export const SEGMENTS = [
     title: 'Arrive Tahiti → Explore Tahiti by Car → Moorea Night 1',
     events: [
       { icon: '🚗', label: 'Arrive Tahiti & Explore by Car', detail: 'Land ~4:10am\nAvis rental car pickup 5:00am at Faaa Airport\nInternational Driver\'s License required\n\nCar stays parked in Papeete during Moorea week\nReturn: Jul 3 by 5:00pm at Papeete Downtown' },
-      { icon: '⛴️', label: 'Ferry to Moorea — Check into Airbnb', detail: 'Ferry: Papeete → Moorea (Aremiti or Terevau, ~30–45 min)\nReserve round-trip tickets in advance\n\nAirbnb: Pk0 Moorea Chill and Beach Lodge\nMoorea-Maiao, Îles du Vent 98728, French Polynesia\nWiFi: MCNBL\nPassword: Mooreachillteihotu200389' },
+      { icon: '⛴️', label: 'Ferry to Moorea — Check into Airbnb', detail: 'Ferry: Papeete → Moorea (Aremiti or Terevau, ~30–45 min)\nReserve round-trip tickets in advance', copyItems: [
+        { label: 'Airbnb Address', value: 'Pk0 Moorea Chill and Beach Lodge, Moorea-Maiao, Îles du Vent 98728, French Polynesia' },
+        { label: 'WiFi Network', value: 'MCNBL' },
+        { label: 'WiFi Password', value: 'Mooreachillteihotu200389' },
+      ] },
     ],
   },
   {

@@ -171,6 +171,13 @@ export default function TimelinePage() {
                                   {ev.detail}
                                 </div>
                               )}
+                              {ev.copyItems && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 10, paddingLeft: 23 }}>
+                                  {ev.copyItems.map((item, ci) => (
+                                    <CopyChip key={ci} label={item.label} value={item.value} />
+                                  ))}
+                                </div>
+                              )}
                             </div>
                           ))}
                         </div>
@@ -207,5 +214,35 @@ export default function TimelinePage() {
         })}
       </div>
     </div>
+  )
+}
+
+function CopyChip({ label, value }) {
+  const [copied, setCopied] = useState(false)
+  function handleCopy() {
+    navigator.clipboard.writeText(value)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+  return (
+    <button
+      onClick={handleCopy}
+      style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        background: copied ? '#F0FDF4' : '#F8FAFC',
+        border: `1px solid ${copied ? '#86EFAC' : '#CBD5E1'}`,
+        borderRadius: 8, padding: '8px 12px', cursor: 'pointer',
+        textAlign: 'left', width: '100%', gap: 8,
+        WebkitTapHighlightColor: 'transparent',
+      }}
+    >
+      <div style={{ overflow: 'hidden' }}>
+        <div style={{ fontSize: '0.6rem', fontWeight: 600, color: '#94A3B8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 2 }}>{label}</div>
+        <div style={{ fontSize: '0.78rem', color: '#0F172A', fontFamily: 'monospace', wordBreak: 'break-all' }}>{value}</div>
+      </div>
+      <span style={{ fontSize: '0.72rem', color: copied ? '#16A34A' : '#94A3B8', flexShrink: 0 }}>
+        {copied ? '✓ Copied' : '⎘'}
+      </span>
+    </button>
   )
 }
