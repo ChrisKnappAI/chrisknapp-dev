@@ -3,10 +3,9 @@ import { useState, useEffect, useRef } from 'react'
 import { SEGMENTS } from '../_data/timeline'
 
 const PHASE_META = {
-  travel:    { label: '✈️  Travel Days',         color: '#7C3AED', bg: '#F5F3FF' },
-  polynesia: { label: '🌴  French Polynesia',    color: '#0D9488', bg: '#F0FDFA' },
-  cruise:    { label: '🚢  NCL Cruise',           color: '#0891B2', bg: '#F0F9FF' },
-  hawaii:    { label: '🌺  Hawaii',              color: '#EA580C', bg: '#FFF7ED' },
+  travel:    { label: '✈️  Travel Days',       color: '#7C3AED', bg: '#F5F3FF' },
+  polynesia: { label: '🌴  French Polynesia',  color: '#0D9488', bg: '#F0FDFA' },
+  cruise:    { label: '🚢  NCL Cruise',         color: '#EA580C', bg: '#FFF7ED' },
 }
 
 export default function TimelinePage() {
@@ -52,7 +51,7 @@ export default function TimelinePage() {
         {/* Gradient vertical line */}
         <div style={{
           position: 'absolute', left: 20, top: 0, bottom: 0, width: 2,
-          background: 'linear-gradient(180deg, #7C3AED 0%, #0D9488 30%, #0891B2 60%, #EA580C 85%, #7C3AED 100%)',
+          background: 'linear-gradient(180deg, #7C3AED 0%, #0D9488 25%, #EA580C 65%, #7C3AED 100%)',
           opacity: 0.25, zIndex: 0,
         }} />
 
