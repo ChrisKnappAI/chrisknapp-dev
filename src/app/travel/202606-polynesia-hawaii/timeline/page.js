@@ -167,7 +167,7 @@ export default function TimelinePage() {
                                 <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0C4A6E' }}>{ev.label}</span>
                               </div>
                               {ev.detail && (
-                                <div style={{ fontSize: '0.78rem', color: '#64748B', lineHeight: 1.55, paddingLeft: 23 }}>
+                                <div style={{ fontSize: '0.78rem', color: '#64748B', lineHeight: 1.7, paddingLeft: 23, whiteSpace: 'pre-line' }}>
                                   {ev.detail}
                                 </div>
                               )}

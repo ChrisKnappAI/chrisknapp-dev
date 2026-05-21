@@ -8,11 +8,11 @@ export const SEGMENTS = [
     dateLabel: 'Fri Jun 26',
     phase: 'travel',
     icon: '✈️',
-    title: 'Travel Day — Daytona to Tahiti',
+    title: 'Travel Day: Daytona to LAX → Santa Monica → LAX to Tahiti',
     events: [
-      { icon: '✈️', label: 'Fly Daytona → LAX', detail: 'Southwest departs 9:00am, arrives LAX 10:30am. Confirmation — Chris: APU2ZX · Natalie: APVVJJ.' },
+      { icon: '✈️', label: 'Flight Daytona → LAX', detail: 'Southwest — Daytona (9:00am) to LAX (10:30am local)\nConfirmation — Chris: APU2ZX · Natalie: APVVJJ' },
       { icon: '🏖️', label: 'Day in Santa Monica', detail: 'Afternoon to explore Santa Monica — beach, Third Street Promenade, dinner before the flight.' },
-      { icon: '🌙', label: 'LAX → Tahiti (11pm overnight)', detail: 'Flight QF3816 operated by Air Tahiti Nui. Departs 11:00pm, arrives 4:10am (+1). 8hr 10min. Economy — seats not pre-selected. Baggage: 32kg checked + 10kg cabin bag + personal item (each person). BudgetAir ref: APIJMW · Booking: BUSA-35392403. Online check-in & manage at airtahiti.com using ref APIJMW.' },
+      { icon: '🌙', label: 'Flight LAX → Tahiti', detail: 'Air Tahiti Nui Flight QF3816\nLAX (11:00pm) to Papeete (4:10am +1), 8hr 10min\nEconomy — seats not pre-selected\n\nBaggage: 32kg checked + 10kg cabin bag + personal item (each person)\n\nAir Tahiti Reference: APIJMW — manage at airtahiti.com\nBudgetAir Booking: BUSA-35392403' },
     ],
   },
   {
@@ -21,10 +21,10 @@ export const SEGMENTS = [
     dateLabel: 'Sat Jun 27',
     phase: 'polynesia',
     icon: '🌺',
-    title: 'Arrive Tahiti → Moorea Night 1',
+    title: 'Arrive Tahiti → Explore Tahiti by Car → Moorea Night 1',
     events: [
-      { icon: '🚗', label: 'Arrive Tahiti & Explore by Car', detail: 'Land ~4:10am. Avis rental car pickup 5:00am at Faaa Airport (International Driver\'s License required). Car parked in Papeete while on Moorea — return Jul 3, 5:00pm at Papeete Downtown. Explore Tahiti by car from sunrise through the afternoon.' },
-      { icon: '⛴️', label: 'Ferry to Moorea — Check into Airbnb', detail: 'Board the ferry from Papeete to Moorea (Aremiti or Terevau — reserve round trip in advance, ~30–45 min). Airbnb: Pk0 Moorea Chill and Beach Lodge, Moorea-Maiao 98728. WiFi: MCNBL · Password: Mooreachillteihotu200389.' },
+      { icon: '🚗', label: 'Arrive Tahiti & Explore by Car', detail: 'Land ~4:10am\nAvis rental car pickup 5:00am at Faaa Airport\nInternational Driver\'s License required\n\nCar stays parked in Papeete during Moorea week\nReturn: Jul 3 by 5:00pm at Papeete Downtown' },
+      { icon: '⛴️', label: 'Ferry to Moorea — Check into Airbnb', detail: 'Ferry: Papeete → Moorea (Aremiti or Terevau, ~30–45 min)\nReserve round-trip tickets in advance\n\nAirbnb: Pk0 Moorea Chill and Beach Lodge\nMoorea-Maiao, Îles du Vent 98728, French Polynesia\nWiFi: MCNBL\nPassword: Mooreachillteihotu200389' },
     ],
   },
   {
@@ -83,11 +83,11 @@ export const SEGMENTS = [
     dateLabel: 'Fri Jul 3',
     phase: 'cruise',
     icon: '🚢',
-    title: 'Check Out → Tahiti → Board Cruise',
+    title: 'Check Out → Explore Tahiti by Car → Board Cruise',
     events: [
-      { icon: '🏠', label: 'Check Out of Moorea Airbnb', detail: 'Pack up and check out. Take the morning ferry back to Papeete. Return Avis rental car by 5:00pm at Papeete Downtown.' },
+      { icon: '🏠', label: 'Check Out of Moorea Airbnb', detail: 'Pack up and check out\nTake the morning ferry back to Papeete\nReturn Avis rental car by 5:00pm at Papeete Downtown' },
       { icon: '🌺', label: 'Spend the Day in Tahiti', detail: 'Final afternoon in French Polynesia — explore Papeete, grab a last local meal, pick up souvenirs.' },
-      { icon: '🚢', label: 'Board NCL Cruise (10pm)', detail: 'Board Norwegian Spirit in Papeete. Reservation #65199096. Embarkation at 10:00pm. Get settled in the cabin — Cruise Day 1.' },
+      { icon: '🚢', label: 'Board Norwegian Spirit (10pm)', detail: 'Norwegian Spirit — NCL Cruise\nReservation #65199096\nEmbarkation at 10:00pm in Papeete' },
     ],
   },
   {
@@ -96,7 +96,7 @@ export const SEGMENTS = [
     dateLabel: 'Sat Jul 4',
     phase: 'cruise',
     icon: '🚢',
-    title: 'Cruise Day 2 — Moorea (from ship)',
+    title: 'Cruise Day 2 — Moorea',
     summary: 'In port 7:00am – 8:00pm. Likely no excursion — already spent a week here.',
     details: "Port day in Moorea from the cruise ship. In port 7:00am–8:00pm. Already spent a week here — likely won't book a separate excursion. Explore independently or relax onboard.",
   },
@@ -206,10 +206,10 @@ export const SEGMENTS = [
     dateLabel: 'Wed Jul 15',
     phase: 'travel',
     icon: '✈️',
-    title: 'Cruise Day 13 — Honolulu → Home',
+    title: 'Cruise Day 13 — Honolulu → Fly Home at Night',
     events: [
-      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff', detail: 'Ship arrives Honolulu 6:00am. Booked NCL excursion — full circle island tour of Oahu ending with airport dropoff. Final day in Hawaii.' },
-      { icon: '✈️', label: 'Night Flight Hawaii → Home', detail: 'Southwest departs Honolulu 9:00pm. Chris: ARERNI · Natalie: ARFWVR. Connects Phoenix (PHX) — arrives 5:55am, departs 7:55am, lands home 3:15pm.' },
+      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff', detail: 'Ship arrives Honolulu 6:00am\nNCL excursion — full circle island tour of Oahu\nEnds with airport dropoff' },
+      { icon: '✈️', label: 'Night Flight Hawaii → Home', detail: 'Southwest departs Honolulu 9:00pm\nConfirmation — Chris: ARERNI · Natalie: ARFWVR\n\nConnects Phoenix (PHX)\nArrives PHX 5:55am → Departs 7:55am → Lands home 3:15pm' },
     ],
   },
   {
