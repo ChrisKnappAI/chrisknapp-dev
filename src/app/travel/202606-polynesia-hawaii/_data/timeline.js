@@ -97,8 +97,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🚢',
     title: 'Cruise Day 2 — Moorea (from ship)',
-    summary: 'Port day in Moorea. Likely no excursion booked.',
-    details: "Port day in Moorea from the cruise ship. Already spent a week here — likely won't book a separate excursion. Explore independently or relax onboard.",
+    summary: 'In port 7:00am – 8:00pm. Likely no excursion — already spent a week here.',
+    details: "Port day in Moorea from the cruise ship. In port 7:00am–8:00pm. Already spent a week here — likely won't book a separate excursion. Explore independently or relax onboard.",
   },
   {
     id: 'jul05',
@@ -107,8 +107,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🚢',
     title: 'Cruise Day 3 — Raiatea',
-    summary: 'Port day in Raiatea. Need to book excursion.',
-    details: 'Port day in Raiatea. Need to decide on and book an excursion.',
+    summary: 'In port 7:00am – 8:00pm. Need to book excursion.',
+    details: 'Port day in Raiatea. In port 7:00am – 8:00pm. Need to decide on and book an excursion.',
   },
   {
     id: 'jul06',
@@ -117,8 +117,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '⭐',
     title: 'Cruise Day 4 — Bora Bora',
-    summary: 'Bora Bora! Need to book excursion.',
-    details: 'Port day in Bora Bora — the crown jewel of French Polynesia. Need to decide on and book an excursion (lagoon tour, shark/ray snorkel, overwater bungalow visit, etc.).',
+    summary: 'In port 7:00am – 7:00pm. Need to book excursion.',
+    details: 'Port day in Bora Bora — the crown jewel of French Polynesia. In port 7:00am – 7:00pm. Need to decide on and book an excursion (lagoon tour, shark/ray snorkel, overwater bungalow visit, etc.).',
   },
   {
     id: 'jul07',
@@ -177,7 +177,7 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🌋',
     title: 'Cruise Day 10 — Hilo, Big Island',
-    summary: 'Secrets of Puna — $310 · 6.5hrs. Walk Kilauea\'s 2018 lava flows with NPS-certified guide.',
+    summary: 'In port 7:00am – 4:00pm. Secrets of Puna — $310 · 6.5hrs. Walk Kilauea\'s 2018 lava flows with NPS-certified guide.',
     details: 'Secrets of Puna ($310 / 6.5 hrs) — Walk Kilauea\'s most recent 2018 lava flows along the East Rift Zone with a National Park Service certified guide covering volcanology, geology, and history. Stops include MacKenzie State Recreation Area with 40-foot lava walls, Isaac Hale Beach Park miraculously spared by lava flows, and black sand beaches. You\'re walking ON recent lava flows with an NPS certified expert — not the volcano crater itself but the aftermath of the catastrophic 2018 eruption.',
   },
   {
@@ -187,8 +187,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🌿',
     title: 'Cruise Day 11 — Kauai',
-    summary: 'Port day in Kauai. Need to book excursion.',
-    details: 'Port day in Kauai — the Garden Isle. Need to decide on and book an excursion (Na Pali Coast, Waimea Canyon, helicopter tour, etc.).',
+    summary: 'In port 8:30am – 5:00pm. Need to book excursion.',
+    details: 'Port day in Kauai — the Garden Isle. In port 8:30am – 5:00pm. Need to decide on and book an excursion (Na Pali Coast, Waimea Canyon, helicopter tour, etc.).',
   },
   {
     id: 'jul14',
@@ -197,8 +197,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🏄',
     title: 'Cruise Day 12 — Maui',
-    summary: 'Port day in Maui. Need to book excursion.',
-    details: 'Port day in Maui. Need to decide on and book an excursion (Road to Hana, snorkeling Molokini, whale watching, etc.).',
+    summary: 'In port 8:00am – 5:00pm. Need to book excursion.',
+    details: 'Port day in Maui. In port 8:00am – 5:00pm. Need to decide on and book an excursion (Road to Hana, snorkeling Molokini, whale watching, etc.).',
   },
   {
     id: 'jul15',
@@ -208,7 +208,7 @@ export const SEGMENTS = [
     icon: '✈️',
     title: 'Cruise Day 13 — Honolulu → Home',
     events: [
-      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff', detail: 'Booked NCL excursion — full circle island tour of Oahu ending with airport dropoff. Final day in Hawaii.' },
+      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff', detail: 'Ship arrives Honolulu 6:00am. Booked NCL excursion — full circle island tour of Oahu ending with airport dropoff. Final day in Hawaii.' },
       { icon: '✈️', label: 'Night Flight Hawaii → MCO', detail: 'Southwest departs Honolulu 9:00pm. Overnight flight back to Orlando MCO.' },
     ],
   },
