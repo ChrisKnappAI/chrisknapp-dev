@@ -637,16 +637,13 @@ const css = `
   @keyframes soccer-ball-p2 { from { transform: translateX(520px) rotate(900deg); } to { transform: translateX(0) rotate(0deg); } }
   @keyframes soccer-ball-p3 { from { transform: translateX(0) rotate(0deg); } to { transform: translateX(520px) rotate(900deg); } }
   @keyframes soccer-ball-p4 {
-    0%   { transform: translateX(520px) translateY(0) rotate(900deg); opacity: 1; }
-    35%  { transform: translateX(300px) translateY(-260px) rotate(1440deg); opacity: 1; }
-    62%  { transform: translateX(60px)  translateY(-440px) rotate(2100deg); opacity: 1; }
-    80%  { transform: translateX(-80px) translateY(-520px) rotate(2400deg); opacity: 0.3; }
-    100% { transform: translateX(-120px) translateY(-540px) rotate(2520deg); opacity: 0; }
+    0%   { transform: translateX(520px) translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateX(120px) translateY(-620px) rotate(1440deg); opacity: 0; }
   }
   .soccer-ball-p1 { animation: soccer-ball-p1 2s ease-in-out forwards; }
   .soccer-ball-p2 { animation: soccer-ball-p2 2s ease-in-out forwards; }
   .soccer-ball-p3 { animation: soccer-ball-p3 2s ease-in-out forwards; }
-  .soccer-ball-p4 { animation: soccer-ball-p4 3.5s ease-out forwards; }
+  .soccer-ball-p4 { animation: soccer-ball-p4 0.7s ease-in forwards; }
 
   @keyframes penny-soccer-kick {
     0%   { transform: translateX(0) rotate(0deg); }
@@ -666,14 +663,11 @@ const css = `
     100% { transform: rotate(0deg) translateX(0); }
   }
   @keyframes sg-soccer-bigkick {
-    0%   { transform: rotate(0deg) translateX(0); }
-    20%  { transform: rotate(-24deg) translateX(-20px); }
-    55%  { transform: rotate(18deg) translateX(14px); }
-    80%  { transform: rotate(-4deg) translateX(-3px); }
-    100% { transform: rotate(0deg) translateX(0); }
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
   }
   .sg-soccer-kick-a { animation: sg-soccer-kick    0.9s ease-in-out forwards; transform-origin: bottom center; }
-  .sg-soccer-kick-b { animation: sg-soccer-bigkick 1.4s ease-in-out forwards; transform-origin: bottom center; }
+  .sg-soccer-kick-b { animation: sg-soccer-bigkick 0.6s ease-in-out forwards; transform-origin: center center; }
 
 `;
 
@@ -1317,16 +1311,7 @@ function BabyPenguin() {
 }
 
 function SoccerBallSVG() {
-  return (
-    <svg viewBox="0 0 60 60" style={{ width: 44, height: 44, display: 'block', overflow: 'visible' }}>
-      <circle cx="30" cy="30" r="28" fill="white" stroke="#1a1a1a" strokeWidth="1.5"/>
-      <polygon points="30,4 41,13 37,26 23,26 19,13" fill="#1a1a1a"/>
-      <polygon points="5,22 17,18 23,26 15,37 4,34"  fill="#1a1a1a"/>
-      <polygon points="55,22 43,18 37,26 45,37 56,34" fill="#1a1a1a"/>
-      <polygon points="11,50 15,37 27,40 29,53 17,57"  fill="#1a1a1a"/>
-      <polygon points="49,50 45,37 33,40 31,53 43,57"  fill="#1a1a1a"/>
-    </svg>
-  );
+  return <div style={{ fontSize: 42, lineHeight: 1, userSelect: 'none' }}>⚽</div>;
 }
 
 function DogSVG({ showTongue = false }) {
