@@ -10,7 +10,6 @@ const TABS = [
   { slug: 'timeline', label: 'Timeline', icon: '🗓️' },
   { slug: 'todos',    label: 'To-Do',    icon: '✅' },
   { slug: 'packing',  label: 'Packing',  icon: '🧳' },
-  { slug: 'info',     label: 'Info',     icon: '✈️' },
   { slug: 'diary',    label: 'Diary',    icon: '📖' },
 ]
 
