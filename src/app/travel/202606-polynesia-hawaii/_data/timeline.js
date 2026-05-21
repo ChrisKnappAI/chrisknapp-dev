@@ -177,8 +177,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🌋',
     title: 'Cruise Day 10 — Hilo, Big Island',
-    summary: 'Port day in Hilo. Need to book excursion.',
-    details: 'Port day in Hilo, Big Island. Need to decide on and book an excursion (Hawaii Volcanoes National Park, black sand beaches, waterfalls, etc.).',
+    summary: 'Secrets of Puna — $310 · 6.5hrs. Walk Kilauea\'s 2018 lava flows with NPS-certified guide.',
+    details: 'Secrets of Puna ($310 / 6.5 hrs) — Walk Kilauea\'s most recent 2018 lava flows along the East Rift Zone with a National Park Service certified guide covering volcanology, geology, and history. Stops include MacKenzie State Recreation Area with 40-foot lava walls, Isaac Hale Beach Park miraculously spared by lava flows, and black sand beaches. You\'re walking ON recent lava flows with an NPS certified expert — not the volcano crater itself but the aftermath of the catastrophic 2018 eruption.',
   },
   {
     id: 'jul13',
@@ -208,7 +208,7 @@ export const SEGMENTS = [
     icon: '✈️',
     title: 'Cruise Day 13 — Honolulu → Home',
     events: [
-      { icon: '🌺', label: 'Spend the Day in Honolulu', detail: 'Final port day. NCL Oahu Excursion includes airport drop — book through NCL.' },
+      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff', detail: 'Booked NCL excursion — full circle island tour of Oahu ending with airport dropoff. Final day in Hawaii.' },
       { icon: '✈️', label: 'Night Flight Hawaii → MCO', detail: 'Southwest departs Honolulu 9:00pm. Overnight flight back to Orlando MCO.' },
     ],
   },
