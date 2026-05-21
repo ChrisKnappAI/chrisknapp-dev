@@ -17,6 +17,10 @@ const santiagoItems = [
   { label: 'Penny Animations', href: '/natalie/penny-unlocks', icon: '🐧' },
 ]
 
+const travelItems = [
+  { label: 'Polynesia & Hawaii 🌺', href: '/travel/202606-polynesia-hawaii', icon: '✈️' },
+]
+
 export default function NatalieSidebar() {
   const pathname = usePathname()
 
@@ -52,6 +56,9 @@ export default function NatalieSidebar() {
 
         <SectionLabel>Santiago Learns English</SectionLabel>
         {santiagoItems.map(item => <NavItem key={item.href} item={item} active={pathname === item.href} />)}
+
+        <SectionLabel>Travel</SectionLabel>
+        {travelItems.map(item => <NavItem key={item.href} item={item} active={pathname.startsWith(item.href)} />)}
       </nav>
 
       <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid var(--c-beige-border)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

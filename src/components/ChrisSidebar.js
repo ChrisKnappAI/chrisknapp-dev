@@ -15,6 +15,10 @@ const toolItems = [
   { label: 'Care Log', href: '/chris/care-log', icon: '✓' },
 ]
 
+const travelItems = [
+  { label: 'Polynesia & Hawaii 🌺', href: '/travel/202606-polynesia-hawaii', icon: '✈️' },
+]
+
 export default function ChrisSidebar() {
   const pathname = usePathname()
 
@@ -48,6 +52,9 @@ export default function ChrisSidebar() {
 
         <SectionLabel>Tools</SectionLabel>
         {toolItems.map(item => <NavItem key={item.href} item={item} active={pathname === item.href} />)}
+
+        <SectionLabel>Travel</SectionLabel>
+        {travelItems.map(item => <NavItem key={item.href} item={item} active={pathname.startsWith(item.href)} />)}
       </nav>
 
       <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid var(--c-dark-border)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
