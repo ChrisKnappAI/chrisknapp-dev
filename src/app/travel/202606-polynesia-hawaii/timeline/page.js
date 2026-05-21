@@ -45,14 +45,14 @@ export default function TimelinePage() {
   return (
     <div style={{ padding: '16px 16px 24px' }}>
       <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 500, marginBottom: 16 }}>
-        Jun 26 – Jul 15 · 20 days · French Polynesia + NCL Cruise + Hawaii
+        Jun 26 – Jul 16 · 21 days · French Polynesia + NCL Cruise + Hawaii
       </div>
 
       <div style={{ position: 'relative' }}>
         {/* Gradient vertical line */}
         <div style={{
           position: 'absolute', left: 20, top: 0, bottom: 0, width: 2,
-          background: 'linear-gradient(180deg, #7C3AED 0%, #0D9488 30%, #0891B2 60%, #EA580C 100%)',
+          background: 'linear-gradient(180deg, #7C3AED 0%, #0D9488 30%, #0891B2 60%, #EA580C 85%, #7C3AED 100%)',
           opacity: 0.25, zIndex: 0,
         }} />
 
@@ -63,6 +63,7 @@ export default function TimelinePage() {
           const isExpanded = expanded === seg.id
           const isToday    = seg.date === today
           const hasNote    = !!notes[seg.id]
+          const hasEvents  = Array.isArray(seg.events) && seg.events.length > 0
 
           return (
             <div key={seg.id}>
@@ -72,7 +73,6 @@ export default function TimelinePage() {
                   fontSize: '0.65rem', fontWeight: 700,
                   color: phase.color, letterSpacing: '0.08em',
                   textTransform: 'uppercase',
-                  display: 'flex', alignItems: 'center', gap: 6,
                   position: 'relative', zIndex: 1,
                 }}>
                   {phase.label}
@@ -128,24 +128,60 @@ export default function TimelinePage() {
                   </div>
 
                   {/* Title */}
-                  <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0C4A6E', lineHeight: 1.3, marginBottom: 3 }}>
+                  <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0C4A6E', lineHeight: 1.3, marginBottom: 6 }}>
                     {seg.title}
                   </div>
 
-                  {/* Summary */}
-                  <div style={{ fontSize: '0.775rem', color: '#475569', lineHeight: 1.5 }}>
-                    {seg.summary}
-                  </div>
+                  {/* Events list (always visible) or summary text */}
+                  {hasEvents ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      {seg.events.map((ev, i) => (
+                        <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 7 }}>
+                          <span style={{ fontSize: '0.8rem', flexShrink: 0, marginTop: 1 }}>{ev.icon}</span>
+                          <span style={{ fontSize: '0.775rem', color: '#475569', fontWeight: 500, lineHeight: 1.4 }}>{ev.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: '0.775rem', color: '#475569', lineHeight: 1.5 }}>
+                      {seg.summary}
+                    </div>
+                  )}
 
-                  {/* Expanded */}
+                  {/* Expanded content */}
                   {isExpanded && (
-                    <div style={{ marginTop: 12, paddingTop: 12, borderTop: `1px solid ${phase.color}25` }}
-                         onClick={e => e.stopPropagation()}>
-                      {seg.details && (
+                    <div
+                      style={{ marginTop: 12, paddingTop: 12, borderTop: `1px solid ${phase.color}25` }}
+                      onClick={e => e.stopPropagation()}
+                    >
+                      {/* Expanded events with detail text */}
+                      {hasEvents ? (
+                        <div style={{ marginBottom: 14 }}>
+                          {seg.events.map((ev, i) => (
+                            <div key={i} style={{
+                              paddingBottom: i < seg.events.length - 1 ? 10 : 0,
+                              marginBottom: i < seg.events.length - 1 ? 10 : 0,
+                              borderBottom: i < seg.events.length - 1 ? `1px solid ${phase.color}18` : 'none',
+                            }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}>
+                                <span style={{ fontSize: '0.85rem' }}>{ev.icon}</span>
+                                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0C4A6E' }}>{ev.label}</span>
+                              </div>
+                              {ev.detail && (
+                                <div style={{ fontSize: '0.78rem', color: '#64748B', lineHeight: 1.55, paddingLeft: 23 }}>
+                                  {ev.detail}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : seg.details ? (
                         <div style={{ fontSize: '0.8rem', color: '#334155', lineHeight: 1.65, marginBottom: 12 }}>
                           {seg.details}
                         </div>
-                      )}
+                      ) : null}
+
+                      {/* Notes */}
                       <div style={{ fontSize: '0.65rem', fontWeight: 600, color: '#94A3B8', letterSpacing: '0.07em', marginBottom: 5 }}>
                         NOTES {saving === seg.id && <span style={{ color: '#0891B2', fontWeight: 400, letterSpacing: 0 }}>saving…</span>}
                       </div>
