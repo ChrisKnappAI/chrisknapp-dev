@@ -664,7 +664,7 @@ const css = `
   }
   @keyframes sg-soccer-bigkick {
     0%   { transform: rotate(0deg); }
-    100% { transform: rotate(-360deg); }
+    100% { transform: rotate(360deg); }
   }
   .sg-soccer-kick-a { animation: sg-soccer-kick    0.9s ease-in-out forwards; transform-origin: bottom center; }
   .sg-soccer-kick-b { animation: sg-soccer-bigkick 0.6s ease-in-out forwards; transform-origin: center center; }
