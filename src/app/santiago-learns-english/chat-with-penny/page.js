@@ -67,7 +67,6 @@ export default function ChatWithPenny() {
   const [correctCount, setCorrectCount]     = useState(0);
   const [attemptKey, setAttemptKey]         = useState(0);
   const [unlocked, setUnlocked]             = useState([]);
-  const [newUnlock, setNewUnlock]           = useState(null);
   const [voiceEnabled, setVoiceEnabled]     = useState(false);
   const [showTopicModal, setShowTopicModal] = useState(false);
   const [selectedAnim, setSelectedAnim]     = useState('');
@@ -140,18 +139,6 @@ export default function ChatWithPenny() {
     const newCount = correctCount + 1;
     setCorrectCount(newCount);
     localStorage.setItem(COUNT_KEY, String(newCount));
-
-    const justUnlocked = UNLOCKABLE.find(u => u.threshold === newCount && !unlocked.includes(u.id));
-    if (justUnlocked) {
-      setNewUnlock(justUnlocked);
-      await fetch('/api/penny/unlocks', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ animation_id: justUnlocked.id, unlocked: true }),
-      });
-      fetchUnlocks();
-      setTimeout(() => setNewUnlock(null), 4000);
-    }
 
     const nextQ = pickQuestion(activeTopics, lastQuestionId.current);
     if (!nextQ) return;
@@ -524,17 +511,6 @@ export default function ChatWithPenny() {
             </div>
           )}
         </div>
-
-        {/* ── Unlock notification ── */}
-        {newUnlock && (
-          <div style={{
-            textAlign: 'center', padding: '10px 20px',
-            background: '#FEF3C7', border: '2px solid #F59E0B',
-            borderRadius: 14, fontSize: 15, fontWeight: 800, color: '#92400E',
-          }}>
-            {newUnlock.icon} New animation unlocked: <strong>{newUnlock.label}</strong>!
-          </div>
-        )}
 
         {/* ── No topics warning ── */}
         {activeTopics.length === 0 && (
