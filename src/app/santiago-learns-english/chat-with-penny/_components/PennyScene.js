@@ -632,6 +632,49 @@ const css = `
   }
   .puppy-running-out { animation: puppy-run-out 2.5s ease-in forwards; transform-origin: bottom center; }
 
+  /* ── SOCCER ─────────────────────────────────────────────────────────────────── */
+  @keyframes soccer-ball-p1 { from { transform: translateX(0) rotate(0deg); } to { transform: translateX(520px) rotate(900deg); } }
+  @keyframes soccer-ball-p2 { from { transform: translateX(520px) rotate(900deg); } to { transform: translateX(0) rotate(0deg); } }
+  @keyframes soccer-ball-p3 { from { transform: translateX(0) rotate(0deg); } to { transform: translateX(520px) rotate(900deg); } }
+  @keyframes soccer-ball-p4 {
+    0%   { transform: translateX(520px) translateY(0) rotate(900deg); opacity: 1; }
+    35%  { transform: translateX(300px) translateY(-260px) rotate(1440deg); opacity: 1; }
+    62%  { transform: translateX(60px)  translateY(-440px) rotate(2100deg); opacity: 1; }
+    80%  { transform: translateX(-80px) translateY(-520px) rotate(2400deg); opacity: 0.3; }
+    100% { transform: translateX(-120px) translateY(-540px) rotate(2520deg); opacity: 0; }
+  }
+  .soccer-ball-p1 { animation: soccer-ball-p1 2s ease-in-out forwards; }
+  .soccer-ball-p2 { animation: soccer-ball-p2 2s ease-in-out forwards; }
+  .soccer-ball-p3 { animation: soccer-ball-p3 2s ease-in-out forwards; }
+  .soccer-ball-p4 { animation: soccer-ball-p4 3.5s ease-out forwards; }
+
+  @keyframes penny-soccer-kick {
+    0%   { transform: translateX(0) rotate(0deg); }
+    20%  { transform: translateX(16px) rotate(12deg); }
+    45%  { transform: translateX(-6px) rotate(-4deg); }
+    70%  { transform: translateX(2px) rotate(1deg); }
+    100% { transform: translateX(0) rotate(0deg); }
+  }
+  .penny-soccer-a { animation: penny-soccer-kick 0.9s ease-in-out forwards; transform-origin: bottom center; }
+  .penny-soccer-b { animation: penny-soccer-kick 0.9s ease-in-out forwards; transform-origin: bottom center; }
+
+  @keyframes sg-soccer-kick {
+    0%   { transform: rotate(0deg) translateX(0); }
+    20%  { transform: rotate(-14deg) translateX(-10px); }
+    45%  { transform: rotate(8deg) translateX(6px); }
+    70%  { transform: rotate(-2deg) translateX(-2px); }
+    100% { transform: rotate(0deg) translateX(0); }
+  }
+  @keyframes sg-soccer-bigkick {
+    0%   { transform: rotate(0deg) translateX(0); }
+    20%  { transform: rotate(-24deg) translateX(-20px); }
+    55%  { transform: rotate(18deg) translateX(14px); }
+    80%  { transform: rotate(-4deg) translateX(-3px); }
+    100% { transform: rotate(0deg) translateX(0); }
+  }
+  .sg-soccer-kick-a { animation: sg-soccer-kick    0.9s ease-in-out forwards; transform-origin: bottom center; }
+  .sg-soccer-kick-b { animation: sg-soccer-bigkick 1.4s ease-in-out forwards; transform-origin: bottom center; }
+
 `;
 
 /* ── Scenes ─────────────────────────────────────────────────────────────────── */
@@ -1273,6 +1316,19 @@ function BabyPenguin() {
   );
 }
 
+function SoccerBallSVG() {
+  return (
+    <svg viewBox="0 0 60 60" style={{ width: 44, height: 44, display: 'block', overflow: 'visible' }}>
+      <circle cx="30" cy="30" r="28" fill="white" stroke="#1a1a1a" strokeWidth="1.5"/>
+      <polygon points="30,4 41,13 37,26 23,26 19,13" fill="#1a1a1a"/>
+      <polygon points="5,22 17,18 23,26 15,37 4,34"  fill="#1a1a1a"/>
+      <polygon points="55,22 43,18 37,26 45,37 56,34" fill="#1a1a1a"/>
+      <polygon points="11,50 15,37 27,40 29,53 17,57"  fill="#1a1a1a"/>
+      <polygon points="49,50 45,37 33,40 31,53 43,57"  fill="#1a1a1a"/>
+    </svg>
+  );
+}
+
 function DogSVG({ showTongue = false }) {
   return (
     <svg className="dog-svg" viewBox="0 0 140 180"
@@ -1340,7 +1396,7 @@ const WRONG_ANIM    = 'look';
 const ANIM_DURATIONS = {
   wave: 4000, bounce: 2200, shimmy: 2800, look: 3000,
   sleep: 7000, flap: 3000, backflip: 3500,
-  flyaway: 10000, layegg: 12000, holdhands: 14000, puppy: 13000,
+  flyaway: 10000, layegg: 12000, holdhands: 14000, puppy: 13000, soccer: 11000,
   wink: 4000, rudolph: 8000, fallapart: 10000,
 };
 
@@ -1354,11 +1410,13 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
   const [activeAnim,   setActiveAnim]   = useState(null);
   const [layEggPhase,  setLayEggPhase]  = useState(0);
   const [puppyPhase,   setPuppyPhase]   = useState(0);
+  const [soccerPhase,  setSoccerPhase]  = useState(0);
   const blinkRef       = useRef(null);
   const animTimerRef   = useRef(null);
   const idleTimerRef   = useRef(null);
   const layEggTimers   = useRef([]);
   const puppyTimers    = useRef([]);
+  const soccerTimers   = useRef([]);
   const isPausedRef    = useRef(isPaused);
   isPausedRef.current  = isPaused;
 
@@ -1411,9 +1469,11 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     clearTimeout(idleTimerRef.current);
     layEggTimers.current.forEach(clearTimeout);
     puppyTimers.current.forEach(clearTimeout);
+    soccerTimers.current.forEach(clearTimeout);
     setActiveAnim(null);
     setLayEggPhase(0);
     setPuppyPhase(0);
+    setSoccerPhase(0);
     const tid = setTimeout(() => runAnim(commandAnim.name), 50);
     return () => clearTimeout(tid);
   }, [commandAnim?.ts]);
@@ -1456,6 +1516,19 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     return () => puppyTimers.current.forEach(clearTimeout);
   }, [activeAnim]);
 
+  // Soccer phase sequencer
+  useEffect(() => {
+    soccerTimers.current.forEach(clearTimeout);
+    soccerTimers.current = [];
+    if (activeAnim !== 'soccer') { setSoccerPhase(0); return; }
+    setSoccerPhase(1);                                                               // Penny kicks → ball rolls right
+    soccerTimers.current.push(setTimeout(() => setSoccerPhase(2), 2000));            // Santiago kicks → ball rolls left
+    soccerTimers.current.push(setTimeout(() => setSoccerPhase(3), 4000));            // Penny kicks → ball rolls right again
+    soccerTimers.current.push(setTimeout(() => setSoccerPhase(4), 6000));            // Santiago BLASTS → ball arcs off screen
+    soccerTimers.current.push(setTimeout(() => setSoccerPhase(0), 10000));           // cleanup
+    return () => soccerTimers.current.forEach(clearTimeout);
+  }, [activeAnim]);
+
   const pennyClass = [
     activeAnim === 'bounce'                                          && 'bouncing',
     activeAnim === 'shimmy'                                          && 'shimmying',
@@ -1467,6 +1540,8 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
     activeAnim === 'layegg' && layEggPhase === 5                     && 'penny-egg-return',
     activeAnim === 'holdhands'                                       && 'holding',
     activeAnim === 'fallapart'                                       && 'fallingapart',
+    activeAnim === 'soccer' && soccerPhase === 1                     && 'penny-soccer-a',
+    activeAnim === 'soccer' && soccerPhase === 3                     && 'penny-soccer-b',
   ].filter(Boolean).join(' ');
 
   return (
@@ -1559,8 +1634,28 @@ export default function PennyScene({ commandAnim, isPaused, talking, scene: scen
           </div>
         )}
 
+        {/* Soccer ball — between Penny and Santiago, rendered before Santiago so it's behind him */}
+        {activeAnim === 'soccer' && soccerPhase > 0 && (
+          <div
+            className={
+              soccerPhase === 1 ? 'soccer-ball-p1' :
+              soccerPhase === 2 ? 'soccer-ball-p2' :
+              soccerPhase === 3 ? 'soccer-ball-p3' : 'soccer-ball-p4'
+            }
+            style={{ position: 'absolute', bottom: 18, left: 150 }}
+          >
+            <SoccerBallSVG />
+          </div>
+        )}
+
         {/* Santiago */}
-        <div style={{ position:'absolute', bottom:'0%', right:'6%' }}>
+        <div
+          className={
+            activeAnim === 'soccer' && soccerPhase === 2 ? 'sg-soccer-kick-a' :
+            activeAnim === 'soccer' && soccerPhase === 4 ? 'sg-soccer-kick-b' : ''
+          }
+          style={{ position:'absolute', bottom:'0%', right:'6%' }}
+        >
           <Boy />
         </div>
 

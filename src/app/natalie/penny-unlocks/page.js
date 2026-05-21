@@ -7,6 +7,7 @@ const ANIMATIONS = [
   { id: 'layegg',    label: 'Lay Egg',     icon: '🥚', desc: 'Penny lays an egg that hatches into a baby penguin' },
   { id: 'holdhands', label: 'Hold Hands',    icon: '💕', desc: 'A friend penguin walks in and holds hands with Penny' },
   { id: 'puppy',     label: "Penny's Puppy", icon: '🐶', desc: "A puppy runs in, sits next to Penny, sticks its tongue out, then runs off" },
+  { id: 'soccer',   label: 'Soccer',        icon: '⚽', desc: "Penny and Santiago kick a soccer ball back and forth, then Santiago blasts it off screen" },
 ];
 
 const SCENES = [

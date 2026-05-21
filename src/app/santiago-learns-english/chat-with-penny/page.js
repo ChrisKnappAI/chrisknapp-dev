@@ -20,6 +20,7 @@ const UNLOCKABLE = [
   { id: 'layegg',    threshold: 10, icon: '🥚', label: 'Lay Egg'         },
   { id: 'holdhands', threshold: 15, icon: '💕', label: 'Hold Hands'      },
   { id: 'puppy',     threshold: 20, icon: '🐶', label: "Penny's Puppy"   },
+  { id: 'soccer',   threshold: 25, icon: '⚽', label: 'Soccer'           },
 ];
 
 const TOPIC_GROUPS = LESSONS.reduce((acc, l) => {
