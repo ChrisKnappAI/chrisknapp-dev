@@ -145,7 +145,7 @@ const cardStyle = {
   background: 'var(--c-dark-card)',
   border:     '1px solid var(--c-dark-border)',
   borderRadius: 12,
-  padding: '0.45rem 0.75rem',
+  padding: '0.35rem 0.7rem',
 }
 
 const NAV_BTN = {
@@ -270,23 +270,23 @@ export default function GymLog() {
       </div>
 
       {/* 3-column grid */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '1rem 1.2rem' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0.7rem 1.2rem' }}>
         <div className="gym-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
-          gap: '0.55rem',
+          gap: '0.45rem',
           alignItems: 'start',
         }}>
 
           {/* Col 1: Back + Legs + Abs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
             {[MUSCLE_GROUPS[0], MUSCLE_GROUPS[5], MUSCLE_GROUPS[6]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} daysSince={daysSince[g.id] ?? null} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
 
           {/* Col 2: Shoulders + Chest + Day Comment */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
             {[MUSCLE_GROUPS[1], MUSCLE_GROUPS[2]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} daysSince={daysSince[g.id] ?? null} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
@@ -294,7 +294,7 @@ export default function GymLog() {
           </div>
 
           {/* Col 3: Biceps + Triceps */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
             {[MUSCLE_GROUPS[3], MUSCLE_GROUPS[4]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} daysSince={daysSince[g.id] ?? null} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
@@ -313,7 +313,7 @@ function MuscleCard({ group, gymData, daysSince, onToggle, onUpdateField, onBlur
 
       {!group.absOnly && !group.subcategories && <ColumnLabels />}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.08rem', marginTop: '0.22rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.05rem', marginTop: '0.15rem' }}>
         {group.subcategories ? (
           group.subcategories.map(sc => (
             <div key={sc.label}>
@@ -351,7 +351,7 @@ function MuscleCard({ group, gymData, daysSince, onToggle, onUpdateField, onBlur
 
 function SubcatHeader({ label }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.15rem 0.35rem 0.06rem' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.1rem 0.35rem 0.04rem' }}>
       <div style={{ width: 15, flexShrink: 0 }} />
       <span style={{ flex: 1, fontSize: '0.6rem', fontWeight: 700, color: c.muted, textTransform: 'uppercase', letterSpacing: '0.07em' }}>
         {label}
@@ -383,7 +383,7 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: '0.4rem',
-      padding: '0.12rem 0.35rem', borderRadius: 6,
+      padding: '0.08rem 0.35rem', borderRadius: 6,
       background:  checked ? c.accentDim : 'transparent',
       border:      `1px solid ${checked ? c.accent : c.rowBorder}`,
       transition:  'all 0.1s',
@@ -428,7 +428,7 @@ function ExerciseRow({ label, data, absOnly, onToggle, onUpdateField, onBlur }) 
           onBlur={onBlur}
           onClick={e => e.stopPropagation()}
           style={{
-            width: w, height: 24, borderRadius: 5,
+            width: w, height: 21, borderRadius: 5,
             border:     `1px solid ${c.border}`,
             background: 'rgba(255,255,255,0.04)',
             color:      val != null ? c.text : c.muted,
@@ -459,7 +459,7 @@ function DayCommentCard({ comment, onChange, onBlur }) {
     <div style={cardStyle}>
       <div style={{
         fontSize: '0.8rem', fontWeight: 700, color: c.text,
-        paddingBottom: '0.32rem', borderBottom: `1px solid ${c.border}`, marginBottom: '0.55rem',
+        paddingBottom: '0.22rem', borderBottom: `1px solid ${c.border}`, marginBottom: '0.4rem',
       }}>
         Day Comment
       </div>
@@ -468,7 +468,7 @@ function DayCommentCard({ comment, onChange, onBlur }) {
         onChange={e => onChange(e.target.value)}
         onBlur={e => onBlur(e.target.value)}
         placeholder="Notes for today's session..."
-        rows={4}
+        rows={3}
         style={{
           width: '100%', background: 'rgba(255,255,255,0.03)',
           border: `1px solid ${c.border}`, borderRadius: 7,
@@ -490,7 +490,7 @@ function SectionHeader({ label, daysSince }) {
   return (
     <div style={{
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      paddingBottom: '0.32rem',
+      paddingBottom: '0.22rem',
       borderBottom:  `1px solid ${c.border}`,
     }}>
       <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '-0.01em', color: c.text }}>
