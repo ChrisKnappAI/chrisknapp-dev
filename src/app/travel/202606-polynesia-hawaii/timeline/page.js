@@ -182,7 +182,7 @@ export default function TimelinePage() {
                           ))}
                         </div>
                       ) : seg.details ? (
-                        <div style={{ fontSize: '0.8rem', color: '#334155', lineHeight: 1.65, marginBottom: 12 }}>
+                        <div style={{ fontSize: '0.8rem', color: '#334155', lineHeight: 1.65, marginBottom: 12, whiteSpace: 'pre-line' }}>
                           {seg.details}
                         </div>
                       ) : null}
