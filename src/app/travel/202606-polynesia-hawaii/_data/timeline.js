@@ -213,7 +213,7 @@ export const SEGMENTS = [
     icon: '✈️',
     title: 'Cruise Day 13 — Honolulu → Fly Home at Night',
     events: [
-      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff', detail: 'Ship arrives Honolulu 6:00am\nNCL excursion — full circle island tour of Oahu\nEnds with airport dropoff' },
+      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff', detail: 'Ship arrives in Honolulu at 6AM\nExcursion — Full Circle Island Tour of Oahu\nEnds with airport dropoff\n\n• Diamond Head and volcanic crater rim\n• South Shore Drive (Sandy Beach)\n• North Shore Drive (Banzai Pipeline)\n• Lunch\n• Dole Pineapple Plantation' },
       { icon: '✈️', label: 'Night Flight Hawaii → Home', detail: 'Southwest departs Honolulu 9:00pm\nConfirmation — Chris: ARERNI · Natalie: ARFWVR\n\nConnects Phoenix (PHX)\nArrives PHX 5:55am → Departs 7:55am → Lands home 3:15pm' },
     ],
   },
