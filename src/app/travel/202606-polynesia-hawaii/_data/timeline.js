@@ -182,8 +182,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🌋',
     title: 'Cruise Day 10 — Hilo, Big Island',
-    summary: 'In port 7:00am – 4:00pm. Secrets of Hamakua — 7:30AM–2:30PM · 7hrs · $310.',
-    details: 'Secrets of Hamakua — 7:30AM to 2:30PM (7hrs)\n\n• Explore Hamakua Coast ("Old Hawaii"): Waterfalls, valleys, eccentric towns\n• Tex Drive-In (Malasadas for purchase)\n• Valley of the Kings (Waipio Valley)\n• Laupahoehoe Point (Tsunami area)\n• Akaka Falls State Park: Paved path through rainforest\n• Rainbow Falls\n• King Kamehameha Statue\n• Hilo Bay — deli lunch + snorkel / swim / kayak (for purchase)\n• Shop: nut store, island crafts, Kona coffee, etc.',
+    summary: 'In port 7:00am – 4:00pm. Secrets of Hamakua — 7:30AM–2:30PM · 7hrs.',
+    details: 'Secrets of Hamakua — 7:30AM to 2:30PM (7hrs)\n\n• Explore Hamakua Coast ("Old Hawaii"): Waterfalls, valleys, eccentric towns\n• Tex Drive-In (Malasadas)\n• Valley of the Kings (Waipio Valley)\n• Laupahoehoe Point (Tsunami area)\n• Akaka Falls State Park: Paved path through rainforest\n• Rainbow Falls\n• King Kamehameha Statue\n• Hilo Bay — deli lunch + snorkel / swim / kayak\n• Shop: nut store, island crafts, Kona coffee, etc.',
   },
   {
     id: 'jul13',
