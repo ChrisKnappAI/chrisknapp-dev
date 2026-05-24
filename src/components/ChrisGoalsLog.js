@@ -8,10 +8,10 @@ function getToday() {
 // Morning Routine
 const AM_ROUTINE = [
   { id: 'am-brush-teeth',  label: 'Brush Teeth'  },
-  { id: 'am-face-routine', label: 'Face Routine'  },
+  { id: 'am-face-routine', label: 'Facial Routine' },
 ]
 const AM_VITAMINS = [
-  { id: 'am-multivitamins', label: 'Multivitamins'  },
+  { id: 'am-multivitamins', label: 'Multi-Vitamins'  },
   { id: 'am-vitamin-d3k',   label: 'Vitamin D3/K'   },
   { id: 'am-dhea',          label: 'DHEA'            },
   { id: 'am-super-omega3',  label: 'Super Omega-3'   },
@@ -25,7 +25,7 @@ const AM_BODY = [
 const PM_ROUTINE = [
   { id: 'pm-brush-teeth',  label: 'Brush Teeth'  },
   { id: 'pm-floss',        label: 'Floss'         },
-  { id: 'pm-face-routine', label: 'Face Routine'  },
+  { id: 'pm-face-routine', label: 'Facial Routine' },
 ]
 const PM_VITAMINS = [
   { id: 'pm-magnesium', label: 'Magnesium Glycinate' },
@@ -211,7 +211,7 @@ export default function ChrisGoalsLog() {
         <div style={cardStyle}>
           <SectionHeader label="Morning Routine" done={amDone} total={amTotal} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
-            <SubLabel label="Routine" />
+            <SubLabel label="Face and Teeth" />
             {AM_ROUTINE.map(item => (
               <CheckRow key={item.id} label={item.label} checked={!!checks[item.id]} onToggle={() => toggleCheck(item.id)} />
             ))}
@@ -232,7 +232,7 @@ export default function ChrisGoalsLog() {
         <div style={cardStyle}>
           <SectionHeader label="Night Routine" done={pmDone} total={pmTotal} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
-            <SubLabel label="Routine" />
+            <SubLabel label="Face and Teeth" />
             {PM_ROUTINE.map(item => (
               <CheckRow key={item.id} label={item.label} checked={!!checks[item.id]} onToggle={() => toggleCheck(item.id)} />
             ))}
