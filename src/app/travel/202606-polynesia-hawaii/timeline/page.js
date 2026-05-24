@@ -171,6 +171,24 @@ export default function TimelinePage() {
                                   {ev.detail}
                                 </div>
                               )}
+                              {ev.mapUrl && (
+                                <div style={{ paddingLeft: 23, marginTop: 8 }}>
+                                  <a
+                                    href={ev.mapUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                      display: 'inline-flex', alignItems: 'center', gap: 6,
+                                      background: '#F0FDF4', border: '1px solid #86EFAC',
+                                      borderRadius: 8, padding: '6px 12px',
+                                      fontSize: '0.75rem', fontWeight: 600, color: '#15803D',
+                                      textDecoration: 'none',
+                                    }}
+                                  >
+                                    🗺️ Open in Google Maps
+                                  </a>
+                                </div>
+                              )}
                               {ev.copyItems && (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 10, paddingLeft: 23 }}>
                                   {ev.copyItems.map((item, ci) => (
