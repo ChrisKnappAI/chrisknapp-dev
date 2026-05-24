@@ -182,8 +182,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🌋',
     title: 'Cruise Day 10 — Hilo, Big Island',
-    summary: 'In port 7:00am – 4:00pm. Secrets of Hamakua — $310 · 6.5hrs. Walk Kilauea\'s 2018 lava flows with NPS-certified guide.',
-    details: 'Secrets of Hamakua ($310 / 6.5 hrs) — Walk Kilauea\'s most recent 2018 lava flows along the East Rift Zone with a National Park Service certified guide covering volcanology, geology, and history. Stops include MacKenzie State Recreation Area with 40-foot lava walls, Isaac Hale Beach Park miraculously spared by lava flows, and black sand beaches. You\'re walking ON recent lava flows with an NPS certified expert — not the volcano crater itself but the aftermath of the catastrophic 2018 eruption.',
+    summary: 'In port 7:00am – 4:00pm. Secrets of Hamakua — 7:30AM–2:30PM · 7hrs · $310.',
+    details: 'Secrets of Hamakua — 7:30AM to 2:30PM (7hrs)\n\n• Explore Hamakua Coast ("Old Hawaii"): Waterfalls, valleys, eccentric towns\n• Tex Drive-In (Malasadas for purchase)\n• Valley of the Kings (Waipio Valley)\n• Laupahoehoe Point (Tsunami area)\n• Akaka Falls State Park: Paved path through rainforest\n• Rainbow Falls\n• King Kamehameha Statue\n• Hilo Bay — deli lunch + snorkel / swim / kayak (for purchase)\n• Shop: nut store, island crafts, Kona coffee, etc.',
   },
   {
     id: 'jul13',
