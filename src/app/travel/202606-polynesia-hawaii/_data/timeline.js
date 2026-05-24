@@ -182,8 +182,8 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🌋',
     title: 'Cruise Day 10 — Hilo, Big Island',
-    summary: 'In port 7:00am – 4:00pm. Secrets of Puna — $310 · 6.5hrs. Walk Kilauea\'s 2018 lava flows with NPS-certified guide.',
-    details: 'Secrets of Puna ($310 / 6.5 hrs) — Walk Kilauea\'s most recent 2018 lava flows along the East Rift Zone with a National Park Service certified guide covering volcanology, geology, and history. Stops include MacKenzie State Recreation Area with 40-foot lava walls, Isaac Hale Beach Park miraculously spared by lava flows, and black sand beaches. You\'re walking ON recent lava flows with an NPS certified expert — not the volcano crater itself but the aftermath of the catastrophic 2018 eruption.',
+    summary: 'In port 7:00am – 4:00pm. Secrets of Hamakua — $310 · 6.5hrs. Walk Kilauea\'s 2018 lava flows with NPS-certified guide.',
+    details: 'Secrets of Hamakua ($310 / 6.5 hrs) — Walk Kilauea\'s most recent 2018 lava flows along the East Rift Zone with a National Park Service certified guide covering volcanology, geology, and history. Stops include MacKenzie State Recreation Area with 40-foot lava walls, Isaac Hale Beach Park miraculously spared by lava flows, and black sand beaches. You\'re walking ON recent lava flows with an NPS certified expert — not the volcano crater itself but the aftermath of the catastrophic 2018 eruption.',
   },
   {
     id: 'jul13',

@@ -5,47 +5,55 @@ function getToday() {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' })
 }
 
-const BODY_CARE = [
-  { id: 'face-am',          label: 'Face Routine AM',  type: 'check',   freq: 'daily'  },
-  { id: 'face-pm',          label: 'Face Routine PM',  type: 'check',   freq: 'daily'  },
-  { id: 'brush-teeth',      label: 'Brush Teeth',      type: 'counter', max: 3         },
-  { id: 'floss',            label: 'Floss',            type: 'check',   freq: 'daily'  },
-  { id: 'posture',          label: 'Posture Routine',  type: 'check',   freq: 'daily'  },
-  { id: 'stretch',          label: 'Stretch Routine',  type: 'check',   freq: 'daily'  },
-  { id: 'facial-treatment', label: 'Facial Treatment', type: 'check',   freq: 'weekly' },
+// Morning Routine
+const AM_ROUTINE = [
+  { id: 'am-brush-teeth',  label: 'Brush Teeth'  },
+  { id: 'am-face-routine', label: 'Face Routine'  },
+]
+const AM_VITAMINS = [
+  { id: 'am-multivitamins', label: 'Multivitamins'  },
+  { id: 'am-vitamin-d3k',   label: 'Vitamin D3/K'   },
+  { id: 'am-dhea',          label: 'DHEA'            },
+  { id: 'am-super-omega3',  label: 'Super Omega-3'   },
+]
+const AM_BODY = [
+  { id: 'am-stretch',  label: 'Stretch Body'    },
+  { id: 'am-posture',  label: 'Posture Routine' },
 ]
 
-const MARRIAGE_SCALES = [
-  { id: 'treated-well',    label: 'Treated her well'              },
-  { id: 'supported-goals', label: 'Supported her long-term goals' },
-  { id: 'conflict',        label: 'Handled conflict / tension',   hint: true },
+// Night Routine
+const PM_ROUTINE = [
+  { id: 'pm-brush-teeth',  label: 'Brush Teeth'  },
+  { id: 'pm-floss',        label: 'Floss'         },
+  { id: 'pm-face-routine', label: 'Face Routine'  },
+]
+const PM_VITAMINS = [
+  { id: 'pm-magnesium', label: 'Magnesium Glycinate' },
+]
+const PM_BODY = [
+  { id: 'pm-stretch',          label: 'Stretch Body'     },
+  { id: 'pm-posture',          label: 'Posture Routine'  },
+  { id: 'pm-facial-treatment', label: 'Facial Treatment', weekly: true },
 ]
 
-const MARRIAGE_CHECKS = [
-  { id: 'quality-time',  label: 'Quality time beyond routine' },
-  { id: 'sex',           label: 'Sex'                         },
-  { id: 'appreciation',  label: 'Expressed appreciation'      },
-  { id: 'thoughtful',    label: 'Did something thoughtful'    },
+// Daily Summary
+const DAILY_SCALES = [
+  { id: 'stress-score',  label: 'Handled Stress Well?'  },
+  { id: 'natalie-score', label: 'Treated Natalie Well?' },
 ]
 
-const SOCIAL = [
-  { id: 'spoke-dad', label: 'Dad'    },
-  { id: 'spoke-mom', label: 'Mom'    },
-  { id: 'friend',    label: 'Friend' },
+const ALL_CHECK_IDS = [
+  ...AM_ROUTINE.map(i => i.id),
+  ...AM_VITAMINS.map(i => i.id),
+  ...AM_BODY.map(i => i.id),
+  ...PM_ROUTINE.map(i => i.id),
+  ...PM_VITAMINS.map(i => i.id),
+  ...PM_BODY.map(i => i.id),
+  'had-sex',
 ]
-
-const DAYS_SINCE_TRACKED = new Set(['facial-treatment', 'spoke-dad', 'spoke-mom'])
-const COUNTER_ITEMS      = BODY_CARE.filter(i => i.type === 'counter')
-const SCALE_IDS          = new Set(MARRIAGE_SCALES.map(i => i.id))
-const COUNTER_IDS        = new Set(COUNTER_ITEMS.map(i => i.id))
-
-const CHECK_IDS = [
-  ...BODY_CARE.filter(i => i.type === 'check').map(i => i.id),
-  ...MARRIAGE_CHECKS.map(i => i.id),
-  ...SOCIAL.map(i => i.id),
-]
-const TOTAL_ITEMS   = CHECK_IDS.length + COUNTER_ITEMS.length + 1 // +1 for drinks
-const ALL_ITEM_IDS  = [...CHECK_IDS, ...COUNTER_IDS, ...SCALE_IDS, 'drinks']
+const ALL_SCALE_IDS  = DAILY_SCALES.map(i => i.id)
+const ALL_ITEM_IDS   = [...ALL_CHECK_IDS, ...ALL_SCALE_IDS]
+const SCALE_ID_SET   = new Set(ALL_SCALE_IDS)
 
 const c = {
   bg:        'var(--c-dark)',
@@ -58,49 +66,45 @@ const c = {
   rowBorder: 'rgba(255,255,255,0.07)',
 }
 
-const card = {
+const cardStyle = {
   background: c.card,
   border: `1px solid ${c.border}`,
   borderRadius: 12,
   padding: '1rem 1.1rem',
 }
 
+const NAV_BTN = {
+  background: c.card, border: `1px solid ${c.border}`,
+  color: c.muted, borderRadius: 6, padding: '0.32rem 0.65rem',
+  cursor: 'pointer', fontSize: '0.88rem', fontWeight: 600,
+}
+
 export default function ChrisGoalsLog() {
   const [date,      setDate]      = useState(getToday)
   const [checks,    setChecks]    = useState({})
   const [scales,    setScales]    = useState({})
-  const [counters,  setCounters]  = useState({})
-  const [drinks,    setDrinks]    = useState(null)
   const [daysSince, setDaysSince] = useState({})
-  const [notes,     setNotes]     = useState({})
+  const [note,      setNote]      = useState('')
 
   const loadDay = useCallback(async () => {
     const res  = await fetch(`/api/care-log?user=chris&date=${date}`)
     const data = await res.json()
     if (data.error) return
 
-    const newChecks   = { ...data.checks }
-    const newScales   = {}
-    const newCounters = {}
-    let   newDrinks   = null
-
+    const newChecks = { ...data.checks }
+    const newScales = {}
     for (const [id, val] of Object.entries(data.values || {})) {
-      if (id === 'drinks')      { newDrinks = val;      continue }
-      if (SCALE_IDS.has(id))   { newScales[id]   = val; continue }
-      if (COUNTER_IDS.has(id)) { newCounters[id] = val }
+      if (SCALE_ID_SET.has(id)) newScales[id] = val
     }
-
     setChecks(newChecks)
     setScales(newScales)
-    setCounters(newCounters)
-    setDrinks(newDrinks)
     setDaysSince(data.daysSince || {})
-    setNotes(data.notes || {})
+    setNote(data.notes?.['daily-note'] || '')
 
     if (date === getToday()) {
       const existing = new Set([
-        ...Object.keys(data.checks || {}),
-        ...Object.keys(data.values || {}),
+        ...Object.keys(data.checks  || {}),
+        ...Object.keys(data.values  || {}),
       ])
       const missing = ALL_ITEM_IDS.filter(id => !existing.has(id))
       if (missing.length > 0) {
@@ -108,10 +112,7 @@ export default function ChrisGoalsLog() {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify({ date, item_names: missing }),
-        })
-          .then(r => r.json())
-          .then(d => { if (d.error) console.error('[care-log seed] error:', d.error) })
-          .catch(e => console.error('[care-log seed] fetch failed:', e))
+        }).catch(() => {})
       }
     }
   }, [date])
@@ -120,24 +121,24 @@ export default function ChrisGoalsLog() {
 
   async function saveItem(item_name, checked, value = undefined) {
     await fetch('/api/care-log', {
-      method: 'POST',
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user: 'chris', date, item_name, checked, value }),
     })
   }
 
-  function saveNote(item_name, text) {
+  function saveNote(text) {
     fetch('/api/care-log', {
-      method: 'POST',
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user: 'chris', date, item_name, checked: false, note: text || null }),
+      body: JSON.stringify({ user: 'chris', date, item_name: 'daily-note', checked: false, note: text || null }),
     })
   }
 
   function shiftDate(days) {
     const [y, m, d] = date.split('-').map(Number)
     const next = new Date(y, m - 1, d + days)
-    const iso = `${next.getFullYear()}-${String(next.getMonth()+1).padStart(2,'0')}-${String(next.getDate()).padStart(2,'0')}`
+    const iso  = `${next.getFullYear()}-${String(next.getMonth()+1).padStart(2,'0')}-${String(next.getDate()).padStart(2,'0')}`
     if (iso <= getToday()) setDate(iso)
   }
 
@@ -163,27 +164,13 @@ export default function ChrisGoalsLog() {
     saveItem(id, next !== null, next ?? undefined)
   }
 
-  function incrementCounter(id, max) {
-    const next = ((counters[id] || 0) + 1) % (max + 1)
-    setCounters(p => ({ ...p, [id]: next }))
-    saveItem(id, next >= max, next)
-  }
+  const amAll   = [...AM_ROUTINE, ...AM_VITAMINS, ...AM_BODY]
+  const amDone  = amAll.filter(i => checks[i.id]).length
+  const amTotal = amAll.length
 
-  function pickDrinks(n) {
-    const next = drinks === n ? null : n
-    setDrinks(next)
-    saveItem('drinks', next !== null, next ?? undefined)
-  }
-
-  const doneCount =
-    CHECK_IDS.filter(id => checks[id]).length +
-    COUNTER_ITEMS.filter(i => (counters[i.id] || 0) >= i.max).length +
-    (drinks !== null ? 1 : 0)
-
-  const bodyCareDone =
-    BODY_CARE.filter(i => i.type === 'check' ? !!checks[i.id] : (counters[i.id] || 0) >= i.max).length +
-    (drinks !== null ? 1 : 0)
-  const bodyCareTotalItems = BODY_CARE.length + 1 // +1 for drinks
+  const pmAll   = [...PM_ROUTINE, ...PM_VITAMINS, ...PM_BODY]
+  const pmDone  = pmAll.filter(i => checks[i.id]).length
+  const pmTotal = pmAll.length
 
   return (
     <div style={{ color: c.text, height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -195,9 +182,7 @@ export default function ChrisGoalsLog() {
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         background: c.bg, flexShrink: 0,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Care Log</span>
-        </div>
+        <span style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Care Log</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button onClick={() => shiftDate(-1)} style={NAV_BTN}>←</button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: '0.28rem 0.7rem' }}>
@@ -215,110 +200,100 @@ export default function ChrisGoalsLog() {
         flex: 1,
         padding: '1rem 1.5rem',
         display: 'grid',
-        gridTemplateColumns: '1fr 1.4fr 1fr',
+        gridTemplateColumns: '1fr 1fr 1fr',
         gap: '0.9rem',
         minHeight: 0,
-        overflow: 'hidden',
+        overflowY: 'auto',
         alignItems: 'start',
       }}>
 
-        {/* Col 1: Body Care */}
-        <div style={card}>
-          <SectionHeader label="Body Care" done={bodyCareDone} total={bodyCareTotalItems} />
+        {/* Col 1: Morning Routine */}
+        <div style={cardStyle}>
+          <SectionHeader label="Morning Routine" done={amDone} total={amTotal} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
-            {BODY_CARE.map(item =>
-              item.type === 'counter' ? (
-                <CounterRow
-                  key={item.id}
-                  label={item.label}
-                  count={counters[item.id] || 0}
-                  max={item.max}
-                  onIncrement={() => incrementCounter(item.id, item.max)}
-                />
-              ) : (
-                <CheckRow
-                  key={item.id}
-                  label={item.label}
-                  checked={!!checks[item.id]}
-                  onToggle={() => toggleCheck(item.id)}
-                  daysSince={DAYS_SINCE_TRACKED.has(item.id) ? (daysSince[item.id] ?? null) : undefined}
-                />
-              )
-            )}
-            <div style={{ height: 1, background: c.border, margin: '0.25rem 0' }} />
-            <div>
-              <div style={{ fontSize: '0.72rem', color: c.muted, marginBottom: '0.4rem' }}>Drinks today</div>
-              <div style={{ display: 'flex', gap: '0.3rem' }}>
-                {[0,1,2,3,4,5,6,7].map(n => (
-                  <button key={n} onClick={() => pickDrinks(n)} style={{
-                    flex: 1, height: 32, borderRadius: 7,
-                    border: `1px solid ${drinks === n ? drinkColor(n) : c.rowBorder}`,
-                    background: drinks === n ? drinkColor(n) + '22' : 'transparent',
-                    color: drinks === n ? drinkColor(n) : c.muted,
-                    fontSize: n === 7 ? '0.58rem' : '0.78rem',
-                    fontWeight: drinks === n ? 700 : 400,
-                    cursor: 'pointer', transition: 'all 0.1s',
-                  }}>
-                    {n === 7 ? '7+' : n}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <NoteBox
-              value={notes['body-care-note'] || ''}
-              onChange={v => setNotes(p => ({ ...p, 'body-care-note': v }))}
-              onBlur={v => saveNote('body-care-note', v)}
-            />
+            <SubLabel label="Routine" />
+            {AM_ROUTINE.map(item => (
+              <CheckRow key={item.id} label={item.label} checked={!!checks[item.id]} onToggle={() => toggleCheck(item.id)} />
+            ))}
+            <Divider />
+            <SubLabel label="Vitamins" />
+            {AM_VITAMINS.map(item => (
+              <CheckRow key={item.id} label={item.label} checked={!!checks[item.id]} onToggle={() => toggleCheck(item.id)} />
+            ))}
+            <Divider />
+            <SubLabel label="Body" />
+            {AM_BODY.map(item => (
+              <CheckRow key={item.id} label={item.label} checked={!!checks[item.id]} onToggle={() => toggleCheck(item.id)} />
+            ))}
           </div>
         </div>
 
-        {/* Col 2: Marriage Care */}
-        <div style={card}>
-          <SectionHeader label="Marriage Care" />
+        {/* Col 2: Night Routine */}
+        <div style={cardStyle}>
+          <SectionHeader label="Night Routine" done={pmDone} total={pmTotal} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
+            <SubLabel label="Routine" />
+            {PM_ROUTINE.map(item => (
+              <CheckRow key={item.id} label={item.label} checked={!!checks[item.id]} onToggle={() => toggleCheck(item.id)} />
+            ))}
+            <Divider />
+            <SubLabel label="Vitamins" />
+            {PM_VITAMINS.map(item => (
+              <CheckRow key={item.id} label={item.label} checked={!!checks[item.id]} onToggle={() => toggleCheck(item.id)} />
+            ))}
+            <div style={{ fontSize: '0.68rem', fontStyle: 'italic', color: c.muted, padding: '0.15rem 0.6rem 0.3rem', lineHeight: 1.4 }}>
+              If drank alcohol: Alcohol Pills (5) + Extra Magnesium (2 total)
+            </div>
+            <Divider />
+            <SubLabel label="Body" />
+            {PM_BODY.map(item => (
+              <CheckRow
+                key={item.id}
+                label={item.label}
+                checked={!!checks[item.id]}
+                onToggle={() => toggleCheck(item.id)}
+                daysSince={item.weekly ? (daysSince[item.id] ?? null) : undefined}
+                colorFn={item.weekly ? facialDaysSinceColor : undefined}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Col 3: Daily Summary */}
+        <div style={cardStyle}>
+          <SectionHeader label="Daily Summary" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginTop: '0.65rem' }}>
-            {MARRIAGE_SCALES.map(item => (
+            {DAILY_SCALES.map(item => (
               <ScaleRow
                 key={item.id}
                 label={item.label}
-                hint={item.hint}
                 value={scales[item.id] ?? null}
                 onPick={val => pickScale(item.id, val)}
               />
             ))}
-            <div style={{ height: 1, background: c.border, margin: '0.25rem 0' }} />
-            {MARRIAGE_CHECKS.map(item => (
-              <CheckRow
-                key={item.id}
-                label={item.label}
-                checked={!!checks[item.id]}
-                onToggle={() => toggleCheck(item.id)}
-              />
-            ))}
-            <NoteBox
-              value={notes['marriage-care-note'] || ''}
-              onChange={v => setNotes(p => ({ ...p, 'marriage-care-note': v }))}
-              onBlur={v => saveNote('marriage-care-note', v)}
+            <Divider />
+            <CheckRow
+              label="Had Sex"
+              checked={!!checks['had-sex']}
+              onToggle={() => toggleCheck('had-sex')}
+              daysSince={daysSince['had-sex'] ?? null}
+              colorFn={sexDaysSinceColor}
             />
-          </div>
-        </div>
-
-        {/* Col 3: Social Care */}
-        <div style={card}>
-          <SectionHeader label="Social Care" done={SOCIAL.filter(i => checks[i.id]).length} total={SOCIAL.length} />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.65rem' }}>
-            {SOCIAL.map(item => (
-              <CheckRow
-                key={item.id}
-                label={item.label}
-                checked={!!checks[item.id]}
-                onToggle={() => toggleCheck(item.id)}
-                daysSince={DAYS_SINCE_TRACKED.has(item.id) ? (daysSince[item.id] ?? null) : undefined}
-              />
-            ))}
-            <NoteBox
-              value={notes['social-care-note'] || ''}
-              onChange={v => setNotes(p => ({ ...p, 'social-care-note': v }))}
-              onBlur={v => saveNote('social-care-note', v)}
+            <Divider />
+            <SubLabel label="Note" />
+            <textarea
+              value={note}
+              onChange={e => setNote(e.target.value)}
+              onBlur={e => saveNote(e.target.value)}
+              placeholder="Notes for today..."
+              rows={6}
+              style={{
+                width: '100%', background: 'rgba(255,255,255,0.03)',
+                border: `1px solid ${c.border}`, borderRadius: 7,
+                color: c.text, fontSize: '0.78rem', lineHeight: 1.5,
+                padding: '0.5rem 0.6rem', resize: 'none', outline: 'none',
+                fontFamily: 'inherit', boxSizing: 'border-box',
+              }}
             />
           </div>
         </div>
@@ -326,6 +301,18 @@ export default function ChrisGoalsLog() {
       </div>
     </div>
   )
+}
+
+function SubLabel({ label }) {
+  return (
+    <div style={{ fontSize: '0.62rem', fontWeight: 700, color: c.muted, textTransform: 'uppercase', letterSpacing: '0.07em', padding: '0.1rem 0.2rem 0.02rem' }}>
+      {label}
+    </div>
+  )
+}
+
+function Divider() {
+  return <div style={{ height: 1, background: c.border, margin: '0.2rem 0' }} />
 }
 
 function SectionHeader({ label, done, total }) {
@@ -343,7 +330,7 @@ function SectionHeader({ label, done, total }) {
   )
 }
 
-function CheckRow({ label, checked, onToggle, daysSince }) {
+function CheckRow({ label, checked, onToggle, daysSince, colorFn }) {
   const hasDays = daysSince !== undefined
   return (
     <div onClick={onToggle} style={{
@@ -367,7 +354,7 @@ function CheckRow({ label, checked, onToggle, daysSince }) {
           {label}
         </div>
         {hasDays && (
-          <div style={{ fontSize: '0.62rem', marginTop: '0.1rem', color: daysSinceColor(daysSince) }}>
+          <div style={{ fontSize: '0.62rem', marginTop: '0.1rem', color: (colorFn || defaultDaysSinceColor)(daysSince) }}>
             {daysSince === null ? '—' : daysSince === 0 ? 'today' : daysSince === 1 ? 'yesterday' : `${daysSince}d ago`}
           </div>
         )}
@@ -376,37 +363,7 @@ function CheckRow({ label, checked, onToggle, daysSince }) {
   )
 }
 
-function CounterRow({ label, count, max, onIncrement }) {
-  const done = count >= max
-  return (
-    <div onClick={onIncrement} style={{
-      display: 'flex', alignItems: 'center', gap: '0.6rem',
-      padding: '0.42rem 0.6rem', borderRadius: 7, cursor: 'pointer',
-      background: done ? c.accentDim : 'transparent',
-      border: `1px solid ${done ? c.accent : c.rowBorder}`,
-      transition: 'all 0.1s',
-    }}>
-      <div style={{ display: 'flex', gap: '0.22rem', flexShrink: 0 }}>
-        {Array.from({ length: max }, (_, i) => (
-          <div key={i} style={{
-            width: 9, height: 9, borderRadius: '50%',
-            background: i < count ? c.accent : 'transparent',
-            border: `1.5px solid ${i < count ? c.accent : c.rowBorder}`,
-            transition: 'all 0.1s',
-          }} />
-        ))}
-      </div>
-      <span style={{ fontSize: '0.8rem', fontWeight: done ? 600 : 400, color: done ? c.text : c.muted, flex: 1 }}>
-        {label}
-      </span>
-      <span style={{ fontSize: '0.68rem', fontWeight: 600, color: done ? '#22C55E' : count > 0 ? c.accent : c.muted }}>
-        {count}/{max}
-      </span>
-    </div>
-  )
-}
-
-function ScaleRow({ label, hint, value, onPick }) {
+function ScaleRow({ label, value, onPick }) {
   return (
     <div style={{ padding: '0.45rem 0.6rem', borderRadius: 7, border: `1px solid ${c.rowBorder}`, background: 'rgba(255,255,255,0.015)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.35rem' }}>
@@ -414,7 +371,7 @@ function ScaleRow({ label, hint, value, onPick }) {
           {label}
         </span>
         <span style={{ fontSize: '0.65rem', fontStyle: 'italic', color: value ? scaleColor(value) : c.muted, fontWeight: value ? 700 : 400 }}>
-          {value ? `${value}/10` : hint ? 'skip if none' : ''}
+          {value ? `${value}/10` : ''}
         </span>
       </div>
       <div style={{ display: 'flex', gap: '0.2rem' }}>
@@ -435,11 +392,25 @@ function ScaleRow({ label, hint, value, onPick }) {
   )
 }
 
-function daysSinceColor(days) {
+function defaultDaysSinceColor(days) {
   if (days === null) return c.muted
-  if (days <= 3) return '#22C55E'
-  if (days <= 5) return c.muted
-  if (days <= 7) return '#F59E0B'
+  if (days <= 3)  return '#22C55E'
+  if (days <= 5)  return c.muted
+  if (days <= 7)  return '#F59E0B'
+  return '#EF4444'
+}
+
+function sexDaysSinceColor(days) {
+  if (days === null) return c.muted
+  if (days <= 2)  return '#22C55E'
+  if (days <= 3)  return '#F59E0B'
+  return '#EF4444'
+}
+
+function facialDaysSinceColor(days) {
+  if (days === null) return c.muted
+  if (days <= 7)  return '#22C55E'
+  if (days <= 10) return '#F59E0B'
   return '#EF4444'
 }
 
@@ -447,37 +418,4 @@ function scaleColor(v) {
   if (v <= 3) return '#EF4444'
   if (v <= 6) return '#F59E0B'
   return '#22C55E'
-}
-
-function drinkColor(n) {
-  if (n === 0) return '#22C55E'
-  if (n <= 2)  return '#F59E0B'
-  return '#EF4444'
-}
-
-function NoteBox({ value, onChange, onBlur }) {
-  return (
-    <div style={{ marginTop: '0.6rem', paddingTop: '0.6rem', borderTop: `1px solid ${c.border}` }}>
-      <textarea
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        onBlur={e => onBlur(e.target.value)}
-        placeholder="Notes for today..."
-        rows={5}
-        style={{
-          width: '100%', background: 'rgba(255,255,255,0.03)',
-          border: `1px solid ${c.border}`, borderRadius: 7,
-          color: c.text, fontSize: '0.78rem', lineHeight: 1.5,
-          padding: '0.5rem 0.6rem', resize: 'none', outline: 'none',
-          fontFamily: 'inherit', boxSizing: 'border-box',
-        }}
-      />
-    </div>
-  )
-}
-
-const NAV_BTN = {
-  background: c.card, border: `1px solid ${c.border}`,
-  color: c.muted, borderRadius: 6, padding: '0.32rem 0.65rem',
-  cursor: 'pointer', fontSize: '0.88rem', fontWeight: 600,
 }

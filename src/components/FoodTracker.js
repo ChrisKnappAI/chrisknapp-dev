@@ -158,6 +158,12 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
     setIngredients(prev => prev.map(ing => ({ ...ing, user_percent: pct })))
   }
 
+  function applyTopAmount() {
+    if (ingredients.length < 2) return
+    const amount = parseFloat(ingredients[0].actual_amount) || 0
+    setIngredients(prev => prev.map(ing => ({ ...ing, actual_amount: amount })))
+  }
+
   // ── day log ──
   const [dayLog,     setDayLog]     = useState([])
   const [logLoading, setLogLoading] = useState(false)
@@ -416,12 +422,18 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                 /* Mobile: stacked ingredient cards */
                 <div style={{ marginBottom: '0.75rem' }}>
                   {ingredients.length > 1 && (
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.4rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.4rem', marginBottom: '0.4rem' }}>
+                      <button
+                        onClick={applyTopAmount}
+                        style={{ background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.3)', borderRadius: 4, color: c.accentBtn, fontSize: '0.72rem', fontWeight: 700, padding: '0.2rem 0.6rem', cursor: 'pointer' }}
+                      >
+                        ↓ Amount to all
+                      </button>
                       <button
                         onClick={applyTopPercent}
                         style={{ background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.3)', borderRadius: 4, color: c.accentBtn, fontSize: '0.72rem', fontWeight: 700, padding: '0.2rem 0.6rem', cursor: 'pointer' }}
                       >
-                        ↓ Apply % to all
+                        ↓ % to all
                       </button>
                     </div>
                   )}
@@ -471,7 +483,20 @@ export default function FoodTracker({ user, theme = 'dark', label }) {
                     <thead>
                       <tr style={{ borderBottom: `1px solid ${c.border}` }}>
                         <th style={{ ...thStyle, textAlign: 'left'   }}>Ingredient</th>
-                        <th style={{ ...thStyle, textAlign: 'center' }}>Amount</th>
+                        <th style={{ ...thStyle, textAlign: 'center' }}>
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                            Amount
+                            {ingredients.length > 1 && (
+                              <button
+                                onClick={applyTopAmount}
+                                title="Set all rows to top row's amount"
+                                style={{ background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.3)', borderRadius: 4, color: c.accentBtn, fontSize: '0.6rem', fontWeight: 700, padding: '0.1rem 0.35rem', cursor: 'pointer', lineHeight: 1.3 }}
+                              >
+                                ↓ all
+                              </button>
+                            )}
+                          </div>
+                        </th>
                         <th style={{ ...thStyle, textAlign: 'center' }}>Unit</th>
                         <th style={{ ...thStyle, textAlign: 'center' }}>
                           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>

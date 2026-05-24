@@ -22,13 +22,13 @@ export async function GET(request) {
 
   let daysSince = {}
   if (user === 'chris') {
-    const tracked = ['facial-treatment', 'spoke-dad', 'spoke-mom']
+    const tracked = ['pm-facial-treatment', 'had-sex']
     const { data: recent } = await supabase
       .from('care_log_chris')
       .select('item_name, log_date')
       .in('item_name', tracked)
       .eq('checked', true)
-      .lt('log_date', date)
+      .lte('log_date', date)
       .order('log_date', { ascending: false })
 
     if (recent) {

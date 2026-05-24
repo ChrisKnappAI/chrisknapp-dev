@@ -68,7 +68,9 @@ const MUSCLE_GROUPS = [
       { id: 'incline-press-smith',    label: 'Incline Press (Smith)'    },
       { id: 'decline-press-dumbbells', label: 'Decline Press (DB)' },
       { id: 'decline-press-smith',    label: 'Decline Press (Smith)'    },
-      { id: 'cable-flies',            label: 'Cable Flies'              },
+      { id: 'cable-flies-down',       label: 'Cable Flies (Downward)'   },
+      { id: 'cable-flies',            label: 'Cable Flies (Normal)'     },
+      { id: 'cable-flies-up',         label: 'Cable Flies (Upward)'     },
     ],
   },
   {
@@ -98,7 +100,7 @@ const MUSCLE_GROUPS = [
       { id: 'triceps-extensions-bench-barbell',     label: 'Triceps Extensions (BB)'  },
       { id: 'skull-crushers',                       label: 'Skull Crushers'                         },
       { id: 'machine-pushdown',                     label: 'Machine Pushdown'                       },
-      { id: 'dips',                                 label: 'Dips'                                   },
+      { id: 'dips',                                 label: 'Machine Dips'                           },
       { id: 'close-grip-bench-dumbbell',            label: 'Close Grip Bench (DB)'            },
     ],
   },
@@ -158,16 +160,22 @@ const NAV_BTN = {
 }
 
 export default function GymLog() {
-  const [date,      setDate]      = useState(getToday)
-  const [gymData,   setGymData]   = useState({})
-  const [daysSince, setDaysSince] = useState({})
+  const [date,       setDate]       = useState(getToday)
+  const [gymData,    setGymData]    = useState({})
+  const [daysSince,  setDaysSince]  = useState({})
+  const [dayComment, setDayComment] = useState('')
 
   const loadDay = useCallback(async () => {
-    const res  = await fetch(`/api/gym-log?user=chris&date=${date}`)
-    const data = await res.json()
-    if (data.error) return
-    setGymData(data.exercises || {})
-    setDaysSince(data.daysSince || {})
+    const [gymRes, noteRes] = await Promise.all([
+      fetch(`/api/gym-log?user=chris&date=${date}`),
+      fetch(`/api/care-log?user=chris&date=${date}`),
+    ])
+    const [gd, nd] = await Promise.all([gymRes.json(), noteRes.json()])
+    if (!gd.error) {
+      setGymData(gd.exercises || {})
+      setDaysSince(gd.daysSince || {})
+    }
+    setDayComment(nd.notes?.['gym-day-comment'] || '')
   }, [date])
 
   useEffect(() => { loadDay() }, [loadDay])
@@ -208,6 +216,14 @@ export default function GymLog() {
 
   function handleBlur(exerciseId) {
     saveToApi(exerciseId, gymData[exerciseId] || {})
+  }
+
+  function saveDayComment(text) {
+    fetch('/api/care-log', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user: 'chris', date, item_name: 'gym-day-comment', checked: false, note: text || null }),
+    })
   }
 
   function saveToApi(exerciseId, data) {
@@ -262,18 +278,19 @@ export default function GymLog() {
           alignItems: 'start',
         }}>
 
-          {/* Col 1: Back + Legs */}
+          {/* Col 1: Back + Legs + Abs */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-            {[MUSCLE_GROUPS[0], MUSCLE_GROUPS[5]].map(g => (
+            {[MUSCLE_GROUPS[0], MUSCLE_GROUPS[5], MUSCLE_GROUPS[6]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} daysSince={daysSince[g.id] ?? null} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
           </div>
 
-          {/* Col 2: Shoulders + Chest + Abs */}
+          {/* Col 2: Shoulders + Chest + Day Comment */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-            {[MUSCLE_GROUPS[1], MUSCLE_GROUPS[2], MUSCLE_GROUPS[6]].map(g => (
+            {[MUSCLE_GROUPS[1], MUSCLE_GROUPS[2]].map(g => (
               <MuscleCard key={g.id} group={g} gymData={gymData} daysSince={daysSince[g.id] ?? null} onToggle={toggleExercise} onUpdateField={updateField} onBlur={handleBlur} />
             ))}
+            <DayCommentCard comment={dayComment} onChange={setDayComment} onBlur={saveDayComment} />
           </div>
 
           {/* Col 3: Biceps + Triceps */}
@@ -435,6 +452,33 @@ function lastWorkedColor(days) {
   if (days <= 1)    return '#22C55E'
   if (days <= 3)    return c.muted
   return '#F59E0B'
+}
+
+function DayCommentCard({ comment, onChange, onBlur }) {
+  return (
+    <div style={cardStyle}>
+      <div style={{
+        fontSize: '0.8rem', fontWeight: 700, color: c.text,
+        paddingBottom: '0.32rem', borderBottom: `1px solid ${c.border}`, marginBottom: '0.55rem',
+      }}>
+        Day Comment
+      </div>
+      <textarea
+        value={comment}
+        onChange={e => onChange(e.target.value)}
+        onBlur={e => onBlur(e.target.value)}
+        placeholder="Notes for today's session..."
+        rows={4}
+        style={{
+          width: '100%', background: 'rgba(255,255,255,0.03)',
+          border: `1px solid ${c.border}`, borderRadius: 7,
+          color: c.text, fontSize: '0.78rem', lineHeight: 1.5,
+          padding: '0.5rem 0.6rem', resize: 'none', outline: 'none',
+          fontFamily: 'inherit', boxSizing: 'border-box',
+        }}
+      />
+    </div>
+  )
 }
 
 function SectionHeader({ label, daysSince }) {
