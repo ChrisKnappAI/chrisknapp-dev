@@ -37,20 +37,24 @@ export const SEGMENTS = [
     date: '2026-06-28',
     dateLabel: 'Sun Jun 28',
     phase: 'polynesia',
-    icon: '🏝️',
-    title: 'Moorea — Day 2',
-    summary: 'Full day in Moorea.',
-    details: '',
+    icon: '🤿',
+    title: 'Moorea — Snorkeling Excursion',
+    events: [
+      { icon: '🤿', label: 'Snorkeling & Marine Fauna Encounter — 9:00am · 6hrs', detail: 'Snorkeling excursion and encounter with marine fauna in Moorea.', copyItems: [
+        { label: 'Viator Booking Reference', value: 'BR-1402174117' },
+      ]},
+    ],
   },
   {
     id: 'jun29',
     date: '2026-06-29',
     dateLabel: 'Mon Jun 29',
     phase: 'polynesia',
-    icon: '🏝️',
-    title: 'Moorea — Day 3',
-    summary: 'Full day in Moorea.',
-    details: '',
+    icon: '🚤',
+    title: 'Moorea — Jet-Ski Excursion',
+    events: [
+      { icon: '🚤', label: 'Jet-Ski Excursion — 1:00pm · 3hrs', detail: 'Jet-ski excursion around Moorea (single or two-seater).\n\nTicket pending — awaiting vendor confirmation.' },
+    ],
   },
   {
     id: 'jun30',
@@ -67,10 +71,13 @@ export const SEGMENTS = [
     date: '2026-07-01',
     dateLabel: 'Wed Jul 1',
     phase: 'polynesia',
-    icon: '🏝️',
-    title: 'Moorea — Day 5',
-    summary: 'Full day in Moorea.',
-    details: '',
+    icon: '🛶',
+    title: 'Moorea — Lagoon Tour by Canoe',
+    events: [
+      { icon: '🛶', label: 'Lagoon Tour by Canoe — 8:00am · 6hrs', detail: 'Lagoon tour of Moorea by traditional canoe.', copyItems: [
+        { label: 'Viator Booking Reference', value: 'BR-1402169003' },
+      ]},
+    ],
   },
   {
     id: 'jul02',
