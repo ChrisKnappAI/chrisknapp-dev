@@ -214,10 +214,14 @@ export const SEGMENTS = [
     date: '2026-07-14',
     dateLabel: 'Tue Jul 14',
     phase: 'cruise',
-    icon: '🏄',
+    icon: '🌋',
     title: 'Cruise Day 12 — Maui',
-    summary: 'In port 8:00am – 5:00pm. Need to book excursion.',
-    details: 'Port day in Maui. In port 8:00am – 5:00pm. Need to decide on and book an excursion (Road to Hana, snorkeling Molokini, whale watching, etc.).',
+    events: [
+      { icon: '🚗', label: 'Convertible Rental — 8:30am · DIY Tour · Expedia', detail: 'Sixt — Mazda MX-5 Miata convertible (or similar)\nPickup & dropoff: Maui Kahului Airport (OGG)\n8:30am – 4:30pm · 2 passengers · Unlimited mileage\n\nIn port 8:00am – 5:00pm.', copyItems: [
+        { label: 'Expedia Itinerary Number', value: '73457804113289' },
+      ]},
+      { icon: '🌋', label: 'Haleakala Crater — DIY Drive', detail: 'Self-guided drive to Haleakalā — a dormant volcano crater at 10,000 feet.\n\nMultiple stops along the way — itinerary TBD.' },
+    ],
   },
   {
     id: 'jul15',
