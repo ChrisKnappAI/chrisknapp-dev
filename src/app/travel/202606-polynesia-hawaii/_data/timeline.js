@@ -40,7 +40,7 @@ export const SEGMENTS = [
     icon: '🤿',
     title: 'Moorea — Snorkeling Excursion',
     events: [
-      { icon: '🤿', label: 'Snorkeling & Marine Fauna Encounter — 9:00am · 6hrs', detail: 'Snorkeling excursion and encounter with marine fauna in Moorea.', copyItems: [
+      { icon: '🤿', label: 'Snorkeling & Marine Fauna Encounter — 9:00am · 6hrs · Viator', detail: 'Snorkeling excursion and encounter with marine fauna in Moorea.', copyItems: [
         { label: 'Viator Booking Reference', value: 'BR-1402174117' },
       ]},
     ],
@@ -53,7 +53,7 @@ export const SEGMENTS = [
     icon: '🚤',
     title: 'Moorea — Jet-Ski Excursion',
     events: [
-      { icon: '🚤', label: 'Jet-Ski Excursion — 1:00pm · 3hrs', detail: 'Jet-ski excursion around Moorea (single or two-seater).\n\nTicket pending — awaiting vendor confirmation.' },
+      { icon: '🚤', label: 'Jet-Ski Excursion — 1:00pm · 3hrs · Viator', detail: 'Jet-ski excursion around Moorea (single or two-seater).\n\nTicket pending — awaiting vendor confirmation.' },
     ],
   },
   {
@@ -74,7 +74,7 @@ export const SEGMENTS = [
     icon: '🛶',
     title: 'Moorea — Lagoon Tour by Canoe',
     events: [
-      { icon: '🛶', label: 'Lagoon Tour by Canoe — 8:00am · 6hrs', detail: 'Lagoon tour of Moorea by traditional canoe.', copyItems: [
+      { icon: '🛶', label: 'Lagoon Tour by Canoe — 8:00am · 6hrs · Viator', detail: 'Lagoon tour of Moorea by traditional canoe.', copyItems: [
         { label: 'Viator Booking Reference', value: 'BR-1402169003' },
       ]},
     ],
@@ -120,7 +120,7 @@ export const SEGMENTS = [
     icon: '🤿',
     title: 'Cruise Day 3 — Raiatea',
     events: [
-      { icon: '🤿', label: 'Coral Garden Snorkeling / Cruise Friendly — 1:00pm · Half Day', detail: 'Raiatea & Tahaa coral garden snorkeling excursion.\n\nIn port 7:00am – 8:00pm.', copyItems: [
+      { icon: '🤿', label: 'Coral Garden Snorkeling / Cruise Friendly — 1:00pm · Half Day · Viator', detail: 'Raiatea & Tahaa coral garden snorkeling excursion.\n\nIn port 7:00am – 8:00pm.', copyItems: [
         { label: 'Viator Booking Reference', value: 'BR-1402196133' },
       ]},
     ],
@@ -133,7 +133,7 @@ export const SEGMENTS = [
     icon: '🤿',
     title: 'Cruise Day 4 — Bora Bora',
     events: [
-      { icon: '🤿', label: 'Half Day Snorkeling Shared Boat Tour — 12:30pm', detail: 'Half day snorkeling shared boat tour in Bora Bora.\n\nIn port 7:00am – 7:00pm.', copyItems: [
+      { icon: '🤿', label: 'Half Day Snorkeling Shared Boat Tour — 12:30pm · Viator', detail: 'Half day snorkeling shared boat tour in Bora Bora.\n\nIn port 7:00am – 7:00pm.', copyItems: [
         { label: 'Viator Booking Reference', value: 'BR-1402197789' },
       ]},
     ],
@@ -203,10 +203,11 @@ export const SEGMENTS = [
     date: '2026-07-13',
     dateLabel: 'Mon Jul 13',
     phase: 'cruise',
-    icon: '🌿',
+    icon: '🏔️',
     title: 'Cruise Day 11 — Kauai',
-    summary: 'In port 8:30am – 5:00pm. Need to book excursion.',
-    details: 'Port day in Kauai — the Garden Isle. In port 8:30am – 5:00pm. Need to decide on and book an excursion (Na Pali Coast, Waimea Canyon, helicopter tour, etc.).',
+    events: [
+      { icon: '🏔️', label: 'Journey to Waimea Canyon — 9:45am · 5hrs · NCL', detail: 'NCL excursion — Journey to Waimea Canyon.\n\nIn port 8:30am – 5:00pm.' },
+    ],
   },
   {
     id: 'jul14',
