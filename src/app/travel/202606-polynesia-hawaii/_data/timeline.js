@@ -117,20 +117,26 @@ export const SEGMENTS = [
     date: '2026-07-05',
     dateLabel: 'Sun Jul 5',
     phase: 'cruise',
-    icon: '🚢',
+    icon: '🤿',
     title: 'Cruise Day 3 — Raiatea',
-    summary: 'In port 7:00am – 8:00pm. Need to book excursion.',
-    details: 'Port day in Raiatea. In port 7:00am – 8:00pm. Need to decide on and book an excursion.',
+    events: [
+      { icon: '🤿', label: 'Coral Garden Snorkeling / Cruise Friendly — 1:00pm · Half Day', detail: 'Raiatea & Tahaa coral garden snorkeling excursion.\n\nIn port 7:00am – 8:00pm.', copyItems: [
+        { label: 'Viator Booking Reference', value: 'BR-1402196133' },
+      ]},
+    ],
   },
   {
     id: 'jul06',
     date: '2026-07-06',
     dateLabel: 'Mon Jul 6',
     phase: 'cruise',
-    icon: '⭐',
+    icon: '🤿',
     title: 'Cruise Day 4 — Bora Bora',
-    summary: 'In port 7:00am – 7:00pm. Need to book excursion.',
-    details: 'Port day in Bora Bora — the crown jewel of French Polynesia. In port 7:00am – 7:00pm. Need to decide on and book an excursion (lagoon tour, shark/ray snorkel, overwater bungalow visit, etc.).',
+    events: [
+      { icon: '🤿', label: 'Half Day Snorkeling Shared Boat Tour — 12:30pm', detail: 'Half day snorkeling shared boat tour in Bora Bora.\n\nIn port 7:00am – 7:00pm.', copyItems: [
+        { label: 'Viator Booking Reference', value: 'BR-1402197789' },
+      ]},
+    ],
   },
   {
     id: 'jul07',
