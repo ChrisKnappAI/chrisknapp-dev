@@ -195,8 +195,9 @@ export const SEGMENTS = [
     phase: 'cruise',
     icon: '🌋',
     title: 'Cruise Day 10 — Hilo, Big Island',
-    summary: 'In port 7:00am – 4:00pm. Secrets of Hamakua — 7:30AM–2:30PM · 7hrs.',
-    details: 'Secrets of Hamakua — 7:30AM to 2:30PM (7hrs)\n\n• Explore Hamakua Coast ("Old Hawaii"): Waterfalls, valleys, eccentric towns\n• Tex Drive-In (Malasadas)\n• Valley of the Kings (Waipio Valley)\n• Laupahoehoe Point (Tsunami area)\n• Akaka Falls State Park: Paved path through rainforest\n• Rainbow Falls\n• King Kamehameha Statue\n• Hilo Bay — deli lunch + snorkel / swim / kayak\n• Shop: nut store, island crafts, Kona coffee, etc.',
+    events: [
+      { icon: '🌋', label: 'Secrets of Hamakua — 7:30am · 7hrs · NCL', detail: 'NCL excursion — Secrets of Hamakua.\n\nIn port 7:00am – 4:00pm.\n\n• Explore Hamakua Coast ("Old Hawaii"): Waterfalls, valleys, eccentric towns\n• Tex Drive-In (Malasadas)\n• Valley of the Kings (Waipio Valley)\n• Laupahoehoe Point (Tsunami area)\n• Akaka Falls State Park: Paved path through rainforest\n• Rainbow Falls\n• King Kamehameha Statue\n• Hilo Bay — deli lunch + snorkel / swim / kayak\n• Shop: nut store, island crafts, Kona coffee, etc.' },
+    ],
   },
   {
     id: 'jul13',
@@ -231,7 +232,7 @@ export const SEGMENTS = [
     icon: '✈️',
     title: 'Cruise Day 13 — Honolulu → Fly Home at Night',
     events: [
-      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff', detail: 'Ship arrives in Honolulu at 6AM\nExcursion — Full Circle Island Tour of Oahu\nEnds with airport dropoff\n\n• Diamond Head and volcanic crater rim\n• South Shore Drive (Sandy Beach)\n• North Shore Drive (Banzai Pipeline)\n• Lunch\n• Dole Pineapple Plantation' },
+      { icon: '🌺', label: 'Grand Circle Island Tour with Airport Dropoff · NCL', detail: 'NCL excursion — Grand Circle Island Tour of Oahu.\n\nShip arrives in Honolulu at 6AM\nEnds with airport dropoff\n\n• Diamond Head and volcanic crater rim\n• South Shore Drive (Sandy Beach)\n• North Shore Drive (Banzai Pipeline)\n• Lunch\n• Dole Pineapple Plantation' },
       { icon: '✈️', label: 'Night Flight Hawaii → Home', detail: 'Southwest departs Honolulu 9:00pm\nConfirmation — Chris: ARERNI · Natalie: ARFWVR\n\nConnects Phoenix (PHX)\nArrives PHX 5:55am → Departs 7:55am → Lands home 3:15pm' },
     ],
   },
