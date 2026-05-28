@@ -21,6 +21,7 @@ const EXERCISE_GROUP_CHRIS = {
   'upright-row-barbells':                 'shoulders',
   'side-raises-cable':                    'shoulders',
   'side-raises-dumbbells':               'shoulders',
+  'side-raises-machine':                 'shoulders',
   'bench-press-machine':                  'chest',
   'bench-press-dumbbells':                'chest',
   'bench-press-smith':                    'chest',

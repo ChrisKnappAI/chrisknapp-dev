@@ -55,6 +55,7 @@ const MUSCLE_GROUPS = [
       { id: 'upright-row-barbells',     label: 'Upright Row (BB)'     },
       { id: 'side-raises-cable',        label: 'Side Raises (Cable)'        },
       { id: 'side-raises-dumbbells',    label: 'Side Raises (DB)'    },
+      { id: 'side-raises-machine',      label: 'Side Raises (Machine)'      },
     ],
   },
   {

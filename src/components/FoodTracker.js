@@ -40,10 +40,10 @@ const USER_GOALS = {
     fat:     { goal: 70,   type: 'max' },
   },
   natalie: {
-    cal:     { goal: 1500, type: 'min' },
-    protein: { goal: 100,  type: 'min' },
-    carbs:   null,
-    fat:     null,
+    cal:     { goal: 1500, type: 'max' },
+    protein: { goal: 130,  type: 'min' },
+    carbs:   { goal: 145,  type: 'max' },
+    fat:     { goal: 55,   type: 'max' },
   },
 }
 
