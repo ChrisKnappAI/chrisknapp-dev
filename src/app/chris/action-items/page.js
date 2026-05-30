@@ -4,7 +4,7 @@ import ChrisDashboard, { DashCard } from '@/components/ChrisDashboard'
 const ITEMS = [
   {
     id: 1,
-    title: "Natalie's Birthday — Photo book & printout, gift wrap, decorations",
+    title: "Natalie's Birthday — Photo book, printout & frame, gift wrap, decorations",
     due: '2026-05-30',
     category: '🎁 Personal',
   },
