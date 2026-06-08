@@ -50,14 +50,14 @@ export async function GET(req) {
   } else if (mode === 'today') {
     ;({ data, error } = await base()
       .gte('last_incorrect_at', todayMidnightISO)
-      .or(`weekly_miss_dismissed_at.is.null,weekly_miss_dismissed_at.lt.${todayMidnightISO}`)
-      .order('last_incorrect_at', { ascending: false }))
+      .or(`weekly_miss_dismissed_at.is.null,weekly_miss_dismissed_at.lt.${todayMidnightISO}`))
+    if (!error && data) shuffle(data)
 
   } else if (mode === 'week') {
     ;({ data, error } = await base()
       .gte('last_incorrect_at', sevenDaysAgo)
-      .or(`weekly_miss_dismissed_at.is.null,weekly_miss_dismissed_at.lt.${startOfWeekISO}`)
-      .order('last_incorrect_at', { ascending: false }))
+      .or(`weekly_miss_dismissed_at.is.null,weekly_miss_dismissed_at.lt.${startOfWeekISO}`))
+    if (!error && data) shuffle(data)
 
   } else {
     // review: due cards
