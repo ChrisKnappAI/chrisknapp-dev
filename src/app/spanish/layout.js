@@ -2,13 +2,13 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export const metadata = {
-  title: 'Spanish B2',
+  title: 'Knapp en Español',
   description: 'Spanish vocabulary flashcards',
   manifest: '/spanish-manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Spanish B2',
+    title: 'Knapp en Español',
   },
 }
 

@@ -229,7 +229,7 @@ export default function SpanishLearning() {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         flexShrink: 0,
       }}>
-        <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#F1F5F9' }}>🇪🇸 Spanish B2</span>
+        <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#F1F5F9' }}>🇪🇸 Knapp en Español</span>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           {sessionDone > 0 && (
             <span style={{
