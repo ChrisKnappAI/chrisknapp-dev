@@ -9,21 +9,26 @@ function sm2(card, rating) {
   let ef = card.ease_factor
   let interval = card.interval_days
   let reps = card.repetitions
-  const correct = rating >= 3
   const now = new Date().toISOString()
 
-  if (!correct) {
+  if (rating === 1) {
+    // Again — full reset
     reps = 0; interval = 1
     ef = Math.max(1.3, ef - 0.2)
+  } else if (rating === 3) {
+    // Hard — knew it but struggled: cut interval in half, penalize ef, don't advance reps
+    interval = Math.max(1, Math.round(interval * 0.5))
+    ef = Math.max(1.3, ef - 0.15)
   } else {
+    // Good (4) or Easy (5) — correct
     if (reps === 0) interval = 1
     else if (reps === 1) interval = 6
     else interval = Math.round(interval * ef)
-    if (rating === 3) ef = Math.max(1.3, ef - 0.15)
-    else if (rating === 5) ef = Math.min(2.5, ef + 0.1)
+    if (rating === 5) ef = Math.min(2.5, ef + 0.1)
     reps += 1
   }
 
+  const correct = rating >= 4
   const next = new Date()
   next.setDate(next.getDate() + interval)
 
