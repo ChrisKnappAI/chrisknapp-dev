@@ -65,13 +65,13 @@ export default function SpanishLearning() {
     if (urlRef.current) { URL.revokeObjectURL(urlRef.current); urlRef.current = null }
   }, [])
 
-  const playTTS = useCallback(async (text) => {
+  const playTTS = useCallback(async (text, lang = 'es') => {
     stopAudio()
     try {
       const res = await fetch('/api/spanish/tts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, lang }),
       })
       if (!res.ok) return
       const url = URL.createObjectURL(await res.blob())
@@ -97,9 +97,10 @@ export default function SpanishLearning() {
     if (submitting || isDragging.current) return
     if (tapStage === 0) {
       setTapStage(1)
+      if (card?.english) playTTS(card.english, 'en')
     } else if (tapStage === 1) {
       setTapStage(2)
-      if (card?.sample_sentence_es) playTTS(card.sample_sentence_es)
+      if (card?.sample_sentence_es) playTTS(card.sample_sentence_es, 'es')
     }
   }, [tapStage, submitting, card, playTTS])
 
@@ -336,7 +337,7 @@ export default function SpanishLearning() {
                   {card.spanish}
                 </div>
                 <button
-                  onClick={e => { e.stopPropagation(); playTTS(card.spanish) }}
+                  onClick={e => { e.stopPropagation(); playTTS(card.spanish, 'es') }}
                   style={{
                     background: 'none', border: 'none', color: '#334155',
                     cursor: 'pointer', padding: 0,
