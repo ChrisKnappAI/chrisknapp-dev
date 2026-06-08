@@ -82,6 +82,7 @@ export default function SpanishLearning() {
   const filterRef = useRef('all')
   const modeRef = useRef('review')
   const showStatsRef = useRef(true)
+  const advanceRef = useRef(null)
 
   useEffect(() => { filterRef.current = filter }, [filter])
   useEffect(() => { modeRef.current = mode }, [mode])
@@ -172,9 +173,9 @@ export default function SpanishLearning() {
       setShowConj(false)
       if (card?.spanish) playTTS(card.spanish, 'es')
     } else if (tapStage === 1 && isFocus(modeRef.current)) {
-      advance()
+      advanceRef.current?.()
     }
-  }, [tapStage, submitting, card, playTTS, advance])
+  }, [tapStage, submitting, card, playTTS])
 
   // ─── Advance / Rate ───────────────────────────────────────────────────────────
 
@@ -294,7 +295,6 @@ export default function SpanishLearning() {
 
   // ─── Keyboard ─────────────────────────────────────────────────────────────────
 
-  const advanceRef = useRef(advance)
   const handleCardTapRef = useRef(handleCardTap)
   const tapStageRef = useRef(tapStage)
   useEffect(() => { advanceRef.current = advance }, [advance])
