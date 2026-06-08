@@ -171,8 +171,10 @@ export default function SpanishLearning() {
       setTapStage(1)
       setShowConj(false)
       if (card?.spanish) playTTS(card.spanish, 'es')
+    } else if (tapStage === 1 && isFocus(modeRef.current)) {
+      advance()
     }
-  }, [tapStage, submitting, card, playTTS])
+  }, [tapStage, submitting, card, playTTS, advance])
 
   // ─── Advance / Rate ───────────────────────────────────────────────────────────
 
@@ -426,9 +428,9 @@ export default function SpanishLearning() {
                 padding: '1rem 1.25rem 0.75rem',
                 transform: `translateX(${swipeDelta * 0.15}px)`,
                 transition: (swipeDelta === 0 && !swipeFlash) ? 'transform 0.2s ease' : 'none',
-                cursor: tapStage === 0 ? 'pointer' : 'default',
+                cursor: (tapStage === 0 || (tapStage === 1 && focusMode)) ? 'pointer' : 'default',
               }}
-              onClick={tapStage === 0 ? () => { if (!isDragging.current) handleCardTap() } : undefined}
+              onClick={(tapStage === 0 || (tapStage === 1 && focusMode)) ? () => { if (!isDragging.current) handleCardTap() } : undefined}
             >
               {/* Badges + remaining */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
