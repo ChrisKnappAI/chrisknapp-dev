@@ -12,23 +12,18 @@ function sm2(card, rating) {
   const now = new Date().toISOString()
 
   if (rating === 1) {
-    // Again — full reset
-    reps = 0; interval = 1
+    // Miss — full reset
+    reps = 0
+    interval = 1
     ef = Math.max(1.3, ef - 0.2)
-  } else if (rating === 3) {
-    // Hard — knew it but struggled: cut interval in half, penalize ef, don't advance reps
-    interval = Math.max(1, Math.round(interval * 0.5))
-    ef = Math.max(1.3, ef - 0.15)
   } else {
-    // Good (4) or Easy (5) — correct
+    // Correct — advance
     if (reps === 0) interval = 1
     else if (reps === 1) interval = 6
     else interval = Math.round(interval * ef)
-    if (rating === 5) ef = Math.min(2.5, ef + 0.1)
     reps += 1
   }
 
-  const correct = rating >= 4
   const next = new Date()
   next.setDate(next.getDate() + interval)
 
@@ -39,9 +34,9 @@ function sm2(card, rating) {
     next_review_at: next.toISOString().split('T')[0],
     last_reviewed_at: now,
     is_introduced: true,
-    times_correct: correct ? card.times_correct + 1 : card.times_correct,
-    times_incorrect: !correct ? card.times_incorrect + 1 : card.times_incorrect,
-    last_incorrect_at: !correct ? now : card.last_incorrect_at,
+    times_correct: rating === 1 ? card.times_correct : card.times_correct + 1,
+    times_incorrect: rating === 1 ? card.times_incorrect + 1 : card.times_incorrect,
+    last_incorrect_at: rating === 1 ? now : card.last_incorrect_at,
   }
 }
 
@@ -74,7 +69,6 @@ export async function POST(req) {
     }
   } else {
     updates = sm2(card, rating)
-    // mark learned once interval exceeds 21 days
     if (updates.interval_days >= 21) updates.is_learned = true
   }
 

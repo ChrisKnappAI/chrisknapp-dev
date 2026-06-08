@@ -16,45 +16,52 @@ function shuffle(arr) {
 export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const mode = searchParams.get('mode') || 'review'
+  const pos = searchParams.get('pos') || 'all'
   const today = new Date().toISOString().split('T')[0]
+
+  const todayMidnight = new Date()
+  todayMidnight.setHours(0, 0, 0, 0)
+  const todayMidnightISO = todayMidnight.toISOString()
+
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+
+  const startOfWeek = new Date()
+  const dow = startOfWeek.getDay()
+  startOfWeek.setDate(startOfWeek.getDate() - (dow === 0 ? 6 : dow - 1))
+  startOfWeek.setHours(0, 0, 0, 0)
+  const startOfWeekISO = startOfWeek.toISOString()
+
+  function base() {
+    let q = sb.from('spanish_vocab').select('*')
+    if (pos !== 'all') q = q.eq('part_of_speech', pos)
+    return q
+  }
 
   let data, error
 
   if (mode === 'learn') {
-    ;({ data, error } = await sb
-      .from('spanish_vocab')
-      .select('*')
+    ;({ data, error } = await base()
       .eq('is_introduced', false)
       .order('cefr_level', { ascending: true })
       .order('base_difficulty', { ascending: true })
       .limit(60))
-    if (!error && data) {
-      // Shuffle within each difficulty bucket so nouns/verbs/etc mix together
-      shuffle(data)
-      data = data.slice(0, 20)
-    }
-  } else if (mode === 'hard') {
-    ;({ data, error } = await sb
-      .from('spanish_vocab')
-      .select('*')
-      .eq('is_introduced', true)
-      .lte('ease_factor', 1.8)
-      .limit(50))
-    if (!error && data) shuffle(data)
-  } else if (mode === 'misses') {
-    ;({ data, error } = await sb
-      .from('spanish_vocab')
-      .select('*')
-      .eq('is_introduced', true)
+    if (!error && data) { shuffle(data); data = data.slice(0, 20) }
+
+  } else if (mode === 'today') {
+    ;({ data, error } = await base()
+      .gte('last_incorrect_at', todayMidnightISO)
+      .or(`weekly_miss_dismissed_at.is.null,weekly_miss_dismissed_at.lt.${todayMidnightISO}`)
+      .order('last_incorrect_at', { ascending: false }))
+
+  } else if (mode === 'week') {
+    ;({ data, error } = await base()
       .gte('last_incorrect_at', sevenDaysAgo)
-      .order('last_incorrect_at', { ascending: false })
-      .limit(50))
+      .or(`weekly_miss_dismissed_at.is.null,weekly_miss_dismissed_at.lt.${startOfWeekISO}`)
+      .order('last_incorrect_at', { ascending: false }))
+
   } else {
     // review: due cards
-    ;({ data, error } = await sb
-      .from('spanish_vocab')
-      .select('*')
+    ;({ data, error } = await base()
       .eq('is_introduced', true)
       .eq('is_learned', false)
       .lte('next_review_at', today)
