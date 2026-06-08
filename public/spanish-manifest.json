@@ -1,0 +1,17 @@
+{
+  "name": "Spanish B2",
+  "short_name": "Spanish",
+  "description": "Spanish vocabulary flashcards",
+  "start_url": "/spanish",
+  "display": "standalone",
+  "background_color": "#080D14",
+  "theme_color": "#080D14",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
