@@ -29,9 +29,13 @@ src/
   app/
     page.js                        — Public homepage (particle animation, typewriter, stat counters)
     layout.js                      — Root layout (Inter font, globals.css)
-    resume/page.js                 — Resume page (FULLY BUILT: particle bg, hero, full Progressive timeline, skills grid, education grid, footer with PDF download)
+    resume/page.js                 — Resume page (particle bg, hero, Progressive timeline, skills, education)
     login/chris/page.js            — Chris login → /chris/finances
     login/natalie/page.js          — Natalie login → /natalie/goals
+    spanish/
+      layout.js                    — Standalone PWA layout (NO sidebar). Auth guard: chris_auth cookie.
+                                     Sets viewport-fit=cover, 100dvh, overflow hidden for mobile full-screen.
+      page.js                      — Renders <SpanishLearning />
     chris/
       page.js                      — Redirects to /chris/finances
       layout.js                    — ChrisSidebar wrapper
@@ -57,7 +61,15 @@ src/
       care-log/route.js            — GET/POST: care_log_chris (+ daysSince tracking)
       care-log/seed/route.js       — POST: seeds missing care log items for today
       health/route.js              — GET: aggregates body_stats, workouts, sleep, activity, food_log
+      spanish/
+        cards/route.js             — GET: card queue. Params: mode (review/learn/today/week), pos (filter by POS)
+        review/route.js            — POST: submit rating { id, rating }. 1=Miss, 4=Correct, 99=I know this
+        stats/route.js             — GET: counts for all modes + flagged. Param: pos
+        tts/route.js               — POST: Google Cloud TTS proxy { text, lang }
+        focus-drop/route.js        — POST: drop card from focus list { id }
+        flag/route.js              — POST: toggle is_flagged on a card { id }
   components/
+    SpanishLearning.js             — Full Spanish vocab app (3,672 words, SM-2, TTS, swipe, 4 modes)
     ChrisDashboard.js              — Page wrapper (sticky header + content). Exports DashCard too.
     ChrisSidebar.js                — Fixed 232px sidebar for Chris area
     NatalieSidebar.js              — Fixed 232px sidebar for Natalie area
@@ -68,9 +80,14 @@ src/
   lib/
     supabase.js                    — Supabase client using NEXT_PUBLIC env vars
 scripts/
-  backup-db.js                     — Export all tables to CSV → C:\KnappFiles\chrisknapp-dev-data-backup\<timestamp>\
+  backup-db.js                     — Export all Supabase tables to timestamped CSV folder. RUN BEFORE EVERY WRITE.
+  load-from-source.js              — Full Spanish vocab reload: reads source JSON, runs conjugation engine,
+                                     wipes and reloads all 3,672 rows in spanish_vocab
+  add-noun-articles.js             — One-time: prepended el/la to all nouns (already run, do not re-run)
   sync-meals.js                    — Sync meal-ingredient-lookup.csv → Supabase
   migrate.js                       — One-time data migration tool
+public/
+  spanish-manifest.json            — PWA manifest for "Knapp en Español"
 ```
 
 ---
@@ -107,6 +124,7 @@ Components that support both themes accept a `theme="dark"` or `theme="beige"` p
 
 | Table | Key columns | Notes |
 |---|---|---|
+| `spanish_vocab` | id (uuid), spanish, english, part_of_speech, cefr_level, base_difficulty, conjugations (jsonb), ease_factor, interval_days, repetitions, next_review_at, last_reviewed_at, last_incorrect_at, times_correct, times_incorrect, is_introduced, is_learned, weekly_miss_dismissed_at, is_flagged, flagged_at, flag_note | 3,672 rows. Full schema in Personal EA/projects/spanish-learning/notes.md |
 | `food_log` | user_name, log_date, logged_at, meal, meal_version, ingredient, serving_metric, serving_size, actual_amount, user_percent, calories, fat, carbs, protein, is_cheat | Per-ingredient rows |
 | `meal_ingredient_lookup` | meal, meal_version, ingredient, serving_metric, serving_size, expected_amount, user_percent, serving_* | Meal recipe library |
 | `health_body_stats` | date, weight_lbs, body_fat_pct, lean_body_mass_lbs, bmi | From Apple Health / Starfit |
@@ -133,9 +151,31 @@ Components that support both themes accept a `theme="dark"` or `theme="beige"` p
 ```
 NEXT_PUBLIC_SUPABASE_URL        — Supabase project URL (client-safe)
 NEXT_PUBLIC_SUPABASE_ANON_KEY   — Supabase anon key (client-safe)
+SUPABASE_SERVICE_KEY            — Service role key (server-only, used in API routes)
 CHRIS_PASSWORD                  — Chris dashboard password
 NATALIE_PASSWORD                — Natalie dashboard password
+GOOGLE_TTS_API_KEY              — Google Cloud Text-to-Speech (used by Spanish app)
+ANTHROPIC_API_KEY               — Claude API (used by Santiago / Penny chatbot)
 ```
+
+---
+
+## Spanish Vocab App (Knapp en Español)
+
+Full documentation: `C:\KnappFiles\Personal EA\projects\spanish-learning\notes.md`
+
+**Quick summary:**
+- Live at chrisknapp.dev/spanish — standalone PWA, no site chrome
+- 3,672 words (A2/B1/B2), SM-2 spaced repetition
+- Card flow: English shown → tap reveals Spanish → swipe left=Miss / right=Correct
+- 4 modes: Review (due cards), Learn (new words), Today Focus, 7-Day Focus
+- Focus modes are rapid-fire study of missed words; swipe advances, Drop button removes from list
+- POS filter dropdown (All / Nouns / Verbs / Adjectives / Adverbs / Phrases)
+- Flag button (🚩) on every card — flags `is_flagged=true` in DB for later review
+- Verb cards show irregularity badge + expandable full conjugation table (no vosotros)
+- Google Cloud TTS auto-plays English on load, Spanish on reveal
+
+**To review flagged words:** query `SELECT * FROM spanish_vocab WHERE is_flagged = true`
 
 ---
 

@@ -229,6 +229,18 @@ export default function SpanishLearning() {
     }
   }, [card, idx, queue, submitting, stopAudio, playTTS, fetchStats, fetchCards])
 
+  // ─── Flag ─────────────────────────────────────────────────────────────────────
+
+  const flagCard = useCallback(async () => {
+    if (!card) return
+    const newFlag = !card.is_flagged
+    setQueue(q => q.map((c, i) => i === idx ? { ...c, is_flagged: newFlag } : c))
+    await fetch('/api/spanish/flag', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: card.id }),
+    }).catch(() => {})
+  }, [card, idx])
+
   // ─── Mode / filter switch ─────────────────────────────────────────────────────
 
   const switchMode = useCallback((m) => {
@@ -443,7 +455,19 @@ export default function SpanishLearning() {
                   {!card.is_introduced && <Badge color="#334155">new</Badge>}
                   {focusMode && <Badge color="#F59E0B">{mode === 'today' ? 'today' : '7-day'}</Badge>}
                 </div>
-                <span style={{ color: '#1E3A5F', fontSize: '0.7rem' }}>{remaining} left</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <button
+                    onClick={e => { e.stopPropagation(); flagCard() }}
+                    title={card.is_flagged ? 'Unflag' : 'Flag for review'}
+                    style={{
+                      background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+                      fontSize: '0.85rem', opacity: card.is_flagged ? 1 : 0.25,
+                      filter: card.is_flagged ? 'none' : 'grayscale(1)',
+                      transition: 'opacity 0.15s',
+                    }}
+                  >🚩</button>
+                  <span style={{ color: '#1E3A5F', fontSize: '0.7rem' }}>{remaining} left</span>
+                </div>
               </div>
 
               {/* ENGLISH — front of card */}
@@ -711,7 +735,16 @@ function StatsView({ stats, onStart }) {
         ))}
       </div>
 
-      <div style={{ fontSize: '0.62rem', color: '#1E3A5F', textAlign: 'center' }}>
+      {(stats?.flagged ?? 0) > 0 && (
+        <div style={{
+          marginTop: '0.75rem', padding: '0.5rem 0.7rem',
+          background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)',
+          borderRadius: 8, fontSize: '0.72rem', color: '#F87171',
+        }}>
+          🚩 {stats.flagged} word{stats.flagged !== 1 ? 's' : ''} flagged for review — tell me to pull them up
+        </div>
+      )}
+      <div style={{ marginTop: '0.6rem', fontSize: '0.62rem', color: '#1E3A5F', textAlign: 'center' }}>
         {total.toLocaleString()} total words · tap a tile to start
       </div>
     </div>

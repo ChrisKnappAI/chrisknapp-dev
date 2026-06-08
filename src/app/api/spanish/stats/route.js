@@ -36,6 +36,7 @@ export async function GET(req) {
     { count: new_available },
     { count: today_misses },
     { count: week_misses },
+    { count: flagged },
   ] = await Promise.all([
     base(),
     base().eq('is_introduced', true),
@@ -48,7 +49,8 @@ export async function GET(req) {
     base()
       .gte('last_incorrect_at', sevenDaysAgo)
       .or(`weekly_miss_dismissed_at.is.null,weekly_miss_dismissed_at.lt.${startOfWeekISO}`),
+    sb.from('spanish_vocab').select('*', { count: 'exact', head: true }).eq('is_flagged', true),
   ])
 
-  return Response.json({ total, introduced, learned, due, new_available, today_misses, week_misses })
+  return Response.json({ total, introduced, learned, due, new_available, today_misses, week_misses, flagged })
 }
