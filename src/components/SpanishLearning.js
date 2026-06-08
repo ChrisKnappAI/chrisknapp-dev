@@ -30,6 +30,7 @@ export default function SpanishLearning() {
 
   const audioRef = useRef(null)
   const urlRef = useRef(null)
+  const prefetchRef = useRef(null) // pre-fetched Audio for next card
   const dragStartX = useRef(null)
   const isDragging = useRef(false)
 
@@ -86,10 +87,30 @@ export default function SpanishLearning() {
 
   useEffect(() => { loadStats(); loadCards('review') }, [])
 
-  // Auto-play Spanish word on each new card
+  // Auto-play current card Spanish (first card, or after loadCards)
   useEffect(() => {
-    if (card && !loading) playTTS(card.spanish)
+    if (card && !loading) playTTS(card.spanish, 'es')
   }, [card?.id, loading])
+
+  // Pre-fetch NEXT card's audio in background so swipe plays it instantly
+  useEffect(() => {
+    const next = queue[idx + 1]
+    if (!next || loading) { prefetchRef.current = null; return }
+    let cancelled = false
+    fetch('/api/spanish/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: next.spanish, lang: 'es' }),
+    })
+      .then(r => r.blob())
+      .then(blob => {
+        if (cancelled) return
+        const url = URL.createObjectURL(blob)
+        prefetchRef.current = new Audio(url)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [idx, loading])
 
   // ─── Card tap (advances stage) ───────────────────────────────────────────────
 
@@ -108,6 +129,25 @@ export default function SpanishLearning() {
 
   const handleRate = useCallback(async (rating) => {
     if (!card || submitting) return
+
+    const next = idx + 1
+    const nextCard = queue[next]
+
+    // Play next card's Spanish SYNCHRONOUSLY before any await — this preserves
+    // the user gesture context on iOS Safari so audio.play() is allowed.
+    const prefetched = prefetchRef.current
+    prefetchRef.current = null
+    if (nextCard) {
+      stopAudio()
+      if (prefetched) {
+        audioRef.current = prefetched
+        prefetched.play().catch(() => {})
+      } else {
+        // Pre-fetch wasn't ready — kick off fetch now (best effort)
+        playTTS(nextCard.spanish, 'es')
+      }
+    }
+
     setSubmitting(true)
     setSwipeDelta(0)
     setSwipeFlash(rating === 1 ? 'again' : 'good')
@@ -126,14 +166,13 @@ export default function SpanishLearning() {
     setTapStage(0)
     setSubmitting(false)
 
-    const next = idx + 1
     if (next >= queue.length) {
       loadStats()
       loadCards(mode)
     } else {
       setIdx(next)
     }
-  }, [card, idx, queue.length, mode, submitting, loadStats, loadCards])
+  }, [card, idx, queue, mode, submitting, stopAudio, playTTS, loadStats, loadCards])
 
   // ─── Mode switch ─────────────────────────────────────────────────────────────
 
