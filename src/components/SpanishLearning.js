@@ -359,7 +359,10 @@ export default function SpanishLearning() {
           }}>{sessionDone}/{sessionTotal}</span>
         )}
         <button
-          onClick={() => { setShowStats(s => !s); if (!showStats) stopAudio() }}
+          onClick={() => {
+            if (!showStats) { fetchStats(filterRef.current); stopAudio() }
+            setShowStats(s => !s)
+          }}
           style={{
             background: showStats ? 'rgba(99,102,241,0.12)' : 'transparent',
             border: '1px solid rgba(255,255,255,0.06)',
@@ -717,21 +720,39 @@ function StatsView({ stats, onStart }) {
 
 function ConjDisplay({ raw }) {
   const conj = typeof raw === 'string' ? JSON.parse(raw) : raw
-  const persons = ['yo', 'tú', 'él/ella', 'nosotros', 'vosotros', 'ellos/ellas']
+
+  // American textbook layout: 3 rows, singular left / plural right, no vosotros
+  const rows = [
+    { left: 'yo',       right: 'nosotros'   },
+    { left: 'tú',       right: null          },
+    { left: 'él/ella',  right: 'ellos/ellas' },
+  ]
 
   const Grid = ({ tense, forms }) => (
     <div style={{ marginBottom: '0.65rem' }}>
       <div style={{ color: '#1E293B', fontSize: '0.57rem', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.2rem' }}>
         {tense}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.08rem 0.5rem' }}>
-        {persons.map(p => (
-          <div key={p} style={{ display: 'flex', gap: '0.3rem', fontSize: '0.74rem' }}>
-            <span style={{ color: '#334155', minWidth: 46, flexShrink: 0 }}>
-              {p.replace('/ella', '').replace('/ellas', '')}
-            </span>
-            <span style={{ color: '#CBD5E1' }}>{forms?.[p] || '—'}</span>
-          </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.1rem 0.75rem' }}>
+        {rows.map(({ left, right }) => (
+          <>
+            <div key={left} style={{ display: 'flex', gap: '0.3rem', fontSize: '0.74rem' }}>
+              <span style={{ color: '#334155', minWidth: 34, flexShrink: 0 }}>
+                {left.replace('/ella', '')}
+              </span>
+              <span style={{ color: '#CBD5E1' }}>{forms?.[left] || '—'}</span>
+            </div>
+            {right ? (
+              <div key={right} style={{ display: 'flex', gap: '0.3rem', fontSize: '0.74rem' }}>
+                <span style={{ color: '#334155', minWidth: 52, flexShrink: 0 }}>
+                  {right.replace('/ellas', '')}
+                </span>
+                <span style={{ color: '#CBD5E1' }}>{forms?.[right] || '—'}</span>
+              </div>
+            ) : (
+              <div key="blank" />
+            )}
+          </>
         ))}
       </div>
     </div>
