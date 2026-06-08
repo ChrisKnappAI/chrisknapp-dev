@@ -223,6 +223,8 @@ export default function SpanishLearning() {
 
   const onTouchEnd = useCallback((e) => {
     if (dragStartX.current === null) return
+    // Don't intercept taps on buttons — let onClick handle them
+    if (e.target.closest('button')) { dragStartX.current = null; return }
     const dx = e.changedTouches[0].clientX - dragStartX.current
     dragStartX.current = null
     if (Math.abs(dx) > 60 && tapStage >= 1) {

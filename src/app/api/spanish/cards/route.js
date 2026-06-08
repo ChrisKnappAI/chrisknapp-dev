@@ -28,7 +28,12 @@ export async function GET(req) {
       .eq('is_introduced', false)
       .order('cefr_level', { ascending: true })
       .order('base_difficulty', { ascending: true })
-      .limit(20))
+      .limit(60))
+    if (!error && data) {
+      // Shuffle within each difficulty bucket so nouns/verbs/etc mix together
+      shuffle(data)
+      data = data.slice(0, 20)
+    }
   } else if (mode === 'hard') {
     ;({ data, error } = await sb
       .from('spanish_vocab')
