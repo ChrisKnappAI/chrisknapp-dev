@@ -10,13 +10,14 @@ export const metadata = {
     statusBarStyle: 'black-translucent',
     title: 'Spanish B2',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: 'cover',
-  },
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
 }
 
 export default async function SpanishAppLayout({ children }) {
@@ -28,10 +29,10 @@ export default async function SpanishAppLayout({ children }) {
   return (
     <>
       <style>{`
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { height: 100%; background: #080D14; overflow: hidden; }
-        #__next, main { height: 100%; }
-        ::-webkit-scrollbar { width: 0; height: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { height: 100%; background: #080D14; }
+        body { height: 100%; background: #080D14; overflow: hidden; -webkit-text-size-adjust: 100%; }
+        ::-webkit-scrollbar { display: none; }
       `}</style>
       {children}
     </>

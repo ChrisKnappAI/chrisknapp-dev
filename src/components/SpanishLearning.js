@@ -216,10 +216,11 @@ export default function SpanishLearning() {
 
   return (
     <div style={{
-      minHeight: '100vh', background: '#080D14',
+      height: '100dvh', background: '#080D14',
       display: 'flex', flexDirection: 'column',
       fontFamily: 'system-ui, -apple-system, sans-serif',
       userSelect: 'none',
+      overflow: 'hidden',
     }}>
       {/* Header */}
       <div style={{
@@ -450,7 +451,7 @@ export default function SpanishLearning() {
 
       {/* Mode footer */}
       {!showStats && (
-        <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.05)', flexShrink: 0 }}>
+        <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.05)', flexShrink: 0, paddingBottom: 'env(safe-area-inset-bottom)' }}>
           {MODES.map(m => (
             <ModeTab
               key={m.key}
