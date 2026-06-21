@@ -129,7 +129,7 @@ export default function CatchphraseGame() {
   const [phase, setPhase] = useState('idle')          // idle | playing | done
   const [cacheSize, setCacheSize] = useState(0)
   const [pendingSize, setPendingSize] = useState(0)
-  const [online, setOnline] = useState(true)
+  const [online, setOnline] = useState(() => typeof navigator !== 'undefined' ? navigator.onLine : true)
   const [current, setCurrent] = useState(null)
   const [turnHistory, setTurnHistory] = useState([])  // phrases shown this turn
   const [secondsLeft, setSecondsLeft] = useState(TURN_SECONDS)
@@ -137,7 +137,6 @@ export default function CatchphraseGame() {
 
   // Initial mount: sync + refresh cache stats
   useEffect(() => {
-    setOnline(navigator.onLine)
     const onOnline = () => { setOnline(true); refreshStats(); syncPendingAndRefill().then(refreshStats) }
     const onOffline = () => setOnline(false)
     window.addEventListener('online', onOnline)

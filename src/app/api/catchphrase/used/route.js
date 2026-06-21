@@ -1,9 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 
-const sb = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-)
+function getSb() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  )
+}
 
 // POST /api/catchphrase/used
 // Body: { ids: [uuid, uuid, ...] }
@@ -21,6 +23,7 @@ export async function POST(req) {
     return Response.json({ ok: true, updated: 0 })
   }
 
+  const sb = getSb()
   const { error } = await sb
     .from('catchphrases')
     .update({ is_used: true, used_at: new Date().toISOString() })
