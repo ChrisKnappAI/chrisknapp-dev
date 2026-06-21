@@ -1,11 +1,16 @@
 import { createClient } from '@supabase/supabase-js'
 
-const sb = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-)
+export const dynamic = 'force-dynamic'
+
+function getSb() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  )
+}
 
 export async function GET(req) {
+  const sb = getSb()
   const { searchParams } = new URL(req.url)
   const pos = searchParams.get('pos') || 'all'
   const today = new Date().toISOString().split('T')[0]

@@ -1,9 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
 
-const sb = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-)
+export const dynamic = 'force-dynamic'
+
+function getSb() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  )
+}
 
 function sm2(card, rating) {
   let ef = card.ease_factor
@@ -42,6 +46,7 @@ function sm2(card, rating) {
 
 export async function POST(req) {
   const { id, rating } = await req.json()
+  const sb = getSb()
 
   const { data: card, error: fetchErr } = await sb
     .from('spanish_vocab').select('*').eq('id', id).single()

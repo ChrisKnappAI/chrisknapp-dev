@@ -1,9 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
 
-const sb = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-)
+export const dynamic = 'force-dynamic'
+
+function getSb() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  )
+}
 
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -30,6 +34,8 @@ export async function GET(req) {
   startOfWeek.setDate(startOfWeek.getDate() - (dow === 0 ? 6 : dow - 1))
   startOfWeek.setHours(0, 0, 0, 0)
   const startOfWeekISO = startOfWeek.toISOString()
+
+  const sb = getSb()
 
   function base() {
     let q = sb.from('spanish_vocab').select('*')
