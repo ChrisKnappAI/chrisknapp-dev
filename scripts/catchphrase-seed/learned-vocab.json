@@ -1,0 +1,4099 @@
+{
+  "summary": {
+    "learned": 177,
+    "introduced": 334,
+    "total": 511
+  },
+  "learned": [
+    {
+      "spanish": "la pierna",
+      "english": "The leg (lower limb of a human)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el ataque",
+      "english": "The attack (an attempt to damage an opponent or enemy); attack, offensive",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la comunidad",
+      "english": "The community; clipping of \"comunidad autónoma\"",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el dulce",
+      "english": "The candy, sweet; sweet food, dessert",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el animal",
+      "english": "The animal",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el estado",
+      "english": "The State",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el color",
+      "english": "The color / colour, hue; complexion",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la mesa",
+      "english": "The table; dinner table",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la diferencia",
+      "english": "The difference",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el interés",
+      "english": "The interest (a fraction of the amount of what was borrowed); interest (attention that is given to something or someone)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el futuro",
+      "english": "The future (the time ahead); future, future tense",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el club",
+      "english": "The (countable) club (An association of members joining together for some common purpose, especially sports or recreation.)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el efecto",
+      "english": "The effect",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la posibilidad",
+      "english": "The possibility; means",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la causa",
+      "english": "The cause; lawsuit",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el objeto",
+      "english": "The object; objective; goal",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el mar",
+      "english": "The sea; seaside",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la isla",
+      "english": "The island (area of land surrounded by water); block (group of urban lots of property)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el dedo",
+      "english": "The finger; digit (a part of the body inclusive of fingers or toes)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el cliente",
+      "english": "The client; customer",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el cine",
+      "english": "The cinema, moviehouse; film (when specifying types of films)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la defensa",
+      "english": "The defense; retaining wall",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el tema",
+      "english": "The theme; plot (of a book, film or other media); topic; matter; subject",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "casado",
+      "english": "married",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la cena",
+      "english": "The supper, dinner",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el agente",
+      "english": "The agent; police officer, policeman, policewoman",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el director",
+      "english": "The director; conductor (of a musical ensemble)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la línea",
+      "english": "The line (a straight path through two or more points); line (a piece of spoken dialogue in a script)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el placer",
+      "english": "The pleasure; something done to please; placer (place where the superficial detritus is washed for gold)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el reunión",
+      "english": "The meeting, session, appointment; powwow",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el sentimiento",
+      "english": "The feeling",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el frío",
+      "english": "The cold, coldness (a condition of low temperature)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la televisión",
+      "english": "The television (an electronic communication medium that allows the transmission of real-time visual images, and often sound); television set, TV set, television receiver, television, (colloquial) telly (a device for receiving television signals and displaying them in visual form)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la salida",
+      "english": "The exit, way out; departure",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la investigación",
+      "english": "The investigation; research",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la luna",
+      "english": "The moon; windshield",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "probablemente",
+      "english": "probably, likely",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la oficina",
+      "english": "The office (a room used for non-manual work); workshop",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la vista",
+      "english": "The sight, vision, eyesight (the ability to see); sight (the act of seeing or witnessing)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "necesario",
+      "english": "necessary, requisite",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "raro",
+      "english": "rare; strange, odd",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "bonito",
+      "english": "pretty, cute; nice, lovely, sweet, fine, charming, great",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "despertar",
+      "english": "to wake; to wake up",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "perfecto",
+      "english": "perfect",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "oficial",
+      "english": "official",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "peor",
+      "english": "comparative of \"malo\": worse; superlative of \"malo\": worst",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "molestar",
+      "english": "to bother, to disturb, to trouble, to impose, to inconvenience, to burden; to annoy, to tease, to pester, to bug, to hassle",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la cama",
+      "english": "The bed",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el abuelo",
+      "english": "The grandfather; an elderly person",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "pesar",
+      "english": "to weigh (to determine the weight of an object); to weigh (to have a certain weight)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el rey",
+      "english": "The king",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el cuarto",
+      "english": "The fourth (in a series); fourth, quarter (one of four equal divisions of a whole)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "producir",
+      "english": "to produce; to occur, to be there, to take place, to happen, to arise, to come about (to be produced)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "personal",
+      "english": "personal",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el ejemplo",
+      "english": "The example; instance",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la acción",
+      "english": "The action, act, deed (something done); action (way of motion or functioning)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el papel",
+      "english": "The paper; role",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el aire",
+      "english": "The air (the substance constituting earth's atmosphere); air (the open space above the ground)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la puta",
+      "english": "The whore, slut, prostitute; bitch",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el estudio",
+      "english": "The study; studio",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el control",
+      "english": "The control, or running of a business; control of a machine",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el error",
+      "english": "The error",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el secreto",
+      "english": "The a secret; secrecy",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el hospital",
+      "english": "The hospital",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "pobre",
+      "english": "poor (pitiable, pitiful); poor (lacking money, resources, etc.)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la zona",
+      "english": "The zone, district, area",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la decisión",
+      "english": "The decision",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el fuego",
+      "english": "The fire",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la dirección",
+      "english": "The direction; address",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "mandar",
+      "english": "to send; to order",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "lindo",
+      "english": "pretty; cute",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "escapar",
+      "english": "to escape, get out; to run away, get away, slip away, flee",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "estúpido",
+      "english": "stupid",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la edad",
+      "english": "The age; time since an event",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la duda",
+      "english": "The doubt; question",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el espacio",
+      "english": "The space (distance between things); space (physical extent across two or three dimensions)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la boca",
+      "english": "The mouth, oral cavity; entrance, opening",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "abierto",
+      "english": "open, unlocked (not closed, accessible); open (actively conducting business)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el profesor",
+      "english": "The professor (a faculty member); teacher",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la ropa",
+      "english": "The garment, clothing, clothes, robes",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el proceso",
+      "english": "The process; lawsuit",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el baño",
+      "english": "The bath (act of taking a bath); bathroom",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la sociedad",
+      "english": "The society, social order; high society",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la universidad",
+      "english": "The university, (US) college",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "anoche",
+      "english": "last night",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "querido",
+      "english": "dear (also used in letter introductions, etc.); handsome (guy), beautiful (girl)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "crear",
+      "english": "to create",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tercero",
+      "english": "third",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "principal",
+      "english": "main, most important; essential",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la condición",
+      "english": "The condition; possibility; the makings",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "económico",
+      "english": "economic; economical",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "increíble",
+      "english": "incredible, unbelievable",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el banco",
+      "english": "The bank (financial institution); bench",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "dirigir",
+      "english": "to direct; to lead, guide, conduct",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el brazo",
+      "english": "The arm; branch, limb (of a tree)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el arte",
+      "english": "The art; skill",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la caja",
+      "english": "The box, case; bank",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "rojo",
+      "english": "red (colour)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "normal",
+      "english": "normal, standard, regular, fine; perpendicular",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el hotel",
+      "english": "The hotel",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el sexo",
+      "english": "The sex (the biological category); sex (men or women)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "acompañar",
+      "english": "to accompany, to go with, to join, to tag along; to chaperone",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "bailar",
+      "english": "to dance; to dribble (the ball)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la canción",
+      "english": "The song",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el mercado",
+      "english": "The market",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la necesidad",
+      "english": "The need; necessity",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la experiencia",
+      "english": "The experience; expertise",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la posición",
+      "english": "The position",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "estudiar",
+      "english": "to study; to examine, look into",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "maravilloso",
+      "english": "wonderful, marvelous",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el pelo",
+      "english": "The hair (a single hair); hair (all hair on the head)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "completo",
+      "english": "full, complete; completed",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el río",
+      "english": "The river",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la actividad",
+      "english": "The activity (state of being active); activity (something done as an action)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "imposible",
+      "english": "impossible; unable",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el accidente",
+      "english": "The accident (unexpected event with negative consequences); accidental",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "común",
+      "english": "common, ordinary; common, joint, shared",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "atacar",
+      "english": "to attack, to come at; to engage (enter into conflicted with)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "observar",
+      "english": "to observe, to eye; to observe (to obey)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "privado",
+      "english": "private, privy (e.g. a privy council); deprived, deprived of, denied, bereft (usually followed by de)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "controlar",
+      "english": "to control, to rein in; to manage, to handle (e.g. managing symptoms, pain, stress or emotions)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la operación",
+      "english": "The operation (a surgical procedure); operation (the method or practice by which actions are done)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la escena",
+      "english": "The scene; stage",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "apenas",
+      "english": "barely, scarcely; recently, just",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "total",
+      "english": "total, complete, outright",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "simple",
+      "english": "simple (uncomplicated); mere, ordinary",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "internacional",
+      "english": "international",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "interesante",
+      "english": "interesting",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "disfrutar",
+      "english": "to enjoy",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "totalmente",
+      "english": "totally",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el traje",
+      "english": "The suit; dress (distinctive style for particular occasion)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "peligroso",
+      "english": "perilous, dangerous",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la entrada",
+      "english": "The entrance; entry, entering, admission, entryway",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el dato",
+      "english": "The datum (a single piece of information)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la boda",
+      "english": "The wedding",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "representar",
+      "english": "to represent; to make up, constitute, account for",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "odiar",
+      "english": "to hate, to loathe",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la unidad",
+      "english": "The unit (object, military, or measure); unity",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el crimen",
+      "english": "The crime",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "construir",
+      "english": "to build; to construct",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "revisar",
+      "english": "to revise; to review, to check",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "natural",
+      "english": "natural (of or relating to nature); native; indigenous",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "informar",
+      "english": "to inform; to find out",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "terrible",
+      "english": "terrible, awful, horrible (very bad); appalling (shocking, causing consternation)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la espalda",
+      "english": "The back; backstroke",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "profesional",
+      "english": "professional",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "local",
+      "english": "local",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la radio",
+      "english": "The radio (device); radio (industry, signal)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "cerrado",
+      "english": "shut, closed; closed off (personality trait)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la sorpresa",
+      "english": "The surprise (something not expected); upset (unexpected victory)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la regla",
+      "english": "The rule (regulation, norm); ruler (measuring stick)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "besar",
+      "english": "to kiss; to kiss (each other, one another)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "americano",
+      "english": "American (of, from or relating to the Americas); American (of, from or relating to the United States)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "viajar",
+      "english": "to travel, journey",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "horrible",
+      "english": "horrible",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el matrimonio",
+      "english": "The matrimony (sacrament); marriage",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "visitar",
+      "english": "to visit",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "azul",
+      "english": "blue",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la misión",
+      "english": "The mission, quest; mission, task, assignment",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "declarar",
+      "english": "to declare; to state",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la cocina",
+      "english": "The kitchen; stove, cooker, range",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "celebrar",
+      "english": "to celebrate; to hold, to organize (a formal event, conference, meeting etc.)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "causar",
+      "english": "to cause, to make; to wreak, to bring, to provoke",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el culo",
+      "english": "The ass, arse, booty, rear, behind, butt, buttocks; anus",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "científico",
+      "english": "scientific",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "cenar",
+      "english": "to dine; to have supper; to have a lavish meal",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "falso",
+      "english": "false; untrue; fake; counterfeit",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "sin duda",
+      "english": "without a doubt / definitely",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿cuál es tu número de teléfono?",
+      "english": "what's your phone number?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "no entiendo",
+      "english": "I don't understand",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tengo hambre",
+      "english": "I'm hungry",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "más o menos",
+      "english": "more or less / so-so",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿cómo se dice?",
+      "english": "how do you say...?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "más despacio, por favor",
+      "english": "more slowly, please",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tengo miedo",
+      "english": "I'm scared / I'm afraid",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿me puede ayudar?",
+      "english": "can you help me?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿cuántos años tienes?",
+      "english": "how old are you?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": true,
+      "is_introduced": true
+    }
+  ],
+  "introduced": [
+    {
+      "spanish": "la época",
+      "english": "The epoch, era, age, time, day; season, time",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la especie",
+      "english": "The species; type, sort, kind",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el objetivo",
+      "english": "The objective; aim, goal, target",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la imagen",
+      "english": "The image",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la libertad",
+      "english": "The liberty, freedom; latitude, leeway",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el avión",
+      "english": "The aeroplane, airplane, plane; hopscotch",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la serie",
+      "english": "The series (a number of things that follow one another); series (a television or radio program with several episodes)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el suelo",
+      "english": "The dirt, earth, ground, soil; floor, ground",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "formar",
+      "english": "to form, to create; to train, to educate",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el desarrollo",
+      "english": "The development",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la alma",
+      "english": "The soul; web (strip of material between flanges)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el valor",
+      "english": "The value (all senses); security",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el abogado",
+      "english": "The lawyer, solicitor, counsel",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el caballo",
+      "english": "The horse; knight",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el actor",
+      "english": "The actor (person who performs in a theatrical play or movie); defendant",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el movimiento",
+      "english": "The movement (physical motion between points in space); movement (a trend in various fields or social categories)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el aspecto",
+      "english": "The aspect; appearance, look",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el precio",
+      "english": "The price; worth, cost",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el enfermo",
+      "english": "The sick person, patient",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la carrera",
+      "english": "The race; run (act of running)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el informe",
+      "english": "The report",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el silencio",
+      "english": "The silence; rest",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el sol",
+      "english": "The sun; sunlight",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "señalar",
+      "english": "to signal; to show, to indicate, to point out, to flag, to flag up",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la broma",
+      "english": "The joke, prank, practical joke; banter (plural)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el honor",
+      "english": "The honor",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el intento",
+      "english": "The attempt",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el metro",
+      "english": "The meter; tape measure, measuring tape",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la cámara",
+      "english": "The Camera",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la compañía",
+      "english": "The company; company, enterprise, business, firm",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "recuperar",
+      "english": "to recover; to recuperate",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el piso",
+      "english": "The floor, ground (surface of the earth); floor, story, storey (level of a building)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el acto",
+      "english": "The act (something done); act",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el deseo",
+      "english": "The desire, wish",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la muestra",
+      "english": "The sample, sampling; exhibition (artistic or technological collection for display)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la mitad",
+      "english": "The half",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el éxito",
+      "english": "The success; hit (something popular or well received)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el daño",
+      "english": "The damage; hex, curse",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la disculpa",
+      "english": "The excuse; apology",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la cárcel",
+      "english": "The prison",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "golpear",
+      "english": "to hit, to knock, to tap",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el peso",
+      "english": "The weight (the force on an object due to gravitational attraction); weight (a block of metal used in a balance)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el señal",
+      "english": "The sign; landmark",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la enfermedad",
+      "english": "The illness, disease",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la lucha",
+      "english": "The fight, fighting, fray; struggle, battle (in the figurative sense), strife, striving",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la cuestión",
+      "english": "The matter, question, issue; a question; a sentence that asks for information",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "gritar",
+      "english": "to shout, to scream, to cry out, to call out; to jeer at",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el oro",
+      "english": "The gold; or",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "manejar",
+      "english": "to handle; to manage",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "enfrentar",
+      "english": "to confront, to face, to stand up to, (a person or force aggressively); to face, to confront, to address, to deal with, to meet, to tackle, to cope with, to handle, to contend, to contend with (e.g. reality, an issue, a problem)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tengo calor",
+      "english": "I'm hot",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿a qué hora?",
+      "english": "at what time? / what time...?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el modelo",
+      "english": "The model (a successful example to be copied); model (a representation of a physical object in miniature)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "discutir",
+      "english": "to discuss, to argue; to talk about; to examine some subject in detail",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿cómo se escribe?",
+      "english": "how do you spell it? / how is it written?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "demostrar",
+      "english": "to show, to demonstrate; to prove",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el miembro",
+      "english": "The member (one who belongs to a group); limb (a major appendage of a person or animal)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "recoger",
+      "english": "to collect, to gather, to pick up, to fetch, to retrieve (something previously left behind); to pick up (a person or people by vehicle)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el viaje",
+      "english": "The voyage; journey, trip",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿puede repetir, por favor?",
+      "english": "can you please repeat that?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el compañero",
+      "english": "The companion (someone with whom one spends time or keeps company); mate, colleague; (with a qualifier) fellow X, classmate, coworker, etc. (someone with whom something is shared)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿a qué te dedicas?",
+      "english": "what do you do for a living? / what's your job?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el maestro",
+      "english": "The master; (master) craftsman, handyman, contractor, construction worker",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el principio",
+      "english": "The principle; cause, origin",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la opción",
+      "english": "The option",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el consejo",
+      "english": "The advice, counsel, piece of advice; council, board",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "utilizar",
+      "english": "to use; to make use of; to utilize",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "soler",
+      "english": "to be accustomed to doing something, to do something on a regular basis, to do something usually or often; to tend to",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "comprender",
+      "english": "to understand, to comprehend; to comprise; to include",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "resultar",
+      "english": "to result, to turn out, to end up, to prove; to work out",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "responder",
+      "english": "to answer, to reply; to talk back, to answer back (to respond defiantly and inappropriately)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el montón",
+      "english": "The heap, pile (collection of things laid in a body, or thrown together so as to form an elevation); ton, a lot, bunch, heap, loads (a great deal; a great quantity)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la prisa",
+      "english": "The hurry, rush, urgency",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el corte",
+      "english": "The cut (the act of cutting); cut (the result of cutting)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el sur",
+      "english": "The south",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la pareja",
+      "english": "The couple, pair; partner (spouse)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el destino",
+      "english": "The destiny, fate; destination",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la ventana",
+      "english": "The window (opening for light and air); window frame",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la justicia",
+      "english": "The justice; righteousness",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el regalo",
+      "english": "The present, gift",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el árbol",
+      "english": "The tree (a perennial woody plant); tree (any plant that is reminiscent of the above but not classified as a tree)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el departamento",
+      "english": "The department; apartment, flat",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el rato",
+      "english": "The a while, bit (a short period of time); time",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la ocasión",
+      "english": "The occasion",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la derecha",
+      "english": "The right (direction); right (ensemble of right-wing political parties; political conservatives as a group)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el detective",
+      "english": "The detective",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el riesgo",
+      "english": "The chance; risk; the possibility of harm or an unfavorable outcome from random chance",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "mentir",
+      "english": "to lie (say something untrue)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tirar",
+      "english": "to drop intentionally; to throw, to toss",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "invitar",
+      "english": "to invite; to be on, to assume or take responsibility for paying",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "obtener",
+      "english": "to obtain",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "romper",
+      "english": "to break; to break up, terminate (a relationship, friendship etc.)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "lejos",
+      "english": "far",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el demonio",
+      "english": "The demon, devil",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "a través de",
+      "english": "through, across",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "simplemente",
+      "english": "simply",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "verdadero",
+      "english": "true, real; honest",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la empresa",
+      "english": "The company; enterprise, undertaking",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el idiota",
+      "english": "The Idiot",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "continuar",
+      "english": "to continue, to carry on; to go off on, to go off of (idiomatic)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "arreglar",
+      "english": "to fix, to repair, to mend; to settle, to sort, to sort out, to patch up, to solve",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el amo",
+      "english": "The master (man who owns a slave); owner, master, keeper (man who owns an animal)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "evitar",
+      "english": "to avoid, to bypass, to evade, to circumvent, to dodge, to shun, to eschew (to steer clear of); to avoid, to prevent, to keep from, to stop from, to avert, to obviate, to deter",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "reconocer",
+      "english": "to recognize; to acknowledge, to own",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "bastar",
+      "english": "to be enough; to suffice",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "probar",
+      "english": "to prove; to test, to demonstrate",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el resultado",
+      "english": "The result, outcome, finding, upshot; product, consequence, output",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la atención",
+      "english": "The attention; courtesy",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el nivel",
+      "english": "The level, tier, height (distance relative to a given reference elevation); level, standard (degree or amount)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "lleno",
+      "english": "full",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el marido",
+      "english": "The husband",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la respuesta",
+      "english": "The reply, response, answer",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "maldito",
+      "english": "cursed; damned, freaking, fucking",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el mensaje",
+      "english": "The message; speech",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "cumplir",
+      "english": "to fulfil, to fulfill, to meet, to deliver (e.g., requirements, prerequisites, promise, vow); to achieve, to accomplish, to carry out, to perform, to complete, to discharge, to fulfil (e.g., one's duties, responsibilities)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el señorito",
+      "english": "The A son of an important or respectable person; Young master",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "alegrar",
+      "english": "to make happy; to be happy",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el medio",
+      "english": "The Middle",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el fondo",
+      "english": "The bottom; back",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "llorar",
+      "english": "to cry, to weep; to mourn",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el maldito",
+      "english": "The bastard, son of a bitch",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "partir",
+      "english": "to divide, split; to go away, leave, depart",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "temer",
+      "english": "to fear; to dread",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el asesinato",
+      "english": "The assassination; murder",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "preferir",
+      "english": "to prefer; to rather (be or do)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "conducir",
+      "english": "to drive; to conduct",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "actuar",
+      "english": "to act, to behave; to act, to perform",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el caballero",
+      "english": "The horseman; knight; cavalier",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tranquilizar(se)",
+      "english": "to calm down, to reassure (oneself)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el cargo",
+      "english": "The charge, burden; position, post",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el i",
+      "english": "The letter: i",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "conocido",
+      "english": "known; well-known, famous, renowned",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tonto",
+      "english": "stupid; silly, foolish",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "bajo",
+      "english": "short (of little height); low, ground (situated close to the ground)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el café",
+      "english": "The coffee; cafe, coffee shop",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "encima",
+      "english": "on top of something; above something",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "detrás",
+      "english": "behind, at the rear; after",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "abandonar",
+      "english": "to abandon, to leave; to neglect",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "caminar",
+      "english": "to walk; to stroll",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "cantar",
+      "english": "to sing; to stink",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "sufrir",
+      "english": "to suffer (be confronted with something undesired); to withstand, endure, resist or undergo a physical or moral damage",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el proyecto",
+      "english": "The project, plan",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "paciente",
+      "english": "patient",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "proteger",
+      "english": "to protect, to defend",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la base",
+      "english": "The base; basis",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el asesino",
+      "english": "The murderer, killer (person who commits murder); assassin",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "volar",
+      "english": "to fly, to fly away; to fly (on an airplane)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "asesinar",
+      "english": "to murder",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la mayoría",
+      "english": "The majority",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "capaz",
+      "english": "able, capable",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "ocupar",
+      "english": "to occupy (to take or use space); to occupy (to fill or hold a position)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el ministro",
+      "english": "The minister",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la pena",
+      "english": "The punishment; pain, sadness",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "antiguo",
+      "english": "old, former, erstwhile, quondam, one-time, onetime; old, ancient, age-old",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "divertido",
+      "english": "entertaining, amusing, funny",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "político",
+      "english": "political; in-law",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el siglo",
+      "english": "The century; age (significant period of time)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el perdón",
+      "english": "The pardon; mercy",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "entregar",
+      "english": "to deliver, to hand over, to hand off; to submit",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la víctima",
+      "english": "The victim",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "alcanzar",
+      "english": "to reach; to get to to catch up; to accomplish; to achieve",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "crecer",
+      "english": "to grow",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "distinto",
+      "english": "distinct",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "destruir",
+      "english": "to destroy",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "devolver",
+      "english": "to return, refund, restore, give back, hand back, bring back, send back etc; to pay back, repay (to pay an amount of money owed to another)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "reír",
+      "english": "to laugh [+de (at, about)]",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "joder",
+      "english": "to annoy, bug, bother, irritate; to tell annoying jokes",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "reunir",
+      "english": "to gather, to collect, to bring together, to assemble, to get together, to round up, to marshal, to compile, to put together, to pull together, to draw together, to pool; to satisfy, to meet, to possess (e.g. conditions, requirements, criteria, qualifications, characteristics)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "jamás",
+      "english": "never; ever",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "alrededor",
+      "english": "around (from place to place)",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la estrella",
+      "english": "The star (celestial body); star (shape)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el dolor",
+      "english": "The pain, ache, aching soreness, tenderness (physical); grief",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la cita",
+      "english": "The date (romantic outing); appointment",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el gusto",
+      "english": "The taste (sense); taste (flavour)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "merecer",
+      "english": "to deserve; to have sex, used especially when talking about a nubile girl",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "incluir",
+      "english": "to include, to enclose, to contain",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "militar",
+      "english": "military",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "aforar",
+      "english": "to gauge, measure; to grant (a privilege or immunity)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el trato",
+      "english": "The treatment (the process or manner of treating someone or something); deal, bargain, agreement",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la elección",
+      "english": "The election; choice",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "resolver",
+      "english": "to resolve, to sort out, to settle, to address, to tackle, to overcome, to iron out; to solve, to figure out, to work out, to crack",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el odio",
+      "english": "The hate, hatred, loathing (strong aversion; intense dislike); odium (hatred coupled with disgust)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "cortar",
+      "english": "to cut; to cut off, cut out, cut through, cut down, cut up, to nip",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "equivocado",
+      "english": "mistaken, wrong",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la sal",
+      "english": "The salt; table salt",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "luchar",
+      "english": "to fight, to battle, to do battle; to struggle, to strive, to contend, to grapple",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la salud",
+      "english": "The health",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el respecto",
+      "english": "The respect, regard, connection, relation, relationship",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el interior",
+      "english": "The interior; male underwear, underpants",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la medida",
+      "english": "The measurement; measure, gauge; degree, extent",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el opinión",
+      "english": "The opinion",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la mente",
+      "english": "The mind, intellect",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la droga",
+      "english": "The drug; indebtedness, debt",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la energía",
+      "english": "The energy",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el juez",
+      "english": "The judge; umpire; referee; official",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el ejército",
+      "english": "The army",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el contacto",
+      "english": "The contact",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la tienda",
+      "english": "The tent; shop, store",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la llave",
+      "english": "The key (to open doors); key (of musical instrument)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el barco",
+      "english": "The boat (usually with a concave hull)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "preparado",
+      "english": "prepared; qualified, well-qualified",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el soldado",
+      "english": "The soldier",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "guardar",
+      "english": "to save (to store for future use); to save (to write a file to disk or other storage medium)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "costar",
+      "english": "to cost; to find something very difficult, to have a hard time with something",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "viejo",
+      "english": "(of an object) old (having existed for a long time); (of a person or animal) old (having lived for many years)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "averiguar",
+      "english": "to find out, figure out, work out, determine; to dig up, to investigate",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la nota",
+      "english": "The note, memo; note",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el encuentro",
+      "english": "The encounter, meeting; dispute, row",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la fuente",
+      "english": "The spring (water), fountain; source",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "negar",
+      "english": "to deny; to refuse",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "anterior",
+      "english": "anterior (in time), previous, earlier, former, past; anterior (in space)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "marchar",
+      "english": "to go, travel; to march",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la izquierda",
+      "english": "The left (side, direction); left",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "nacer",
+      "english": "to be born, to sprout, to begin to grow; to hatch (out); to grow; to rise, to have its source (river); to rise (sun); to have its roots; to arise",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "esconder",
+      "english": "to hide",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la sala",
+      "english": "The room (a separate part of a building); large hall",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "salvo",
+      "english": "safe",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "unir",
+      "english": "to unite, join; to merge, conflate",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "soltar",
+      "english": "to release; to let go",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "jurar",
+      "english": "to swear; to take an oath; to curse or swear",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "agradecer",
+      "english": "to thank; to be grateful for",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "debido",
+      "english": "owed; due",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "menor",
+      "english": "comparative of \"pequeño\": smaller; comparative of \"joven\": younger",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "contestar",
+      "english": "to reply, retort, answer, respond",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el edificio",
+      "english": "The building",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el golpe",
+      "english": "The hit, blow, strike; punch, jab",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el motivo",
+      "english": "The reason, ground, motive",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la guardia",
+      "english": "The custodian, warden (male); guard, guardsman",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "pelear",
+      "english": "to fight (to contend in physical conflict); to fight, to argue",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "acordar",
+      "english": "to agree; to decide, arrange (plan)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la flor",
+      "english": "The flower (structure in angiosperms); bloom, blossom (an expanded bud)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "apostar",
+      "english": "to bet; to post (to assign to a station; to set; to place)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "presente",
+      "english": "present (appearing); this",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el peligro",
+      "english": "The peril, danger",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "corto",
+      "english": "short (having a small distance from one end to another); short (having little duration)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "haz",
+      "english": "bundle; beam",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "atrapar",
+      "english": "to capture; to catch, to get",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "mencionar",
+      "english": "to mention",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "alejar",
+      "english": "to remove to a distance, put farther away, to lead away, to draw away; to estrange, alienate",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "cometer",
+      "english": "to commit; to make (an error, etc)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el juicio",
+      "english": "The good judgement; reason; opinion, judgment",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el producto",
+      "english": "The product, commodity, item; produce",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la carne",
+      "english": "The flesh, the soft part of a body which covers the bones; an animal’s meat, or by extension the edible “fleshy” or soft part of a fruit or vegetable",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "enterar",
+      "english": "to inform; to find out, to learn, to come to know, to hear",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la visita",
+      "english": "The visit; visitor, visitors",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "completamente",
+      "english": "completely",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "aun",
+      "english": "even (implying an extreme example in the case mentioned); still, yet",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el lamento",
+      "english": "The lament; plaint",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el enemigo",
+      "english": "The foe; enemy",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el vestido",
+      "english": "The dress",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "huir",
+      "english": "to flee, to run away; to escape",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el hambre",
+      "english": "The hunger",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el norte",
+      "english": "The north (compass point); north wind",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "hallar",
+      "english": "to find something, deliberately or not; to strike (a balance between options)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "adónde",
+      "english": "to where, whither, whereto",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "contrario",
+      "english": "contrary, opposite; opposed, against",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "depender",
+      "english": "to depend, to be subject to; to depend on, to rely on, to hinge on, to depend upon, to rely upon (+ de)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "compartir",
+      "english": "to share; to split, to divide (in order to share)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "entendido",
+      "english": "expert; knowledgeable",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la nave",
+      "english": "The ship, vessel (with a concave hull); ellipsis of \"nave espacial<t:craft, spaceship, spacecraft>,nave estelar<t:starship>\"",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "engañar",
+      "english": "to trick, to deceive, to hoodwink, to cheat; to cheat on, to be unfaithful to one's spouse",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la cantidad",
+      "english": "The amount; quantity",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "cubrir",
+      "english": "to cover; to cover, to mount",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el tren",
+      "english": "The train; extravagance",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "pertenecer",
+      "english": "to belong; to pertain; to be independent",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "repetir",
+      "english": "to repeat (to do or say again (and again)); to repeat; to take seconds (meal)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "calmar",
+      "english": "to calm, to still (to limit and lessen in motion and disturbance); to calm, soothe, assuage, to ease, to appease, to quell, to allay, to settle, to relieve (to make lessen in intensity)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "apartar",
+      "english": "to separate, to divide; to set aside",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "permanecer",
+      "english": "to stay, remain, stand",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "desarrollar",
+      "english": "to develop",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "preocupado",
+      "english": "worried, concerned",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el cabo",
+      "english": "The end, edge, extremity (furthest or terminal point of something); end, finish, conclusion (terminal point of something in time)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la esperanza",
+      "english": "The hope, hopefulness; expectation, expectancy",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el sector",
+      "english": "The section; zone",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "sentado",
+      "english": "seated; settled, established",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "superar",
+      "english": "to surpass, exceed; to overcome",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "delante",
+      "english": "in front of, before (spatially); forward, forwards (with hacia preceding it)",
+      "part_of_speech": "adverb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "alemán",
+      "english": "German (of, from or relating to Germany); German (relating to the German language)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "defender",
+      "english": "to defend, to protect, to hold down; to stand up for, to stick up for",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "el testigo",
+      "english": "The witness (someone who sees something); witness (one who is called upon to witness an event or action)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "admitir",
+      "english": "to accept, to admit, to agree to, to concede; to admit, to let in",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "pegar",
+      "english": "to stick; to match; to fit; to go with",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la marcha",
+      "english": "The march; departure",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "responsable",
+      "english": "responsible, answerable",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "doler",
+      "english": "to hurt (to cause physical or emotional pain) [(commonly) +dative]; to grieve, regret something; to feel sorry about [+de]",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "oler",
+      "english": "to smell (perceive by scent); to pry into, investigate (make inquiries where one is not welcome)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "gracioso",
+      "english": "funny, amusing; silly (playful, giggly)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "limpiar",
+      "english": "to clean; to wash",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "bromear",
+      "english": "to joke, to kid (to do or say something for amusement)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "colocar",
+      "english": "to place; to put",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "apoyar",
+      "english": "to lean, to rest, to lie or lay; to support, to get behind (to back a cause, party, etc., mentally or with concrete aid)",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "afirmar",
+      "english": "to state, assert",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la mentira",
+      "english": "The lie, trick, falsity",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "indicar",
+      "english": "to indicate, signal, designate; to prescribe",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "actual",
+      "english": "present, current; factual",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "amable",
+      "english": "kind, amiable, gracious; charming",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "físico",
+      "english": "physical",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "divertir",
+      "english": "to entertain; to amuse oneself, have fun",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "caliente",
+      "english": "hot, warm (emitting heat or warmth); hot (close to finding or guessing something)",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "nervioso",
+      "english": "nerve; nervous, on edge",
+      "part_of_speech": "adjective",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la prensa",
+      "english": "The press (print-based media); press (machine)",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "comprobar",
+      "english": "to check, to check on, to check out, to see, to check to see (examine); to verify, to ascertain, to determine, to confirm",
+      "part_of_speech": "verb",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "la bolsa",
+      "english": "The bag; coin purse",
+      "part_of_speech": "noun",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tener razón",
+      "english": "to be right",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "ponerse enfermo",
+      "english": "to get sick / to fall ill",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "en serio",
+      "english": "seriously / really / for real",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "lo siento",
+      "english": "I'm sorry",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "que aproveche",
+      "english": "enjoy your meal / bon appétit",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "estar de acuerdo",
+      "english": "to agree / to be in agreement",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tener ganas de",
+      "english": "to feel like / to want to",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "de nada",
+      "english": "you're welcome",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tengo sed",
+      "english": "I'm thirsty",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "no hay problema",
+      "english": "no problem",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tengo frío",
+      "english": "I'm cold",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿dónde está?",
+      "english": "where is...?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿cuánto cuesta?",
+      "english": "how much does it cost?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿qué tal?",
+      "english": "how's it going? / how are you?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "tengo sueño",
+      "english": "I'm sleepy / I'm tired",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿qué pasa?",
+      "english": "what's happening? / what's up?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "con mucho gusto",
+      "english": "with pleasure / gladly",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "por supuesto",
+      "english": "of course / certainly",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "ir de vacaciones",
+      "english": "to go on vacation / to go on holiday",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "hace buen tiempo",
+      "english": "the weather is nice",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "en realidad",
+      "english": "actually / in reality",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "a la derecha",
+      "english": "to the right / on the right",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿de dónde eres?",
+      "english": "where are you from?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "mucho gusto",
+      "english": "nice to meet you",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "a la izquierda",
+      "english": "to the left / on the left",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿qué hora es?",
+      "english": "what time is it?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "hace mal tiempo",
+      "english": "the weather is bad",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "¿qué te parece?",
+      "english": "what do you think? / how does it seem to you?",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "todo recto",
+      "english": "straight ahead",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "al lado de",
+      "english": "next to / beside",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    },
+    {
+      "spanish": "seguir adelante",
+      "english": "to keep going / to carry on",
+      "part_of_speech": "phrase",
+      "cefr_level": "A2",
+      "is_learned": false,
+      "is_introduced": true
+    }
+  ]
+}

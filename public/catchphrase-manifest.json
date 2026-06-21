@@ -1,0 +1,17 @@
+{
+  "name": "Catchphrase Español",
+  "short_name": "Catchphrase",
+  "description": "Spanish catchphrase practice for Chris and Natalie",
+  "start_url": "/catchphrase",
+  "display": "standalone",
+  "background_color": "#0D0D14",
+  "theme_color": "#0D0D14",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
