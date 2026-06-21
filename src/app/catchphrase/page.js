@@ -260,14 +260,14 @@ export default function CatchphraseGame() {
           >
             START
           </button>
-          <p style={styles.hint}>1 minute · say each phrase in Spanish · tap to skip</p>
+          <p style={styles.hint}>1 minute · tap to skip</p>
         </div>
       )}
 
       {phase === 'playing' && current && (
         <div style={styles.playArea} onClick={nextPhrase}>
           <div style={styles.timer}>{secondsLeft}s</div>
-          <div style={styles.phraseBig}>{current.english}</div>
+          <div style={styles.phraseBig}>{current.spanish}</div>
           <div style={styles.cefr}>{current.cefr_level}</div>
           <button style={styles.skipButton} onClick={(e) => { e.stopPropagation(); nextPhrase() }}>
             NEXT →
@@ -283,8 +283,7 @@ export default function CatchphraseGame() {
               <div key={p.id} style={styles.historyRow}>
                 <div style={styles.historyNum}>{i + 1}.</div>
                 <div style={styles.historyText}>
-                  <div style={styles.historyEnglish}>{p.english}</div>
-                  <div style={styles.historySpanish}>{p.spanish}</div>
+                  <div style={styles.historyEnglish}>{p.spanish}</div>
                 </div>
               </div>
             ))}
