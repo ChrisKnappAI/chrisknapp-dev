@@ -10,6 +10,11 @@ export const SEGMENTS = [
     icon: '✈️',
     title: 'Travel Day: Daytona to LAX → Santa Monica → LAX to Tahiti',
     events: [
+      { icon: '🅿️', label: 'Drop Car at Omni Airport Parking — 6:00am', detail: 'Park car before Daytona flight.\nReturn pickup: Jul 16 at 4:00pm.\n\nOmni Airport Parking\n7640 Narcoossee Rd, Orlando, FL 32812\n(888) 501-4806\n\nQR code in chrisknapp1231@gmail.com email (received 6/24 at 7:44pm)', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Omni+Airport+Parking+7640+Narcoossee+Rd+Orlando+FL+32812', copyItems: [
+        { label: 'Confirmation Code', value: 'PU710977' },
+        { label: 'Address', value: '7640 Narcoossee Rd, Orlando, FL 32812' },
+        { label: 'Phone', value: '(888) 501-4806' },
+      ]},
       { icon: '✈️', label: 'Flight Daytona → LAX', detail: 'Southwest — Daytona (9:00am) to LAX (10:30am local)\nConfirmation — Chris: APU2ZX · Natalie: APVVJJ' },
       { icon: '🏖️', label: 'Day in Santa Monica', detail: 'Afternoon in Santa Monica & Venice:\n\n• Palisades Park\n• End of Route 66 Sign\n• Santa Monica Pier\n• Chess Park\n• Perry\'s Café\n• Venice Boardwalk\n• Venice Skatepark\n• Venice Graffiti Walls\n• Muscle Beach Venice\n• Venice Sign', mapUrl: 'https://www.google.com/maps/dir/Palisades+Park,+Ocean+Ave,+Santa+Monica,+CA+90401/66-To-Cali,+Colorado+Ave,+Santa+Monica,+CA+90401/Santa+Monica+Pier,+200+Santa+Monica+Pier,+Santa+Monica,+CA+90401/Chess+Park,+1652+Ocean+Front+Walk,+Santa+Monica,+CA+90401/Perry%27s+Caf%C3%A9+%26+Beach+Rentals+-+Santa+Monica+2400,+2400+Ocean+Front+Walk,+Santa+Monica,+CA+90405/Venice+Beach+Boardwalk,+Beach+pavillion+in,+517+Ocean+Front+Walk,+Venice,+CA+90291/Venice+Skatepark,+1800+Ocean+Front+Walk,+Venice,+CA+90291/Venice+Public+Art+Walls,+Ocean+Front+Walk,+Venice,+CA+90291/Muscle+Beach+Venice+Gym,+1817+Ocean+Front+Walk,+Venice,+CA+90291/Venice+Sign,+Pacific+Ave+%26+Windward+Ave,+1501+Main+St+%23205,+Venice,+CA+90291/@33.9914159,-118.4831503,15.73z/data=!4m62!4m61!1m5!1m1!1s0x80c2a37ba2a581fb:0x442c2938801a9316!2m2!1d-118.5094604!2d34.0230179!1m5!1m1!1s0x80c2a4d0b35a41cf:0x62c55a863ef4b10f!2m2!1d-118.4969083!2d34.0096473!1m5!1m1!1s0x80c2a4d74d5ea79b:0xcd9a111aced18f4d!2m2!1d-118.4987585!2d34.0082821!1m5!1m1!1s0x80c2a4d055555555:0x2f7d2145344007a3!2m2!1d-118.4947897!2d34.0092819!1m5!1m1!1s0x80c2bad332dd2955:0x43af8da4e3fec9f1!2m2!1d-118.4883355!2d34.0022488!1m5!1m1!1s0x80c2bbdcff2b25b3:0xedbe20babf53aa1b!2m2!1d-118.4774439!2d33.9909254!1m5!1m1!1s0x80c2bab79cb7dde5:0x635f1fdc6f199ffe!2m2!1d-118.4755251!2d33.98706!1m5!1m1!1s0x80c2bab77d276b55:0x55cb298ead46ffdd!2m2!1d-118.47492!2d33.9864284!1m5!1m1!1s0x80c2bbde9825e3c9:0xb6b7e4082eb28e0e!2m2!1d-118.4725161!2d33.9853693!1m5!1m1!1s0x80c2bab853356a97:0xea5d4561d8753e18!2m2!1d-118.472284!2d33.9876946!3e2?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D' },
       { icon: '🌙', label: 'Flight LAX → Tahiti', detail: 'Air Tahiti Nui Flight QF3816\nLAX (11:00pm) to Papeete (4:10am +1), 8hr 10min\nEconomy — seats not pre-selected\n\nBaggage: 32kg checked + 10kg cabin bag + personal item (each person)\n\nAir Tahiti Reference: APIJMW — manage at airtahiti.com\nBudgetAir Booking: BUSA-35392403' },
@@ -243,7 +248,12 @@ export const SEGMENTS = [
     phase: 'travel',
     icon: '🏠',
     title: 'Land in MCO — Home',
-    summary: 'Arrive back in Orlando. Home by 3pm.',
-    details: 'Land at MCO. Home by approximately 3:00pm. Trip complete.',
+    events: [
+      { icon: '🅿️', label: 'Pick Up Car at Omni Airport Parking — 4:00pm', detail: 'Pickup at 4:00pm after landing in MCO.\n\nOmni Airport Parking\n7640 Narcoossee Rd, Orlando, FL 32812\n(888) 501-4806\n\nQR code in chrisknapp1231@gmail.com email (received 6/24 at 7:44pm)', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Omni+Airport+Parking+7640+Narcoossee+Rd+Orlando+FL+32812', copyItems: [
+        { label: 'Confirmation Code', value: 'PU710977' },
+        { label: 'Address', value: '7640 Narcoossee Rd, Orlando, FL 32812' },
+        { label: 'Phone', value: '(888) 501-4806' },
+      ]},
+    ],
   },
 ]
